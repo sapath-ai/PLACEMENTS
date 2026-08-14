@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rust × AI — 12-Month Strategic Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #0f0f18;
+    --bg3: #141420;
+    --rust: #ce4e20;
+    --rust2: #e8622e;
+    --rust-glow: rgba(206,78,32,0.18);
+    --amber: #f5a623;
+    --cyan: #2dd4bf;
+    --purple: #9b5cf6;
+    --green: #34d399;
+    --text: #e8e6f0;
+    --muted: #7a7890;
+    --border: rgba(255,255,255,0.07);
+    --card: rgba(255,255,255,0.03);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    padding: 80px 40px 60px;
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--rust2);
+    border: 1px solid var(--rust);
+    padding: 6px 14px; margin-bottom: 20px;
+    background: var(--rust-glow);
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(56px, 8vw, 100px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+
+  .hero h1 span.rust-word {
+    color: var(--rust2);
+    display: block;
+  }
+
+  .hero h1 span.x {
+    color: var(--muted);
+    font-size: 0.6em;
+  }
+
+  .hero-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px; color: var(--muted);
+    margin-top: 20px; line-height: 1.6;
+    max-width: 420px;
+  }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  }
+
+  .stat-box {
+    border: 1px solid var(--border);
+    background: var(--card);
+    padding: 20px;
+    position: relative; overflow: hidden;
+  }
+  .stat-box::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--rust);
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px; color: var(--rust2); line-height: 1;
+  }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; letter-spacing: 0.5px; }
+
+  /* ── SECTION WRAPPER ── */
+  .section {
+    max-width: 1200px; margin: 0 auto;
+    padding: 20px 40px 60px;
+  }
+
+  .section-header {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 36px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; color: var(--rust);
+    letter-spacing: 2px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px; letter-spacing: 1px;
+  }
+
+  /* ── MONTH CARDS ── */
+  .timeline {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  .month-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.2s;
+    cursor: default;
+  }
+  .month-card:hover {
+    border-color: var(--rust);
+    transform: translateY(-3px);
+  }
+  .month-card:hover .card-glow { opacity: 1; }
+
+  .card-glow {
+    position: absolute; top: -40px; right: -40px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: var(--rust-glow);
+    filter: blur(30px);
+    opacity: 0; transition: opacity 0.4s;
+    pointer-events: none;
+  }
+
+  .card-phase {
+    position: absolute; top: 0; right: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 5px 10px;
+    background: var(--rust); color: #fff;
+  }
+
+  .card-month-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px; letter-spacing: 3px;
+    color: var(--rust); padding: 24px 24px 0;
+    opacity: 0.7;
+  }
+
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; padding: 6px 24px 0;
+    letter-spacing: 1px;
+  }
+
+  .card-body { padding: 14px 24px 24px; }
+
+  .card-focus {
+    font-size: 12px; color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 14px; letter-spacing: 0.5px;
+  }
+
+  .task-list { list-style: none; }
+  .task-list li {
+    font-size: 13.5px; color: #b8b6cc;
+    padding: 4px 0;
+    padding-left: 18px; position: relative;
+  }
+  .task-list li::before {
+    content: '▸';
+    position: absolute; left: 0;
+    color: var(--rust); font-size: 10px; top: 6px;
+  }
+
+  .card-tag {
+    display: inline-block;
+    font-size: 10px; font-family: 'Space Mono', monospace;
+    letter-spacing: 1px; padding: 3px 8px; margin: 12px 0 0 0;
+    border: 1px solid; border-radius: 2px;
+  }
+  .tag-rust { color: var(--rust2); border-color: var(--rust); background: var(--rust-glow); }
+  .tag-ai { color: var(--cyan); border-color: var(--cyan); background: rgba(45,212,191,0.08); }
+  .tag-biz { color: var(--amber); border-color: var(--amber); background: rgba(245,166,35,0.08); }
+  .tag-infra { color: var(--purple); border-color: var(--purple); background: rgba(155,92,246,0.08); }
+
+  /* ── FULL-WIDTH BAND ── */
+  .band {
+    background: linear-gradient(135deg, #110e1c 0%, #0f1520 100%);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px;
+    margin: 20px 0;
+  }
+  .band-inner { max-width: 1200px; margin: 0 auto; }
+
+  /* ── AI LAYER MAP ── */
+  .layer-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .layer-item {
+    padding: 24px 18px;
+    border-right: 1px solid var(--border);
+    position: relative;
+    transition: background 0.3s;
+  }
+  .layer-item:last-child { border-right: none; }
+  .layer-item:hover { background: rgba(206,78,32,0.06); }
+
+  .layer-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted); margin-bottom: 10px;
+  }
+  .layer-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; margin-bottom: 10px; letter-spacing: 1px;
+  }
+  .layer-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .layer-tools {
+    margin-top: 12px;
+    display: flex; flex-wrap: wrap; gap: 5px;
+  }
+  .layer-tool {
+    font-size: 10px; font-family: 'Space Mono', monospace;
+    padding: 2px 6px; border: 1px solid var(--border);
+    color: var(--muted); background: var(--card);
+  }
+  .layer-rust-crate {
+    font-size: 10px; font-family: 'Space Mono', monospace;
+    padding: 2px 6px; border: 1px solid var(--rust);
+    color: var(--rust2); background: var(--rust-glow);
+  }
+  .layer-active { border-top: 2px solid var(--rust); }
+
+  /* ── PROJECT GRID ── */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .project-card {
+    border: 1px solid var(--border);
+    padding: 24px;
+    background: var(--card);
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .project-card:hover { border-color: rgba(206,78,32,0.5); }
+  .proj-level {
+    font-size: 9px; font-family: 'Space Mono', monospace;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .proj-level.beginner { color: var(--green); }
+  .proj-level.intermediate { color: var(--amber); }
+  .proj-level.advanced { color: var(--rust2); }
+  .proj-level.elite { color: var(--purple); }
+  .proj-title { font-family: 'Bebas Neue', sans-serif; font-size: 19px; letter-spacing: 1px; margin-bottom: 8px; }
+  .proj-desc { font-size: 12.5px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+  .proj-impact { font-size: 11px; color: var(--cyan); font-family: 'Space Mono', monospace; }
+
+  /* ── INCOME TABLE ── */
+  .income-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  .income-table th {
+    text-align: left; padding: 12px 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); border-bottom: 1px solid var(--border);
+    font-weight: 400;
+  }
+  .income-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .income-table tr:last-child td { border-bottom: none; }
+  .income-table tr:hover td { background: var(--card); }
+  .income-rate {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; color: var(--green); letter-spacing: 1px;
+  }
+
+  /* ── IRREPLACEABLE PILLARS ── */
+  .pillar-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  }
+  .pillar {
+    border: 1px solid var(--border);
+    padding: 28px 22px;
+    background: var(--card);
+    position: relative;
+  }
+  .pillar-icon {
+    font-size: 28px; margin-bottom: 14px;
+    display: block;
+  }
+  .pillar-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; letter-spacing: 1px; margin-bottom: 10px;
+    color: var(--rust2);
+  }
+  .pillar-text { font-size: 12.5px; color: var(--muted); line-height: 1.7; }
+
+  /* ── DIVIDER ── */
+  .rule {
+    border: none;
+    border-top: 1px solid var(--border);
+    max-width: 1200px; margin: 0 auto 0;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    max-width: 1200px; margin: 0 auto;
+    padding: 40px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; letter-spacing: 2px;
+  }
+  .footer-brand span { color: var(--rust2); }
+  .footer-note { font-size: 12px; color: var(--muted); font-family: 'Space Mono', monospace; }
+
+  /* ── PHASE LABEL COLORS ── */
+  .phase-foundation { background: #2a6496; }
+  .phase-intermediate { background: #5a7a2a; }
+  .phase-advanced { background: var(--rust); }
+  .phase-elite { background: #6b3fa0; }
+
+  /* ── PROGRESS TRACK ── */
+  .progress-track {
+    display: flex; gap: 0;
+    margin-bottom: 40px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .progress-segment {
+    flex: 1; padding: 12px 8px; text-align: center;
+    font-size: 10px; font-family: 'Space Mono', monospace;
+    letter-spacing: 1px; text-transform: uppercase;
+    border-right: 1px solid var(--border);
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .progress-segment:last-child { border-right: none; }
+  .progress-segment:hover { filter: brightness(1.3); }
+  .seg-1 { background: rgba(42, 100, 150, 0.3); color: #7bb8d6; }
+  .seg-2 { background: rgba(90, 122, 42, 0.3); color: #a8c97a; }
+  .seg-3 { background: rgba(206, 78, 32, 0.3); color: var(--rust2); }
+  .seg-4 { background: rgba(107, 63, 160, 0.3); color: #c49ef5; }
+
+  .highlight-box {
+    border-left: 3px solid var(--rust);
+    background: var(--rust-glow);
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 13px; color: #c4b8d0;
+  }
+  .highlight-box strong { color: var(--rust2); }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .layer-grid { grid-template-columns: 1fr 1fr; }
+    .project-grid { grid-template-columns: 1fr 1fr; }
+    .pillar-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .hero, .section, .band { padding-left: 20px; padding-right: 20px; }
+    .layer-grid, .project-grid, .pillar-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section class="hero">
+  <div>
+    <div class="hero-badge">12-Month Strategic Roadmap</div>
+    <h1>
+      <span class="rust-word">RUST</span>
+      <span class="x">×</span>
+      AI
+    </h1>
+    <p class="hero-sub">The complete blueprint to becoming an irreplaceable engineer at the intersection of systems programming and artificial intelligence — from zero to career-defining expertise.</p>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-box">
+      <div class="stat-num">12</div>
+      <div class="stat-label">Months to Mastery</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Career Phases</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">$150K+</div>
+      <div class="stat-label">Target Earning Potential</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">&lt;1%</div>
+      <div class="stat-label">Engineers with this Stack</div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ═══════════════════════════════ WHY RUST FOR AI ═══════════════════ -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-num">// 00</span>
+    <span class="section-title">Why Rust is the AI Career Cheat Code</span>
+  </div>
+
+  <div class="highlight-box">
+    <strong>The harsh truth:</strong> Most AI engineers write Python. Python is great for prototyping but terrible for production performance, memory safety, and edge deployment. Rust fills the gap Python never can — and the companies that build the AI infrastructure of tomorrow (inference engines, vector databases, ML runtimes, robotics) are betting on Rust. Getting here early is a career moat.
+  </div>
+
+  <div class="pillar-grid" style="margin-top:24px;">
+    <div class="pillar">
+      <span class="pillar-icon">⚡</span>
+      <div class="pillar-title">10–100× Performance</div>
+      <p class="pillar-text">Rust runs near C speed with zero garbage collection pauses — critical for real-time inference, streaming LLM responses, and high-frequency trading AI systems.</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-icon">🔒</span>
+      <div class="pillar-title">Memory Safety Without GC</div>
+      <p class="pillar-text">AI systems process sensitive data. Rust's ownership model eliminates entire classes of security bugs — no buffer overflows, no dangling pointers, no data races.</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-icon">🌐</span>
+      <div class="pillar-title">WebAssembly Native</div>
+      <p class="pillar-text">Rust compiles to WASM better than any other language. Deploy AI models in browsers, edge nodes, and serverless — no Python runtime needed.</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-icon">🦾</span>
+      <div class="pillar-title">The Bottleneck Layer</div>
+      <p class="pillar-text">Every major AI framework has a Rust/C++ core. Writing Python wrappers is table stakes; owning the Rust core of an AI system makes you the engineer everyone depends on.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ PHASE OVERVIEW ═══════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="section-header">
+    <span class="section-num">// 01</span>
+    <span class="section-title">Phase Overview</span>
+  </div>
+  <div class="progress-track">
+    <div class="progress-segment seg-1">Phase I<br>Foundation<br>M1–M3</div>
+    <div class="progress-segment seg-2">Phase II<br>AI Systems<br>M4–M6</div>
+    <div class="progress-segment seg-3">Phase III<br>Production<br>M7–M9</div>
+    <div class="progress-segment seg-4">Phase IV<br>Domination<br>M10–M12</div>
+  </div>
+
+<!-- ═══════════════════════════════ MONTH CARDS ═══════════════════════ -->
+  <div class="timeline">
+
+    <!-- M1 -->
+    <div class="month-card">
+      <div class="card-glow"></div>
+      <div class="card-phase phase-foundation">Foundation</div>
+      <div class="card-month-num">MONTH 01</div>
+      <div class="card-title">Rust from Zero — Ownership & Control</div>
+      <div class="card-body">
+        <div class="card-focus">Goal: Write safe, idiomatic Rust code</div>
+        <ul class="task-list">
+          <li>Install Rust toolchain, Cargo, rustfmt, clippy</li>
+          <li>The Book (official) chapters 1–10: ownership, borrowing, lifetimes</li>
+          <li>Build: CLI calculator, file parser, number guessing game</li>
+          <li>Learn: structs, enums, pattern matching, Option/Result</li>
+          <li>Daily: 1 Rustlings exercise + 30 min The Book</li>
+        </ul>
+        <span class="card-tag tag-rust">Rust Core</span>
+        <span class="card-tag tag-biz">~8hrs/week</span>
+      </div>
+    </div>
+
+    <!-- M2 -->
+    <div class="month-card">
+      <div class="card-glow"></div>
+      <div class="card-phase phase-foundation">Foundation</div>
+      <div class="card-month-num">MONTH 02</div>
+      <div class="card-title">Traits, Generics & Concurrency</div>
+      <div class="card-body">
+        <div class="card-focus">Goal: Fearless concurrency patterns</div>
+        <ul class="task-list">
+          <li>Traits, generics, trait objects (dynamic dispatch)</li>
+          <li>Closures, iterators, functional patterns</li>
+          <li>Threads, Arc/Mutex, channels (mpsc)</li>
+          <li>Async/await foundations with Tokio basics</li>
+          <li>Project: Concurrent log analyzer with parallel processing</li>
+        </ul>
+        <span class="card-tag tag-rust">Rust Core</span>
+        <span class="card-tag tag-infra">Concurrency</span>
+      </div>
+    </div>
+
+    <!-- M3 -->
+    <div class="month-card">
+      <div class="card-glow"></div>
+      <div class="card-phase phase-foundation">Foundation</div>
+      <div class="card-month-num">MONTH 03</div>
+      <div class="card-title">Ecosystem Mastery & First AI Touch</div>
+      <div class="card-body">
+        <div class="card-focus">Goal: Build networked, data-driven programs</div>
+        <ul class="task-list">
+          <li>Serde for JSON/YAML/TOML (de)serialization</li>
+          <li>Reqwest for HTTP — call OpenAI / HuggingFace APIs</li>
+          <li>SQLite with SQLx, basic Axum web server</li>
+          <li>Error handling: thiserror, anyhow</li>
+          <li>Project: REST API wrapper for an AI service in Rust</li>
+        </ul>
+        <span class="card-tag tag-rust">Rust Ecosystem</span>
+        <span class="card-tag tag-ai">First AI API</span>
+      </div>
+    </div>
+
+    <!-- M4 -->
+    <div class="month-card">
+      <div class="card-glow"></div>
+      <div class="card-phase phase-intermediate">AI Systems</div>
+      <div class="card-month-num">MONTH 04</div>
+      <div class="card-title">ML Fundamentals in Rust</div>
+      <div class="card-body">
+        <div class="card-focus">Goal: Understand ML at the systems level</div>
+        <ul class="task-list">
+          <li>Linear algebra in Rust: ndarray, nalgebra</li>
+          <li>Implement gradient descent from scratch</li>
+          <li>Candle (HuggingFace's Rust ML framework) basics</li>
+          <li>Burn framework: define and train simple networks</li>
+          <li>Project: Handwritten digit classifier (MNIST) in pure Rust</li>
+        </ul>
+        <span class="card-tag tag-ai">ML Core</span>
+        <span class="card-tag tag-rust">Candle / Burn</span>
+      </div>
+    </div>
+
+    <!-- M5 -->
+    <div class="month-card">
+      <div class="card-glow"></div>
+      <div class="card-phase phase-intermediate">AI Systems</div>
+      <div class="card-month-num">MONTH 05</div>
+      <div class="card-title">LLM Inference & Embeddings Engine</div>
+      <div class="card-body">
+        <div class="card-focus">Goal: Run and optimize LLMs locally in Rust</div>
+        <ul class="task-list">
+          <li>llama.cpp bindings in Rust (llm crate)</li>
+          <li>GGUF model loading, quantization awareness</li>
+          <li>Text embeddings with fastembed-rs</li>
+          <li>Tokenization: HuggingFace tokenizers Rust port</li>
+          <li>Project: Local LLM chat server with streaming via SSE</li>
+        </ul>
+        <span class="card-tag tag-ai">LLM Inference</span>
+        <span class="card-tag tag-infra">Streaming</span>
+      </div>
+    </div>
+
+    <!-- M6 -->
+    <div class="month-card">
+      <div class="card-glow"></div>
+      <div class="card-phase phase-intermediate">AI Systems</div>
+      <div class="card-month-num">MONTH 06</div>
+      <div class="card-title">Vector Databases & RAG Pipelines</div>
+      <div class="card-body">
+        <div class="card-focus">Goal: Build production-grade RAG in Rust</div>
+        <ul class="task-list">
+          <li>Vector storage: qdrant-client, weaviate, or build with HNSW in Rust</li>
+          <li>Semantic search pipeline: embed → store → retrieve</li>
+          <li>PDF / document ingestion pipeline</li>
+          <li>Chunking strategies, metadata filtering</li>
+          <li>Project: Full RAG system — document Q&A chatbot</li>
+        </ul>
+        <span class="card-tag tag-ai">RAG / Vector DB</span>
+        <span class="card-tag tag-biz">Portfolio Ready</span>
+      </div>
+    </div>
+
+    <!-- M7 -->
+    <div class="month-card">
+      <div class="card-glow"></div>
+      <div class="card-phase phase-advanced">Production</div>
+      <div class="card-month-num">MONTH 07</div>
+      <div class="card-title">AI Inference Server Architecture</div>
+      <div class="card-body">
+        <div class="card-focus">Goal: Production-grade inference APIs</div>
+        <ul class="task-list">
+          <li>Axum + Tower middleware: auth, rate limiting, tracing</li>
+          <li>Async inference with concurrency limits</li>
+          <li>Model batching strategies for throughput</li>
+          <li>OpenTelemetry, prometheus metrics in Rust</li>
+          <li>Project: OpenAI-compatible inference server for local models</li>
+        </ul>
+        <span class="card-tag tag-infra">Inference Server</span>
+        <span class="card-tag tag-rust">Axum / Tokio</span>
+      </div>
+    </div>
+
+    <!-- M8 -->
+    <div class="month-card">
+      <div class="card-glow"></div>
+      <div class="card-phase phase-advanced">Production</div>
+      <div class="card-month-num">MONTH 08</div>
+      <div class="card-title">WebAssembly & Edge AI</div>
+      <div class="card-body">
+        <div class="card-focus">Goal: Deploy AI anywhere, no Python runtime</div>
+        <ul class="task-list">
+          <li>wasm-pack, wasm-bindgen, web-sys</li>
+          <li>Compile ML model inference to WASM</li>
+          <li>Deploy to Cloudflare Workers / Fastly Compute@Edge</li>
+          <li>WASI for serverless AI workloads</li>
+          <li>Project: In-browser sentiment classifier — zero server cost</li>
+        </ul>
+        <span class="card-tag tag-ai">Edge AI</span>
+        <span class="card-tag tag-infra">WASM / WASI</span>
+      </div>
+    </div>
+
+    <!-- M9 -->
+    <div class="month-card">
+      <div class="card-glow"></div>
+      <div class="card-phase phase-advanced">Production</div>
+      <div class="card-month-num">MONTH 09</div>
+      <div class="card-title">Python Bindings — Bridge the Gap</div>
+      <div class="card-body">
+        <div class="card-focus">Goal: Accelerate Python AI with Rust cores</div>
+        <ul class="task-list">
+          <li>PyO3 — expose Rust functions as Python modules</li>
+          <li>Maturin for building and publishing Rust Python packages</li>
+          <li>Polars internals understanding (all Rust under the hood)</li>
+          <li>Write a custom CUDA-free vectorized operation for numpy</li>
+          <li>Project: Publish a Rust-powered Python AI utility to PyPI</li>
+        </ul>
+        <span class="card-tag tag-rust">PyO3 / Maturin</span>
+        <span class="card-tag tag-ai">Python Bridge</span>
+      </div>
+    </div>
+
+    <!-- M10 -->
+    <div class="month-card">
+      <div class="card-glow"></div>
+      <div class="card-phase phase-elite">Domination</div>
+      <div class="card-month-num">MONTH 10</div>
+      <div class="card-title">GPU Programming & Custom Kernels</div>
+      <div class="card-body">
+        <div class="card-focus">Goal: Write custom CUDA/WGPU compute kernels</div>
+        <ul class="task-list">
+          <li>WGPU compute shaders for GPU-accelerated inference</li>
+          <li>cudarc crate — Rust CUDA bindings</li>
+          <li>Flash Attention concepts; implement simplified version</li>
+          <li>Custom GEMM kernel for matrix multiplication</li>
+          <li>Project: GPU-accelerated embedding generation pipeline</li>
+        </ul>
+        <span class="card-tag tag-infra">GPU / CUDA</span>
+        <span class="card-tag tag-ai">Custom Kernels</span>
+      </div>
+    </div>
+
+    <!-- M11 -->
+    <div class="month-card">
+      <div class="card-glow"></div>
+      <div class="card-phase phase-elite">Domination</div>
+      <div class="card-month-num">MONTH 11</div>
+      <div class="card-title">AI Agents & Agentic Frameworks</div>
+      <div class="card-body">
+        <div class="card-focus">Goal: Build autonomous AI systems in Rust</div>
+        <ul class="task-list">
+          <li>Tool-use patterns: define structured tool schemas in Rust</li>
+          <li>Async agent loops with cancellation and timeout handling</li>
+          <li>Memory systems: episodic, semantic, working memory</li>
+          <li>Multi-agent orchestration with message passing</li>
+          <li>Project: Autonomous research agent with web search + RAG</li>
+        </ul>
+        <span class="card-tag tag-ai">AI Agents</span>
+        <span class="card-tag tag-rust">Async Orchestration</span>
+      </div>
+    </div>
+
+    <!-- M12 -->
+    <div class="month-card">
+      <div class="card-glow"></div>
+      <div class="card-phase phase-elite">Domination</div>
+      <div class="card-month-num">MONTH 12</div>
+      <div class="card-title">Capstone: Build Your Flagship Product</div>
+      <div class="card-body">
+        <div class="card-focus">Goal: Ship something that defines your career</div>
+        <ul class="task-list">
+          <li>Choose from: inference engine, vector DB, AI CLI tool, or SaaS</li>
+          <li>Full production architecture: CI/CD, Docker, observability</li>
+          <li>Write a deep technical blog series / publish to crates.io</li>
+          <li>Submit to open source AI projects (Candle, Polars, etc.)</li>
+          <li>Launch publicly: GitHub, HN, LinkedIn, Product Hunt</li>
+        </ul>
+        <span class="card-tag tag-biz">Launch Ready</span>
+        <span class="card-tag tag-ai">Portfolio Flagship</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ AI LAYER MAP ════════════════════ -->
+<div class="band">
+  <div class="band-inner">
+    <div class="section-header" style="border-color: rgba(255,255,255,0.05);">
+      <span class="section-num">// 02</span>
+      <span class="section-title">Where Rust Lives in the AI Stack</span>
+    </div>
+    <div class="layer-grid">
+      <div class="layer-item">
+        <div class="layer-tag">Layer 1</div>
+        <div class="layer-name">Hardware & Drivers</div>
+        <div class="layer-desc">CUDA kernels, GPU memory management, custom silicon interfaces. Rust replaces C++ here.</div>
+        <div class="layer-tools">
+          <span class="layer-rust-crate">cudarc</span>
+          <span class="layer-rust-crate">wgpu</span>
+          <span class="layer-tool">PTX</span>
+        </div>
+      </div>
+      <div class="layer-item layer-active">
+        <div class="layer-tag">Layer 2 ★ SWEET SPOT</div>
+        <div class="layer-name">Inference Runtime</div>
+        <div class="layer-desc">The most valuable Rust layer. Model loading, batching, quantization, KV-cache management.</div>
+        <div class="layer-tools">
+          <span class="layer-rust-crate">candle</span>
+          <span class="layer-rust-crate">burn</span>
+          <span class="layer-rust-crate">llm</span>
+          <span class="layer-tool">ONNX</span>
+        </div>
+      </div>
+      <div class="layer-item layer-active">
+        <div class="layer-tag">Layer 3 ★ HIGH VALUE</div>
+        <div class="layer-name">Data & Vector Layer</div>
+        <div class="layer-desc">Vector databases, embeddings pipelines, data ingestion. Polars is pure Rust.</div>
+        <div class="layer-tools">
+          <span class="layer-rust-crate">polars</span>
+          <span class="layer-rust-crate">qdrant</span>
+          <span class="layer-rust-crate">fastembed</span>
+        </div>
+      </div>
+      <div class="layer-item layer-active">
+        <div class="layer-tag">Layer 4 ★ HIGH VALUE</div>
+        <div class="layer-name">Serving & APIs</div>
+        <div class="layer-desc">High-throughput inference servers, streaming endpoints, rate limiting, auth.</div>
+        <div class="layer-tools">
+          <span class="layer-rust-crate">axum</span>
+          <span class="layer-rust-crate">tokio</span>
+          <span class="layer-rust-crate">tonic</span>
+          <span class="layer-tool">gRPC</span>
+        </div>
+      </div>
+      <div class="layer-item">
+        <div class="layer-tag">Layer 5</div>
+        <div class="layer-name">Application & UX</div>
+        <div class="layer-desc">CLI tools, TUI dashboards, WebAssembly frontends. Rust here, too.</div>
+        <div class="layer-tools">
+          <span class="layer-rust-crate">ratatui</span>
+          <span class="layer-rust-crate">wasm-pack</span>
+          <span class="layer-rust-crate">clap</span>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:12px; color: var(--muted); margin-top:12px; font-family: 'Space Mono', monospace;">★ Layers marked as sweet spot = where Rust engineers are highest paid and hardest to replace</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ PROJECTS ════════════════════════ -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-num">// 03</span>
+    <span class="section-title">Portfolio Projects by Tier</span>
+  </div>
+  <div class="project-grid">
+
+    <div class="project-card">
+      <div class="proj-level beginner">Beginner • Month 2–3</div>
+      <div class="proj-title">Rust AI CLI Toolkit</div>
+      <div class="proj-desc">A terminal tool that wraps OpenAI, Anthropic, and Groq APIs with caching, rate limiting, and offline fallback — written entirely in Rust.</div>
+      <div class="proj-impact">→ Proves: API work, async, CLI design</div>
+    </div>
+
+    <div class="project-card">
+      <div class="proj-level beginner">Beginner • Month 3–4</div>
+      <div class="proj-title">Rust REST API for ML Predictions</div>
+      <div class="proj-desc">Axum-based REST server that loads a saved ONNX model and serves predictions with auth, metrics, and health endpoints.</div>
+      <div class="proj-impact">→ Proves: Web server, model serving</div>
+    </div>
+
+    <div class="project-card">
+      <div class="proj-level intermediate">Intermediate • Month 5–6</div>
+      <div class="proj-title">Local LLM Inference Server</div>
+      <div class="proj-desc">OpenAI-compatible API that runs Llama/Mistral locally via llama.cpp Rust bindings with streaming, context management, and session handling.</div>
+      <div class="proj-impact">→ Proves: LLM depth, streaming, production API</div>
+    </div>
+
+    <div class="project-card">
+      <div class="proj-level intermediate">Intermediate • Month 6</div>
+      <div class="proj-title">Document Intelligence RAG System</div>
+      <div class="proj-desc">Full RAG pipeline: ingest PDFs, chunk, embed with fastembed-rs, store in Qdrant, retrieve with hybrid search, generate with LLM — 100% Rust backend.</div>
+      <div class="proj-impact">→ Proves: End-to-end AI product</div>
+    </div>
+
+    <div class="project-card">
+      <div class="proj-level advanced">Advanced • Month 8–9</div>
+      <div class="proj-title">Edge AI WASM Package</div>
+      <div class="proj-desc">A Rust ML model compiled to WebAssembly, deployed to Cloudflare Workers — runs sentiment/classification inference globally with zero cold starts.</div>
+      <div class="proj-impact">→ Proves: Unique edge AI skill</div>
+    </div>
+
+    <div class="project-card">
+      <div class="proj-level advanced">Advanced • Month 9</div>
+      <div class="proj-title">Rust-Powered Python Library</div>
+      <div class="proj-desc">PyO3 extension module published to PyPI that accelerates a common NLP/data task 50–100× compared to pure Python — with benchmarks.</div>
+      <div class="proj-impact">→ Proves: Python community value</div>
+    </div>
+
+    <div class="project-card">
+      <div class="proj-level elite">Elite • Month 10–11</div>
+      <div class="proj-title">Mini Vector Database</div>
+      <div class="proj-desc">Build a persistent vector database from scratch in Rust: HNSW index, cosine similarity, persistence, HTTP API. Open source it.</div>
+      <div class="proj-impact">→ Proves: Deep systems + AI infrastructure</div>
+    </div>
+
+    <div class="project-card">
+      <div class="proj-level elite">Elite • Month 11</div>
+      <div class="proj-title">Autonomous AI Agent Framework</div>
+      <div class="proj-desc">Agent runtime in Rust with pluggable tools, async execution, retry logic, memory systems, and an MCP-compatible server interface.</div>
+      <div class="proj-impact">→ Proves: AI agent architecture</div>
+    </div>
+
+    <div class="project-card">
+      <div class="proj-level elite">Elite • Month 12</div>
+      <div class="proj-title">Flagship Open Source Tool</div>
+      <div class="proj-desc">Your signature project — something the AI/Rust community actually uses. Could be an inference engine, a data tool, an agent framework, or a developer tool.</div>
+      <div class="proj-impact">→ Proves: Everything. This is your career anchor.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ IRREPLACEABLE ════════════════════ -->
+<div class="band">
+  <div class="band-inner">
+    <div class="section-header" style="border-color:rgba(255,255,255,0.05);">
+      <span class="section-num">// 04</span>
+      <span class="section-title">How to Become Irreplaceable as an Employee</span>
+    </div>
+    <div class="pillar-grid">
+      <div class="pillar">
+        <span class="pillar-icon">🏗️</span>
+        <div class="pillar-title">Own the Critical Path</div>
+        <p class="pillar-text">Volunteer to rewrite the inference bottleneck, the embedding pipeline, or the data processing layer in Rust. When latency drops 10× because of your work, you become the person they call when things are slow.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">🌉</span>
+        <div class="pillar-title">Be the Bridge Engineer</div>
+        <p class="pillar-text">Most AI teams are Python-only. You're the only one who can touch the Rust layer AND explain it to ML engineers. That cross-disciplinary position is extremely hard to replace — it's not in a job description.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">📦</span>
+        <div class="pillar-title">Publish Internal Crates</div>
+        <p class="pillar-text">Build internal Rust crates that the whole team depends on — model loaders, embedding utilities, API clients. Once your code is in the critical path of every feature, your institutional knowledge becomes irreplaceable.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">🔬</span>
+        <div class="pillar-title">Benchmark Everything</div>
+        <p class="pillar-text">Rust engineers who quantify their impact in numbers (latency, throughput, memory reduction) become indispensable. Keep a personal "wins ledger" — 40ms → 3ms inference, RAM: 4GB → 400MB, etc.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ INCOME PATHS ════════════════════ -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-num">// 05</span>
+    <span class="section-title">Income Paths — Freelancing, Products & Services</span>
+  </div>
+
+  <table class="income-table">
+    <thead>
+      <tr>
+        <th>Path</th>
+        <th>What You Offer</th>
+        <th>Target Market</th>
+        <th>When to Start</th>
+        <th>Earning Potential</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Freelance: AI Acceleration</strong></td>
+        <td>Rewrite Python AI bottlenecks in Rust, build PyO3 extensions, optimize inference pipelines</td>
+        <td>AI startups, data-heavy SaaS companies</td>
+        <td>Month 9+</td>
+        <td><div class="income-rate">$100–200/hr</div></td>
+      </tr>
+      <tr>
+        <td><strong>Freelance: LLM Infrastructure</strong></td>
+        <td>Build custom local LLM inference servers, on-prem AI deployments for enterprises</td>
+        <td>Enterprises needing private AI / data compliance</td>
+        <td>Month 7+</td>
+        <td><div class="income-rate">$5K–25K/project</div></td>
+      </tr>
+      <tr>
+        <td><strong>Consulting: AI Performance Audit</strong></td>
+        <td>Audit a company's AI stack, identify Rust migration opportunities, deliver a report + PoC</td>
+        <td>Funded AI startups, ML platform teams</td>
+        <td>Month 10+</td>
+        <td><div class="income-rate">$3K–10K/audit</div></td>
+      </tr>
+      <tr>
+        <td><strong>SaaS Product: Inference API</strong></td>
+        <td>Hosted Rust inference server for local-model customers; cheaper/faster than OpenAI for specific tasks</td>
+        <td>Developers, indie hackers</td>
+        <td>Month 10+</td>
+        <td><div class="income-rate">$500–10K MRR</div></td>
+      </tr>
+      <tr>
+        <td><strong>Open Source + Sponsorships</strong></td>
+        <td>Maintain a useful Rust AI crate (vector DB, embeddings util, agent framework)</td>
+        <td>GitHub Sponsors, Open Collective</td>
+        <td>Month 9+</td>
+        <td><div class="income-rate">$500–5K/mo</div></td>
+      </tr>
+      <tr>
+        <td><strong>Developer Tools SaaS</strong></td>
+        <td>Rust-based CLI or desktop app for AI developers (benchmark tool, prompt manager, model evaluator)</td>
+        <td>AI engineers and ML teams</td>
+        <td>Month 11+</td>
+        <td><div class="income-rate">$1K–20K MRR</div></td>
+      </tr>
+      <tr>
+        <td><strong>Course / Technical Writing</strong></td>
+        <td>"Rust for AI Engineers" course, in-depth blog series, newsletter on Rust × ML</td>
+        <td>Python ML engineers wanting to level up</td>
+        <td>Month 8+</td>
+        <td><div class="income-rate">$2K–15K launch</div></td>
+      </tr>
+      <tr>
+        <td><strong>Full-time Employment</strong></td>
+        <td>Staff/Principal Engineer at AI infra companies (Mistral, Groq, Together AI, Qdrant, etc.)</td>
+        <td>AI infrastructure companies</td>
+        <td>Month 10+</td>
+        <td><div class="income-rate">$150K–350K/yr</div></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════ KEY RESOURCES ════════════════════ -->
+<div class="band">
+  <div class="band-inner">
+    <div class="section-header" style="border-color:rgba(255,255,255,0.05);">
+      <span class="section-num">// 06</span>
+      <span class="section-title">Essential Resources & Communities</span>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:20px;">
+
+      <div style="border:1px solid var(--border); padding:24px; background:var(--card);">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--rust2); margin-bottom:14px; letter-spacing:1px;">LEARNING</div>
+        <ul class="task-list">
+          <li>The Rust Book — doc.rust-lang.org/book</li>
+          <li>Rustlings — hands-on exercises</li>
+          <li>Zero to Production in Rust (Palmieri)</li>
+          <li>Rust for Rustaceans (Gjengset)</li>
+          <li>Jon Gjengset's YouTube channel</li>
+          <li>HuggingFace Candle examples repo</li>
+          <li>Burn framework documentation</li>
+        </ul>
+      </div>
+
+      <div style="border:1px solid var(--border); padding:24px; background:var(--card);">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--cyan); margin-bottom:14px; letter-spacing:1px;">CRATES TO MASTER</div>
+        <ul class="task-list">
+          <li>tokio — async runtime</li>
+          <li>axum — web framework</li>
+          <li>serde — serialization</li>
+          <li>candle-core — ML framework</li>
+          <li>fastembed — embeddings</li>
+          <li>polars — dataframes</li>
+          <li>pyo3 — Python bindings</li>
+          <li>wasm-bindgen — WASM</li>
+          <li>rayon — data parallelism</li>
+        </ul>
+      </div>
+
+      <div style="border:1px solid var(--border); padding:24px; background:var(--card);">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--green); margin-bottom:14px; letter-spacing:1px;">COMMUNITIES</div>
+        <ul class="task-list">
+          <li>Rust Discord — official server</li>
+          <li>r/rust on Reddit</li>
+          <li>This Week in Rust newsletter</li>
+          <li>HuggingFace Candle GitHub discussions</li>
+          <li>Qdrant Discord (vector DB + Rust)</li>
+          <li>Twitter/X: #rustlang #rustai</li>
+          <li>Open source: contribute to Polars, Candle</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ FINAL MINDSET ════════════════════ -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-num">// 07</span>
+    <span class="section-title">The Mindset That Makes This Work</span>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+    <div class="highlight-box" style="border-left-color:var(--cyan); background:rgba(45,212,191,0.06);">
+      <strong style="color:var(--cyan);">Don't replace Python. Accelerate it.</strong><br>
+      The best Rust AI engineers don't fight the Python ecosystem — they make it faster. Your Rust code becomes the engine under the Python hood. This is how you get hired at top AI labs.
+    </div>
+    <div class="highlight-box" style="border-left-color:var(--purple); background:rgba(155,92,246,0.06);">
+      <strong style="color:var(--purple);">Ship before perfect.</strong><br>
+      Rust's type system will make you want to over-engineer. Ship a working RAG system in month 6, even if the code isn't beautiful. The portfolio matters more than perfection in year 1.
+    </div>
+    <div class="highlight-box" style="border-left-color:var(--green); background:rgba(52,211,153,0.06);">
+      <strong style="color:var(--green);">Write in public from month 3.</strong><br>
+      Start a blog or X/LinkedIn thread. "Building a vector DB in Rust" posts get viral traction in the AI community. Your learning process IS your marketing.
+    </div>
+    <div class="highlight-box">
+      <strong>The rarest engineer is T-shaped × 2.</strong><br>
+      You're not just an ML engineer or just a systems engineer. You're the person who understands the model AND owns the infrastructure it runs on. That combination is vanishingly rare.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════ -->
+<footer class="footer">
+  <div class="footer-brand">RUST <span>×</span> AI ROADMAP</div>
+  <div class="footer-note">12-Month Strategic Blueprint · Generated 2026</div>
+</footer>
+
+</body>
+</html>
