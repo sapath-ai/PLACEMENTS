@@ -1,25 +1,891 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programming Languages - ROADMAPS</title>
-    <link rel="stylesheet" href="../../assets/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Programming Languages — Roadmaps</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+:root {
+    --bg: #07090d;
+    --surface: #0d1118;
+    --surface-2: #111720;
+
+    --border: rgba(255,255,255,.09);
+
+    --text: #f3f5f7;
+    --muted: #8b95a5;
+    --muted-2: #626c7c;
+
+    --purple: #7c5cff;
+    --purple-soft: rgba(124,92,255,.14);
+
+    --rust: #ce4e20;
+    --rust-soft: rgba(206,78,32,.13);
+
+    --teal: #25d0ab;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+
+    color: var(--text);
+
+    font-family:
+        "DM Sans",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 85% 5%,
+            rgba(124,92,255,.13),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 10% 85%,
+            rgba(37,208,171,.05),
+            transparent 28%
+        ),
+        var(--bg);
+
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .22;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 44px 44px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 90%
+        );
+}
+
+.shell {
+    width: min(1180px, calc(100% - 48px));
+
+    margin: auto;
+
+    padding:
+        28px
+        0
+        80px;
+}
+
+/* NAVIGATION */
+
+.topbar {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 78px;
+}
+
+.back-link {
+    color: var(--muted);
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition: .2s ease;
+}
+
+.back-link:hover {
+    color: var(--text);
+    transform: translateX(-3px);
+}
+
+.breadcrumb {
+    color: var(--muted-2);
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+/* HERO */
+
+.hero {
+    margin-bottom: 68px;
+}
+
+.eyebrow {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 18px;
+
+    color: var(--teal);
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 2.5px;
+
+    text-transform: uppercase;
+}
+
+.dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--teal);
+
+    box-shadow:
+        0 0 14px var(--teal);
+}
+
+h1 {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size:
+        clamp(48px, 8vw, 92px);
+
+    line-height: .9;
+
+    letter-spacing: -4px;
+
+    margin-bottom: 25px;
+}
+
+h1 span {
+    color: var(--purple);
+}
+
+.hero-description {
+    max-width: 720px;
+
+    color: var(--muted);
+
+    font-size: 18px;
+
+    line-height: 1.7;
+}
+
+/* METRICS */
+
+.metrics {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin-top: 32px;
+}
+
+.metric {
+    padding: 20px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 16px;
+
+    background:
+        rgba(255,255,255,.025);
+}
+
+.metric strong {
+    display: block;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 27px;
+}
+
+.metric span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+/* SECTION */
+
+.section-header {
+    margin-bottom: 22px;
+}
+
+.section-header h2 {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 26px;
+
+    font-weight: 600;
+}
+
+.section-header p {
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+/* LANGUAGE CARD */
+
+.language-card {
+    position: relative;
+
+    display: block;
+
+    padding: 34px;
+
+    color: inherit;
+
+    text-decoration: none;
+
+    border:
+        1px solid
+        rgba(206,78,32,.24);
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(206,78,32,.12),
+            rgba(255,255,255,.025) 52%,
+            rgba(124,92,255,.06)
+        );
+
+    overflow: hidden;
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
+}
+
+.language-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 360px;
+    height: 360px;
+
+    top: -190px;
+    right: -150px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(206,78,32,.20),
+            transparent 70%
+        );
+}
+
+.language-card:hover {
+    transform: translateY(-5px);
+
+    border-color:
+        rgba(206,78,32,.65);
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.4),
+        0 0 45px rgba(206,78,32,.10);
+}
+
+/* CARD HEADER */
+
+.language-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin-bottom: 25px;
+}
+
+.language-icon {
+    width: 64px;
+    height: 64px;
+
+    display: grid;
+
+    place-items: center;
+
+    flex-shrink: 0;
+
+    font-size: 31px;
+
+    border-radius: 18px;
+
+    background:
+        var(--rust-soft);
+
+    border:
+        1px solid
+        rgba(206,78,32,.28);
+}
+
+.language-status {
+    color: var(--rust);
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+.language-name {
+    margin-top: 5px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 34px;
+
+    font-weight: 700;
+}
+
+.arrow {
+    position: absolute;
+
+    top: 28px;
+    right: 30px;
+
+    width: 45px;
+    height: 45px;
+
+    display: grid;
+
+    place-items: center;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 50%;
+
+    color: var(--muted);
+
+    font-size: 20px;
+
+    transition: .25s ease;
+}
+
+.language-card:hover .arrow {
+    color: white;
+
+    background: var(--rust);
+
+    border-color: var(--rust);
+
+    transform: rotate(-45deg);
+}
+
+.language-description {
+    max-width: 760px;
+
+    color: var(--muted);
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+/* TAGS */
+
+.tags {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    margin-top: 25px;
+}
+
+.tag {
+    padding:
+        7px
+        12px;
+
+    color: #b8c0cc;
+
+    font-size: 11px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,.025);
+}
+
+/* ROADMAP INFO */
+
+.info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin-top: 18px;
+}
+
+.info-card {
+    padding: 20px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 17px;
+
+    background:
+        var(--surface);
+}
+
+.info-number {
+    color: var(--purple);
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+.info-title {
+    display: block;
+
+    margin-top: 9px;
+
+    font-weight: 700;
+
+    font-size: 13px;
+}
+
+.info-text {
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+/* FOOTER */
+
+.footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 75px;
+
+    padding-top: 22px;
+
+    border-top:
+        1px solid
+        var(--border);
+
+    color: var(--muted-2);
+
+    font-size: 11px;
+}
+
+.footer strong {
+    color: #929cab;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 760px) {
+
+    .shell {
+        width:
+            min(
+                100% - 32px,
+                1180px
+            );
+    }
+
+    .topbar {
+        margin-bottom: 50px;
+    }
+
+    h1 {
+        font-size: 62px;
+
+        letter-spacing: -3px;
+    }
+
+    .metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .language-card {
+        padding: 25px;
+    }
+
+    .language-name {
+        font-size: 28px;
+    }
+
+    .footer {
+        display: block;
+    }
+
+    .footer span {
+        display: block;
+
+        margin-top: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .breadcrumb {
+        display: none;
+    }
+
+    h1 {
+        font-size: 52px;
+    }
+
+    .hero-description {
+        font-size: 16px;
+    }
+}
+
+</style>
 </head>
+
 <body>
-    <div class="container">
-        <a href="../" class="back-link">← Back to ROADMAPS</a>
-        
-        <h1>💻 Programming Languages</h1>
-        <p class="subtitle">Master the most in-demand programming languages</p>
-        
-        <div class="dashboard-grid">
-            <a href="RUST/" class="dashboard-item" style="border-left: 4px solid #ce4e20;">
-                <strong>🦀 Rust × AI</strong>
-                <p style="color: #666; font-size: 0.9rem; margin: 5px 0;">12-month strategic roadmap — AI systems engineering</p>
-                <span class="badge" style="background: #ce4e20; color: white;">Featured</span>
-            </a>
+
+<div class="shell">
+
+    <!-- NAV -->
+
+    <nav class="topbar">
+
+        <a
+            href="../"
+            class="back-link"
+        >
+            ← Back to ROADMAPS
+        </a>
+
+        <div class="breadcrumb">
+            PLACEMENTS / ROADMAPS / PROGRAMMING-LANGUAGES
         </div>
-    </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <header class="hero">
+
+        <div class="eyebrow">
+            <span class="dot"></span>
+            Engineering Tracks
+        </div>
+
+        <h1>
+            PROGRAMMING<br>
+            <span>LANGUAGES</span>
+        </h1>
+
+        <p class="hero-description">
+
+            Engineering-focused learning paths for the languages
+            that power modern software, systems, AI infrastructure,
+            backend platforms, and high-performance computing.
+
+        </p>
+
+
+        <div class="metrics">
+
+            <div class="metric">
+
+                <strong>01</strong>
+
+                <span>
+                    Active roadmap
+                </span>
+
+            </div>
+
+
+            <div class="metric">
+
+                <strong>12M</strong>
+
+                <span>
+                    Current Rust track
+                </span>
+
+            </div>
+
+
+            <div class="metric">
+
+                <strong>∞</strong>
+
+                <span>
+                    Expandable language library
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- LANGUAGE TRACKS -->
+
+    <main>
+
+        <div class="section-header">
+
+            <h2>
+                Language tracks
+            </h2>
+
+            <p>
+                Select a language to enter its engineering roadmap.
+            </p>
+
+        </div>
+
+
+        <!-- RUST -->
+
+        <a
+            href="RUST/"
+            class="language-card"
+        >
+
+            <div class="arrow">
+                →
+            </div>
+
+
+            <div class="language-header">
+
+                <div class="language-icon">
+                    🦀
+                </div>
+
+                <div>
+
+                    <div class="language-status">
+                        Active · Featured
+                    </div>
+
+                    <div class="language-name">
+                        Rust × AI
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <p class="language-description">
+
+                A 12-month strategic roadmap for using Rust as an
+                AI systems engineering language — covering ownership,
+                concurrency, async systems, performance engineering,
+                AI infrastructure, inference systems, and production
+                engineering.
+
+            </p>
+
+
+            <div class="tags">
+
+                <span class="tag">
+                    Systems Programming
+                </span>
+
+                <span class="tag">
+                    AI Infrastructure
+                </span>
+
+                <span class="tag">
+                    Async Rust
+                </span>
+
+                <span class="tag">
+                    Performance
+                </span>
+
+                <span class="tag">
+                    Production Systems
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- ROADMAP CHARACTERISTICS -->
+
+        <div class="info-grid">
+
+            <div class="info-card">
+
+                <span class="info-number">
+                    01
+                </span>
+
+                <strong class="info-title">
+                    Foundations
+                </strong>
+
+                <span class="info-text">
+                    Language fundamentals, mental models,
+                    tooling, and engineering discipline.
+                </span>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span class="info-number">
+                    02
+                </span>
+
+                <strong class="info-title">
+                    Engineering
+                </strong>
+
+                <span class="info-text">
+                    Systems, concurrency, performance,
+                    architecture, and real implementation.
+                </span>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span class="info-number">
+                    03
+                </span>
+
+                <strong class="info-title">
+                    AI Systems
+                </strong>
+
+                <span class="info-text">
+                    Inference, AI infrastructure, tooling,
+                    optimization, and production systems.
+                </span>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <strong>
+            ROADMAPS / PROGRAMMING-LANGUAGES
+        </strong>
+
+        <span>
+            Build competence. Then build systems.
+        </span>
+
+    </footer>
+
+</div>
+
 </body>
 </html>
