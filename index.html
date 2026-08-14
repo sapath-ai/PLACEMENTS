@@ -1,41 +1,284 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Placement Portal</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Placement Portal — Mission Control</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg: #0B1220;
+    --panel: #121B2E;
+    --panel-hover: #16223A;
+    --border: #223049;
+    --text: #E8ECF3;
+    --muted: #8B98AE;
+    --signal: #F2B705;
+    --signal-dim: #6B5A1E;
+    --standby: #3E6D9C;
+    --mono: 'IBM Plex Mono', monospace;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: var(--body);
+    min-height: 100vh;
+    padding: 64px 24px 80px;
+  }
+
+  .container{
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  .eyebrow{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .pulse-dot{
+    width:8px; height:8px; border-radius:50%;
+    background: var(--signal);
+    box-shadow: 0 0 0 0 rgba(242,183,5,0.6);
+    animation: pulse 2s infinite;
+    flex-shrink:0;
+  }
+  @keyframes pulse{
+    0%{ box-shadow: 0 0 0 0 rgba(242,183,5,0.5); }
+    70%{ box-shadow: 0 0 0 8px rgba(242,183,5,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(242,183,5,0); }
+  }
+
+  h1{
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 5vw, 3.2rem);
+    line-height: 1.05;
+    margin: 0 0 12px;
+    letter-spacing: -0.01em;
+  }
+  h1 span{ color: var(--signal); }
+
+  .subtitle{
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 480px;
+    margin: 0 0 40px;
+    line-height: 1.5;
+  }
+
+  .clock{
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    background: var(--panel);
+    border-radius: 6px;
+    padding: 10px 14px;
+    display: inline-flex;
+    gap: 18px;
+    margin-bottom: 48px;
+  }
+  .clock b{ color: var(--text); font-weight: 500; }
+
+  .categories{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .category-card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 22px 20px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    overflow: hidden;
+  }
+  .category-card::before{
+    content: attr(data-code);
+    position: absolute;
+    top: 16px; right: 18px;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .category-card:hover{
+    border-color: var(--signal-dim);
+    background: var(--panel-hover);
+    transform: translateY(-2px);
+  }
+  .category-card:focus-visible{
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+  }
+  .category-card.disabled{
+    cursor: default;
+    opacity: 0.55;
+  }
+  .category-card.disabled:hover{
+    transform: none;
+    border-color: var(--border);
+    background: var(--panel);
+  }
+
+  .icon{
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+
+  .category-card h2{
+    font-family: var(--display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 4px 0 0;
+  }
+
+  .category-card p{
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.45;
+    margin: 0;
+    padding-right: 30px;
+  }
+
+  .status-row{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .status-dot{
+    width: 7px; height: 7px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .status-row.online .status-dot{
+    background: var(--signal);
+    box-shadow: 0 0 0 0 rgba(242,183,5,0.6);
+    animation: pulse 2s infinite;
+  }
+  .status-row.online{ color: var(--signal); }
+  .status-row.standby .status-dot{ background: var(--muted); }
+  .status-row.standby{ color: var(--muted); }
+
+  .footer-panel{
+    margin-top: 32px;
+    padding: 18px 22px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .footer-panel .icon{ font-size: 1.1rem; }
+  .footer-panel p{
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-family: var(--mono);
+  }
+
+  @media (max-width: 620px){
+    .categories{ grid-template-columns: 1fr; }
+    body{ padding: 48px 16px 60px; }
+    .clock{ display:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .pulse-dot, .status-row.online .status-dot{ animation: none; }
+    .category-card{ transition: none; }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>💼 Placement Portal</h1>
-        <p class="subtitle">Your all-in-one hub for job search, resume building, and interview prep</p>
-        
-        <div class="categories">
-            <a href="dashboards/job-tracker/" class="category-card">
-                <span class="icon">📋</span>
-                <h2>Job Tracker</h2>
-                <p>Track applications, recruiters, interviews, and offers</p>
-            </a>
-            
-            <a href="categories/resume-builder/" class="category-card">
-                <span class="icon">📄</span>
-                <h2>Resume Builder</h2>
-                <p>Templates, tips, and guides to build your resume</p>
-            </a>
-            
-            <a href="categories/interview-prep/" class="category-card">
-                <span class="icon">🎯</span>
-                <h2>Interview Prep</h2>
-                <p>Coming soon — Practice questions & mock interviews</p>
-            </a>
-        </div>
-        
-        <div style="margin-top: 40px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-            <p style="color: #666; text-align: center; font-size: 0.9rem;">
-                ⚡ Adding new dashboards weekly — Check back for updates!
-            </p>
-        </div>
+  <div class="container">
+    <div class="eyebrow"><span class="pulse-dot"></span> System status: operational</div>
+
+    <h1>Placement <span>Portal</span></h1>
+    <p class="subtitle">Mission control for your job search — every application, recruiter, and offer tracked in one place.</p>
+
+    <div class="clock">
+      <span>LOCAL TIME: <b id="clock-time">--:--:--</b></span>
+      <span>UPTIME: <b>1 module online</b></span>
     </div>
+
+    <div class="categories">
+      <a href="dashboards/job-tracker/" class="category-card" data-code="JT-01">
+        <span class="icon">📋</span>
+        <h2>Job Tracker</h2>
+        <p>Track applications, recruiters, interviews, and offers.</p>
+        <span class="status-row online"><span class="status-dot"></span>Online</span>
+      </a>
+
+      <a href="#" class="category-card disabled" data-code="RB-02" aria-disabled="true">
+        <span class="icon">📄</span>
+        <h2>Resume Builder</h2>
+        <p>Build and optimize your resume.</p>
+        <span class="status-row standby"><span class="status-dot"></span>Standby</span>
+      </a>
+
+      <a href="#" class="category-card disabled" data-code="IP-03" aria-disabled="true">
+        <span class="icon">🎯</span>
+        <h2>Interview Prep</h2>
+        <p>Practice questions and mock interviews.</p>
+        <span class="status-row standby"><span class="status-dot"></span>Standby</span>
+      </a>
+
+      <a href="#" class="category-card disabled" data-code="SI-04" aria-disabled="true">
+        <span class="icon">💰</span>
+        <h2>Salary Intel</h2>
+        <p>Compare offers and compensation.</p>
+        <span class="status-row standby"><span class="status-dot"></span>Standby</span>
+      </a>
+    </div>
+
+    <div class="footer-panel">
+      <span class="icon">⚡</span>
+      <p>Building new dashboards weekly — check back for updates.</p>
+    </div>
+  </div>
+
+  <script>
+    function tick(){
+      const el = document.getElementById('clock-time');
+      if(!el) return;
+      const now = new Date();
+      el.textContent = now.toLocaleTimeString('en-US', { hour12: false });
+    }
+    tick();
+    setInterval(tick, 1000);
+  </script>
 </body>
 </html>
