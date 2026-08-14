@@ -291,20 +291,21 @@ h1,h2,h3,h4,p{ margin:0; }
   overflow:hidden;
 }
 #topbar{
-  height: var(--topbar-h);
+  min-height: var(--topbar-h);
   flex-shrink:0;
   display:flex; align-items:center;
   gap:14px;
-  padding: 0 20px;
+  padding: 10px 20px;
   border-bottom:1px solid var(--border-muted);
   background: rgba(10,13,18,0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  flex-wrap: nowrap;
 }
-.topbar-title{ font-size:15px; font-weight:600; letter-spacing:-0.01em; }
-.topbar-crumb{ font-size:12px; color:var(--text-tertiary); margin-top:1px; }
-.topbar-titlewrap{ display:flex; flex-direction:column; gap:1px; margin-right:auto; }
-.topbar-actions{ display:flex; align-items:center; gap:8px; }
+.topbar-title{ font-size:15px; font-weight:600; letter-spacing:-0.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.topbar-crumb{ font-size:12px; color:var(--text-tertiary); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.topbar-titlewrap{ display:flex; flex-direction:column; gap:1px; margin-right:auto; min-width:0; overflow:hidden; flex:1 1 auto; }
+.topbar-actions{ display:flex; align-items:center; gap:8px; flex-shrink:0; }
 
 .btn{
   display:inline-flex; align-items:center; gap:6px;
@@ -902,6 +903,13 @@ table.data-table{ width:100%; border-collapse:collapse; min-width:1080px; }
 .heatmap-legend .heatmap-cell{ width:11px; height:11px; }
 
 /* Simple placeholder-view styling for not-yet-built sections */
+@media (max-width: 640px){
+  #topbar{ padding: 10px 12px; gap:8px; }
+  .topbar-actions{ gap:6px; }
+  .btn:not(.btn-icon){ font-size:0; gap:0; padding:7px; }
+  .btn svg{ width:15px; height:15px; }
+}
+
 .stub-view{
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   min-height: 50vh; text-align:center; color: var(--text-tertiary); gap:10px;
@@ -1031,6 +1039,10 @@ table.data-table{ width:100%; border-collapse:collapse; min-width:1080px; }
         <div class="topbar-crumb" id="topbarCrumb">Overview of your entire job search</div>
       </div>
       <div class="topbar-actions">
+        <button class="btn btn-danger" id="topbarResetBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14z"/></svg>
+          Reset
+        </button>
         <button class="btn" id="exportQuickBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg>
           Export
@@ -4132,6 +4144,13 @@ document.getElementById('dmResetBtn').addEventListener('click', ()=>{
   refreshCurrentView();
   toast('Database reset', 'info');
 });
+document.getElementById('topbarResetBtn').addEventListener('click', ()=>{
+  if(!confirm('This will permanently erase every application, recruiter, contact, and note in this dashboard. This cannot be undone. Continue?')) return;
+  DB = { applications:[], recruiters:[], networking:[], companyIntel:[], referrals:[], marketSnapshots:[], resumeVersions:[], portfolioProjects:[], skillsGap:[], salaryOffers:[], meta:{ createdAt:new Date().toISOString(), streakDays:0 } };
+  saveDB(DB);
+  refreshCurrentView();
+  toast('All data cleared', 'info');
+});
 document.getElementById('dmDemoBtn').addEventListener('click', ()=>{
   if(!confirm('This replaces all current data with a fresh sample dataset. Continue?')) return;
   DB = generateSampleData();
@@ -4195,4 +4214,3 @@ function openGlobalSearch(){
 </script>
 </body>
 </html>
-
