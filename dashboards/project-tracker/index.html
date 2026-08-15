@@ -1,0 +1,968 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Forge — Project Operating System</title>
+<style>
+:root{
+  --bg:#080a0f;--panel:#10131a;--panel2:#151923;--panel3:#1a1f2a;
+  --line:#252b38;--text:#f3f5f8;--muted:#8d96a8;--dim:#626b7c;
+  --accent:#8b7cff;--accent2:#b2a9ff;--green:#38d996;--yellow:#f3bd5b;
+  --red:#ff6673;--blue:#5bb7ff;--shadow:0 18px 60px rgba(0,0,0,.28);
+  --r:16px;--rs:10px;
+  --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+[data-theme=light]{--bg:#f5f6f8;--panel:#fff;--panel2:#f8f9fb;--panel3:#eef1f5;--line:#dfe3ea;--text:#171a21;--muted:#657084;--dim:#8a94a5;--shadow:0 18px 50px rgba(22,29,42,.10)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:var(--sans);background:var(--bg);color:var(--text)}
+button,input,textarea,select{font:inherit}button{cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.app{min-height:100vh}
+.top{height:66px;position:sticky;top:0;z-index:20;display:flex;align-items:center;padding:0 28px;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(18px)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.4px}
+.logoMark{width:29px;height:29px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#5b6dff);display:grid;place-items:center;box-shadow:0 0 30px rgba(139,124,255,.22)}
+.logoMark:after{content:"";width:9px;height:9px;border:2px solid white;border-radius:3px;transform:rotate(45deg)}
+.topnav{display:flex;gap:3px;margin-left:44px}
+.nav{border:0;background:transparent;color:var(--muted);padding:8px 12px;border-radius:9px;font-size:13px}
+.nav:hover,.nav.active{background:var(--panel2);color:var(--text)}
+.spacer{flex:1}.topActions{display:flex;gap:8px;align-items:center}
+.icon{width:36px;height:36px;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:10px}
+.icon:hover{color:var(--text);border-color:var(--dim)}
+.kbd{font:10px var(--mono);padding:3px 6px;border:1px solid var(--line);border-bottom-color:var(--dim);border-radius:5px;color:var(--muted);background:var(--panel2)}
+main{max-width:1380px;margin:auto;padding:42px 30px 80px}
+.hero{display:flex;justify-content:space-between;gap:30px;align-items:flex-end;margin-bottom:30px}
+.eyebrow{font:10px var(--mono);font-weight:800;letter-spacing:1px;color:var(--accent2);text-transform:uppercase;margin-bottom:10px}
+h1{font-size:clamp(32px,5vw,54px);line-height:1;letter-spacing:-2.3px;margin:0}
+.hero p{max-width:650px;color:var(--muted);font-size:14px;line-height:1.7;margin:13px 0 0}
+.heroRight{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.date{font:11px var(--mono);color:var(--muted)}
+.primary{border:1px solid transparent;background:var(--accent);color:#fff;padding:10px 15px;border-radius:10px;font-weight:750;box-shadow:0 10px 30px rgba(139,124,255,.18)}
+.primary:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:28px}
+.metric{padding:16px 17px;border:1px solid var(--line);border-radius:13px;background:var(--panel);min-height:104px}
+.metricLabel{font:9px var(--mono);letter-spacing:.7px;color:var(--dim);text-transform:uppercase}
+.metricValue{font:27px var(--mono);font-weight:800;letter-spacing:-1px;margin-top:9px}
+.metricFoot{font-size:10px;color:var(--muted);margin-top:5px}
+.metric.good .metricValue{color:var(--green)}.metric.warn .metricValue{color:var(--yellow)}.metric.bad .metricValue{color:var(--red)}
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(310px,.75fr);gap:14px}
+.panel{border:1px solid var(--line);background:var(--panel);border-radius:var(--r);box-shadow:0 1px 0 rgba(255,255,255,.02)}
+.panelHead{display:flex;justify-content:space-between;align-items:center;padding:18px 19px;border-bottom:1px solid var(--line)}
+.panelTitle{font-weight:800;letter-spacing:-.25px}.panelSub{font-size:11px;color:var(--muted);margin-top:3px}
+.textBtn{border:0;background:transparent;color:var(--accent2);font-size:11px}
+.next{padding:19px}
+.nextLabel{font:9px var(--mono);letter-spacing:.9px;color:var(--accent2);font-weight:800}
+.next h2{font-size:21px;margin:8px 0 5px;letter-spacing:-.6px}.nextProject{font-size:12px;color:var(--muted)}
+.progress{height:7px;background:var(--panel3);border-radius:20px;overflow:hidden;margin:17px 0 10px}.progress>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#5bb7ff);border-radius:inherit}
+.nextMeta{display:flex;justify-content:space-between;font:10px var(--mono);color:var(--muted)}
+.taskList{padding:7px 10px 11px}.task{display:flex;align-items:center;gap:11px;padding:11px 9px;border-radius:9px}.task:hover{background:var(--panel2)}
+.check{width:17px;height:17px;accent-color:var(--green)}.taskMain{flex:1}.taskName{font-size:12.5px}.taskProject{font-size:10px;color:var(--dim);margin-top:2px}.taskTime{font:10px var(--mono);color:var(--muted)}
+.sideStack{display:flex;flex-direction:column;gap:14px}.sidePad{padding:15px 17px}
+.momentum{display:flex;align-items:center;gap:10px;padding:10px 0}.pulse{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(56,217,150,.09)}
+.momentum b{font-size:12px}.momentum span{font-size:10px;color:var(--muted);display:block;margin-top:2px}
+.blocker{padding:11px;border:1px solid rgba(255,102,115,.22);background:rgba(255,102,115,.05);border-radius:10px;margin-bottom:8px}
+.blocker b{font-size:11px}.blocker p{margin:4px 0 0;color:var(--muted);font-size:10px;line-height:1.5}
+.projects{margin-top:14px}.projectCard{padding:17px 18px;border-bottom:1px solid var(--line)}.projectCard:last-child{border-bottom:0}
+.projectTop{display:flex;gap:12px;align-items:flex-start}.projectName{font-weight:750;font-size:14px}.projectDesc{font-size:10.5px;color:var(--muted);margin-top:3px;line-height:1.5}.badge{margin-left:auto;padding:4px 8px;border-radius:999px;font:9px var(--mono);border:1px solid var(--line);color:var(--muted);white-space:nowrap}.badge.hot{color:var(--green);border-color:rgba(56,217,150,.25);background:rgba(56,217,150,.06)}.badge.slow{color:var(--yellow);border-color:rgba(243,189,91,.25);background:rgba(243,189,91,.06)}.badge.stalled{color:var(--red);border-color:rgba(255,102,115,.25);background:rgba(255,102,115,.06)}
+.projectBar{display:flex;align-items:center;gap:12px;margin-top:12px}.projectBar .progress{flex:1;margin:0;height:5px}.pct{font:10px var(--mono);color:var(--muted);width:30px;text-align:right}.projectBottom{display:flex;gap:16px;margin-top:10px;align-items:center}.nextAction{font-size:10px;color:var(--muted);flex:1}.nextAction strong{color:var(--text);font-weight:600}.meta{font:9px var(--mono);color:var(--dim)}
+.timeline{padding:19px;overflow:auto}.road{min-width:760px;position:relative;padding-top:8px}.months{display:grid;grid-template-columns:repeat(6,1fr);font:9px var(--mono);color:var(--dim);padding-left:150px;margin-bottom:13px}.roadRow{display:grid;grid-template-columns:140px 1fr;align-items:center;margin:10px 0}.roadName{font-size:10px;color:var(--muted)}.track{height:20px;background:var(--panel2);border-radius:6px;position:relative}.bar{position:absolute;height:100%;border-radius:6px;background:linear-gradient(90deg,rgba(139,124,255,.8),rgba(91,183,255,.65));font:8px var(--mono);display:flex;align-items:center;padding-left:8px;color:#fff}.today{position:absolute;top:25px;bottom:0;width:1px;background:var(--red);opacity:.65}
+.activity{padding:7px 15px 12px}.event{display:flex;gap:12px;padding:11px 3px;border-bottom:1px solid var(--line)}.event:last-child{border-bottom:0}.eventDot{width:7px;height:7px;border-radius:50%;background:var(--accent);margin-top:5px;flex:none}.eventText{font-size:10.5px}.eventText b{font-weight:700}.eventTime{font:9px var(--mono);color:var(--dim);margin-left:auto;white-space:nowrap}
+.view{display:none}.view.active{display:block}
+.toolbar{display:flex;gap:8px;margin-bottom:14px}.search{flex:1;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;padding:10px 12px;font-size:12px}
+.filter{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:10px;padding:9px 11px;font-size:11px}
+.empty{padding:50px;text-align:center;color:var(--muted);font-size:12px}
+.modalBack{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);z-index:50;display:none;align-items:center;justify-content:center;padding:20px}.modalBack.show{display:flex}
+.modal{width:min(650px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.modalHead{display:flex;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line)}.modalHead h2{margin:0;font-size:16px}.modalBody{padding:20px}.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font:9px var(--mono);letter-spacing:.5px;color:var(--dim);text-transform:uppercase}.field input,.field textarea,.field select{background:var(--bg);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px;font-size:12px}.field textarea{min-height:82px;resize:vertical}.modalFoot{display:flex;justify-content:flex-end;gap:8px;padding:14px 20px;border-top:1px solid var(--line)}.secondary{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:9px 13px;border-radius:9px;font-size:11px}
+.commandBack{position:fixed;inset:0;background:rgba(0,0,0,.52);backdrop-filter:blur(6px);z-index:60;display:none;align-items:flex-start;justify-content:center;padding-top:14vh}.commandBack.show{display:flex}.command{width:min(620px,calc(100% - 30px));background:var(--panel);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow);overflow:hidden}.command input{width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--text);padding:15px 17px;font-size:14px;outline:0}.commands{padding:7px}.cmd{width:100%;border:0;background:transparent;color:var(--muted);padding:11px;border-radius:8px;text-align:left;font-size:11px;display:flex;justify-content:space-between}.cmd:hover{background:var(--panel2);color:var(--text)}
+@media(max-width:1050px){.metrics{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:1fr}.sideStack{display:grid;grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.top{padding:0 14px}.topnav{margin-left:12px}.nav{padding:8px 7px;font-size:11px}.topActions .kbd{display:none}main{padding:28px 14px 60px}.hero{align-items:flex-start;flex-direction:column}.heroRight{align-items:flex-start}.metrics{grid-template-columns:1fr 1fr}.metric:last-child{grid-column:1/-1}.sideStack{display:flex}.formGrid{grid-template-columns:1fr}.field.full{grid-column:auto}}
+</style>
+
+<style id="futuristic-ai-theme">
+/* ============================================================
+   FORGE — FUTURISTIC AI VISUAL SYSTEM
+   Deep navy + violet + electric blue + restrained gradients
+   ============================================================ */
+:root{
+  --bg:#050914;
+  --panel:#0a1020;
+  --panel2:#0e1628;
+  --panel3:#131d33;
+  --line:#1c2a43;
+  --text:#edf3ff;
+  --muted:#8e9db8;
+  --dim:#5f708e;
+  --accent:#8d72ff;
+  --accent2:#b9aaff;
+  --green:#45e0b0;
+  --yellow:#d6b35f;
+  --red:#ff647d;
+  --blue:#4db8ff;
+  --shadow:0 24px 90px rgba(0,0,0,.45);
+}
+
+[data-theme=light]{
+  --bg:#f3f6fc;
+  --panel:#ffffff;
+  --panel2:#f5f7fc;
+  --panel3:#e9eef8;
+  --line:#d9e0ed;
+  --text:#121827;
+  --muted:#64718a;
+  --dim:#8a96a9;
+  --accent:#6952d9;
+  --accent2:#5845b7;
+  --green:#238e72;
+  --yellow:#9b7727;
+  --red:#c0445c;
+  --blue:#2585c4;
+  --shadow:0 22px 60px rgba(30,52,90,.12);
+}
+
+body{
+  background:
+    radial-gradient(850px 520px at 8% -8%,rgba(104,82,255,.16),transparent 62%),
+    radial-gradient(760px 520px at 92% 4%,rgba(51,164,255,.12),transparent 60%),
+    radial-gradient(600px 500px at 52% 100%,rgba(105,75,255,.055),transparent 65%),
+    var(--bg);
+}
+
+/* Subtle technical grid — deliberately quiet */
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:.20;
+  background-image:
+    linear-gradient(rgba(130,155,210,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(130,155,210,.035) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom,black,transparent 72%);
+}
+
+.app{position:relative;z-index:1}
+
+.top{
+  background:rgba(5,9,20,.76);
+  border-bottom-color:rgba(104,132,190,.17);
+  box-shadow:0 1px 0 rgba(255,255,255,.018);
+  backdrop-filter:blur(22px) saturate(145%);
+}
+
+.logo{
+  font-size:16px;
+  letter-spacing:-.4px;
+}
+
+.logoMark{
+  background:
+    radial-gradient(circle at 35% 25%,#c4baff 0 10%,transparent 11%),
+    linear-gradient(135deg,#8067ff,#317eff);
+  box-shadow:
+    0 0 0 1px rgba(160,143,255,.26),
+    0 0 26px rgba(103,82,255,.30);
+}
+
+.topnav{margin-left:44px}
+.nav{
+  color:#71819e;
+  border:1px solid transparent;
+}
+.nav:hover{
+  background:rgba(112,93,255,.055);
+  color:var(--text);
+}
+.nav.active{
+  background:linear-gradient(180deg,rgba(123,101,255,.13),rgba(65,128,255,.045));
+  color:#d8d3ff;
+  border-color:rgba(123,101,255,.18);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.primary{
+  background:linear-gradient(135deg,#927bff,#557dff);
+  color:#fff;
+  border-color:rgba(185,174,255,.28);
+  box-shadow:
+    0 8px 28px rgba(91,89,255,.22),
+    inset 0 1px 0 rgba(255,255,255,.18);
+}
+.primary:hover{
+  filter:brightness(1.08);
+  box-shadow:0 10px 34px rgba(91,89,255,.30);
+}
+
+.secondary{
+  background:rgba(12,19,34,.72);
+  border-color:rgba(94,126,185,.20);
+  color:#c4cde0;
+}
+
+.hero{
+  position:relative;
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  right:4%;
+  bottom:-30px;
+  width:340px;
+  height:100px;
+  background:radial-gradient(ellipse,rgba(103,83,255,.12),transparent 70%);
+  filter:blur(12px);
+  pointer-events:none;
+}
+
+.eyebrow{
+  color:#9d8bff;
+  letter-spacing:1.55px;
+}
+
+h1{
+  font-weight:700;
+  letter-spacing:-2.9px;
+  background:linear-gradient(100deg,#f2f5ff 8%,#c8c0ff 46%,#79bfff 90%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.hero p{
+  color:#8492ac;
+}
+
+.date{
+  color:#849bd1;
+  letter-spacing:.4px;
+}
+
+.metric,
+.panel,
+.projectCard{
+  border-color:rgba(91,122,180,.17);
+  background:
+    linear-gradient(145deg,rgba(103,83,255,.025),transparent 50%),
+    var(--panel);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.02),
+    inset 0 1px 0 rgba(255,255,255,.012);
+}
+
+.metric:hover,
+.projectCard:hover{
+  border-color:rgba(112,132,255,.30);
+  box-shadow:
+    0 14px 40px rgba(0,0,0,.20),
+    0 0 30px rgba(85,91,255,.045);
+}
+
+.metricValue{
+  color:#f0f4ff;
+}
+
+.metric.good .metricValue{color:var(--green)}
+.metric.warn .metricValue{color:#e4c26f}
+.metric.bad .metricValue{color:var(--red)}
+
+.panelHead{
+  border-bottom-color:rgba(91,122,180,.13);
+}
+
+.panelTitle{
+  color:#e8edfa;
+}
+
+.panelSub,
+.metricFoot{
+  color:#74829c;
+}
+
+.nextLabel{
+  color:#9d8bff;
+}
+
+.next h2{
+  color:#eef2ff;
+}
+
+.progress{
+  background:#111a2b;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.25);
+}
+
+.progress>i{
+  background:linear-gradient(90deg,#765eff,#7b8dff 52%,#50bfff);
+  box-shadow:
+    0 0 12px rgba(99,105,255,.28),
+    0 0 24px rgba(72,167,255,.10);
+}
+
+.pulse{
+  background:var(--green)!important;
+  box-shadow:0 0 0 5px rgba(69,224,176,.08),0 0 15px rgba(69,224,176,.20);
+}
+
+.task:hover{
+  background:rgba(91,105,255,.055);
+}
+
+.check{
+  accent-color:var(--accent);
+}
+
+.blocker{
+  border-color:rgba(255,100,125,.20);
+  background:rgba(255,100,125,.045);
+}
+
+.badge.hot{
+  color:#5fe5c0;
+  border-color:rgba(69,224,176,.20);
+  background:rgba(69,224,176,.045);
+}
+.badge.slow{
+  color:#d8bd72;
+  border-color:rgba(214,179,95,.20);
+  background:rgba(214,179,95,.045);
+}
+.badge.stalled{
+  color:#ff778c;
+  border-color:rgba(255,100,125,.20);
+  background:rgba(255,100,125,.045);
+}
+
+.projectCard{
+  background:
+    linear-gradient(90deg,rgba(110,91,255,.035),transparent 42%),
+    var(--panel);
+}
+
+.road .bar{
+  background:linear-gradient(90deg,rgba(112,84,255,.78),rgba(61,169,255,.68));
+  box-shadow:0 0 18px rgba(88,102,255,.11);
+}
+
+.today{
+  background:linear-gradient(var(--accent),var(--blue));
+  box-shadow:0 0 12px rgba(94,106,255,.25);
+}
+
+.search,
+.filter,
+.field input,
+.field textarea,
+.field select,
+.command input{
+  border-color:rgba(91,122,180,.18);
+  background:#070d18;
+}
+
+.search::placeholder,
+.field input::placeholder,
+.field textarea::placeholder{
+  color:#53627b;
+}
+
+.search:focus,
+.filter:focus,
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+  border-color:rgba(126,105,255,.70);
+  box-shadow:0 0 0 3px rgba(108,91,255,.09);
+}
+
+.textBtn{
+  color:#9d8bff;
+}
+
+.kbd{
+  border-color:rgba(91,122,180,.20);
+  border-bottom-color:#6f63d9;
+  color:#9aa8c2;
+  background:#0c1423;
+}
+
+.command,
+.modal{
+  border-color:rgba(105,127,204,.23);
+  background:
+    linear-gradient(145deg,rgba(98,81,255,.035),transparent 55%),
+    var(--panel);
+  box-shadow:
+    0 30px 110px rgba(0,0,0,.55),
+    0 0 60px rgba(83,73,255,.055);
+}
+
+.cmd:hover{
+  background:linear-gradient(90deg,rgba(108,91,255,.10),rgba(55,139,255,.045));
+  color:#e8ecff;
+}
+
+.event{
+  border-bottom-color:rgba(91,122,180,.09);
+}
+
+.eventDot{
+  background:#8e78ff;
+  box-shadow:0 0 13px rgba(113,95,255,.34);
+}
+
+/* Technical micro-labels */
+.meta,
+.date,
+.metricLabel,
+.kbd,
+.eventTime{
+  text-transform:uppercase;
+  letter-spacing:.45px;
+}
+</style>
+
+
+<style id="forge-loading-screen">
+#forgeBoot{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:
+    radial-gradient(700px 500px at 50% 45%,rgba(106,83,255,.12),transparent 65%),
+    #030711;
+  transition:opacity .7s cubic-bezier(.2,.7,.2,1),visibility .7s;
+}
+#forgeBoot.hide{opacity:0;visibility:hidden;pointer-events:none;display:flex}
+#forgeBoot:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(100,130,200,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(100,130,200,.035) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(circle at center,black,transparent 75%);
+}
+.bootCore{
+  position:relative;
+  width:min(560px,calc(100% - 42px));
+  text-align:center;
+}
+.bootOrb{
+  width:62px;
+  height:62px;
+  margin:0 auto 30px;
+  position:relative;
+  border-radius:18px;
+  transform:rotate(45deg);
+  border:1px solid rgba(150,133,255,.45);
+  background:
+    linear-gradient(135deg,rgba(126,102,255,.24),rgba(55,157,255,.08));
+  box-shadow:
+    0 0 35px rgba(100,82,255,.18),
+    inset 0 0 30px rgba(90,140,255,.08);
+  animation:forgeOrb 2.4s ease-in-out infinite;
+}
+.bootOrb:before{
+  content:"";
+  position:absolute;
+  inset:17px;
+  border:1px solid rgba(190,180,255,.75);
+  border-radius:6px;
+}
+.bootOrb:after{
+  content:"";
+  position:absolute;
+  width:7px;
+  height:7px;
+  left:27px;
+  top:27px;
+  border-radius:50%;
+  background:#9d8aff;
+  box-shadow:0 0 18px #7661ff,0 0 35px rgba(80,150,255,.8);
+}
+.bootKicker{
+  color:#8d7dff;
+  font:700 10px ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+.bootTitle{
+  margin:0;
+  color:#f0f4ff;
+  font:700 clamp(29px,7vw,46px)/1 Georgia,"Times New Roman",serif;
+  letter-spacing:4px;
+  text-transform:uppercase;
+}
+.bootStatus{
+  margin-top:15px;
+  color:#71809c;
+  font:10px ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+}
+.bootStatus span{color:#9e8fff}
+.bootLine{
+  width:min(300px,75%);
+  height:2px;
+  margin:25px auto 0;
+  overflow:hidden;
+  border-radius:99px;
+  background:#101a2d;
+}
+.bootLine i{
+  display:block;
+  width:38%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,#806bff,#4ebaff,transparent);
+  box-shadow:0 0 16px rgba(102,115,255,.75);
+  animation:forgeScan 1.35s ease-in-out infinite;
+}
+.bootMeta{
+  margin-top:13px;
+  color:#43526c;
+  font:9px ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.7px;
+}
+@keyframes forgeScan{
+  0%{transform:translateX(-150%)}
+  100%{transform:translateX(380%)}
+}
+@keyframes forgeOrb{
+  0%,100%{transform:rotate(45deg) scale(1)}
+  50%{transform:rotate(45deg) scale(1.06)}
+}
+@media(prefers-reduced-motion:reduce){
+  #forgeBoot *{animation:none!important}
+}
+
+.projectActions{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.deleteProject{
+  border:1px solid rgba(255,100,125,.22);
+  background:rgba(255,100,125,.055);
+  color:var(--red);
+  border-radius:7px;
+  padding:6px 9px;
+  font:10px var(--mono);
+  font-weight:700;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:.18s ease;
+}
+
+.deleteProject:hover{
+  background:rgba(255,100,125,.14);
+  border-color:rgba(255,100,125,.48);
+  color:#ff8da0;
+}
+
+.dangerBtn{
+  border:1px solid rgba(255,100,125,.22);
+  background:rgba(255,100,125,.055);
+  color:var(--red);
+  border-radius:8px;
+  padding:9px 12px;
+  font:10px var(--mono);
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+
+.dangerBtn:hover{
+  background:rgba(255,100,125,.13);
+  border-color:rgba(255,100,125,.48);
+  color:#ff8da0;
+}
+
+</style>
+
+</head>
+<body>
+
+<div id="forgeBoot" aria-label="Forge loading screen">
+  <div class="bootCore">
+    <div class="bootOrb"></div>
+    <div class="bootKicker">FORGE / PROJECT OPERATING SYSTEM</div>
+    <h1 class="bootTitle">PROJECT TRACKER</h1>
+    <div class="bootStatus"><span id="bootStatus">INITIALISING SYSTEM</span> · <span id="bootPercent">00%</span></div>
+    <div class="bootLine"><i></i></div>
+    <div class="bootMeta">LOADING WORKSPACE · ESTABLISHING LOCAL STATE · READYING CONTROL SURFACE</div>
+  </div>
+</div>
+
+<div class="app">
+<header class="top">
+  <div class="logo"><span class="logoMark"></span><span>forge</span></div>
+  <nav class="topnav">
+    <button class="nav active" data-view="today">Today</button>
+    <button class="nav" data-view="projects">Projects</button>
+    <button class="nav" data-view="roadmap">Roadmap</button>
+    <button class="nav" data-view="activity">Activity</button>
+    <button class="nav" data-view="insights">Insights</button>
+  </nav>
+  <div class="spacer"></div>
+  <div class="topActions">
+    <span class="kbd">⌘ K</span><button class="icon" id="theme" title="Toggle theme">☾</button>
+    <button class="dangerBtn" id="resetBtn" title="Reset all project data">Reset</button>
+    <button class="primary" id="newBtn">+ Project</button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div>
+    <div class="eyebrow">FORGE · PERSONAL PROJECT OPERATING SYSTEM</div>
+    <h1>Build things.<br>Finish them.</h1>
+    <p>Forge keeps the important part of project management visible: the next action, the blockers, the momentum, and what “done” actually means.</p>
+  </div>
+  <div class="heroRight"><div class="date" id="date"></div><button class="secondary" id="focusBtn">Start focus session →</button></div>
+</section>
+
+<section class="metrics" id="metrics"></section>
+
+<div id="todayView" class="view active">
+  <div class="grid">
+    <section class="panel">
+      <div class="panelHead"><div><div class="panelTitle">Next action</div><div class="panelSub">The single piece of work with the highest leverage right now.</div></div><button class="textBtn" id="openNext">Open project →</button></div>
+      <div class="next" id="nextAction"></div>
+      <div class="panelHead"><div><div class="panelTitle">Today</div><div class="panelSub">Small actions compound into finished projects.</div></div><span class="meta" id="taskCount"></span></div>
+      <div class="taskList" id="todayTasks"></div>
+    </section>
+    <aside class="sideStack">
+      <section class="panel"><div class="panelHead"><div><div class="panelTitle">Momentum</div><div class="panelSub">Where attention is needed.</div></div></div><div class="sidePad" id="momentum"></div></section>
+      <section class="panel"><div class="panelHead"><div><div class="panelTitle">Blockers</div><div class="panelSub">Problems preventing movement.</div></div></div><div class="sidePad" id="blockers"></div></section>
+    </aside>
+  </div>
+  <section class="panel projects"><div class="panelHead"><div><div class="panelTitle">Active projects</div><div class="panelSub">Your portfolio at a glance.</div></div><button class="textBtn" data-view-go="projects">View all →</button></div><div id="activeProjects"></div></section>
+</div>
+
+<div id="projectsView" class="view">
+  <div class="toolbar"><input class="search" id="search" placeholder="Search projects, objectives, next actions…"><select class="filter" id="statusFilter"><option value="all">All status</option><option>Active</option><option>On Hold</option><option>Completed</option></select><select class="filter" id="momentumFilter"><option value="all">All momentum</option><option>Moving</option><option>Slowing</option><option>Stalled</option></select></div>
+  <section class="panel"><div class="panelHead"><div><div class="panelTitle">Projects</div><div class="panelSub">Every project has an objective, a definition of done, and a next action.</div></div><button class="primary" id="newBtn2">+ New project</button></div><div id="allProjects"></div></section>
+</div>
+
+<div id="roadmapView" class="view">
+  <section class="panel"><div class="panelHead"><div><div class="panelTitle">Project roadmap</div><div class="panelSub">Milestones over time. Dragging isn't required to understand the plan.</div></div></div><div class="timeline" id="timeline"></div></section>
+</div>
+
+<div id="activityView" class="view">
+  <section class="panel"><div class="panelHead"><div><div class="panelTitle">Activity</div><div class="panelSub">A memory of what changed.</div></div></div><div class="activity" id="activity"></div></section>
+</div>
+
+<div id="insightsView" class="view">
+  <div class="grid">
+    <section class="panel"><div class="panelHead"><div><div class="panelTitle">Execution velocity</div><div class="panelSub">Completed tasks over the last four weeks.</div></div></div><div class="sidePad" id="velocity"></div></section>
+    <section class="panel"><div class="panelHead"><div><div class="panelTitle">Portfolio health</div><div class="panelSub">A simple signal, not vanity metrics.</div></div></div><div class="sidePad" id="health"></div></section>
+  </div>
+</div>
+</main>
+</div>
+
+<div class="modalBack" id="modalBack">
+  <form class="modal" id="projectForm">
+    <div class="modalHead"><h2>Create project</h2><button type="button" class="icon" id="closeModal">×</button></div>
+    <div class="modalBody"><div class="formGrid">
+      <div class="field full"><label>Project name</label><input id="fName" required placeholder="What are you building?"></div>
+      <div class="field full"><label>Objective</label><textarea id="fObjective" placeholder="Why does this project exist?"></textarea></div>
+      <div class="field full"><label>Definition of done</label><textarea id="fDone" placeholder="What must be true for this to be finished?"></textarea></div>
+      <div class="field"><label>Priority</label><select id="fPriority"><option>High</option><option selected>Medium</option><option>Low</option></select></div>
+      <div class="field"><label>Due date</label><input id="fDue" type="date"></div>
+      <div class="field full"><label>First action</label><input id="fNext" placeholder="What is the next physical action?"></div>
+      <div class="field"><label>Progress %</label><input id="fProgress" type="number" min="0" max="100" value="0"></div>
+      <div class="field"><label>Status</label><select id="fStatus"><option>Active</option><option>On Hold</option><option>Completed</option></select></div>
+    </div></div>
+    <div class="modalFoot"><button type="button" class="secondary" id="cancelModal">Cancel</button><button class="primary">Create project</button></div>
+  </form>
+</div>
+
+<div class="commandBack" id="commandBack"><div class="command"><input id="cmdInput" placeholder="Type a command…"><div class="commands" id="commands"></div></div></div>
+
+<script>
+const KEY="forge-project-os-v1";
+const seed=[
+ {id:"p1",name:"Brain Tumor Segmentation",objective:"Build and evaluate a lightweight hybrid architecture for incomplete multimodal MRI segmentation.",done:"Ablations complete, experiments reproducible, manuscript-ready figures generated.",priority:"High",due:"2026-09-12",next:"Implement attention gate",progress:74,status:"Active",momentum:"Moving",blocker:"Missing preprocessing experiment",milestones:[["Architecture","2026-08-10","2026-08-30"],["Experiments","2026-08-25","2026-09-25"],["Manuscript","2026-09-18","2026-10-18"]]},
+ {id:"p2",name:"SecIoT-FL",objective:"Build the privacy-preserving federated learning framework and validate fault tolerance.",done:"Full-scale experiments, Q4 quantization and fault-tolerance results complete.",priority:"High",due:"2026-09-03",next:"Implement Q4 quantization",progress:61,status:"Active",momentum:"Moving",blocker:"",milestones:[["Full-scale FL","2026-08-05","2026-08-25"],["Quantization","2026-08-20","2026-09-05"],["Paper","2026-09-01","2026-09-25"]]},
+ {id:"p3",name:"Agentic RAG System",objective:"Create a robust retrieval and agent orchestration prototype.",done:"Evaluation benchmark passes and demo is deployable.",priority:"Medium",due:"2026-10-01",next:"Design retrieval evaluation set",progress:38,status:"Active",momentum:"Slowing",blocker:"Evaluation criteria unclear",milestones:[["Architecture","2026-08-15","2026-09-05"],["Evaluation","2026-09-01","2026-09-20"],["Demo","2026-09-18","2026-10-05"]]},
+ {id:"p4",name:"CUDA Kernel Research",objective:"Explore optimized GPU kernels for neural-network workloads.",done:"Benchmark suite and reproducible performance report completed.",priority:"Low",due:"2026-11-20",next:"Profile baseline kernel",progress:12,status:"Active",momentum:"Stalled",blocker:"No activity recently",milestones:[["Baseline","2026-08-01","2026-08-20"],["Optimization","2026-09-01","2026-10-15"],["Report","2026-10-15","2026-11-20"]]},
+ {id:"p5",name:"Old Portfolio",objective:"Archive the previous portfolio and preserve useful artifacts.",done:"Artifacts migrated and old site archived.",priority:"Low",due:"2026-08-20",next:"Export old project assets",progress:100,status:"Completed",momentum:"Moving",blocker:"",milestones:[["Archive","2026-08-01","2026-08-20"]]}
+];
+let state=JSON.parse(localStorage.getItem(KEY)||"null")||{projects:seed,events:[
+ {text:"Brain Tumor Segmentation moved to 74%",time:"2h ago"},{text:"SecIoT-FL next action updated",time:"5h ago"},{text:"Old Portfolio completed",time:"Yesterday"}
+],tasks:[
+ {id:"t1",name:"Implement attention gate",project:"Brain Tumor Segmentation",time:"90m",done:false},
+ {id:"t2",name:"Update experiment notes",project:"SecIoT-FL",time:"20m",done:false},
+ {id:"t3",name:"Export baseline benchmark",project:"Brain Tumor Segmentation",time:"35m",done:true},
+ {id:"t4",name:"Design retrieval evaluation set",project:"Agentic RAG System",time:"60m",done:false}
+]};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function pct(n){return Math.max(0,Math.min(100,Number(n)||0))}
+function renderMetrics(){
+ const ps=state.projects, active=ps.filter(p=>p.status==="Active"), stalled=active.filter(p=>p.momentum==="Stalled"), blocked=active.filter(p=>p.blocker);
+ const avg=Math.round(active.reduce((a,p)=>a+p.progress,0)/(active.length||1));
+ $("#metrics").innerHTML=[
+  ["ACTIVE",active.length,"projects in motion",""],["STALLED",stalled.length,"need attention","bad"],["BLOCKED",blocked.length,"have blockers","warn"],["AVG PROGRESS",avg+"%","across active projects","good"],["COMPLETED",ps.filter(p=>p.status==="Completed").length,"shipped projects",""]
+ ].map(x=>`<div class="metric ${x[3]}"><div class="metricLabel">${x[0]}</div><div class="metricValue">${x[1]}</div><div class="metricFoot">${x[2]}</div></div>`).join("")
+}
+function projectCard(p){
+ return `<div class="projectCard">
+  <div class="projectTop"><div><div class="projectName">${esc(p.name)}</div><div class="projectDesc">${esc(p.objective)}</div></div><span class="badge ${p.momentum==="Moving"?"hot":p.momentum==="Slowing"?"slow":"stalled"}">${p.momentum.toUpperCase()}</span></div>
+  <div class="projectBar"><div class="progress"><i style="width:${pct(p.progress)}%"></i></div><span class="pct">${pct(p.progress)}%</span></div>
+  <div class="projectBottom">
+   <div class="nextAction">Next → <strong>${esc(p.next)}</strong></div>
+   <div class="projectActions">
+    <span class="meta">${esc(p.priority)} · ${esc(p.due)}</span>
+    <button class="deleteProject" data-delete-project="${esc(p.id)}" type="button">Delete</button>
+   </div>
+  </div>
+ </div>`
+}
+function renderToday(){
+ const active=state.projects.filter(p=>p.status==="Active"), next=[...active].sort((a,b)=>b.priority.localeCompare(a.priority))[0]||state.projects[0];
+ $("#nextAction").innerHTML=next?`<div class="nextLabel">NEXT ACTION</div><h2>${esc(next.next)}</h2><div class="nextProject">${esc(next.name)} · ${next.priority} priority</div><div class="progress"><i style="width:${pct(next.progress)}%"></i></div><div class="nextMeta"><span>${next.progress}% complete</span><span>Due ${esc(next.due)}</span></div>`:"<div class='empty'>Create your first project.</div>";
+ $("#openNext").onclick=()=>next&&openProject(next);
+ $("#todayTasks").innerHTML=state.tasks.slice(0,5).map(t=>`<label class="task"><input class="check" type="checkbox" data-task="${t.id}" ${t.done?"checked":""}><span class="taskMain"><span class="taskName">${esc(t.name)}</span><span class="taskProject">${esc(t.project)}</span></span><span class="taskTime">${esc(t.time)}</span></label>`).join("");
+ $("#taskCount").textContent=state.tasks.filter(t=>!t.done).length+" open";
+ $$("[data-task]").forEach(c=>c.onchange=()=>{const t=state.tasks.find(x=>x.id===c.dataset.task);t.done=c.checked;state.events.unshift({text:(c.checked?"Completed ":"Reopened ")+t.name,time:"just now"});save();render()});
+ $("#momentum").innerHTML=active.map(p=>`<div class="momentum"><i class="pulse" style="background:${p.momentum==="Moving"?"var(--green)":p.momentum==="Slowing"?"var(--yellow)":"var(--red)"}"></i><div><b>${esc(p.name)}</b><span>${esc(p.momentum)} · ${p.progress}% complete</span></div></div>`).join("")||"<div class='empty'>No active projects.</div>";
+ const blockers=active.filter(p=>p.blocker);$("#blockers").innerHTML=blockers.map(p=>`<div class="blocker"><b>${esc(p.name)}</b><p>${esc(p.blocker)}</p></div>`).join("")||"<div style='color:var(--green);font-size:11px'>No active blockers. Keep moving.</div>";
+ $("#activeProjects").innerHTML=active.slice(0,4).map(projectCard).join("")||"<div class='empty'>No active projects.</div>";
+}
+function renderProjects(){
+ const q=$("#search").value.toLowerCase(), sf=$("#statusFilter").value,mf=$("#momentumFilter").value;
+ const ps=state.projects.filter(p=>(sf==="all"||p.status===sf)&&(mf==="all"||p.momentum===mf)&&[p.name,p.objective,p.next].join(" ").toLowerCase().includes(q));
+ $("#allProjects").innerHTML=ps.map(projectCard).join("")||"<div class='empty'>No projects match.</div>";
+}
+function renderRoadmap(){
+ const ps=state.projects.filter(p=>p.status!=="Completed"), start=new Date("2026-08-01"), end=new Date("2026-12-01"), span=end-start;
+ const months=["AUG","SEP","OCT","NOV","DEC","JAN"];
+ let rows=ps.map(p=>`<div class="roadRow"><div class="roadName">${esc(p.name)}</div><div class="track">${p.milestones.map(m=>{let a=(new Date(m[1])-start)/span*100,b=(new Date(m[2])-start)/span*100;return `<div class="bar" style="left:${Math.max(0,a)}%;width:${Math.max(4,b-a)}%">${esc(m[0])}</div>`}).join("")}</div></div>`).join("");
+ $("#timeline").innerHTML=`<div class="road"><div class="months">${months.map(m=>`<span>${m}</span>`).join("")}</div>${rows||"<div class='empty'>No roadmap items.</div>"}</div>`;
+}
+function renderActivity(){ $("#activity").innerHTML=state.events.slice(0,15).map(e=>`<div class="event"><i class="eventDot"></i><div class="eventText"><b>${esc(e.text)}</b></div><span class="eventTime">${esc(e.time)}</span></div>`).join("")||"<div class='empty'>No activity yet.</div>"}
+function renderInsights(){
+ const done=state.tasks.filter(t=>t.done).length, total=state.tasks.length, active=state.projects.filter(p=>p.status==="Active"), stalled=active.filter(p=>p.momentum==="Stalled").length, blocked=active.filter(p=>p.blocker).length;
+ $("#velocity").innerHTML=`<div style="font:30px var(--mono);font-weight:800">${done}</div><div style="font-size:11px;color:var(--muted);margin:5px 0 16px">completed tasks in current cycle</div><div class="progress"><i style="width:${total?done/total*100:0}%"></i></div><div style="font:10px var(--mono);color:var(--muted)">${total?Math.round(done/total*100):0}% of tracked tasks complete</div>`;
+ const health=Math.max(0,Math.round(100-(stalled*15)-(blocked*10)));
+ $("#health").innerHTML=`<div style="font:42px var(--mono);font-weight:800;color:${health>75?"var(--green)":health>50?"var(--yellow)":"var(--red)"}">${health}</div><div style="font-size:11px;color:var(--muted);margin:4px 0 15px">portfolio health score</div><div class="meta">${active.length} active · ${stalled} stalled · ${blocked} blocked</div>`;
+}
+function render(){
+ renderMetrics();
+ renderToday();
+ renderProjects();
+ renderRoadmap();
+ renderActivity();
+ renderInsights();
+ bindProjectActions();
+ save();
+}
+function switchView(v){$$(".nav").forEach(n=>n.classList.toggle("active",n.dataset.view===v));$$(".view").forEach(x=>x.classList.remove("active"));$("#"+v+"View").classList.add("active")}
+
+function bindProjectActions(){
+
+  $$("[data-delete-project]").forEach(btn=>{
+
+    btn.onclick=e=>{
+
+      e.stopPropagation();
+
+      const id=btn.dataset.deleteProject;
+
+      const project=state.projects.find(
+        p=>p.id===id
+      );
+
+      if(!project) return;
+
+      const confirmed=confirm(
+        `Delete "${project.name}"?\n\nThis will also remove tasks associated with this project.`
+      );
+
+      if(!confirmed) return;
+
+      state.projects=state.projects.filter(
+        p=>p.id!==id
+      );
+
+      state.tasks=state.tasks.filter(
+        t=>t.project!==project.name
+      );
+
+      state.events.unshift({
+        text:"Deleted "+project.name,
+        time:"just now"
+      });
+
+      save();
+      render();
+    };
+
+  });
+}
+
+
+function resetDashboard(){
+
+  const confirmed=confirm(
+    "Reset the Project Tracker?\n\nThis will erase your current project data, tasks and activity and restore the original dashboard state."
+  );
+
+  if(!confirmed) return;
+
+  state={
+    projects:seed.map(p=>({
+      ...p,
+      milestones:p.milestones.map(m=>[...m])
+    })),
+
+    events:[
+      {
+        text:"Brain Tumor Segmentation moved to 74%",
+        time:"2h ago"
+      },
+      {
+        text:"SecIoT-FL next action updated",
+        time:"5h ago"
+      },
+      {
+        text:"Old Portfolio completed",
+        time:"Yesterday"
+      }
+    ],
+
+    tasks:[
+      {
+        id:"t1",
+        name:"Implement attention gate",
+        project:"Brain Tumor Segmentation",
+        time:"90m",
+        done:false
+      },
+      {
+        id:"t2",
+        name:"Update experiment notes",
+        project:"SecIoT-FL",
+        time:"20m",
+        done:false
+      },
+      {
+        id:"t3",
+        name:"Export baseline benchmark",
+        project:"Brain Tumor Segmentation",
+        time:"35m",
+        done:true
+      },
+      {
+        id:"t4",
+        name:"Design retrieval evaluation set",
+        project:"Agentic RAG System",
+        time:"60m",
+        done:false
+      }
+    ]
+  };
+
+  save();
+  render();
+}
+
+function openProject(p){alert(`${p.name}\\n\\nObjective: ${p.objective}\\n\\nNext action: ${p.next}\\n\\nDefinition of done: ${p.done}`)}
+function openModal(){$("#modalBack").classList.add("show");$("#fName").focus()}
+function closeModal(){$("#modalBack").classList.remove("show");$("#projectForm").reset();$("#fProgress").value=0}
+function createProject(e){e.preventDefault();const p={id:"p"+Date.now(),name:$("#fName").value.trim(),objective:$("#fObjective").value.trim(),done:$("#fDone").value.trim(),priority:$("#fPriority").value,due:$("#fDue").value||"No deadline",next:$("#fNext").value.trim()||"Define the next action",progress:pct($("#fProgress").value),status:$("#fStatus").value,momentum:"Moving",blocker:"",milestones:[]};state.projects.unshift(p);state.events.unshift({text:"Created "+p.name,time:"just now"});save();closeModal();render()}
+function commands(){
+ const list=[["Create new project","new"],["Go to today","today"],["Go to projects","projects"],["Go to roadmap","roadmap"],["Go to insights","insights"]];
+ $("#commands").innerHTML=list.map(x=>`<button class="cmd" data-cmd="${x[1]}">${x[0]} <span class="kbd">↵</span></button>`).join("");
+ $$("[data-cmd]").forEach(b=>b.onclick=()=>{if(b.dataset.cmd==="new")openModal();else switchView(b.dataset.cmd);closeCommand()})
+}
+function openCommand(){commands();$("#commandBack").classList.add("show");$("#cmdInput").value="";$("#cmdInput").focus()}
+function closeCommand(){$("#commandBack").classList.remove("show")}
+$("#resetBtn").onclick=resetDashboard;
+$("#newBtn").onclick=openModal;$("#newBtn2").onclick=openModal;$("#closeModal").onclick=closeModal;$("#cancelModal").onclick=closeModal;$("#projectForm").onsubmit=createProject;
+$("#search").oninput=renderProjects;$("#statusFilter").onchange=renderProjects;$("#momentumFilter").onchange=renderProjects;
+$("#theme").onclick=()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==="dark"?"light":"dark";$("#theme").textContent=document.documentElement.dataset.theme==="dark"?"☾":"☀";localStorage.setItem("forge-theme",document.documentElement.dataset.theme)}
+const savedTheme=localStorage.getItem("forge-theme");if(savedTheme)document.documentElement.dataset.theme=savedTheme;
+$$(".nav").forEach(n=>n.onclick=()=>switchView(n.dataset.view));$$("[data-view-go]").forEach(b=>b.onclick=()=>switchView(b.dataset.viewGo));
+$("#commandBack").onclick=e=>{if(e.target.id==="commandBack")closeCommand()};$("#focusBtn").onclick=()=>alert("Focus session: choose the next action above, close distractions, and work for 50 minutes.");
+document.addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openCommand()}if(e.key==="/"&&document.activeElement.tagName!=="INPUT"&&document.activeElement.tagName!=="TEXTAREA"){e.preventDefault();$("#search").focus();switchView("projects")}if(e.key==="Escape"){closeCommand();closeModal()}});
+$("#date").textContent=new Intl.DateTimeFormat(undefined,{weekday:"short",month:"short",day:"numeric",year:"numeric"}).format(new Date());
+render();
+</script>
+
+<script id="forge-loading-script">
+(function(){
+  const boot = document.getElementById("forgeBoot");
+  const status = document.getElementById("bootStatus");
+  const percent = document.getElementById("bootPercent");
+
+  if(!boot || !status || !percent) return;
+
+  const messages = [
+    ["INITIALISING SYSTEM", 12],
+    ["LOADING WORKSPACE", 31],
+    ["RESTORING PROJECT STATE", 57],
+    ["SYNCING CONTROL SURFACE", 79],
+    ["SYSTEM READY", 100]
+  ];
+
+  let i = 0;
+  let started = false;
+
+  function finish(){
+    boot.classList.add("hide");
+    setTimeout(function(){
+      if(boot && boot.parentNode) boot.remove();
+    }, 800);
+  }
+
+  function step(){
+    if(i < messages.length){
+      status.textContent = messages[i][0];
+      percent.textContent = String(messages[i][1]).padStart(2,"0") + "%";
+      i++;
+      setTimeout(step, i === messages.length ? 320 : 240);
+    }else{
+      finish();
+    }
+  }
+
+  function start(){
+    if(started) return;
+    started = true;
+    setTimeout(step, 120);
+  }
+
+  /* Start independently of window.onload.
+     This prevents the boot screen from getting stuck when the
+     HTML is opened through a local/file/sandbox viewer. */
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", start, {once:true});
+  }else{
+    start();
+  }
+
+  /* Absolute failsafe: the dashboard must never remain hidden. */
+  setTimeout(function(){
+    if(!started) start();
+    if(boot && !boot.classList.contains("hide")) finish();
+  }, 5000);
+})();
+</script>
+
+</body>
+</html>
