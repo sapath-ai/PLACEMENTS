@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GPU & PARALLEL COMPUTING // Career Operations</title>
+
+<style>
+:root{
+  --bg:#080b0e;
+  --surface:#10151a;
+  --surface2:#151b21;
+  --line:#293139;
+  --text:#f0eee8;
+  --muted:#929ba5;
+  --dim:#626c76;
+
+  --accent:#ff8a24;
+  --accent2:#ffb15c;
+  --blue:#6fa7ff;
+  --green:#4ee0a3;
+
+  --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  font-family:var(--sans);
+
+  background:
+    radial-gradient(circle at 82% 0%,rgba(255,138,36,.10),transparent 30%),
+    radial-gradient(circle at 8% 38%,rgba(111,167,255,.045),transparent 27%),
+    var(--bg);
+
+  -webkit-font-smoothing:antialiased;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.16;
+
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+
+  background-size:48px 48px;
+
+  mask-image:linear-gradient(to bottom,black,transparent 80%);
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+a:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:4px;
+}
+
+.shell{
+  width:min(1180px,calc(100% - 40px));
+  margin:auto;
+  padding:28px 0 75px;
+}
+
+
+/* TOPBAR */
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+
+  padding-bottom:20px;
+  border-bottom:1px solid var(--line);
+}
+
+.back{
+  color:var(--dim);
+
+  font:9px var(--mono);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.back:hover{
+  color:var(--text);
+}
+
+.crumb{
+  color:var(--dim);
+
+  font:9px var(--mono);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+
+/* HERO */
+
+.hero{
+  padding:78px 0 65px;
+  border-bottom:1px solid var(--line);
+}
+
+.eyebrow{
+  display:flex;
+  align-items:center;
+  gap:11px;
+
+  color:var(--accent);
+
+  font:700 9px var(--mono);
+  letter-spacing:.17em;
+  text-transform:uppercase;
+}
+
+.eyebrow::before{
+  content:"";
+  width:30px;
+  height:1px;
+  background:var(--accent);
+}
+
+h1{
+  max-width:900px;
+
+  margin:22px 0 0;
+
+  font-size:clamp(46px,7.5vw,88px);
+  line-height:.9;
+  letter-spacing:-.075em;
+}
+
+.hero-copy{
+  max-width:760px;
+
+  margin:27px 0 0;
+
+  color:var(--muted);
+
+  font-size:14px;
+  line-height:1.8;
+}
+
+.meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+
+  margin-top:25px;
+}
+
+.pill{
+  padding:7px 10px;
+
+  border:1px solid var(--line);
+
+  color:var(--muted);
+
+  font:8px var(--mono);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.pill.live{
+  color:var(--green);
+  border-color:rgba(78,224,163,.25);
+}
+
+
+/* SECTION */
+
+.section{
+  padding-top:48px;
+}
+
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px;
+
+  margin-bottom:17px;
+}
+
+.section-index{
+  color:var(--accent);
+
+  font:700 9px var(--mono);
+  letter-spacing:.15em;
+}
+
+.section-title{
+  margin:7px 0 0;
+
+  font-size:24px;
+  letter-spacing:-.04em;
+}
+
+.section-note{
+  color:var(--dim);
+
+  font:8px var(--mono);
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+
+
+/* RESOURCE GRID */
+
+.resource-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.resource{
+  position:relative;
+
+  display:flex;
+  flex-direction:column;
+
+  min-height:340px;
+
+  padding:28px;
+
+  border:1px solid var(--line);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,138,36,.075),
+      rgba(16,21,26,.98) 52%
+    );
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    background .2s ease;
+}
+
+.resource::before{
+  content:"";
+
+  position:absolute;
+  top:0;
+  left:0;
+
+  width:100%;
+  height:2px;
+
+  background:var(--accent);
+}
+
+.resource:hover{
+  transform:translateY(-4px);
+
+  border-color:rgba(255,138,36,.45);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,138,36,.12),
+      rgba(16,21,26,.98) 52%
+    );
+}
+
+.resource-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.resource-number{
+  color:var(--dim);
+
+  font:9px var(--mono);
+  letter-spacing:.1em;
+}
+
+.resource-status{
+  display:flex;
+  align-items:center;
+  gap:7px;
+
+  color:var(--green);
+
+  font:8px var(--mono);
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+.resource-status::before{
+  content:"";
+
+  width:5px;
+  height:5px;
+
+  border-radius:50%;
+  background:currentColor;
+}
+
+.resource-icon{
+  margin-top:45px;
+  font-size:31px;
+}
+
+.resource-kicker{
+  margin-top:18px;
+
+  color:var(--accent);
+
+  font:700 9px var(--mono);
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+
+.resource h2{
+  margin:8px 0 0;
+
+  font-size:27px;
+  letter-spacing:-.05em;
+}
+
+.resource p{
+  max-width:520px;
+
+  margin:13px 0 0;
+
+  color:var(--muted);
+
+  font-size:12px;
+  line-height:1.7;
+}
+
+.resource-bottom{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+
+  margin-top:auto;
+  padding-top:30px;
+}
+
+.open{
+  font:700 9px var(--mono);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.arrow{
+  color:var(--accent);
+
+  font:18px var(--mono);
+
+  transition:transform .2s ease;
+}
+
+.resource:hover .arrow{
+  transform:translateX(5px);
+}
+
+
+/* DOMAIN MAP */
+
+.map{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+.map-item{
+  min-height:150px;
+  padding:23px;
+
+  border-right:1px solid var(--line);
+}
+
+.map-item:last-child{
+  border-right:0;
+}
+
+.map-number{
+  color:var(--blue);
+
+  font:8px var(--mono);
+  letter-spacing:.12em;
+}
+
+.map-title{
+  margin-top:13px;
+
+  font-size:14px;
+  font-weight:700;
+}
+
+.map-text{
+  margin-top:7px;
+
+  color:var(--muted);
+
+  font-size:10px;
+  line-height:1.6;
+}
+
+
+/* FUTURE */
+
+.future{
+  position:relative;
+
+  padding:27px;
+
+  border:1px solid var(--line);
+
+  background:var(--surface);
+
+  opacity:.65;
+}
+
+.future::before{
+  content:"";
+
+  position:absolute;
+  top:0;
+  left:0;
+
+  width:100%;
+  height:1px;
+
+  background:var(--line);
+}
+
+.future-label{
+  color:var(--dim);
+
+  font:8px var(--mono);
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+
+.future h2{
+  margin:9px 0 0;
+
+  font-size:22px;
+  letter-spacing:-.04em;
+}
+
+.future p{
+  max-width:700px;
+
+  margin:11px 0 0;
+
+  color:var(--muted);
+
+  font-size:11px;
+  line-height:1.7;
+}
+
+
+/* FOOTER */
+
+.footer{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+
+  margin-top:65px;
+  padding-top:20px;
+
+  border-top:1px solid var(--line);
+
+  color:var(--dim);
+
+  font:8px var(--mono);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+  .resource-grid{
+    grid-template-columns:1fr;
+  }
+
+  .map{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .map-item:nth-child(2){
+    border-right:0;
+  }
+
+  .map-item:nth-child(-n+2){
+    border-bottom:1px solid var(--line);
+  }
+
+}
+
+@media(max-width:650px){
+
+  .shell{
+    width:calc(100% - 26px);
+    padding-top:18px;
+  }
+
+  .crumb{
+    display:none;
+  }
+
+  .hero{
+    padding:55px 0 45px;
+  }
+
+  .hero-copy{
+    font-size:13px;
+  }
+
+  .section-head{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .map{
+    grid-template-columns:1fr;
+  }
+
+  .map-item{
+    border-right:0;
+    border-bottom:1px solid var(--line);
+  }
+
+  .map-item:last-child{
+    border-bottom:0;
+  }
+
+  .footer{
+    flex-direction:column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="shell">
+
+
+  <!-- TOPBAR -->
+
+  <header class="topbar">
+
+    <a href="../" class="back">
+      ← Career Operations
+    </a>
+
+    <span class="crumb">
+      PLACEMENTS / GPU & PARALLEL COMPUTING
+    </span>
+
+  </header>
+
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="eyebrow">
+      Accelerated Computing Engineering
+    </div>
+
+    <h1>
+      GPU &<br>
+      PARALLEL COMPUTING.
+    </h1>
+
+    <p class="hero-copy">
+      A dedicated engineering domain for GPU programming,
+      kernel engineering, parallel computation, accelerator
+      performance, and the systems that make modern AI compute.
+    </p>
+
+    <div class="meta">
+
+      <span class="pill live">
+        02 active resources
+      </span>
+
+      <span class="pill">
+        Expandable system
+      </span>
+
+      <span class="pill">
+        GPU · Kernels · Parallelism
+      </span>
+
+    </div>
+
+  </section>
+
+
+  <!-- ACTIVE RESOURCES -->
+
+  <section class="section">
+
+    <div class="section-head">
+
+      <div>
+
+        <div class="section-index">
+          01 / ACTIVE RESOURCES
+        </div>
+
+        <h2 class="section-title">
+          Current Systems
+        </h2>
+
+      </div>
+
+      <div class="section-note">
+        Accelerated computing infrastructure
+      </div>
+
+    </div>
+
+
+    <div class="resource-grid">
+
+
+      <!-- GPU KERNEL ENGINEERING -->
+
+      <a
+        href="GPU-KERNEL-ENGINEERING/"
+        class="resource"
+      >
+
+        <div class="resource-top">
+
+          <span class="resource-number">
+            GPU / 01
+          </span>
+
+          <span class="resource-status">
+            Available
+          </span>
+
+        </div>
+
+        <div class="resource-icon">
+          ⚙️
+        </div>
+
+        <div class="resource-kicker">
+          Low-Level GPU Engineering
+        </div>
+
+        <h2>
+          GPU Kernel Engineering
+        </h2>
+
+        <p>
+          Engineering roadmap covering GPU architecture,
+          kernel programming, CUDA-level execution,
+          memory behavior, performance, optimization,
+          and low-level accelerator engineering.
+        </p>
+
+        <div class="resource-bottom">
+
+          <span class="open">
+            Open roadmap
+          </span>
+
+          <span class="arrow">
+            →
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <!-- LEETGPU -->
+
+      <a
+        href="LEETGPU/"
+        class="resource"
+      >
+
+        <div class="resource-top">
+
+          <span class="resource-number">
+            GPU / 02
+          </span>
+
+          <span class="resource-status">
+            Available
+          </span>
+
+        </div>
+
+        <div class="resource-icon">
+          🧩
+        </div>
+
+        <div class="resource-kicker">
+          GPU Problem Solving
+        </div>
+
+        <h2>
+          LeetGPU
+        </h2>
+
+        <p>
+          A dedicated problem-solving track for practicing
+          GPU programming and developing practical intuition
+          through implementation-focused challenges.
+        </p>
+
+        <div class="resource-bottom">
+
+          <span class="open">
+            Open roadmap
+          </span>
+
+          <span class="arrow">
+            →
+          </span>
+
+        </div>
+
+      </a>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- DOMAIN MAP -->
+
+  <section class="section">
+
+    <div class="section-head">
+
+      <div>
+
+        <div class="section-index">
+          02 / DOMAIN MAP
+        </div>
+
+        <h2 class="section-title">
+          Compute Engineering Stack
+        </h2>
+
+      </div>
+
+      <div class="section-note">
+        Expandable architecture
+      </div>
+
+    </div>
+
+
+    <div class="map">
+
+      <div class="map-item">
+
+        <div class="map-number">
+          01 / ARCHITECTURE
+        </div>
+
+        <div class="map-title">
+          GPU Architecture
+        </div>
+
+        <div class="map-text">
+          Hardware execution models, memory hierarchy,
+          SMs, warps, scheduling, and accelerator behavior.
+        </div>
+
+      </div>
+
+
+      <div class="map-item">
+
+        <div class="map-number">
+          02 / KERNELS
+        </div>
+
+        <div class="map-title">
+          Kernel Engineering
+        </div>
+
+        <div class="map-text">
+          Kernel design, synchronization, memory access,
+          register behavior, tiling, and optimization.
+        </div>
+
+      </div>
+
+
+      <div class="map-item">
+
+        <div class="map-number">
+          03 / PARALLELISM
+        </div>
+
+        <div class="map-title">
+          Parallel Computing
+        </div>
+
+        <div class="map-text">
+          Parallel algorithms, SIMD, SIMT, concurrency,
+          decomposition, synchronization, and scaling.
+        </div>
+
+      </div>
+
+
+      <div class="map-item">
+
+        <div class="map-number">
+          04 / PERFORMANCE
+        </div>
+
+        <div class="map-title">
+          Performance Engineering
+        </div>
+
+        <div class="map-text">
+          Profiling, bottleneck analysis, throughput,
+          latency, memory efficiency, and optimization.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FUTURE -->
+
+  <section class="section">
+
+    <div class="section-head">
+
+      <div>
+
+        <div class="section-index">
+          03 / EXPANSION
+        </div>
+
+        <h2 class="section-title">
+          Future Resources
+        </h2>
+
+      </div>
+
+      <div class="section-note">
+        Architecture ready
+      </div>
+
+    </div>
+
+
+    <div class="future">
+
+      <div class="future-label">
+        Reserved expansion layer
+      </div>
+
+      <h2>
+        More compute systems can be connected here.
+      </h2>
+
+      <p>
+        CUDA, Triton, HPC, compiler engineering, accelerator
+        architecture, inference optimization, distributed
+        computing, and additional GPU engineering resources
+        can be added without changing this hub architecture.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+
+    <span>
+      GPU & PARALLEL COMPUTING
+    </span>
+
+    <span>
+      CAREER // OPERATIONS
+    </span>
+
+  </footer>
+
+</div>
+
+</body>
+</html>
