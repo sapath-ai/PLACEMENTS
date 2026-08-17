@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reproduction Roadmap — Sheet 01 · Rev 2.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070A0F;
+    --bg-2:#0A0F17;
+    --panel:#0D131D;
+    --panel-2:#111A26;
+    --panel-3:#151F2D;
+    --grid:#141E2D;
+    --line:#243247;
+    --line-bright:#344763;
+    --text:#EDF3FA;
+    --text-muted:#8998AE;
+    --text-faint:#526178;
+    --cyan:#58E1FF;
+    --cyan-dim:#245768;
+    --violet:#A78BFA;
+    --violet-dim:#4B3D72;
+    --gold:#F5B83D;
+    --gold-dim:#664A1C;
+    --orange:#FF8A4C;
+    --danger:#F06A5B;
+    --green:#66D9A6;
+    --radius:4px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 15% -10%, rgba(88,225,255,.075), transparent 30%),
+      radial-gradient(circle at 90% 15%, rgba(167,139,250,.055), transparent 28%),
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0/40px 40px,
+      var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--trace);}
+  ::selection{background:var(--gold-dim); color:var(--text);}
+  :focus-visible{outline:2px solid var(--trace); outline-offset:2px;}
+
+  .display{font-family:'Space Grotesk', sans-serif;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  .wrap{max-width:980px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- TITLE BLOCK ---------- */
+  .sheet{
+    border-left:1px solid var(--line);
+    border-right:1px solid var(--line);
+    margin:0 auto;
+    max-width:1080px;
+    background:rgba(7,10,15,.72);
+    box-shadow:0 0 80px rgba(0,0,0,.25);
+  }
+  .titleblock{
+    position:relative;
+    padding:42px 28px 26px;
+    border-bottom:1px solid var(--line);
+    background:
+      linear-gradient(135deg,rgba(88,225,255,.045),transparent 42%),
+      linear-gradient(315deg,rgba(167,139,250,.035),transparent 45%),
+      var(--bg-2);
+    overflow:hidden;
+  }
+  .titleblock::after{
+    content:'AI SYSTEMS / GPU / HARDWARE';
+    position:absolute;
+    right:28px;
+    bottom:12px;
+    font:10px 'IBM Plex Mono',monospace;
+    letter-spacing:.14em;
+    color:var(--text-faint);
+    opacity:.7;
+  }
+  .tb-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:16px; flex-wrap:wrap;
+  }
+  .tb-eyebrow{
+    font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--trace); margin-bottom:10px;
+  }
+  h1.title{
+    font-size:clamp(34px,5.2vw,56px);
+    font-weight:600; margin:0 0 6px; letter-spacing:-0.01em;
+  }
+  .tb-sub{color:var(--text-muted); max-width:650px; font-size:15px; margin:0;}
+  .tb-meta{
+    display:grid; grid-template-columns:repeat(2,auto); gap:2px 22px;
+    font-size:11px; color:var(--text-faint); text-align:right;
+  }
+  .tb-meta div{white-space:nowrap;}
+  .tb-meta span{color:var(--text-muted);}
+  .tb-stats{
+    display:flex; gap:0; margin-top:28px; border:1px solid var(--line);
+    border-radius:var(--radius); overflow:hidden;
+  }
+  .tb-stat{
+    flex:1; padding:12px 16px; border-right:1px solid var(--line);
+  }
+  .tb-stat:last-child{border-right:none;}
+  .tb-stat .n{font-family:'Space Grotesk'; font-size:24px; font-weight:600; color:var(--cyan);}
+  .tb-stat .l{font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); margin-top:2px;}
+
+  nav.jump{
+    position:sticky; top:0; z-index:20; display:flex; gap:18px; padding:11px 28px; border-bottom:1px solid var(--line);
+    font-size:12px; letter-spacing:.03em; flex-wrap:wrap; background:rgba(13,19,29,.94); backdrop-filter:blur(10px);
+  }
+  nav.jump a{text-decoration:none; color:var(--text-muted);}
+  nav.jump a:hover{color:var(--trace);}
+  nav.jump .dot{color:var(--text-faint);}
+
+  section{padding:58px 28px; border-bottom:1px solid var(--line);}
+  .sec-head{margin-bottom:28px;}
+  .sec-eyebrow{font:10px 'IBM Plex Mono',monospace; letter-spacing:.18em; text-transform:uppercase; color:var(--cyan); margin-bottom:9px;}
+  .sec-title{font-size:26px; font-weight:600; margin:0 0 10px;}
+  .sec-desc{color:var(--text-muted); max-width:620px; font-size:14.5px;}
+
+  /* ---------- LAYER INDEX (all 58) ---------- */
+  .layer{
+    border:1px solid var(--line); border-radius:var(--radius);
+    margin-bottom:10px; background:linear-gradient(90deg,rgba(13,19,29,.98),rgba(13,19,29,.82)); overflow:hidden;
+    transition:border-color .18s ease, transform .18s ease;
+  }
+  .layer:hover{border-color:var(--line-bright);}
+  .layer-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 18px; cursor:pointer; user-select:none; gap:12px;
+  }
+  .layer-head:hover{background:var(--panel-2);}
+  .layer-head-left{display:flex; align-items:center; gap:14px;}
+  .layer-num{
+    font-family:'IBM Plex Mono'; font-size:11px; color:var(--bg);
+    background:var(--cyan); padding:3px 7px; border-radius:2px; font-weight:600;
+  }
+  .layer-name{font-weight:600; font-size:15.5px;}
+  .layer-count{font-family:'IBM Plex Mono'; font-size:11px; color:var(--text-faint);}
+  .layer-chevron{
+    color:var(--text-faint); transition:transform .18s ease; font-size:12px;
+  }
+  .layer.open .layer-chevron{transform:rotate(90deg); color:var(--trace);}
+  .layer-body{
+    max-height:0; overflow:hidden; transition:max-height .25s ease;
+    border-top:1px solid transparent;
+  }
+  .layer.open .layer-body{border-top:1px solid var(--line);}
+  .paper{
+    display:grid; grid-template-columns:28px 1fr auto; gap:12px;
+    padding:12px 18px; align-items:start;
+    border-bottom:1px solid var(--grid);
+    font-size:13.5px;
+  }
+  .paper:last-child{border-bottom:none;}
+  .paper.critical{background:linear-gradient(90deg, rgba(245,184,61,.085), transparent 52%);}
+  .paper-idx{font-family:'IBM Plex Mono'; color:var(--text-faint); font-size:12px; padding-top:1px;}
+  .paper-title{font-weight:500;}
+  .paper-meta{color:var(--text-muted); font-size:12.5px; margin-top:2px;}
+  .paper-flag{
+    font-family:'IBM Plex Mono'; font-size:10px; color:var(--gold);
+    border:1px solid var(--gold-dim); padding:2px 6px; border-radius:2px;
+    white-space:nowrap; height:fit-content;
+  }
+
+  /* ---------- CRITICAL PATH ---------- */
+  .path{position:relative; padding-left:42px;}
+  .path::before{
+    content:''; position:absolute; left:14px; top:6px; bottom:6px;
+    width:1px; background:linear-gradient(var(--gold), var(--violet), var(--cyan));
+    opacity:.35;
+  }
+  .phase{margin-bottom:30px;}
+  .phase-label{
+    font-family:'IBM Plex Mono'; font-size:11px; color:var(--text-faint);
+    letter-spacing:.08em; text-transform:uppercase; margin:0 0 14px 0;
+  }
+  .node{
+    position:relative; margin-bottom:16px; padding:16px 18px;
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  }
+  .node::before{
+    content:''; position:absolute; left:-34px; top:20px;
+    width:10px; height:10px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--gold); box-shadow:0 0 12px rgba(245,184,61,.16);
+  }
+  .node-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;}
+  .node-num{font-family:'IBM Plex Mono'; color:var(--gold); font-size:12px; margin-right:8px;}
+  .node-title{font-weight:600; font-size:15px; display:inline;}
+  .node-tier{font-family:'IBM Plex Mono'; font-size:10.5px; color:var(--trace); border:1px solid var(--trace-dim); padding:2px 7px; border-radius:2px; white-space:nowrap;}
+  .node-task{color:var(--text-muted); font-size:13.5px; margin-top:8px;}
+  .ext-tag{
+    display:inline-flex; align-items:center; gap:5px; margin-top:10px;
+    font-family:'IBM Plex Mono'; font-size:10.5px; color:var(--gold);
+    background:rgba(242,177,56,.08); border:1px solid var(--gold-dim);
+    padding:3px 8px; border-radius:2px;
+  }
+
+  /* ---------- BEYOND REPRODUCTION ---------- */
+  .protocol{counter-reset:step; margin:0; padding:0; list-style:none;}
+  .protocol li{
+    counter-increment:step; position:relative; padding:14px 0 14px 46px;
+    border-bottom:1px solid var(--grid); font-size:14px; color:var(--text);
+  }
+  .protocol li:last-child{border-bottom:none;}
+  .protocol li::before{
+    content:counter(step);
+    position:absolute; left:0; top:12px;
+    width:28px; height:28px; border-radius:50%;
+    border:1px solid var(--trace-dim); color:var(--trace);
+    font-family:'IBM Plex Mono'; font-size:12px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .protocol strong{color:var(--text); font-weight:600;}
+  .protocol .li-sub{color:var(--text-muted); font-size:13px; margin-top:4px;}
+
+  .experiments{display:grid; gap:14px; margin-top:28px; grid-template-columns:repeat(auto-fit, minmax(260px,1fr));}
+  .exp-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:18px; position:relative; overflow:hidden;
+  }
+  .exp-card::before{
+    content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--gold);
+  }
+  .exp-label{font-family:'IBM Plex Mono'; font-size:10.5px; color:var(--gold); letter-spacing:.06em; margin-bottom:8px;}
+  .exp-title{font-weight:600; font-size:14.5px; margin-bottom:8px;}
+  .exp-q{color:var(--text-muted); font-size:13px;}
+
+  .callout{
+    border:1px solid var(--trace-dim); background:rgba(79,209,197,.05);
+    border-radius:var(--radius); padding:18px 20px; margin-top:28px; font-size:14px;
+    color:var(--text-muted);
+  }
+  .callout strong{color:var(--text);}
+
+  footer{padding:32px 28px; text-align:center; font-size:11.5px; color:var(--text-faint); font-family:'IBM Plex Mono';}
+
+  @media (max-width:760px){
+    .titleblock::after{display:none;}
+    .tb-stats{margin-top:22px;}
+    .stack-ribbon{line-height:1.9;}
+  }
+  @media (max-width:640px){
+    .tb-top{flex-direction:column;}
+    .tb-meta{text-align:left;}
+    .tb-stats{flex-wrap:wrap;}
+    .tb-stat{flex:1 1 45%; border-bottom:1px solid var(--line);}
+    .paper{grid-template-columns:20px 1fr; }
+    .paper-flag{grid-column:1/-1;}
+  }
+
+  /* ---------- 2026 FRONTIER EXTENSIONS ---------- */
+  .stack-ribbon{
+    display:flex; flex-wrap:wrap; align-items:center; gap:7px 9px;
+    margin:18px 0 26px; padding:11px 13px;
+    border:1px solid var(--line); background:rgba(7,10,15,.48);
+    font:9.5px 'IBM Plex Mono',monospace; letter-spacing:.08em; color:var(--text-muted);
+  }
+  .stack-ribbon span{color:var(--cyan);}
+  .stack-ribbon span:last-child{color:var(--violet);}
+  .stack-ribbon b{font-weight:400;color:var(--text-faint);}
+  .frontier-grid{display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+  .frontier-card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; position:relative;}
+  .frontier-card:hover{background:var(--panel-2);}
+  .frontier-card .fc-kicker{font-family:'IBM Plex Mono'; font-size:10px; letter-spacing:.08em; color:var(--gold); text-transform:uppercase; margin-bottom:7px;}
+  .frontier-card .fc-title{font-weight:600; font-size:15px; margin-bottom:7px;}
+  .frontier-card .fc-desc{color:var(--text-muted); font-size:13px; line-height:1.5;}
+  .frontier-card .fc-items{margin:11px 0 0; padding-left:18px; color:var(--text-muted); font-size:12.5px;}
+  .frontier-card .fc-items li{margin:3px 0;}
+  .frontier-card .fc-priority{display:inline-block; margin-top:12px; font-family:'IBM Plex Mono'; font-size:10px; color:var(--trace); border:1px solid var(--trace-dim); padding:3px 7px; border-radius:2px;}
+  .frontier-note{margin-top:20px; border:1px solid var(--gold-dim); background:rgba(242,177,56,.045); border-radius:var(--radius); padding:16px 18px; color:var(--text-muted); font-size:13px;}
+  .frontier-note strong{color:var(--text);}
+
+
+  /* ---------- FRONTIER VISUAL IDENTITY ---------- */
+  #frontier{
+    position:relative;
+    background:
+      radial-gradient(circle at 50% 0%,rgba(167,139,250,.055),transparent 42%),
+      linear-gradient(180deg,rgba(13,19,29,.5),transparent);
+  }
+  #frontier::before{
+    content:'FRONTIER LAYER / 2026';
+    display:block;
+    font:10px 'IBM Plex Mono',monospace;
+    letter-spacing:.18em;
+    color:var(--violet);
+    margin-bottom:18px;
+  }
+  .frontier-card{
+    border-color:#302D49;
+    background:linear-gradient(145deg,rgba(17,22,34,.98),rgba(13,19,29,.92));
+    box-shadow:inset 0 1px 0 rgba(167,139,250,.04);
+  }
+  .frontier-card:hover{
+    border-color:var(--violet-dim);
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
+  }
+  .frontier-card .fc-kicker{color:var(--violet);}
+  .frontier-card .fc-priority{color:var(--violet);border-color:var(--violet-dim);}
+  .frontier-note{border-color:var(--violet-dim);background:rgba(167,139,250,.035);}
+
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <div class="titleblock">
+    <div class="tb-top">
+      <div>
+        <div class="tb-eyebrow">Sheet 01 / Reproduction Program · 2026 Frontier Extension</div>
+        <h1 class="title display">The Reproduction Roadmap</h1>
+        <p class="tb-sub">Full index, critical path, and extension protocol for going from reproducer to original contributor.</p>
+      </div>
+      <div class="tb-meta mono">
+        <div><span>Layers</span></div><div id="metaLayers">15</div>
+        <div><span>Research artifacts</span></div><div id="metaArtifacts">86</div>
+        <div><span>Critical path</span></div><div id="metaCritical">22</div>
+        <div><span>Rev</span></div><div>2.0</div>
+      </div>
+    </div>
+    <div class="tb-stats">
+      <div class="tb-stat"><div class="n" id="statArtifacts">86</div><div class="l">research artifacts</div></div>
+      <div class="tb-stat"><div class="n" id="statCritical">22</div><div class="l">critical path nodes</div></div>
+      <div class="tb-stat"><div class="n" id="statLayers">15</div><div class="l">research layers</div></div>
+      <div class="tb-stat"><div class="n">7</div><div class="l">2026 frontier additions</div></div>
+    </div>
+  </div>
+
+  <nav class="jump mono">
+    <a href="#index">Full index</a><span class="dot">·</span>
+    <a href="#frontier">2026 frontier</a><span class="dot">·</span>
+    <a href="#path">Critical path</a><span class="dot">·</span>
+    <a href="#beyond">Beyond reproduction</a>
+  </nav>
+
+  <!-- ============ FULL INDEX ============ -->
+  <section id="index">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Index</div>
+      <h2 class="sec-title display">All 58, by layer</h2>
+      <p class="sec-desc">Every paper on the roadmap, grouped the same way a chip design stacks layers — software behavior on top, silicon at the bottom. Amber-flagged entries sit on the critical path below.</p>
+    </div>
+
+    <div id="layers"></div>
+  </section>
+
+
+  <!-- ============ 2026 FRONTIER EXTENSIONS ============ -->
+  <section id="frontier">
+    <div class="sec-head">
+      <div class="sec-eyebrow">2026 Frontier</div>
+      <h2 class="sec-title display">What sits on top of the foundation</h2>
+    <div class="stack-ribbon" aria-label="Research stack">
+      <span>MODEL</span><b>→</b><span>SYSTEM</span><b>→</b><span>COMPILER</span><b>→</b><span>KERNEL</span><b>→</b><span>MEMORY</span><b>→</b><span>GPU</span><b>→</b><span>ACCELERATOR</span><b>→</b><span>SILICON</span>
+    </div>
+
+      <p class="sec-desc">The original 58-artifact curriculum remains the foundation. This extension layer adds the current systems frontier without replacing the historical lineage: sparse MoE systems, modern serving and KV-cache infrastructure, ML compilers and runtimes, advanced GPU kernel engineering, distributed inference, AI–hardware co-design, and AI-for-systems.</p>
+    </div>
+
+    <div class="frontier-grid">
+      <article class="frontier-card">
+        <div class="fc-kicker">F01 · Model Systems</div>
+        <div class="fc-title">Mixture-of-Experts Systems</div>
+        <div class="fc-desc">Move from the original Switch Transformer idea to the systems problems created by sparse activation at scale.</div>
+        <ul class="fc-items">
+          <li>expert routing and load balancing</li>
+          <li>expert parallelism and all-to-all</li>
+          <li>token dispatch and capacity</li>
+          <li>MoE inference and hardware implications</li>
+        </ul>
+        <span class="fc-priority">ESSENTIAL</span>
+      </article>
+
+      <article class="frontier-card">
+        <div class="fc-kicker">F02 · Serving</div>
+        <div class="fc-title">Modern LLM Serving + KV Cache</div>
+        <div class="fc-desc">Extend PagedAttention into the current memory- and scheduling-centric serving stack.</div>
+        <ul class="fc-items">
+          <li>prefill/decode disaggregation</li>
+          <li>prefix caching and chunked prefill</li>
+          <li>KV compression, quantization and eviction</li>
+          <li>offload, placement, migration and SLO-aware scheduling</li>
+        </ul>
+        <span class="fc-priority">ESSENTIAL</span>
+      </article>
+
+      <article class="frontier-card">
+        <div class="fc-kicker">F03 · Compilation</div>
+        <div class="fc-title">ML Compilers &amp; Runtimes</div>
+        <div class="fc-desc">Fill the missing compiler layer between model code and hand-written GPU kernels.</div>
+        <ul class="fc-items">
+          <li>torch.compile / TorchDynamo / FX</li>
+          <li>TorchInductor and graph lowering</li>
+          <li>MLIR and dialect/lowering concepts</li>
+          <li>XLA / OpenXLA, TVM and runtime execution</li>
+          <li>fusion, scheduling, autotuning and code generation</li>
+        </ul>
+        <span class="fc-priority">ESSENTIAL</span>
+      </article>
+
+      <article class="frontier-card">
+        <div class="fc-kicker">F04 · GPU</div>
+        <div class="fc-title">Advanced GPU Kernel Engineering</div>
+        <div class="fc-desc">Take CUDA + Triton from fundamentals to the techniques currently required for serious kernel work.</div>
+        <ul class="fc-items">
+          <li>register allocation, occupancy and launch overhead</li>
+          <li>warp specialization and persistent kernels</li>
+          <li>TMA, WGMMA, WMMA and asynchronous pipelines</li>
+          <li>PTX/SASS and Nsight profiling</li>
+          <li>FP8/BF16/INT8 and kernel fusion</li>
+        </ul>
+        <span class="fc-priority">ESSENTIAL</span>
+      </article>
+
+      <article class="frontier-card">
+        <div class="fc-kicker">F05 · Distributed Systems</div>
+        <div class="fc-title">Distributed &amp; Disaggregated Inference</div>
+        <div class="fc-desc">Add the inference-side counterpart to the roadmap's existing distributed-training material.</div>
+        <ul class="fc-items">
+          <li>tensor, pipeline, expert and context parallelism</li>
+          <li>RDMA / InfiniBand / NVLink-class fabrics</li>
+          <li>prefill/decode separation</li>
+          <li>communication/computation overlap</li>
+        </ul>
+        <span class="fc-priority">HIGH VALUE</span>
+      </article>
+
+      <article class="frontier-card">
+        <div class="fc-kicker">F06 · Hardware Co-Design</div>
+        <div class="fc-title">AI × Hardware Co-Design</div>
+        <div class="fc-desc">Connect model architecture to operators, memory behavior, dataflow, accelerator architecture and silicon.</div>
+        <ul class="fc-items">
+          <li>hardware-aware model design</li>
+          <li>hardware-aware quantization and sparsity</li>
+          <li>memory-centric and specialized accelerators</li>
+          <li>interconnect, chiplets and energy-per-token</li>
+        </ul>
+        <span class="fc-priority">HIGH VALUE</span>
+      </article>
+
+      <article class="frontier-card">
+        <div class="fc-kicker">F07 · Frontier Systems</div>
+        <div class="fc-title">AI-for-Systems</div>
+        <div class="fc-desc">Add the emerging closed loop where AI agents generate, benchmark, optimize and deploy systems code.</div>
+        <ul class="fc-items">
+          <li>LLM-generated GPU kernels</li>
+          <li>agentic compiler and performance optimization</li>
+          <li>benchmark-driven kernel search</li>
+          <li>automatic debugging and deployment validation</li>
+        </ul>
+        <span class="fc-priority">FRONTIER ELECTIVE</span>
+      </article>
+    </div>
+
+    <div class="frontier-note">
+      <strong>How to use this layer:</strong> these additions are not a replacement for the original lineage. They are the modern layer that should be studied after the corresponding foundations are understood. The intended progression is
+      <strong>model → workload → serving/compiler → kernel → memory/interconnect → accelerator → silicon</strong>.
+    </div>
+  </section>
+
+  <!-- ============ CRITICAL PATH ============ -->
+  <section id="path">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Critical Path</div>
+      <h2 class="sec-title display">15 reproductions, 5 phases</h2>
+      <p class="sec-desc">Depth over completeness. Every node spans a different layer on purpose — the goal is range, not just a stack of similar papers. Three nodes are flagged as extension candidates: the ones most likely to produce a genuinely original finding rather than a clean rerun.</p>
+    </div>
+
+    <div class="path" id="pathList"></div>
+  </section>
+
+  <!-- ============ BEYOND REPRODUCTION ============ -->
+  <section id="beyond">
+    <div class="sec-head">
+      <div class="sec-eyebrow">The Actual Jump</div>
+      <h2 class="sec-title display">Beyond reproduction</h2>
+      <p class="sec-desc">Reproduction is necessary infrastructure. It is not the thing that gets you into the room. What does: one or two reproductions that turn into something with a genuinely original finding, sitting on top of enough breadth that you don't read as one-dimensional. Below is the protocol for making that jump, and three concrete candidates pulled from the critical path.</p>
+    </div>
+
+    <ol class="protocol">
+      <li><strong>Choose a reproduction pair.</strong>
+        <div class="li-sub">Two things you've already built that share a variable worth isolating — same task, different method; same method, different scale; same architecture, different domain.</div>
+      </li>
+      <li><strong>State a falsifiable question.</strong>
+        <div class="li-sub">One that your specific reproduction — and not just the original papers — can answer with the compute you actually have. If the answer is already known at the scale you're testing, pick a different question.</div>
+      </li>
+      <li><strong>Run it as a controlled comparison.</strong>
+        <div class="li-sub">Matched data, matched compute budget, matched evaluation. Change exactly one variable. Anything less is an anecdote, not a finding.</div>
+      </li>
+      <li><strong>Report the failure modes honestly.</strong>
+        <div class="li-sub">What broke, what didn't generalize, what you expected and didn't see — this is usually the most informative part of the writeup, and the part people skip.</div>
+      </li>
+      <li><strong>Put it in front of people who'll push back.</strong>
+        <div class="li-sub">An advisor, a relevant research community, a workshop submission. A finding that never gets external pressure stays a hobby project, not a signal.</div>
+      </li>
+    </ol>
+
+    <div class="experiments" id="expCards"></div>
+
+    <div class="callout">
+      <strong>Note on scope:</strong> none of this is a substitute for identifying an open problem cold. It's the version of "original contribution" that's reachable from a reproduction roadmap in a bounded timeframe. It will not by itself get you to research-scientist-caliber novelty — it will get you a real answer to a real question that didn't exist before you ran the comparison, which is the actual floor for that next tier.
+    </div>
+  </section>
+
+  <footer>REPRODUCTION ROADMAP — SHEET 01 OF 01 — REV 2.0</footer>
+</div>
+
+<script>
+const layers = [
+  { name:"Architecture & Pretraining Fundamentals", papers:[
+    ["Attention Is All You Need","Vaswani et al., 2017 — the transformer architecture, encoder–decoder self-attention.",1],
+    ["GPT-2: Language Models are Unsupervised Multitask Learners","Radford et al., 2019 — decoder-only pretraining at scale, zero-shot task transfer.",1],
+    ["GPT-3: Language Models are Few-Shot Learners","Brown et al., 2020 — in-context learning emerges from scale.",0],
+    ["Scaling Laws for Neural Language Models","Kaplan et al., 2020 — power-law relationships between loss, compute, params, data.",1],
+    ["Training Compute-Optimal Large Language Models (Chinchilla)","Hoffmann et al., 2022 — corrects Kaplan's data/param allocation.",1],
+    ["RoFormer (RoPE)","Su et al., 2021 — rotary position embeddings, now near-universal.",0],
+    ["GLU Variants Improve Transformer (SwiGLU)","Shazeer, 2020 — the feedforward variant almost every modern LLM uses.",0],
+    ["RMSNorm","Zhang & Sennrich, 2019 — cheaper, near-equivalent LayerNorm replacement.",0],
+    ["Switch Transformer","Fedus et al., 2021 — sparse mixture-of-experts routing.",0],
+    ["Tensor Programs V (muP)","Yang et al., 2022 — hyperparameter transfer across model scale.",0],
+  ]},
+  { name:"Systems — Training & Inference at Scale", papers:[
+    ["FlashAttention","Dao et al., 2022 — IO-aware exact attention; memory-bound, not compute-bound.",1],
+    ["FlashAttention-2","Dao, 2023 — better parallelism and work partitioning.",0],
+    ["Megatron-LM","Shoeybi et al., 2019 — tensor + pipeline parallelism for multi-billion param training.",0],
+    ["ZeRO / DeepSpeed","Rajbhandari et al., 2020 — partitioned optimizer state, gradients, params across devices.",0],
+    ["vLLM / PagedAttention","Kwon et al., 2023 — paged KV-cache memory management for serving.",1],
+    ["Speculative Decoding","Leviathan et al., 2023 — draft-model-assisted parallel token verification.",0],
+    ["GQA (Grouped-Query Attention)","Ainslie et al., 2023 — the KV-cache-efficient attention variant nearly every current model uses.",0],
+    ["GPTQ","Frantar et al., 2022 — post-training weight quantization.",0],
+    ["QLoRA","Dettmers et al., 2023 — 4-bit quantized base model + LoRA adapters.",0],
+    ["LoRA","Hu et al., 2022 — low-rank adaptation for cheap fine-tuning.",1],
+    ["Orca","Yu et al., 2022 — continuous batching for generative serving.",0],
+    ["modded-nanogpt speedrun chain","Jordan et al. & community, 2024– — incremental training-efficiency records on GPT-2 124M.",0],
+  ]},
+  { name:"Alignment & Post-Training", papers:[
+    ["InstructGPT / RLHF","Ouyang et al., 2022 — the original human-feedback fine-tuning recipe.",1],
+    ["Proximal Policy Optimization","Schulman et al., 2017 — the RL algorithm underneath classic RLHF.",0],
+    ["Direct Preference Optimization","Rafailov et al., 2023 — reframes RLHF as a classification loss; no reward model or sampling.",1],
+    ["Constitutional AI","Bai et al., 2022 — RLAIF, self-critique in place of human labels.",0],
+    ["Let's Verify Step by Step","Lightman et al., 2023 — process reward models for multi-step reasoning.",0],
+    ["DeepSeekMath / GRPO","Shao et al., 2024 — group-relative policy optimization, drops the critic network.",1],
+    ["DeepSeek-R1","2025 — large-scale reasoning-RL, reset the field's expectations on test-time compute.",1],
+    ["s1: Simple Test-Time Scaling","Muennighoff et al., 2025 — minimal recipe for inference-time reasoning gains.",0],
+    ["Self-Instruct","Wang et al., 2022 — bootstrapping instruction data from a seed set.",0],
+  ]},
+  { name:"Agents", papers:[
+    ["ReAct","Yao et al., 2022 — interleaved reasoning and acting, the base agent loop.",1],
+    ["Toolformer","Schick et al., 2023 — teaching a model when and how to call tools.",0],
+    ["Reflexion","Shinn et al., 2023 — verbal self-reflection as a substitute for weight updates.",0],
+    ["Tree of Thoughts","Yao et al., 2023 — deliberate search over reasoning branches.",0],
+    ["Voyager","Wang et al., 2023 — open-ended agent with a persistent skill library, in Minecraft.",0],
+    ["CodeAct","Wang et al., 2024 — executable code as the agent's action space.",1],
+  ]},
+  { name:"Post-Transformer Architectures", papers:[
+    ["Mamba","Gu & Dao, 2023 — selective state-space model, linear-time sequence modeling.",1],
+    ["Mamba-2","Dao & Gu, 2024 — structured state-space duality, faster training.",0],
+    ["RWKV","Peng et al., 2023 — attention-free, RNN-like, linear inference cost.",0],
+    ["Retentive Network (RetNet)","Sun et al., 2023 — parallel training, recurrent inference.",0],
+  ]},
+  { name:"Multimodal", papers:[
+    ["CLIP","Radford et al., 2021 — contrastive image–text pretraining.",0],
+    ["ViT: An Image is Worth 16x16 Words","Dosovitskiy et al., 2020 — images as patch sequences, transformer for vision.",0],
+    ["Latent Diffusion Models","Rombach et al., 2022 — diffusion in a compressed latent space.",0],
+    ["LLaVA","Liu et al., 2023 — visual instruction tuning.",0],
+  ]},
+  { name:"GPU Architecture & Programming", papers:[
+    ["CUDA C++ Programming Guide fundamentals","Raw kernels for matmul, softmax, layernorm — the prerequisite for everything below.",0],
+    ["Triton","Tillet et al., 2019 — tiled-computation compiler for custom GPU kernels.",1],
+    ["NVIDIA Ampere/Hopper Architecture Whitepapers","Reference material — tensor cores, warp scheduling, memory hierarchy. Study only; not reproducible, proprietary fabricated silicon.",0],
+    ["Dissecting the Volta/Ampere GPU Architecture via Microbenchmarking","Jia et al., 2018 — measured, not spec-sheet, hardware behavior.",0],
+    ["Roofline Model","Williams, Waterman, Patterson, 2009 — compute-bound vs memory-bound performance modeling.",1],
+    ["Efficient Processing of Deep Neural Networks: A Tutorial and Survey","Sze et al., 2017 — dataflow taxonomy underlying every accelerator paper below.",0],
+  ]},
+  { name:"Semiconductor & Accelerator Design", papers:[
+    ["Why Systolic Architectures?","Kung, 1982 — the foundational systolic array paper.",0],
+    ["In-Datacenter Performance Analysis of a Tensor Processing Unit","Jouppi et al., 2017 — TPU v1, weight-stationary systolic array. Study only for the chip itself; dataflow is modelable.",1],
+    ["The Design Process for Google's Training Chips: TPUv2 and TPUv3","Norrie et al., 2021 — from inference-only to training-capable.",0],
+    ["Eyeriss","Chen et al., 2016 — row-stationary dataflow, a different design point from TPU.",0],
+    ["Timeloop / Accelergy","Parashar et al., 2019 — accelerator design-space-exploration simulator; your actual reproduction tool for this layer.",1],
+    ["Dark Silicon and the End of Multicore Scaling","Esmaeilzadeh et al., 2011 — why domain-specific hardware became inevitable. Study only; modelable via McPAT/CACTI.",0],
+    ["OpenLane (Sky130 PDK)","Open-source RTL-to-GDSII ASIC flow — the one hands-on tape-out reproduction available without fab access.",1],
+  ]},,
+  { name:"Mixture-of-Experts Systems", papers:[
+    ["Switch Transformer","Fedus et al., 2021 — sparse expert routing and scaling via conditional computation.",0],
+    ["DeepSeekMoE","Dai et al., 2024 — fine-grained experts and shared experts for efficient MoE scaling.",1],
+    ["Mixture-of-Experts Inference Systems","2024–2026 systems literature — expert placement, routing, communication and serving trade-offs.",0],
+    ["Expert Parallelism & All-to-All Systems","Systems reference layer — communication, token dispatch, load balancing and overlap.",0],
+  ]},
+  { name:"Modern LLM Serving & KV Cache", papers:[
+    ["A Survey of LLM Inference Systems","Pan & Li, 2025 — serving architecture, batching, scheduling, memory and disaggregated inference.",0],
+    ["System-Aware KV Cache Optimization","Jiang et al., 2026 — execution/scheduling, placement/migration, and representation/retention.",0],
+    ["KV Cache Optimization Strategies for Scalable LLM Inference","Xu et al., 2026 — eviction, compression, hybrid memory and deployment trade-offs.",0],
+    ["Prefill–Decode Disaggregation","2024–2026 systems line — separating prompt processing from token generation for serving efficiency.",0],
+    ["Prefix Caching / Chunked Prefill","Modern serving systems — reuse and scheduling of reusable context across requests.",1],
+  ]},
+  { name:"ML Compilers & Runtimes", papers:[
+    ["torch.compile / TorchDynamo / TorchInductor","Modern PyTorch compiler stack — graph capture, lowering, fusion, autotuning and generated kernels.",1],
+    ["MLIR","Compiler infrastructure — multi-level IR, dialects and progressive lowering for ML and accelerator targets.",0],
+    ["XLA / OpenXLA","Accelerated compiler/runtime stack — graph lowering and execution across accelerator backends.",0],
+    ["TVM","End-to-end ML compiler — tensor program transformations, scheduling and code generation.",0],
+    ["Compiler Kernel Fusion & Autotuning","2025–2026 frontier — automatic fusion, backend selection and search over optimized kernels.",0],
+  ]},
+  { name:"Advanced GPU Kernel Engineering", papers:[
+    ["CUDA Advanced: Async Pipelines & Tensor Cores","Implementation track — asynchronous copies, shared-memory pipelines and Tensor Core execution.",0],
+    ["TMA — Tensor Memory Accelerator","Hopper-era memory movement primitive — bulk asynchronous tensor transfers and multidimensional layouts.",0],
+    ["WGMMA / Warp-Group Matrix Multiply","Hopper-era Tensor Core instruction family — warp-group execution for high-throughput matrix operations.",0],
+    ["Warp Specialization in Triton","2026 compiler/runtime direction — specialized warps for latency hiding and hardware utilization.",0],
+    ["PTX → SASS + Nsight Compute","Performance engineering track — inspect generated instructions, stalls, registers, occupancy and memory behavior.",1],
+  ]},
+  { name:"Distributed & Disaggregated Inference", papers:[
+    ["Optimizing Deployment Configurations for LLM Inference","MLSys 2026 — hardware, parallelism, runtime choices, SLOs and massive deployment configuration spaces.",1],
+    ["Disaggregated LLM Serving","2024–2026 systems line — prefill/decode separation, KV movement and network-aware serving.",0],
+    ["KV Disaggregation & Communication Compression","2026 frontier — treating KV state as an explicit distributed systems payload.",0],
+  ]},
+  { name:"AI × Hardware Co-Design", papers:[
+    ["Hardware-Aware LLM Architecture Design","Modern co-design line — optimize model choices against memory, compute and accelerator constraints.",1],
+    ["Hardware-Aware Quantization & Sparsity","Modern co-design line — jointly optimize representation, accuracy and execution efficiency.",0],
+    ["Memory-Centric LLM Accelerators","2024–2026 hardware line — HBM/SRAM hierarchy, near-memory execution and bandwidth-driven design.",0],
+    ["Energy-per-Token & Performance-per-Watt","Systems/hardware evaluation layer — compare model, kernel and accelerator choices using physical efficiency.",0],
+  ]},
+  { name:"AI-for-Systems", papers:[
+    ["FlashInfer-Bench","MLSys 2026 — closed-loop kernel generation, correctness/performance benchmarking and deployment into serving engines.",1],
+    ["LLM/Agentic GPU Kernel Optimization","2025–2026 frontier — use AI agents to generate, benchmark, debug and optimize GPU kernels.",0],
+  ]}
+
+];
+
+const layersEl = document.getElementById('layers');
+
+  // Keep headline counts synchronized with the actual dataset.
+  const totalArtifacts = layers.reduce((sum, l) => sum + l.papers.length, 0);
+  const totalCritical = layers.reduce((sum, l) => sum + l.papers.filter(p => p[2]).length, 0);
+  const layerCount = layers.length;
+  const metaArtifacts = document.getElementById('metaArtifacts');
+  const metaCritical = document.getElementById('metaCritical');
+  const metaLayers = document.getElementById('metaLayers');
+  const statArtifacts = document.getElementById('statArtifacts');
+  const statCritical = document.getElementById('statCritical');
+  const statLayers = document.getElementById('statLayers');
+  if(metaArtifacts) metaArtifacts.textContent = totalArtifacts;
+  if(metaCritical) metaCritical.textContent = totalCritical;
+  if(metaLayers) metaLayers.textContent = layerCount;
+  if(statArtifacts) statArtifacts.textContent = totalArtifacts;
+  if(statCritical) statCritical.textContent = totalCritical;
+  if(statLayers) statLayers.textContent = layerCount;
+
+layers.forEach((layer, i) => {
+  const div = document.createElement('div');
+  div.className = 'layer' + (i===0 ? ' open' : '');
+  const critCount = layer.papers.filter(p=>p[2]).length;
+  div.innerHTML = `
+    <div class="layer-head" role="button" tabindex="0" aria-expanded="${i===0}">
+      <div class="layer-head-left">
+        <span class="layer-num mono">L${String(i+1).padStart(2,'0')}</span>
+        <span class="layer-name">${layer.name}</span>
+      </div>
+      <div class="layer-head-left">
+        <span class="layer-count">${layer.papers.length} papers · ${critCount} on critical path</span>
+        <span class="layer-chevron">&#9656;</span>
+      </div>
+    </div>
+    <div class="layer-body">
+      ${layer.papers.map((p,idx)=>`
+        <div class="paper ${p[2]?'critical':''}">
+          <div class="paper-idx mono">${String(idx+1).padStart(2,'0')}</div>
+          <div>
+            <div class="paper-title">${p[0]}</div>
+            <div class="paper-meta">${p[1]}</div>
+          </div>
+          ${p[2]?'<div class="paper-flag">CRITICAL PATH</div>':'<div></div>'}
+        </div>
+      `).join('')}
+    </div>
+  `;
+  layersEl.appendChild(div);
+
+  const head = div.querySelector('.layer-head');
+  const body = div.querySelector('.layer-body');
+  const setState = () => {
+    if(div.classList.contains('open')){
+      body.style.maxHeight = body.scrollHeight + 'px';
+    } else {
+      body.style.maxHeight = '0px';
+    }
+  };
+  if(i===0) requestAnimationFrame(setState);
+  const toggle = () => {
+    div.classList.toggle('open');
+    head.setAttribute('aria-expanded', div.classList.contains('open'));
+    setState();
+  };
+  head.addEventListener('click', toggle);
+  head.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); }});
+});
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.layer.open .layer-body').forEach(b => b.style.maxHeight = b.scrollHeight+'px');
+});
+
+const phases = [
+  { label:"Phase 1 · Foundations", nodes:[
+    ["Attention Is All You Need","L01 · Architecture", "Implement from scratch, no libraries. Encoder-decoder self-attention, positional encoding, multi-head projection.", false],
+    ["GPT-2","L01 · Architecture", "Full pipeline: BPE tokenizer, data loader, training loop, checkpointing, eval. This is the reproduction that makes everything after it real.", false],
+    ["Scaling Laws → Chinchilla","L01 · Architecture", "Reproduce Kaplan's loss-vs-compute curve at toy scale, then re-derive Chinchilla's compute-optimal allocation and compare the two prescriptions directly.", false],
+  ]},
+  { label:"Phase 2 · Make It Fast", nodes:[
+    ["FlashAttention","L02 · Systems", "Reproduce the IO-aware tiling; benchmark wall-clock and memory against naive attention on your GPT-2 model.", false],
+    ["vLLM / PagedAttention","L02 · Systems", "Build a mini paged-KV-cache serving engine; benchmark batched generation throughput against a naive serving loop.", false],
+    ["LoRA","L02 · Systems", "Fine-tune your trained GPT-2 with low-rank adapters; compare parameter count and quality against full fine-tuning.", false],
+  ]},
+  { label:"Phase 3 · Make It Behave", nodes:[
+    ["InstructGPT / RLHF","L03 · Alignment", "Reproduce PPO-based RLHF on your small model with a toy preference dataset.", false],
+    ["Direct Preference Optimization","L03 · Alignment", "Reproduce DPO on the same base model and preference data as your RLHF run.", true],
+    ["GRPO → DeepSeek-R1","L03 · Alignment", "Reproduce GRPO on a small reasoning task (math word problems); study the R1 recipe for how it scales the idea.", false],
+  ]},
+  { label:"Phase 4 · Make It Act", nodes:[
+    ["ReAct","L04 · Agents", "Reproduce the base interleaved reasoning-and-acting loop against a couple of toy tools.", false],
+    ["CodeAct","L04 · Agents", "Extend your ReAct agent to use executable code as its action space instead of fixed tool calls.", false],
+    ["Mamba","L05 · Architectures", "Train a Mamba block on the same data and compute budget as your GPT-2 reproduction.", true],
+  ]},
+  { label:"Phase 5 · Down to Silicon", nodes:[
+    ["Triton + Roofline","L07 · GPU", "Write a fused Triton kernel; build a roofline model of your own GPT-2 training run to see where it actually sits.", false],
+    ["TPU dataflow modeling","L08 · Silicon", "Model the TPU's weight-stationary dataflow against Eyeriss's row-stationary approach in Timeloop/Accelergy for a transformer-shaped workload.", true],
+    ["OpenLane tape-out","L08 · Silicon", "Take a small MAC array through the full open-source RTL-to-GDSII flow on the Sky130 PDK. Real area, power, and timing numbers, not a simulation.", false],
+  ]},
+
+  { label:"Phase 6 · 2026 Frontier Systems", nodes:[
+    ["DeepSeekMoE / Expert Parallelism","L09 · MoE Systems", "Reproduce sparse expert routing at small scale; measure load balance, all-to-all communication and compute utilization.", false],
+    ["Modern LLM Serving + KV Cache","L10 · Serving", "Build a serving benchmark that separates prefill/decode, measures KV-cache memory, prefix reuse and scheduling behavior.", true],
+    ["torch.compile → Inductor → Triton","L11 · Compilers", "Trace a small Transformer through graph capture, fusion and generated kernels; compare eager, compiled and hand-written kernels.", true],
+    ["Advanced CUDA Kernel Engineering","L12 · GPU", "Implement and profile a Tensor-Core kernel using asynchronous memory movement; inspect PTX/SASS and quantify occupancy/register trade-offs.", false],
+  ]},
+  { label:"Phase 7 · Distributed & Co-Designed", nodes:[
+    ["Disaggregated Inference","L13 · Distributed", "Benchmark prefill/decode separation and KV movement under realistic communication constraints.", false],
+    ["Model → Kernel → Accelerator Co-Design","L14 · Co-Design", "Take one reproduced model workload through operator profiling, dataflow exploration and accelerator design-space search.", true],
+    ["AI-for-Systems Kernel Loop","L15 · AI-for-Systems", "Use an agent to generate candidate kernels, benchmark correctness/performance, and feed the best candidate back into the serving stack.", false],
+  ]},
+];
+
+const pathEl = document.getElementById('pathList');
+let counter = 1;
+phases.forEach(phase => {
+  const phaseDiv = document.createElement('div');
+  phaseDiv.className = 'phase';
+  phaseDiv.innerHTML = `<div class="phase-label">${phase.label}</div>`;
+  phase.nodes.forEach(n => {
+    const node = document.createElement('div');
+    node.className = 'node';
+    node.innerHTML = `
+      <div class="node-top">
+        <div><span class="node-num">${String(counter).padStart(2,'0')}</span><span class="node-title">${n[0]}</span></div>
+        <span class="node-tier mono">${n[1]}</span>
+      </div>
+      <div class="node-task">${n[2]}</div>
+      ${n[3] ? '<div class="ext-tag">&#9670; EXTENSION CANDIDATE</div>' : ''}
+    `;
+    phaseDiv.appendChild(node);
+    counter++;
+  });
+  pathEl.appendChild(phaseDiv);
+});
+
+const experiments = [
+  ["Extension Candidate · 01","DPO vs PPO-RLHF under distribution shift","Reproduce both on the same base model and preference data. Does DPO's implicit reward model generalize as well as PPO's explicit one on prompts outside the training distribution? Still a live open question."],
+  ["Extension Candidate · 02","Mamba vs Transformer at matched small-scale compute","Train both architectures on identical data and compute at GPT-2-124M scale. Does Mamba's linear-time advantage show up in real wall-clock numbers this small, or only at the scales the original paper tested?"],
+  ["Extension Candidate · 03","TPU-style vs Eyeriss-style dataflow, transformer workload","Model both dataflows in Timeloop/Accelergy against a workload shaped like your reproduced GPT-2's inference pattern. Which wins on energy-per-token for a transformer specifically, versus the CNN workloads both were originally evaluated on?"],
+];
+const expEl = document.getElementById('expCards');
+experiments.forEach(e => {
+  const card = document.createElement('div');
+  card.className = 'exp-card';
+  card.innerHTML = `
+    <div class="exp-label mono">${e[0]}</div>
+    <div class="exp-title">${e[1]}</div>
+    <div class="exp-q">${e[2]}</div>
+  `;
+  expEl.appendChild(card);
+});
+</script>
+</body>
+</html>
