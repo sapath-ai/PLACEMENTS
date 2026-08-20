@@ -234,6 +234,36 @@ h1{
   margin:9px 0 10px;
 }
 
+/* TECH STACK BADGES */
+
+.tech-stack{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin:4px 0 14px;
+}
+
+.tech-stack span{
+  display:inline-flex;
+  align-items:center;
+  padding:4px 7px;
+  border:1px solid rgba(255,159,67,.20);
+  border-radius:5px;
+  background:rgba(255,159,67,.045);
+  color:#aeb7c5;
+  font:8px var(--mono);
+  letter-spacing:.035em;
+  line-height:1;
+  white-space:nowrap;
+  transition:.18s ease;
+}
+
+.tech-stack span:hover{
+  color:#ffb46b;
+  border-color:rgba(255,159,67,.45);
+  background:rgba(255,159,67,.08);
+}
+
 .card p{
   margin:0;
   color:var(--muted);
@@ -418,7 +448,7 @@ h1{
 
     <div class="meta">
       <span class="pill live">
-        01 roadmap available
+        03 roadmaps available
       </span>
 
       <span class="pill">
@@ -523,6 +553,68 @@ h1{
           machine learning engineering, LLMs, deployment,
           infrastructure, inference, tooling, and production-grade
           AI engineering practice.
+        </p>
+
+        <div class="cardBottom">
+
+          <span class="status">
+            ● Explore roadmap
+          </span>
+
+          <span class="arrow">
+            →
+          </span>
+
+        </div>
+
+      </a>
+
+
+
+      <!-- AI ENGINEERING BIBLE -->
+
+      <a
+        class="card featured"
+        href="AI-ENGINEERING-BIBLE/"
+      >
+
+        <div class="icon">
+          📖
+        </div>
+
+        <div class="kicker">
+          Available now · New
+        </div>
+
+        <h2>
+          AI Engineering Bible
+        </h2>
+
+        <div class="tech-stack">
+
+          <span>Python</span>
+          <span>PyTorch</span>
+          <span>Transformers</span>
+          <span>LangGraph</span>
+          <span>RAG</span>
+          <span>Agents</span>
+          <span>vLLM</span>
+          <span>CUDA</span>
+          <span>Triton</span>
+          <span>Kubernetes</span>
+          <span>Cloud</span>
+          <span>MLOps</span>
+          <span>Observability</span>
+          <span>Security</span>
+
+        </div>
+
+        <p>
+          A comprehensive AI engineering command centre spanning
+          languages, machine learning, LLMs, AI applications, RAG,
+          agents, inference, GPU engineering, infrastructure, cloud,
+          MLOps, security, formal methods, multimodal systems,
+          and frontier AI research.
         </p>
 
         <div class="cardBottom">
