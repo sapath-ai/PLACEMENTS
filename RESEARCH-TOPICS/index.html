@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI & CS Frontier Research Atlas — 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap');
+:root{
+  --bg:#05050a;--surface:#0b0b13;--surface2:#11101b;--line:#28263b;
+  --text:#f7f5ff;--muted:#9b98ab;--blue:#4da7ff;--orange:#ff7b35;
+  --violet:#9a72ff;--pink:#ff4fd8;--green:#48e6a1
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ margin:0;color:var(--text);font-family:"Space Grotesk",system-ui,sans-serif;
+ background:
+ radial-gradient(800px 500px at 5% -10%,rgba(154,114,255,.22),transparent 65%),
+ radial-gradient(900px 600px at 95% 8%,rgba(255,123,53,.15),transparent 62%),
+ radial-gradient(700px 500px at 50% 100%,rgba(77,167,255,.10),transparent 65%),
+ #05050a;overflow-x:hidden
+}
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;
+ background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+ background-size:44px 44px;mask-image:linear-gradient(to bottom,black,transparent 92%)
+}
+body:after{
+ content:"";position:fixed;inset:-20%;pointer-events:none;z-index:-1;
+ background:conic-gradient(from 120deg at 50% 50%,transparent,rgba(154,114,255,.04),transparent,rgba(255,123,53,.035),transparent);
+ animation:spin 28s linear infinite
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes drift{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-8px,0)}}
+@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes scan{from{transform:translateX(-120%)}to{transform:translateX(120%)}}
+.topbar{
+ height:66px;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;
+ position:sticky;top:0;z-index:30;background:rgba(5,5,10,.72);backdrop-filter:blur(18px);
+ border-bottom:1px solid rgba(255,255,255,.08)
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.04em}
+.brand-mark{
+ width:32px;height:32px;border-radius:10px;display:grid;place-items:center;
+ background:linear-gradient(135deg,var(--violet),var(--blue));color:#fff;font:700 11px "DM Mono";
+ box-shadow:0 0 35px rgba(154,114,255,.35);animation:pulse 3s ease-in-out infinite
+}
+.top-meta{font:10px "DM Mono";letter-spacing:.14em;color:#777387;text-transform:uppercase}
+.hero{max-width:1480px;margin:auto;padding:84px 5vw 52px;position:relative}
+.hero:before{
+ content:"";position:absolute;right:7%;top:60px;width:190px;height:190px;border-radius:50%;
+ border:1px solid rgba(154,114,255,.25);box-shadow:0 0 80px rgba(154,114,255,.12);
+ animation:drift 6s ease-in-out infinite
+}
+.eyebrow{
+ display:inline-flex;align-items:center;gap:9px;color:#ffad79;font:600 10px "DM Mono";
+ letter-spacing:.18em;text-transform:uppercase
+}
+.eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--orange);box-shadow:0 0 18px var(--orange)}
+h1{
+ max-width:1050px;font-size:clamp(48px,7vw,96px);line-height:.9;letter-spacing:-.065em;
+ margin:18px 0 25px;animation:rise .7s ease both
+}
+.hero h1 span{
+ background:linear-gradient(90deg,#fff 0%,#a875ff 38%,#4da7ff 67%,#ff8c4a 100%);
+ -webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% auto;
+ animation:gradient 7s ease infinite
+}
+@keyframes gradient{50%{background-position:100% 50%}}
+.hero-copy{max-width:840px;color:#aaa6b9;font-size:16px;line-height:1.75;animation:rise .8s .1s ease both}
+.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:13px;margin-top:38px}
+.signal{
+ position:relative;overflow:hidden;padding:20px;border-radius:18px;
+ border:1px solid var(--line);background:linear-gradient(135deg,rgba(18,16,29,.92),rgba(8,9,15,.92));
+ animation:rise .8s .2s ease both;transition:transform .25s,border-color .25s
+}
+.signal:hover{transform:translateY(-4px);border-color:#514a70}
+.signal:after{
+ content:"";position:absolute;top:0;left:-100%;width:50%;height:100%;
+ background:linear-gradient(90deg,transparent,rgba(255,255,255,.045),transparent);animation:scan 6s ease-in-out infinite
+}
+.signal-label{font:10px "DM Mono";color:#777287;letter-spacing:.16em;text-transform:uppercase}
+.signal-title{font-size:21px;font-weight:700;margin:9px 0 5px}
+.signal-text{color:var(--muted);font-size:12.5px;line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:13px}
+.stat{
+ padding:16px;border-radius:13px;border:1px solid var(--line);background:rgba(11,10,18,.7);
+ transition:.2s;animation:rise .8s .3s ease both
+}
+.stat:hover{transform:translateY(-3px);border-color:#4c4565;background:#11101b}
+.stat b{display:block;font-size:25px;letter-spacing:-.04em}
+.stat span{font:10px "DM Mono";color:#716e80;text-transform:uppercase;letter-spacing:.08em}
+main{max-width:1480px;margin:auto;padding:18px 5vw 100px}
+.atlas-controls{
+ display:flex;align-items:center;justify-content:space-between;gap:20px;padding:15px 17px;
+ margin-bottom:25px;border:1px solid var(--line);border-radius:15px;background:rgba(11,10,18,.78);
+ box-shadow:0 18px 55px rgba(0,0,0,.22);position:relative;overflow:hidden
+}
+.atlas-controls:before{
+ content:"";position:absolute;left:-30%;top:0;width:30%;height:1px;
+ background:linear-gradient(90deg,transparent,var(--blue),var(--violet),transparent);animation:scan 5s linear infinite
+}
+.atlas-control-copy{display:flex;align-items:center;gap:13px;white-space:nowrap}
+.control-kicker{font:600 9px "DM Mono";letter-spacing:.16em;color:var(--orange)}
+.control-title{font-size:15px;font-weight:700}
+.atlas-actions{display:flex;align-items:center;gap:9px;min-width:min(720px,65%)}
+.search-wrap{position:relative}.top-search{flex:1;margin:0}
+.search-icon{position:absolute;left:13px;top:11px;color:#625e72;font:16px "DM Mono"}
+.search{
+ width:100%;padding:11px 13px 11px 38px;color:#fff;outline:none;background:#08080e;
+ border:1px solid #28263a;border-radius:10px;transition:.2s
+}
+.search:focus{border-color:#6953a0;box-shadow:0 0 0 3px rgba(154,114,255,.09)}
+.domain-select{
+ min-width:205px;padding:11px 12px;color:#cbc7d8;background:#08080e;border:1px solid #28263a;
+ border-radius:10px;outline:none;font-size:11px;transition:.2s
+}
+.domain-select:focus{border-color:#6953a0}
+.content-head{
+ display:flex;justify-content:space-between;align-items:end;gap:15px;padding:8px 0 18px;
+ border-bottom:1px solid var(--line);margin-bottom:25px
+}
+.content-head h2{font-size:29px;letter-spacing:-.04em;margin:0}
+.small{color:#777387;font:10px "DM Mono";letter-spacing:.08em;text-transform:uppercase}
+.section{margin-bottom:49px;animation:rise .55s ease both}
+.section-title{display:flex;align-items:center;gap:12px;margin:0 0 15px}
+.section-title span{
+ color:#fff;font:600 9px "DM Mono";padding:6px 8px;border-radius:7px;
+ background:linear-gradient(135deg,rgba(154,114,255,.25),rgba(77,167,255,.12));
+ border:1px solid rgba(154,114,255,.32);box-shadow:0 0 22px rgba(154,114,255,.08)
+}
+.section-title h2{font-size:22px;margin:0;letter-spacing:-.025em}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{
+ position:relative;overflow:hidden;min-height:182px;padding:19px;border-radius:15px;
+ border:1px solid #252438;background:linear-gradient(145deg,#0e0d17,#090910);
+ transition:transform .28s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .25s;
+ animation:rise .5s ease both
+}
+.card:before{
+ content:"";position:absolute;left:0;top:0;width:100%;height:2px;
+ background:linear-gradient(90deg,var(--violet),var(--blue),var(--orange));opacity:.55
+}
+.card:after{
+ content:"";position:absolute;inset:0;pointer-events:none;
+ background:radial-gradient(280px 160px at var(--mx,50%) var(--my,0%),rgba(154,114,255,.11),transparent 65%);
+ opacity:0;transition:opacity .25s
+}
+.card:hover{transform:translateY(-6px) scale(1.008);border-color:#514a70;box-shadow:0 20px 55px rgba(0,0,0,.35),0 0 28px rgba(154,114,255,.07)}
+.card:hover:after{opacity:1}
+.num{font:600 9px "DM Mono";letter-spacing:.16em;color:#5e81a4}
+.card h3{font-size:17px;margin:9px 0 10px;letter-spacing:-.015em}
+.card p{margin:0;color:#9a96a8;font-size:12.5px;line-height:1.68}
+.tag{
+ display:inline-flex;margin-top:17px;padding:5px 8px;border-radius:6px;
+ background:rgba(77,167,255,.07);border:1px solid rgba(77,167,255,.18);
+ color:#78b9ee;font:9px "DM Mono";letter-spacing:.1em;text-transform:uppercase
+}
+.empty{padding:70px;text-align:center;color:#8e899d;border:1px dashed #343044;border-radius:15px}
+.footer{max-width:1480px;margin:auto;padding:28px 5vw 50px;border-top:1px solid var(--line);color:#676374;font-size:11px;line-height:1.7}
+.footer b{color:#a29dad}.footer a{color:#ff9d64;text-decoration:none}
+@media(max-width:1000px){
+ .hero-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}
+ .atlas-controls{align-items:stretch;flex-direction:column}.atlas-actions{width:100%;max-width:none}
+ .grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+ .top-meta{display:none}.hero{padding-top:52px}.hero:before{display:none}
+ .hero-copy{font-size:14px}.stats{grid-template-columns:1fr 1fr}
+ .atlas-actions{flex-direction:column}.top-search,.domain-select{width:100%;min-width:0}
+ .atlas-control-copy{white-space:normal}.content-head{align-items:start;flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand"><div class="brand-mark">RX</div> FRONTIER RESEARCH ATLAS</div>
+  <div class="top-meta">AI × CS · 2026 EDITION · RESEARCH INTELLIGENCE</div>
+</div>
+<header class="hero">
+  <div class="eyebrow">Research intelligence system · 2026 frontier map</div>
+  <h1>250 problems.<br><span>One research frontier.</span></h1>
+  <div class="hero-copy">
+    A structured atlas of open and emerging problems across artificial intelligence and computer science.
+    Use it to discover research directions, identify intersections, and find questions worth spending years attacking.
+  </div>
+  <div class="hero-grid">
+    <div class="signal">
+      <div class="signal-label">Research thesis</div>
+      <div class="signal-title">The frontier is moving from models to systems.</div>
+      <div class="signal-text">Reasoning, autonomy, memory, embodiment, scientific discovery, efficient compute, security, and hardware are increasingly becoming one connected research landscape.</div>
+    </div>
+    <div class="signal">
+      <div class="signal-label">Atlas coverage</div>
+      <div class="signal-title">Deep breadth, research-question format.</div>
+      <div class="signal-text">Each entry is framed as a problem to investigate—not simply a technology to learn.</div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>25</b><span>Research domains</span></div>
+    <div class="stat"><b>250</b><span>Research problems</span></div>
+    <div class="stat"><b>AI × CS</b><span>Cross-disciplinary scope</span></div>
+    <div class="stat"><b>2026</b><span>Frontier snapshot</span></div>
+  </div>
+</header>
+<main>
+<div class="atlas-controls">
+  <div class="atlas-control-copy">
+    <span class="control-kicker">RESEARCH INDEX</span>
+    <span class="control-title">Explore the frontier</span>
+  </div>
+  <div class="atlas-actions">
+    <div class="search-wrap top-search">
+      <span class="search-icon">⌕</span>
+      <input id="search" class="search" placeholder="Search across 250 research problems..." />
+    </div>
+    <select id="domainSelect" class="domain-select">
+      <option value="ALL">All research domains</option>
+      {''.join(f'<option value="{html.escape(k)}">{html.escape(k)}</option>' for k in domains)}
+    </select>
+  </div>
+</div>
+<section>
+  <div class="content-head">
+    <div><h2 id="viewTitle">All research problems</h2><div class="small" id="count">250 problems</div></div>
+    <div class="small">Click a domain · search by problem</div>
+  </div>
+  <div id="results"></div>
+</section>
+</main>
+<footer class="footer">
+  <b>RESEARCH NOTE</b> — This atlas is a structured synthesis of frontier directions, not a claim that every item is equally novel or unsolved.
+  A serious research project still requires a specific literature gap, falsifiable hypothesis, method, evaluation protocol, and evidence of contribution.
+  Frontier context is informed by the <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" target="_blank">Stanford AI Index 2026</a>.
+</footer>
+<script>
+const DATA = {"01 \u2014 Frontier Reasoning": [{"title": "Long-horizon reasoning", "problem": "How can models maintain coherent state, subgoals, verification, and error recovery across problems requiring thousands of dependent steps?"}, {"title": "Process vs outcome supervision", "problem": "How can reasoning processes be supervised without teaching models to produce convincing but unfaithful chains?"}, {"title": "Test-time compute", "problem": "How should inference-time search, sampling, verification, and compute be allocated adaptively to maximize reasoning quality per joule?"}, {"title": "Self-verification", "problem": "Can models independently detect and repair their own logical, mathematical, and factual errors?"}, {"title": "Uncertainty-aware reasoning", "problem": "How can a model know when its conclusion is weak, ambiguous, or outside its competence?"}, {"title": "Causal reasoning", "problem": "How can foundation models distinguish correlation, intervention, and counterfactual consequence?"}, {"title": "Planning under uncertainty", "problem": "How can AI choose actions when the environment, goals, and future observations are uncertain?"}, {"title": "Neuro-symbolic reasoning", "problem": "How can neural representations and formal symbolic systems cooperate without brittle interfaces?"}, {"title": "Formal mathematical reasoning", "problem": "How can models reliably generate, verify, and discover proofs at research scale?"}, {"title": "Reasoning generalization", "problem": "Why do models solve some novel reasoning tasks while failing seemingly simpler distribution shifts?"}], "02 \u2014 Autonomous AI Agents": [{"title": "Long-horizon agents", "problem": "How can agents complete complex tasks over hours or days without accumulating catastrophic errors?"}, {"title": "Agent memory", "problem": "What memory architecture best combines episodic, semantic, procedural, and working memory?"}, {"title": "Agent self-correction", "problem": "How can agents detect failure and recover rather than repeatedly executing the same bad strategy?"}, {"title": "Tool-use reliability", "problem": "How can models select, invoke, validate, and recover from external tools reliably?"}, {"title": "Computer-use agents", "problem": "How can agents robustly operate arbitrary software interfaces under changing layouts and permissions?"}, {"title": "Multi-agent coordination", "problem": "When do multiple agents outperform one stronger agent, and how should responsibilities be allocated?"}, {"title": "Agent identity and state", "problem": "How should persistent goals, state, permissions, and identity be represented across sessions?"}, {"title": "Agent security", "problem": "How can autonomous agents resist prompt injection, tool poisoning, privilege escalation, and malicious environments?"}, {"title": "Agent evaluation", "problem": "How should long-horizon autonomy be measured beyond short benchmark success rates?"}, {"title": "Autonomous software engineering", "problem": "Can agents plan, implement, test, review, deploy, and maintain large software systems over long periods?"}], "03 \u2014 AI Safety, Alignment & Control": [{"title": "Reward hacking", "problem": "How can systems be prevented from exploiting imperfections in their reward functions?"}, {"title": "Goal misgeneralization", "problem": "Why do learned objectives sometimes change when models encounter unfamiliar environments?"}, {"title": "Scalable oversight", "problem": "How can humans supervise systems whose reasoning and actions exceed human ability to inspect directly?"}, {"title": "Corrigibility", "problem": "Can advanced systems be designed to remain cooperative with correction, interruption, and shutdown?"}, {"title": "Deceptive behavior detection", "problem": "How can researchers distinguish strategic deception from ordinary model error?"}, {"title": "Specification gaming", "problem": "How can objectives be specified so agents optimize the intended outcome rather than loopholes?"}, {"title": "AI containment", "problem": "What technical architectures can safely constrain highly capable autonomous systems?"}, {"title": "Safety-capability tradeoffs", "problem": "How can safety interventions improve reliability without substantially degrading useful capability?"}, {"title": "Frontier model monitoring", "problem": "What signals indicate that a model has developed dangerous capabilities before deployment?"}, {"title": "Multi-agent safety", "problem": "How do risks change when autonomous systems interact, negotiate, compete, or collude?"}], "04 \u2014 Mechanistic Interpretability": [{"title": "Circuit discovery", "problem": "Can the internal circuits responsible for specific model behaviors be automatically identified?"}, {"title": "Feature superposition", "problem": "How are multiple concepts represented in shared neural directions and how can they be disentangled?"}, {"title": "Sparse representations", "problem": "Can sparse autoencoders and related methods yield faithful, scalable representations of model features?"}, {"title": "Causal interpretability", "problem": "Can interventions on internal features establish causal explanations rather than correlations?"}, {"title": "Reasoning interpretability", "problem": "Can internal computations associated with reasoning be identified and verified?"}, {"title": "Representation editing", "problem": "Can specific concepts or behaviors be modified without unintended side effects?"}, {"title": "Scalable interpretability", "problem": "How can interpretability methods scale from small models to frontier systems?"}, {"title": "Safety circuits", "problem": "Can dangerous capabilities or deceptive strategies be detected through internal representations?"}, {"title": "Cross-model interpretability", "problem": "Do equivalent concepts and circuits emerge across architectures and training runs?"}, {"title": "Interpretability benchmarks", "problem": "What benchmarks genuinely measure whether an explanation reflects the mechanism producing behavior?"}], "05 \u2014 World Models & Embodied Intelligence": [{"title": "Latent world models", "problem": "What internal representation best captures objects, dynamics, agents, and causal structure?"}, {"title": "Physical reasoning", "problem": "Can models learn robust physical dynamics rather than superficial visual correlations?"}, {"title": "Counterfactual simulation", "problem": "Can an agent internally simulate alternative futures and select actions from those simulations?"}, {"title": "Temporal abstraction", "problem": "How should world models represent events across milliseconds, seconds, days, and years?"}, {"title": "Grounded representations", "problem": "How can language concepts become grounded in perception and action?"}, {"title": "Video world models", "problem": "Can predictive video models learn useful representations of physical environments?"}, {"title": "World-model planning", "problem": "Can learned simulators support reliable long-horizon planning?"}, {"title": "Embodied memory", "problem": "How should robots remember places, objects, interactions, and failures over long periods?"}, {"title": "Open-world generalization", "problem": "How can embodied agents handle objects and situations never seen during training?"}, {"title": "Human-AI shared world models", "problem": "Can humans and AI maintain compatible representations of a changing environment?"}], "06 \u2014 Robotics & Physical AI": [{"title": "Vision-Language-Action models", "problem": "How can language, vision, proprioception, and action be unified in one robot policy?"}, {"title": "Dexterous manipulation", "problem": "How can robots manipulate deformable, fragile, slippery, and unknown objects?"}, {"title": "Tactile intelligence", "problem": "How can tactile sensing complement vision for contact-rich manipulation?"}, {"title": "Sim-to-real transfer", "problem": "How can policies learned in simulation transfer reliably to messy real environments?"}, {"title": "Lifelong robot learning", "problem": "How can robots continuously learn without catastrophic forgetting?"}, {"title": "Household robotics", "problem": "How can robots handle the diversity and uncertainty of ordinary homes?"}, {"title": "Robot foundation models", "problem": "What scale and architecture produce general-purpose robotic competence?"}, {"title": "Human-robot collaboration", "problem": "How can robots infer human intent and coordinate safely with people?"}, {"title": "Robot safety verification", "problem": "How can physical robot behavior be verified before deployment?"}, {"title": "Multi-robot systems", "problem": "How can fleets coordinate perception, planning, communication, and resource allocation?"}], "07 \u2014 AI for Science & AI Scientists": [{"title": "Autonomous hypothesis generation", "problem": "Can AI generate scientifically novel hypotheses that survive expert scrutiny?"}, {"title": "Experiment design", "problem": "Can agents choose experiments that maximally reduce scientific uncertainty?"}, {"title": "Closed-loop discovery", "problem": "Can AI autonomously cycle through hypothesis, experiment, analysis, and revision?"}, {"title": "Scientific literature reasoning", "problem": "How can AI construct reliable, evidence-linked scientific knowledge from massive literature?"}, {"title": "Reproducibility", "problem": "Can AI reproduce published computational and experimental results reliably?"}, {"title": "Scientific benchmark design", "problem": "How should end-to-end scientific reasoning be evaluated?"}, {"title": "AI-generated discoveries", "problem": "How can researchers distinguish genuinely novel discoveries from recombinations of training knowledge?"}, {"title": "Laboratory robotics", "problem": "Can AI scientists operate physical laboratories safely and efficiently?"}, {"title": "Scientific simulation agents", "problem": "Can agents select, configure, and validate domain-specific simulations?"}, {"title": "Human-AI scientific collaboration", "problem": "What division of labor produces better discoveries than humans or AI alone?"}], "08 \u2014 Biology, Medicine & Computational Neuroscience": [{"title": "Protein design", "problem": "Can foundation models reliably design proteins with desired structure and function?"}, {"title": "Molecular generation", "problem": "How can AI generate molecules satisfying multiple biological and physical constraints?"}, {"title": "Drug discovery agents", "problem": "Can agents autonomously navigate target selection, molecule design, simulation, and validation?"}, {"title": "Biological foundation models", "problem": "What representations best unify DNA, RNA, proteins, cells, and phenotypes?"}, {"title": "Single-cell modeling", "problem": "Can models learn useful representations of cellular state and perturbation?"}, {"title": "Gene regulation modeling", "problem": "Can AI predict how interventions alter gene expression and cellular behavior?"}, {"title": "Medical multimodal models", "problem": "How can imaging, laboratory, clinical notes, genomics, and longitudinal records be integrated?"}, {"title": "Clinical reasoning", "problem": "How can AI reason safely over incomplete, noisy, and conflicting patient evidence?"}, {"title": "Medical imaging", "problem": "How can models become robust to missing modalities, scanner differences, and distribution shifts?"}, {"title": "Computational neuroscience", "problem": "Can AI models explain neural computation and generate experimentally testable hypotheses about the brain?"}], "09 \u2014 Multimodal & Video Intelligence": [{"title": "Unified multimodal representations", "problem": "Can text, images, audio, video, 3D, and sensor streams share a coherent representation?"}, {"title": "Cross-modal reasoning", "problem": "How can evidence from different modalities be jointly reasoned over rather than separately encoded?"}, {"title": "Long-video understanding", "problem": "How can models maintain relevant context across hours of video?"}, {"title": "Video reasoning", "problem": "Can models infer events, causality, intent, and physical dynamics from video?"}, {"title": "Audio-visual grounding", "problem": "Can language concepts be grounded simultaneously in visual and acoustic events?"}, {"title": "3D scene understanding", "problem": "How can AI build persistent semantic representations of 3D environments?"}, {"title": "Multimodal agents", "problem": "How should agents combine visual perception, language, memory, and action?"}, {"title": "Multimodal hallucination", "problem": "How can models avoid inventing information unsupported by one or more modalities?"}, {"title": "Temporal grounding", "problem": "How can models accurately align language with events over time?"}, {"title": "Multimodal evaluation", "problem": "What benchmarks measure genuine multimodal reasoning rather than pattern recognition?"}], "10 \u2014 Efficient AI & New Architectures": [{"title": "Efficient attention", "problem": "How can attention achieve frontier quality with dramatically lower memory and compute?"}, {"title": "State-space models", "problem": "Where do SSMs/Mamba-like architectures outperform transformers, and why?"}, {"title": "Mixture-of-experts", "problem": "How can sparse expert routing maximize capability while minimizing active compute?"}, {"title": "Quantization", "problem": "How far can weights and activations be quantized without damaging reasoning or robustness?"}, {"title": "Pruning", "problem": "Can models remove computation dynamically based on input difficulty?"}, {"title": "Knowledge distillation", "problem": "How can capabilities be transferred from large models into compact models?"}, {"title": "Speculative decoding", "problem": "How can generation be accelerated using smaller draft models without quality loss?"}, {"title": "Adaptive computation", "problem": "Can models dynamically spend more compute only on difficult tokens or problems?"}, {"title": "Edge foundation models", "problem": "How can useful foundation models run on phones, embedded devices, and low-power hardware?"}, {"title": "Energy-efficient AI", "problem": "How can training and inference reduce energy, water, and carbon costs while preserving capability?"}], "11 \u2014 AI Systems, Inference & Cloud": [{"title": "Distributed inference", "problem": "How should frontier models be partitioned across thousands of accelerators?"}, {"title": "KV-cache systems", "problem": "How can memory-heavy KV caches be compressed, shared, scheduled, and offloaded?"}, {"title": "Disaggregated inference", "problem": "Can compute, memory, and networking resources be independently scaled for inference?"}, {"title": "GPU scheduling", "problem": "How should heterogeneous workloads share expensive accelerators efficiently?"}, {"title": "Inference serving", "problem": "How can latency, throughput, cost, and reliability be jointly optimized?"}, {"title": "Communication-efficient training", "problem": "How can distributed training reduce communication bottlenecks?"}, {"title": "Fault-tolerant AI infrastructure", "problem": "How can training and inference survive accelerator, network, and storage failures?"}, {"title": "AI datacenter optimization", "problem": "How can power, cooling, networking, and compute be co-optimized?"}, {"title": "Model parallelism", "problem": "What parallelization strategies remain efficient as models become more heterogeneous?"}, {"title": "AI infrastructure observability", "problem": "How can researchers diagnose model-serving bottlenecks across the entire stack?"}], "12 \u2014 AI Hardware, Compilers & Accelerators": [{"title": "Transformer accelerators", "problem": "What architectures minimize data movement for modern transformer workloads?"}, {"title": "SSM/Mamba accelerators", "problem": "What hardware primitives best exploit state-space model computation?"}, {"title": "Sparse acceleration", "problem": "How can irregular sparsity produce real end-to-end speedups rather than theoretical FLOP savings?"}, {"title": "Near-memory computing", "problem": "Can computation be moved close to memory to reduce data movement?"}, {"title": "Processing-in-memory", "problem": "Can memory arrays perform useful neural operations efficiently?"}, {"title": "Chiplet AI systems", "problem": "How should AI accelerators be composed from modular chiplets?"}, {"title": "AI compiler optimization", "problem": "Can compilers automatically map rapidly changing model architectures to hardware?"}, {"title": "Hardware-software co-design", "problem": "Can model architecture and accelerator architecture be optimized jointly?"}, {"title": "Photonic AI", "problem": "Can optical computation deliver practical advantages for matrix-heavy workloads?"}, {"title": "Low-power accelerators", "problem": "How can high-performance inference operate within strict thermal and battery limits?"}], "13 \u2014 AI Cybersecurity": [{"title": "Autonomous vulnerability discovery", "problem": "Can AI discover vulnerabilities faster while remaining safely constrained?"}, {"title": "AI red teaming", "problem": "Can agents systematically discover failures in complex AI systems?"}, {"title": "Prompt injection defense", "problem": "How can systems separate trusted instructions from untrusted content?"}, {"title": "Tool poisoning", "problem": "How can agents detect malicious or manipulated tool outputs?"}, {"title": "Model supply-chain security", "problem": "How can models, adapters, datasets, and dependencies be verified end-to-end?"}, {"title": "AI malware analysis", "problem": "Can models reason over evolving malware behavior and code?"}, {"title": "Secure coding agents", "problem": "How can coding agents produce secure code and verify their own changes?"}, {"title": "Agent privilege control", "problem": "How should autonomous agents receive the minimum permissions required for tasks?"}, {"title": "Model extraction", "problem": "How can deployed models resist unauthorized replication?"}, {"title": "AI cyber defense", "problem": "Can autonomous systems detect, investigate, and respond to attacks safely?"}], "14 \u2014 Adversarial ML, Privacy & Trust": [{"title": "Adversarial robustness", "problem": "How can models remain reliable under intentionally manipulated inputs?"}, {"title": "Data poisoning", "problem": "How can training pipelines detect and resist malicious data?"}, {"title": "Backdoor detection", "problem": "Can hidden behaviors implanted during training be reliably detected?"}, {"title": "Jailbreak robustness", "problem": "How can models resist adversarial attempts to bypass safety constraints?"}, {"title": "Membership inference", "problem": "How can systems prevent attackers from determining whether data was used in training?"}, {"title": "Model inversion", "problem": "How can private training information be protected from reconstruction attacks?"}, {"title": "Differential privacy", "problem": "How can privacy guarantees be achieved without unacceptable capability loss?"}, {"title": "Private inference", "problem": "Can users obtain model outputs without revealing sensitive inputs to the model provider?"}, {"title": "Confidential AI", "problem": "How can trusted execution environments protect models and data during computation?"}, {"title": "Trustworthy RAG", "problem": "How can retrieval systems provide provenance, freshness, and resistance to poisoned sources?"}], "15 \u2014 Evaluation, Benchmarks & AI Measurement": [{"title": "Benchmark saturation", "problem": "How can evaluations remain useful when frontier models rapidly solve existing tests?"}, {"title": "Benchmark contamination", "problem": "How can benchmark results remain valid when test data may have entered training corpora?"}, {"title": "Agent evaluation", "problem": "How should autonomous systems be evaluated on long-horizon real-world tasks?"}, {"title": "Capability elicitation", "problem": "How can hidden capabilities be measured when models do not reliably reveal them?"}, {"title": "Robustness evaluation", "problem": "How can models be tested across distribution shifts and adversarial environments?"}, {"title": "Reasoning evaluation", "problem": "How can genuine reasoning be separated from memorization and benchmark-specific optimization?"}, {"title": "Safety evaluation", "problem": "How can dangerous capabilities be measured reproducibly before deployment?"}, {"title": "Human-AI evaluation", "problem": "What metrics best capture whether AI actually improves human decision-making?"}, {"title": "Scientific evaluation", "problem": "How can AI-generated scientific claims be evaluated for novelty, correctness, and reproducibility?"}, {"title": "Evaluation gaming", "problem": "How can benchmarks resist optimization that improves scores without improving real capability?"}], "16 \u2014 Memory, Continual Learning & Personalization": [{"title": "Persistent agent memory", "problem": "How should long-lived AI systems store and retrieve experiences safely?"}, {"title": "Memory consolidation", "problem": "Can AI decide which experiences become durable knowledge?"}, {"title": "Continual learning", "problem": "How can models learn new information without catastrophic forgetting?"}, {"title": "Online adaptation", "problem": "Can models adapt to changing environments without expensive retraining?"}, {"title": "Personalized models", "problem": "How can models adapt to users while preserving privacy and general capabilities?"}, {"title": "Selective forgetting", "problem": "Can models intentionally forget specific information or behaviors?"}, {"title": "Dynamic knowledge updating", "problem": "How can factual knowledge be updated without destabilizing learned reasoning?"}, {"title": "Lifelong agents", "problem": "Can agents accumulate useful skills over years rather than resetting between deployments?"}, {"title": "Memory security", "problem": "How can malicious or incorrect memories be detected and isolated?"}, {"title": "Personalized reasoning", "problem": "Can AI adapt its reasoning strategy to an individual's expertise, goals, and constraints?"}], "17 \u2014 Causal & Neuro-Symbolic AI": [{"title": "Causal representation learning", "problem": "Can latent representations expose meaningful causal variables?"}, {"title": "Causal discovery", "problem": "Can AI infer causal structures from observational and experimental data?"}, {"title": "Counterfactual reasoning", "problem": "Can models reliably answer what would have happened under alternative interventions?"}, {"title": "Structural causal models + foundation models", "problem": "How can causal models and foundation models be integrated?"}, {"title": "Differentiable logic", "problem": "Can symbolic constraints be integrated into neural learning efficiently?"}, {"title": "Program synthesis", "problem": "Can AI generate executable programs that satisfy formal specifications?"}, {"title": "Formal verification", "problem": "Can AI-generated code and reasoning be automatically verified at scale?"}, {"title": "Neural theorem proving", "problem": "Can learned models discover proof strategies that generalize across mathematical domains?"}, {"title": "Symbolic planning", "problem": "Can symbolic planners and neural agents cooperate without brittle interfaces?"}, {"title": "Causal agents", "problem": "Can autonomous agents explicitly reason about interventions before acting?"}], "18 \u2014 Federated, Decentralized & Edge AI": [{"title": "Federated foundation models", "problem": "How can large models be trained collaboratively without centralizing sensitive data?"}, {"title": "Communication-efficient FL", "problem": "How can federated training reduce communication by orders of magnitude?"}, {"title": "Heterogeneous FL", "problem": "How can clients with different data, hardware, and model capabilities participate effectively?"}, {"title": "Byzantine-robust FL", "problem": "How can federated systems tolerate malicious or faulty participants?"}, {"title": "Privacy-preserving FL", "problem": "How can encryption, privacy, and learning efficiency be balanced?"}, {"title": "Decentralized learning", "problem": "Can peer-to-peer training eliminate centralized coordination bottlenecks?"}, {"title": "Edge intelligence", "problem": "How can devices perform useful reasoning locally with limited resources?"}, {"title": "Federated agents", "problem": "Can autonomous agents learn collaboratively while retaining local privacy?"}, {"title": "Cross-silo scientific AI", "problem": "Can institutions train shared scientific models without exposing proprietary datasets?"}, {"title": "Federated continual learning", "problem": "How can distributed systems continuously adapt to changing local environments?"}], "19 \u2014 Software Engineering & AI Coding": [{"title": "Repository-level reasoning", "problem": "Can agents understand architecture and dependencies across massive codebases?"}, {"title": "Autonomous debugging", "problem": "Can agents localize, reproduce, fix, and verify software failures?"}, {"title": "Automated testing", "problem": "Can AI generate tests that expose subtle semantic and security bugs?"}, {"title": "Code review agents", "problem": "Can models reliably identify architectural, correctness, and security problems?"}, {"title": "Program repair", "problem": "Can AI repair production code without introducing regressions?"}, {"title": "Code optimization", "problem": "Can AI discover performance improvements across compilers, kernels, and applications?"}, {"title": "Formal code generation", "problem": "Can natural-language requirements be translated into formally verified programs?"}, {"title": "Software maintenance agents", "problem": "Can agents safely maintain codebases over years?"}, {"title": "AI-native development environments", "problem": "What should IDEs look like when autonomous agents become primary programmers?"}, {"title": "Multi-agent engineering teams", "problem": "Can specialized agents coordinate architecture, implementation, testing, security, and release?"}], "20 \u2014 AI + Databases, Search & Knowledge": [{"title": "AI-native databases", "problem": "What database architecture is optimal when semantic retrieval and agents are first-class workloads?"}, {"title": "Learned indexes", "problem": "Can neural models replace parts of traditional indexing with better performance?"}, {"title": "Neural query optimization", "problem": "Can models discover better query plans than hand-designed optimizers?"}, {"title": "Multimodal databases", "problem": "How should text, images, audio, video, and structured data be jointly queried?"}, {"title": "Semantic query systems", "problem": "Can users express complex information needs naturally while retaining database guarantees?"}, {"title": "Knowledge graph + LLM integration", "problem": "How can structured knowledge improve reasoning and reduce hallucination?"}, {"title": "Agentic retrieval", "problem": "Can agents dynamically formulate, evaluate, and refine retrieval strategies?"}, {"title": "Retrieval provenance", "problem": "How can every generated claim be traced to evidence?"}, {"title": "Freshness-aware RAG", "problem": "How can retrieval systems prioritize current information without losing stable knowledge?"}, {"title": "Autonomous database administration", "problem": "Can agents tune, diagnose, secure, and recover databases safely?"}], "21 \u2014 Synthetic Data & Data-Centric AI": [{"title": "Synthetic data quality", "problem": "When does synthetic data improve generalization and when does it amplify model artifacts?"}, {"title": "Synthetic data collapse", "problem": "How can repeated training on generated data avoid progressive loss of diversity?"}, {"title": "Rare-event synthesis", "problem": "Can AI generate realistic examples of rare but safety-critical events?"}, {"title": "Privacy-preserving synthetic data", "problem": "Can synthetic datasets retain utility without exposing individuals?"}, {"title": "Data selection", "problem": "How can training examples be selected for maximum capability gain per compute dollar?"}, {"title": "Data valuation", "problem": "Can the marginal value of individual datasets or examples be quantified?"}, {"title": "Data curriculum", "problem": "Can models benefit from dynamically ordered training data?"}, {"title": "Multimodal synthetic datasets", "problem": "How can consistent text-image-video-3D datasets be generated at scale?"}, {"title": "Scientific synthetic data", "problem": "Can simulation-generated data replace scarce experimental observations safely?"}, {"title": "Data quality automation", "problem": "Can agents automatically detect duplication, contamination, bias, and mislabeled data?"}], "22 \u2014 AI for Society, Policy & Human-AI Interaction": [{"title": "Human-AI collaboration", "problem": "What interaction patterns consistently make humans better rather than merely faster?"}, {"title": "AI decision support", "problem": "When should AI advise, recommend, or abstain from making decisions?"}, {"title": "AI overreliance", "problem": "How can interfaces prevent humans from blindly accepting plausible model outputs?"}, {"title": "AI transparency", "problem": "What explanations actually improve user understanding and decision quality?"}, {"title": "AI governance", "problem": "How can technical systems enforce organizational AI policies?"}, {"title": "AI incident response", "problem": "How should organizations detect, investigate, and learn from AI failures?"}, {"title": "Algorithmic fairness", "problem": "How can fairness be evaluated under changing populations and objectives?"}, {"title": "AI labor augmentation", "problem": "Which tasks should be automated, augmented, or deliberately kept human?"}, {"title": "AI education", "problem": "How should learning systems adapt when students have ubiquitous AI assistance?"}, {"title": "AI sovereignty", "problem": "How can nations build resilient AI capabilities, infrastructure, data, and talent ecosystems?"}], "23 \u2014 AI Economics, Markets & Quantitative Systems": [{"title": "AI-driven market modeling", "problem": "Can foundation models extract useful structure from multimodal financial information?"}, {"title": "Agentic trading systems", "problem": "How can autonomous financial agents operate under strict risk and compliance constraints?"}, {"title": "Market simulation", "problem": "Can learned world models produce realistic financial market simulations?"}, {"title": "Alternative data reasoning", "problem": "How can AI combine text, satellite, transaction, and market data robustly?"}, {"title": "Financial causal inference", "problem": "Can AI distinguish causal drivers from correlated market signals?"}, {"title": "Risk-aware agents", "problem": "How should agents optimize expected return while explicitly modeling tail risk?"}, {"title": "AI for portfolio construction", "problem": "Can machine learning improve robust portfolio allocation under distribution shift?"}, {"title": "Fraud detection", "problem": "Can AI identify adaptive fraud while minimizing false positives?"}, {"title": "AI governance in finance", "problem": "How can high-stakes AI systems remain auditable and compliant?"}, {"title": "Quant research automation", "problem": "Can agents formulate, test, falsify, and validate trading hypotheses without overfitting?"}], "24 \u2014 AI for Mathematics, Physics & Computing": [{"title": "Automated theorem discovery", "problem": "Can AI discover new mathematical statements rather than merely prove supplied ones?"}, {"title": "Proof search", "problem": "How can search and neural reasoning be combined for difficult proofs?"}, {"title": "Symbolic-numeric AI", "problem": "Can systems combine exact symbolic reasoning with approximate numerical computation?"}, {"title": "AI for algorithms", "problem": "Can models discover faster algorithms with provable guarantees?"}, {"title": "AI compiler synthesis", "problem": "Can AI invent compiler optimizations and prove they preserve semantics?"}, {"title": "Physics-informed foundation models", "problem": "Can AI learn physical laws while respecting conservation constraints?"}, {"title": "Scientific surrogate models", "problem": "Can neural simulators replace expensive numerical solvers reliably?"}, {"title": "AI for combinatorial optimization", "problem": "Can learning discover heuristics that generalize across optimization families?"}, {"title": "AI for HPC", "problem": "How can machine learning optimize scheduling, kernels, communication, and numerical methods?"}, {"title": "Automated computational experiments", "problem": "Can AI design, execute, analyze, and reproduce large computational studies?"}], "25 \u2014 Emerging / Cross-Cutting Frontier": [{"title": "Unified intelligence architecture", "problem": "Can reasoning, memory, perception, planning, learning, and action be integrated without a brittle monolith?"}, {"title": "Capability scaling laws", "problem": "What predicts capability gains across data, compute, architecture, inference-time reasoning, and interaction?"}, {"title": "Post-transformer architectures", "problem": "What architectures could fundamentally outperform transformers on future workloads?"}, {"title": "AI self-improvement", "problem": "How can models improve their data, tools, code, evaluation, or training processes safely?"}, {"title": "AI-to-AI scientific collaboration", "problem": "Can specialized AI systems exchange knowledge and experiments more effectively than one general model?"}, {"title": "Machine-generated research agendas", "problem": "Can AI identify high-value unanswered questions better than conventional literature surveys?"}, {"title": "AI architecture search", "problem": "Can AI discover entirely new learning architectures rather than variations of existing ones?"}, {"title": "Unified training objectives", "problem": "Is there a better objective than next-token prediction for general intelligence?"}, {"title": "Generalization under distribution shift", "problem": "What principles allow AI to remain competent when reality changes?"}, {"title": "Intelligence measurement", "problem": "What is the scientifically defensible way to measure machine intelligence across radically different systems?"}]};
+const results = document.getElementById('results');
+const search = document.getElementById('search');
+const count = document.getElementById('count');
+const viewTitle = document.getElementById('viewTitle');
+let filter='ALL';
+
+function render(){
+  const q=search.value.trim().toLowerCase();
+  let sections=[];
+  let shown=0;
+  for(const [domain,items] of Object.entries(DATA)){
+    if(filter!=='ALL' && filter!==domain) continue;
+    const hits=items.filter(x=>(x.title+' '+x.problem+' '+domain).toLowerCase().includes(q));
+    if(!hits.length) continue;
+    shown+=hits.length;
+    const cards = hits.map((x,i)=>'<article class="card"><div class="num">RESEARCH PROBLEM</div><h3>'+esc(x.title)+'</h3><p>'+esc(x.problem)+'</p><span class="tag">Open problem</span></article>').join('');
+    sections.push('<div class="section"><div class="section-title"><span>'+domain.split(' ')[0]+'</span><h2>'+domain.replace(/^\d+ — /,'')+'</h2></div><div class="grid">'+cards+'</div></div>');
+  }
+  results.innerHTML=sections.join('') || '<div class="empty">No research problems match your search.</div>';
+  count.textContent=shown+' problems';
+  viewTitle.textContent=filter==='ALL' ? 'All research problems' : filter.replace(/^\d+ — /,'');
+}
+function esc(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
+document.getElementById('domainSelect').addEventListener('change',e=>{
+  filter=e.target.value; render();
+});
+search.addEventListener('input',render); render();
+</script>
+
+<script>
+document.addEventListener('pointermove', (e) => {
+  const card = e.target.closest('.card');
+  if (!card) return;
+  const r = card.getBoundingClientRect();
+  card.style.setProperty('--mx', `${e.clientX-r.left}px`);
+  card.style.setProperty('--my', `${e.clientY-r.top}px`);
+});
+</script>
+</body>
+</html>
