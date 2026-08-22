@@ -1,0 +1,2236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRACKED — AI/ML Engineer Standards 2026–2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;700;800&family=IBM+Plex+Mono:wght@300;400;600&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f2f0eb;
+  --surface: #e8e5de;
+  --surface2: #ddd9d0;
+  --ink: #1a1916;
+  --ink2: #3d3b35;
+  --muted: #8a8780;
+  --border: #ccc9c0;
+  --red: #c0392b;
+  --orange: #e67e22;
+  --blue: #1a5276;
+  --green: #1a6644;
+  --gold: #9a7d0a;
+  --accent: #c0392b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── GRID OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(26,25,22,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,25,22,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  padding: 80px 80px 80px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 60px;
+  align-items: end;
+  position: relative;
+  border-bottom: 2px solid var(--ink);
+  background: var(--bg);
+  z-index: 1;
+}
+
+.hero-left { padding-bottom: 20px; }
+
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: rise 0.5s ease forwards 0.2s;
+}
+
+.hero-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(64px, 9vw, 130px);
+  line-height: 0.88;
+  letter-spacing: -4px;
+  color: var(--ink);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: rise 0.7s ease forwards 0.3s;
+}
+
+.hero-title em {
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 0.85em;
+  color: var(--red);
+  display: block;
+}
+
+.hero-desc {
+  font-size: 19px;
+  color: var(--ink2);
+  max-width: 600px;
+  font-weight: 300;
+  line-height: 1.6;
+  opacity: 0;
+  animation: rise 0.6s ease forwards 0.5s;
+}
+
+.hero-right {
+  padding-bottom: 20px;
+  border-left: 2px solid var(--border);
+  padding-left: 40px;
+  opacity: 0;
+  animation: rise 0.6s ease forwards 0.7s;
+}
+
+.stat-block {
+  margin-bottom: 32px;
+}
+
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 52px;
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -2px;
+}
+
+.stat-num span { color: var(--red); }
+
+.stat-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.stat-source {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: 'IBM Plex Mono', monospace;
+  margin-top: 4px;
+}
+
+/* ── NAV ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--ink);
+  display: flex;
+  padding: 0 80px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar { display: none; }
+
+.nav a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  padding: 16px 18px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.nav a:hover { color: white; border-bottom-color: var(--red); }
+
+/* ── SECTION WRAPPER ── */
+.section {
+  padding: 100px 80px;
+  border-bottom: 2px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 12px;
+}
+
+h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(42px, 5.5vw, 72px);
+  line-height: 0.95;
+  letter-spacing: -2px;
+  color: var(--ink);
+  margin-bottom: 40px;
+}
+
+h2 em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  color: var(--ink2);
+}
+
+h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+p { margin-bottom: 16px; color: var(--ink2); }
+
+/* ── SPEED OF CHANGE SECTION ── */
+.change-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: var(--ink);
+  border: 2px solid var(--ink);
+  margin: 48px 0;
+}
+
+.change-cell {
+  background: var(--bg);
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.change-cell::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.change-cell.v1::after { background: var(--green); }
+.change-cell.v2::after { background: var(--orange); }
+.change-cell.v3::after { background: var(--red); }
+.change-cell.v4::after { background: var(--red); opacity: 0.5; }
+
+.change-year {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 40px;
+  letter-spacing: -2px;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.change-cell p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink2);
+  margin: 0;
+}
+
+.change-cell .heat {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.heat.low { color: var(--green); }
+.heat.med { color: var(--orange); }
+.heat.high { color: var(--red); }
+.heat.extreme { color: var(--red); font-weight: 600; }
+
+/* ── VELOCITY BAR ── */
+.velocity-bar {
+  background: var(--surface);
+  border: 2px solid var(--ink);
+  padding: 32px 40px;
+  margin: 32px 0;
+  display: grid;
+  grid-template-columns: 200px 1fr auto;
+  gap: 24px;
+  align-items: center;
+}
+
+.vel-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.vel-track {
+  height: 8px;
+  background: var(--border);
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.vel-fill {
+  height: 100%;
+  background: var(--red);
+  border-radius: 0;
+  transition: width 1.5s ease;
+  width: 0;
+}
+
+.vel-num {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--red);
+  white-space: nowrap;
+  letter-spacing: -1px;
+}
+
+/* ── THREAT TABLE ── */
+.threat-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid var(--ink);
+  margin: 40px 0;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.threat-table th {
+  background: var(--ink);
+  color: white;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 14px 20px;
+  text-align: left;
+  font-weight: 400;
+}
+
+.threat-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  color: var(--ink2);
+  vertical-align: top;
+}
+
+.threat-table tr:last-child td { border-bottom: none; }
+
+.threat-table tr:hover td { background: var(--surface); }
+
+.risk-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 1px solid;
+  border-radius: 0;
+}
+
+.risk-now { color: var(--red); border-color: var(--red); background: rgba(192,57,43,0.06); }
+.risk-2yr { color: var(--orange); border-color: var(--orange); background: rgba(230,126,34,0.06); }
+.risk-5yr { color: var(--gold); border-color: var(--gold); background: rgba(154,125,10,0.06); }
+.risk-safe { color: var(--green); border-color: var(--green); background: rgba(26,102,68,0.06); }
+
+/* ── STACK LAYERS ── */
+.stack {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  margin: 40px 0;
+  border: 2px solid var(--ink);
+}
+
+.stack-tier {
+  display: contents;
+}
+
+.stack-label {
+  background: var(--ink);
+  color: white;
+  padding: 28px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.stack-label.t1 { background: var(--red); }
+.stack-label.t2 { background: var(--blue); }
+.stack-label.t3 { background: var(--green); }
+.stack-label.t4 { background: var(--gold); }
+.stack-label.t5 { background: var(--ink); }
+
+.stack-content {
+  padding: 28px 32px;
+  border-bottom: 1px solid var(--border);
+  border-left: 2px solid var(--ink);
+}
+
+.stack-tier:last-child .stack-label,
+.stack-tier:last-child .stack-content {
+  border-bottom: none;
+}
+
+.stack-content h4 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+
+.stack-content .skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.skill-tag {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--ink2);
+}
+
+.skill-tag.hot {
+  background: rgba(192,57,43,0.08);
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* ── PROTOCOL CARDS ── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: var(--border);
+  border: 2px solid var(--border);
+  margin: 40px 0;
+}
+
+.card {
+  background: var(--bg);
+  padding: 36px 32px;
+  transition: background 0.2s;
+}
+
+.card:hover { background: var(--surface); }
+
+.card .ctag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+  display: block;
+}
+
+.card h4 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: var(--ink);
+  letter-spacing: -0.5px;
+}
+
+.card ul {
+  list-style: none;
+  font-size: 14px;
+  color: var(--ink2);
+  line-height: 1.5;
+}
+
+.card ul li {
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(26,25,22,0.06);
+  padding-left: 18px;
+  position: relative;
+}
+
+.card ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--red);
+  font-size: 12px;
+  top: 8px;
+}
+
+/* ── DAILY OS ── */
+.day-grid {
+  margin: 40px 0;
+  border: 2px solid var(--ink);
+}
+
+.day-row {
+  display: grid;
+  grid-template-columns: 140px 56px 1fr;
+  border-bottom: 1px solid var(--border);
+  align-items: stretch;
+}
+
+.day-row:last-child { border-bottom: none; }
+
+.day-time {
+  background: var(--ink);
+  color: white;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 18px 18px;
+  display: flex;
+  align-items: center;
+}
+
+.day-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  border-right: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.day-body {
+  padding: 18px 28px;
+}
+
+.day-body strong {
+  display: block;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+  margin-bottom: 3px;
+  letter-spacing: -0.3px;
+}
+
+.day-body .dtag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.day-body p {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── TIMELINE ── */
+.tl {
+  margin: 48px 0;
+  display: grid;
+  grid-template-columns: 100px 2px 1fr;
+  gap: 0;
+}
+
+.tl-left {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  letter-spacing: -1px;
+  color: var(--red);
+  padding-top: 4px;
+  text-align: right;
+  padding-right: 28px;
+}
+
+.tl-line {
+  background: linear-gradient(to bottom, var(--red), var(--orange), var(--gold), var(--green));
+  position: relative;
+  margin-left: -1px;
+}
+
+.tl-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--red);
+  border: 2px solid var(--bg);
+  position: absolute;
+  top: 6px;
+  left: -4px;
+}
+
+.tl-right {
+  padding: 0 0 48px 28px;
+}
+
+.tl-right h4 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+
+.tl-right ul {
+  list-style: none;
+  font-size: 14px;
+  color: var(--ink2);
+}
+
+.tl-right ul li { padding: 4px 0; padding-left: 16px; position: relative; }
+.tl-right ul li::before { content: '—'; position: absolute; left: 0; color: var(--muted); }
+
+/* ── IRON RULES ── */
+.rules-list { margin: 40px 0; }
+
+.rule-item {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+
+.rule-item:last-child { border-bottom: none; }
+
+.rn {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 44px;
+  color: var(--border);
+  line-height: 1;
+  letter-spacing: -2px;
+  transition: color 0.3s;
+}
+
+.rule-item:hover .rn { color: var(--red); }
+
+.rule-text h4 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+
+.rule-text p { font-size: 15px; margin: 0; }
+
+/* ── CALLOUTS ── */
+.callout {
+  border: 2px solid var(--ink);
+  padding: 24px 32px;
+  margin: 32px 0;
+  background: var(--ink);
+  color: white;
+}
+
+.callout p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 21px;
+  line-height: 1.5;
+  color: white;
+  margin: 0;
+}
+
+.callout.light {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+.callout.light p { color: var(--ink); }
+
+.callout.red {
+  background: rgba(192,57,43,0.08);
+  border-color: var(--red);
+}
+
+.callout.red p { color: var(--red); }
+
+/* ── MOAT MATRIX ── */
+.moat {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--ink);
+  border: 2px solid var(--ink);
+  margin: 40px 0;
+}
+
+.moat-cell {
+  background: var(--bg);
+  padding: 32px 28px;
+}
+
+.moat-cell .icon { font-size: 28px; margin-bottom: 16px; display: block; }
+
+.moat-cell h4 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 10px;
+  letter-spacing: -0.3px;
+}
+
+.moat-cell p {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── FORBIDDEN ── */
+.forbidden {
+  background: var(--ink);
+  padding: 48px 56px;
+  margin: 40px 0;
+  color: white;
+}
+
+.forbidden h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  letter-spacing: -1px;
+  color: var(--red);
+  margin-bottom: 28px;
+}
+
+.forbidden p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 24px;
+}
+
+.forbidden ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  list-style: none;
+}
+
+.forbidden ul li {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  letter-spacing: 0.5px;
+}
+
+.forbidden ul li::before { content: '✕  '; color: var(--red); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  color: white;
+  padding: 80px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+footer h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(48px, 7vw, 100px);
+  letter-spacing: -4px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+footer h2 em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--red);
+}
+
+footer p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+}
+
+/* ── ANIM ── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade.on { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 60px 32px; }
+  .hero-right { border-left: none; border-top: 2px solid var(--border); padding-left: 0; padding-top: 32px; }
+  .section, footer { padding: 60px 32px; }
+  .nav { padding: 0 32px; }
+  .change-grid { grid-template-columns: 1fr 1fr; }
+  .cards { grid-template-columns: 1fr; }
+  .moat { grid-template-columns: 1fr 1fr; }
+  .forbidden { padding: 40px 32px; }
+  .forbidden ul { grid-template-columns: 1fr; }
+  .stack { grid-template-columns: 80px 1fr; }
+  .velocity-bar { grid-template-columns: 1fr; gap: 12px; }
+  .day-row { grid-template-columns: 110px 48px 1fr; }
+}
+
+/* =========================================================
+   CRACKED 2026–2027 UPGRADE LAYER
+   ========================================================= */
+:root {
+  --cyan: #0b7285;
+  --violet: #5f3dc4;
+  --danger: #9b2226;
+  --ok: #2b8a3e;
+  --black: #11110f;
+}
+.badge-row { display:flex; flex-wrap:wrap; gap:8px; margin:22px 0 30px; }
+.badge { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px;
+  text-transform:uppercase; padding:7px 10px; border:1px solid var(--ink); background:var(--surface); }
+.badge.hot { border-color:var(--red); color:var(--red); background:rgba(192,57,43,.06); }
+.badge.cyan { border-color:var(--cyan); color:var(--cyan); }
+.badge.green { border-color:var(--green); color:var(--green); }
+.badge.dark { background:var(--ink); color:white; }
+.cracked-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--ink); border:2px solid var(--ink); margin:40px 0; }
+.cracked-card { background:var(--bg); padding:28px; min-height:220px; }
+.cracked-card .num { font-family:'Syne',sans-serif; font-size:38px; font-weight:800; color:var(--red); }
+.cracked-card h4 { font-family:'Syne',sans-serif; font-size:18px; margin:8px 0 10px; }
+.cracked-card p { font-size:13px; line-height:1.55; color:var(--ink2); }
+.gate-table { width:100%; border-collapse:collapse; border:2px solid var(--ink); margin:40px 0; }
+.gate-table th { background:var(--ink); color:white; padding:13px 16px; font:10px 'IBM Plex Mono'; letter-spacing:2px; text-transform:uppercase; text-align:left; }
+.gate-table td { padding:15px 16px; border-bottom:1px solid var(--border); font-size:13px; vertical-align:top; }
+.gate-table tr:last-child td { border-bottom:0; }
+.gate { display:inline-block; font:10px 'IBM Plex Mono'; letter-spacing:1px; padding:4px 8px; border:1px solid; }
+.gate.pass { color:var(--green); border-color:var(--green); }
+.gate.hard { color:var(--red); border-color:var(--red); }
+.gate.black { color:white; background:var(--ink); border-color:var(--ink); }
+.project-matrix { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; background:var(--border); border:2px solid var(--border); margin:40px 0; }
+.project { background:var(--bg); padding:30px; }
+.project .ptype { font:10px 'IBM Plex Mono'; letter-spacing:2px; color:var(--red); text-transform:uppercase; }
+.project h4 { font:700 21px 'Syne'; margin:8px 0 12px; }
+.project ul { margin:0; padding-left:18px; font-size:13px; color:var(--ink2); line-height:1.55; }
+.project li { margin:6px 0; }
+.score { display:grid; grid-template-columns:1fr auto; gap:16px; align-items:center; padding:14px 0; border-bottom:1px solid var(--border); }
+.score:last-child { border-bottom:0; }
+.score strong { font-family:'Syne'; }
+.score span { font:700 14px 'IBM Plex Mono'; color:var(--red); }
+.phase-strip { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; background:var(--ink); border:2px solid var(--ink); margin:40px 0; }
+.phase { background:var(--bg); padding:20px 16px; min-height:170px; }
+.phase .pnum { font:800 26px 'Syne'; color:var(--red); }
+.phase h4 { font:700 16px 'Syne'; margin:5px 0 8px; }
+.phase p { font-size:12px; line-height:1.45; margin:0; }
+.audit-box { border:2px solid var(--ink); padding:28px 32px; margin:30px 0; background:var(--surface); }
+.audit-box h4 { font:800 22px 'Syne'; margin-bottom:14px; }
+.audit-box ul { margin:0; padding-left:20px; font-size:14px; color:var(--ink2); }
+.audit-box li { margin:7px 0; }
+.redline { border-left:5px solid var(--red); padding:18px 22px; background:rgba(192,57,43,.06); margin:28px 0; }
+.redline strong { font-family:'Syne'; }
+@media (max-width:900px) {
+  .cracked-grid,.phase-strip { grid-template-columns:1fr 1fr; }
+  .project-matrix { grid-template-columns:1fr; }
+}
+@media (max-width:600px) {
+  .cracked-grid,.phase-strip { grid-template-columns:1fr; }
+  .cracked-card,.project,.phase { min-height:auto; }
+}
+
+
+/* =========================================================
+   CRACKED v2 — FORENSIC CURRICULUM AUDIT
+   ========================================================= */
+.audit-hero {
+  border:2px solid var(--ink); padding:32px; margin:40px 0;
+  background:var(--surface);
+}
+.audit-hero h3 { font:800 27px 'Syne'; margin:0 0 12px; }
+.audit-hero p { max-width:900px; font-size:14px; line-height:1.65; color:var(--ink2); }
+.audit-status {
+  display:inline-block; margin:8px 6px 0 0; padding:6px 9px;
+  border:1px solid; font:10px 'IBM Plex Mono'; letter-spacing:1px;
+  text-transform:uppercase;
+}
+.audit-status.keep { color:var(--green); border-color:var(--green); }
+.audit-status.upgrade { color:#9a6700; border-color:#9a6700; }
+.audit-status.deepen { color:var(--red); border-color:var(--red); }
+.audit-status.reposition { color:var(--violet); border-color:var(--violet); }
+.audit-status.add { color:var(--cyan); border-color:var(--cyan); }
+.audit-status.remove { color:#777; border-color:#777; }
+.audit-matrix { width:100%; border-collapse:collapse; margin:30px 0; border:2px solid var(--ink); }
+.audit-matrix th { background:var(--ink); color:#fff; padding:12px 13px; text-align:left; font:10px 'IBM Plex Mono'; letter-spacing:1.5px; text-transform:uppercase; }
+.audit-matrix td { padding:13px; border-bottom:1px solid var(--border); font-size:12px; vertical-align:top; line-height:1.5; }
+.audit-matrix tr:last-child td { border-bottom:0; }
+.audit-matrix .topic { font:700 14px 'Syne'; }
+.material-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--ink); border:2px solid var(--ink); margin:30px 0; }
+.material-card { background:var(--bg); padding:24px; }
+.material-card h4 { font:700 17px 'Syne'; margin:7px 0 10px; }
+.material-card p { font-size:12px; line-height:1.55; color:var(--ink2); }
+.material-card .kind { font:10px 'IBM Plex Mono'; color:var(--red); letter-spacing:1.5px; text-transform:uppercase; }
+.material-card a { color:inherit; text-decoration:underline; text-underline-offset:3px; }
+.audit-checklist { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; background:var(--border); border:2px solid var(--border); margin:30px 0; }
+.audit-check { background:var(--bg); padding:20px; }
+.audit-check strong { display:block; font:700 15px 'Syne'; margin-bottom:6px; }
+.audit-check span { font-size:12px; color:var(--ink2); line-height:1.5; }
+.refresh-loop { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; background:var(--ink); border:2px solid var(--ink); margin:30px 0; }
+.refresh-step { background:var(--bg); padding:18px; min-height:145px; }
+.refresh-step b { display:block; font:800 22px 'Syne'; color:var(--red); }
+.refresh-step strong { display:block; font:700 14px 'Syne'; margin:5px 0; }
+.refresh-step p { font-size:11px; line-height:1.45; }
+@media(max-width:900px) {
+  .material-grid,.refresh-loop { grid-template-columns:1fr 1fr; }
+  .audit-checklist { grid-template-columns:1fr; }
+}
+@media(max-width:600px) {
+  .material-grid,.refresh-loop { grid-template-columns:1fr; }
+  .audit-matrix { display:block; overflow-x:auto; }
+}
+
+</style>
+<style>
+.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--ink);border:2px solid var(--ink);margin:28px 0}.detail-card{background:var(--bg);padding:24px}.detail-card .num{font:800 28px 'Syne';color:var(--red)}.detail-card h4{font:800 18px 'Syne';margin:4px 0 10px}.detail-card h5{font:700 10px 'IBM Plex Mono';letter-spacing:1px;text-transform:uppercase;color:var(--red);margin:16px 0 7px}.detail-card li{font-size:12px;line-height:1.5;margin:4px 0}.rubric{width:100%;border-collapse:collapse;border:2px solid var(--ink);margin:28px 0}.rubric th{background:var(--ink);color:#fff;padding:10px;font:10px 'IBM Plex Mono';text-align:left}.rubric td{padding:10px;border-bottom:1px solid var(--border);font-size:11px;line-height:1.4;vertical-align:top}.curriculum{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:2px solid var(--border);margin:25px 0}.curriculum .cell{background:var(--bg);padding:17px}.curriculum .cell strong{display:block;font:700 14px 'Syne';margin-bottom:5px}.curriculum .cell span{font-size:11px;color:var(--ink2)}.module{border-left:4px solid var(--ink);padding:17px 20px;margin:12px 0;background:var(--surface)}.module .meta{font:10px 'IBM Plex Mono';color:var(--red);letter-spacing:1px;text-transform:uppercase}.module .mh{font:800 16px 'Syne';margin:5px 0 8px}.module li,.module p{font-size:12px;line-height:1.5}.phase-detail{border:2px solid var(--ink);margin:22px 0;padding:23px}.phase-detail .phase-sub{font:10px 'IBM Plex Mono';color:var(--red);letter-spacing:1px;text-transform:uppercase}.phase-detail h3{font:800 22px 'Syne';margin:5px 0 12px}.phase-columns{display:grid;grid-template-columns:1fr 1fr;gap:22px}.phase-columns li{font-size:11px;line-height:1.45;margin:4px 0}@media(max-width:800px){.detail-grid,.curriculum,.phase-columns{grid-template-columns:1fr}.rubric{display:block;overflow-x:auto}}
+</style></head>
+<body>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-left">
+    <p class="eyebrow">AI/ML ENGINEER · CRACKED CANDIDATE PROTOCOL · 2026–2027</p>
+    <h1 class="hero-title">
+      UN-<br>TOUCH-<br><em>ABLE.</em>
+    </h1>
+    <p class="hero-desc" style="opacity:0;animation:rise 0.6s ease forwards 0.5s">
+      A ruthless 2026–2027 standard for becoming the candidate research labs, AI infrastructure teams and elite product organizations cannot casually dismiss. The target is not tool familiarity. The target is demonstrated depth, systems judgment, research ability, production execution and proof.
+    </p>
+  </div>
+  <div class="hero-right">
+    <div class="stat-block">
+      <div class="stat-num"><span>66%</span></div>
+      <div class="stat-label">GenAI orgs using Kubernetes</div>
+      <div class="stat-source">2025 CNCF survey · published 2026</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num"><span>82%</span></div>
+      <div class="stat-label">Container users on Kubernetes in production</div>
+      <div class="stat-source">2025 CNCF survey · published 2026</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num"><span>7%</span></div>
+      <div class="stat-label">Organizations deploying AI models daily</div>
+      <div class="stat-source">2025 CNCF survey · production gap</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num"><span>~66%</span></div>
+      <div class="stat-label">OSWorld agent task success</div>
+      <div class="stat-source">Stanford AI Index 2026 · up from 12%</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <a href="#velocity">Market</a>
+  <a href="#threat">Threat Map</a>
+  <a href="#standard">CRACKED Standard</a>
+  <a href="#stack">Skill Stack</a>
+  <a href="#phases">Phases</a>
+  <a href="#gates">Gates</a>
+  <a href="#projects">Projects</a>
+  <a href="#curriculum">Curriculum</a>
+  <a href="#audit">Audit</a>
+  <a href="#canon">Canon</a>
+  <a href="#refresh">Refresh</a>
+  <a href="#stats">Stats</a>
+  <a href="#daily">Daily OS</a>
+  <a href="#moat">Moats</a>
+  <a href="#roles">Roles</a>
+  <a href="#rules">Rules</a>
+  <a href="#milestones">Milestones</a>
+  <a href="#forbidden">Forbidden</a>
+</nav>
+
+<!-- ── 01 VELOCITY ── -->
+<div class="section" id="velocity">
+  <div class="section-label">01 / Speed of Change</div>
+  <h2>How Fast Is<br><em>Everything Moving?</em></h2>
+  <p>You can't position yourself correctly without understanding the rate of change. The 2022–2026 window was a structural break. But the 2026–2027 candidate problem is different: models are becoming interchangeable faster, while inference economics, evaluation, GPU utilization, distributed systems, security and domain execution are becoming more important.</p>
+
+  <div class="change-grid">
+    <div class="change-cell v1">
+      <div class="change-year">2022</div>
+      <div class="heat low">Slow Burn</div>
+      <p>ML is a specialist field. GPT-3 is impressive but niche. Junior devs hired aggressively. AI is a "future" conversation. AI adoption is no longer a niche trend; the 2026 Stanford AI Index reports organizational AI adoption at 88%.</p>
+    </div>
+    <div class="change-cell v2">
+      <div class="change-year">2023</div>
+      <div class="heat med">Ignition</div>
+      <p>ChatGPT triggers mass adoption. Companies begin AI experiments and pilot programs. Panic about "AI replacing engineers" starts. Hiring still strong for juniors.</p>
+    </div>
+    <div class="change-cell v3">
+      <div class="change-year">2024–25</div>
+      <div class="heat high">Structural Break</div>
+      <p>Software-developer employment for ages 22–25 has fallen nearly 20% from 2024, while the 2026 PwC AI Jobs Barometer reports a 62% average wage premium for workers with AI skills.</p>
+    </div>
+    <div class="change-cell v4">
+      <div class="change-year">2026+</div>
+      <div class="heat extreme">Acceleration</div>
+      <p>AI moves from model access to systems economics. Teams care about inference throughput, latency, GPU utilization, reliability, evaluation, security, cost per task and operational ownership. Agent demos are cheap; dependable AI systems are not.</p>
+    </div>
+  </div>
+
+  <p style="margin-bottom: 24px; font-size: 16px;">The velocity of skill commoditization — how fast a skill goes from premium to table stakes:</p>
+
+  <div class="velocity-bar fade">
+    <div class="vel-label">Prompt-only / API wrapper work</div>
+    <div class="vel-track"><div class="vel-fill" data-width="98"></div></div>
+    <div class="vel-num">Commodity</div>
+  </div>
+  <div class="velocity-bar fade">
+    <div class="vel-label">Basic RAG / agent tutorials</div>
+    <div class="vel-track"><div class="vel-fill" data-width="90"></div></div>
+    <div class="vel-num">Table stakes</div>
+  </div>
+  <div class="velocity-bar fade">
+    <div class="vel-label">Evaluation + reliability engineering</div>
+    <div class="vel-track"><div class="vel-fill" data-width="52"></div></div>
+    <div class="vel-num">Premium</div>
+  </div>
+  <div class="velocity-bar fade">
+    <div class="vel-label">Inference / GPU performance</div>
+    <div class="vel-track"><div class="vel-fill" data-width="38"></div></div>
+    <div class="vel-num">Rare</div>
+  </div>
+  <div class="velocity-bar fade">
+    <div class="vel-label">Distributed AI infrastructure</div>
+    <div class="vel-track"><div class="vel-fill" data-width="28"></div></div>
+    <div class="vel-num">Very rare</div>
+  </div>
+  <div class="velocity-bar fade">
+    <div class="vel-label">Research + systems synthesis</div>
+    <div class="vel-track"><div class="vel-fill" data-width="15"></div></div>
+    <div class="vel-num">Durable moat</div>
+  </div></div>
+    <div class="vel-num">Durable</div>
+  </div>
+
+  <div class="callout" style="margin-top: 48px;">
+    <p>The half-life of a technical skill is now shorter than the time it takes to get good at it through passive learning. You must be perpetually two skills ahead of the curriculum.</p>
+  </div>
+</div>
+
+<!-- ── 02 THREAT MAP ── -->
+<div class="section" id="threat">
+  <div class="section-label">02 / Threat Assessment</div>
+  <h2>What Gets<br><em>Automated When</em></h2>
+  <p>Every engineer needs a personal threat model. Not paranoia — strategic clarity. Know which of your current skills are already dead, which are dying, and which are growing. Act accordingly.</p>
+
+  <table class="threat-table fade">
+    <thead>
+      <tr>
+        <th>What You Do</th>
+        <th>Risk Level</th>
+        <th>Timeline</th>
+        <th>What to Do</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Writing boilerplate ML code</strong><br><span style="font-size:12px;color:var(--muted)">Standard pipelines, data loaders, training loops</span></td>
+        <td><span class="risk-pill risk-now">Now</span></td>
+        <td style="font-size:13px">Already automated by Copilot, Cursor, Claude Code. AI coding assistance is already widespread; the roadmap therefore treats boilerplate coding as a low-moat activity rather than relying on an unsupported adoption percentage.</td>
+        <td style="font-size:13px; color:var(--red)">Stop anchoring your value here. Move upstream.</td>
+      </tr>
+      <tr>
+        <td><strong>Hyperparameter tuning / ablations</strong><br><span style="font-size:12px;color:var(--muted)">Grid search, optuna-style experiments</span></td>
+        <td><span class="risk-pill risk-now">Now</span></td>
+        <td style="font-size:13px">AutoML handles most of this. Your value is in knowing what to tune, not doing the tuning.</td>
+        <td style="font-size:13px; color:var(--red)">Only valuable if you can explain why the tuning choices matter architecturally.</td>
+      </tr>
+      <tr>
+        <td><strong>Building standard RAG pipelines</strong><br><span style="font-size:12px;color:var(--muted)">Chunking, embedding, vector search, retrieval</span></td>
+        <td><span class="risk-pill risk-2yr">2 years</span></td>
+        <td style="font-size:13px">LangChain, LlamaIndex commoditize this. It's table stakes now; premium in 6 months.</td>
+        <td style="font-size:13px; color:var(--orange)">Build expertise in RAG failure modes, evaluation, and production reliability instead.</td>
+      </tr>
+      <tr>
+        <td><strong>Prompt engineering</strong><br><span style="font-size:12px;color:var(--muted)">Basic system prompts, few-shot examples</span></td>
+        <td><span class="risk-pill risk-2yr">2 years</span></td>
+        <td style="font-size:13px">Models improve at instruction-following. Base prompt engineering becomes trivial.</td>
+        <td style="font-size:13px; color:var(--orange)">Advance to evaluation frameworks, alignment, and RLHF — the level above prompting.</td>
+      </tr>
+      <tr>
+        <td><strong>Standard model deployment</strong><br><span style="font-size:12px;color:var(--muted)">FastAPI endpoints, Docker, basic cloud deploy</span></td>
+        <td><span class="risk-pill risk-2yr">2 years</span></td>
+        <td style="font-size:13px">Platform tools commoditize basic deployment. Value shifts to reliability, observability, and scale.</td>
+        <td style="font-size:13px; color:var(--orange)">Own the MLOps layer: drift detection, model versioning, CI/CD for ML pipelines.</td>
+      </tr>
+      <tr>
+        <td><strong>LLM fine-tuning (LoRA/QLoRA)</strong><br><span style="font-size:12px;color:var(--muted)">Parameter-efficient tuning on task-specific data</span></td>
+        <td><span class="risk-pill risk-5yr">4–5 years</span></td>
+        <td style="font-size:13px">Currently premium — commands significant salary lift. Will commoditize as tooling matures.</td>
+        <td style="font-size:13px; color:var(--gold)">Build it now as a core skill. Add RLHF and alignment understanding on top.</td>
+      </tr>
+      <tr>
+        <td><strong>Agentic AI system design</strong><br><span style="font-size:12px;color:var(--muted)">Multi-agent orchestration, memory, tool use</span></td>
+        <td><span class="risk-pill risk-5yr">5+ years</span></td>
+        <td style="font-size:13px">LinkedIn reports that AI job postings in the U.S. have roughly doubled since 2023; the durable differentiator is still deep engineering and systems thinking.</td>
+        <td style="font-size:13px; color:var(--gold)">This is the frontier. Invest deeply now. Design philosophy matters here, not just API calls.</td>
+      </tr>
+      <tr>
+        <td><strong>Domain-specific AI systems</strong><br><span style="font-size:12px;color:var(--muted)">Medical, fintech, legal, industrial AI engineering</span></td>
+        <td><span class="risk-pill risk-safe">Durable</span></td>
+        <td style="font-size:13px">Domain knowledge + AI engineering creates a strong differentiation moat. PwC’s 2026 analysis finds a 62% average wage premium for AI skills, with substantial variation by industry.</td>
+        <td style="font-size:13px; color:var(--green)">Pick a domain. Go deep. The intersection is your moat.</td>
+      </tr>
+      <tr>
+        <td><strong>Production AI system architecture</strong><br><span style="font-size:12px;color:var(--muted)">Distributed training, GPU cluster optimization, reliability at scale</span></td>
+        <td><span class="risk-pill risk-safe">Durable</span></td>
+        <td style="font-size:13px">Deep systems expertise is a durable differentiator; this roadmap does not use unsourced role-specific salary add-ons as evidence.</td>
+        <td style="font-size:13px; color:var(--green)">This is senior territory. Build toward it systematically.</td>
+      </tr>
+      <tr>
+        <td><strong>AI governance, evaluation, safety</strong><br><span style="font-size:12px;color:var(--muted)">Alignment, red-teaming, compliance, explainability</span></td>
+        <td><span class="risk-pill risk-safe">Durable</span></td>
+        <td style="font-size:13px">Regulatory pressure growing globally. Every company deploying AI needs this. Almost no one has it.</td>
+        <td style="font-size:13px; color:var(--green)">Underrated. Get ahead of this now before it becomes crowded.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ── 03 CRACKED STANDARD ── -->
+
+<div class="section" id="standard">
+  <div class="section-label">03 / Candidate Calibration</div>
+  <h2>The CRACKED<br><em>Standard — Measurable or It Doesn't Count.</em></h2>
+
+  <p class="lead">
+    This is not a list of admirable traits. It is a <strong>qualification battery</strong>.
+    The candidate must repeatedly produce correct work under time pressure, without an assistant,
+    with incomplete information, while being deliberately attacked by tests and questioned by another engineer.
+    “I understand it” has zero evidentiary value until the candidate can prove it.
+  </p>
+
+  <div class="redline">
+    <strong>THE CRACKED CONTRACT:</strong>
+    For every core capability, the candidate must pass five tests:
+    <strong>DERIVE → BUILD → MEASURE → BREAK → DEFEND.</strong>
+    Failing any one of the five means the capability is not fully owned.
+  </div>
+
+  <h3>03.1 — The Five Tests of Ownership</h3>
+  <table class="rubric">
+    <thead><tr><th>Test</th><th>What the candidate must do</th><th>What counts as passing</th><th>Automatic failure</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>DERIVE</strong></td>
+        <td>Explain the mechanism from first principles and state its assumptions, complexity and failure modes.</td>
+        <td>Can answer “why?” repeatedly without falling back to framework behavior.</td>
+        <td>Appeals to documentation, implementation details or authority instead of reasoning.</td>
+      </tr>
+      <tr>
+        <td><strong>BUILD</strong></td>
+        <td>Implement the critical mechanism under a constrained environment.</td>
+        <td>Correct implementation, tests included, within the assigned time.</td>
+        <td>Copies a tutorial, cannot debug their own code, or cannot explain a critical generated component.</td>
+      </tr>
+      <tr>
+        <td><strong>MEASURE</strong></td>
+        <td>Define a baseline, metric, experimental protocol and evidence threshold before optimizing.</td>
+        <td>Benchmark is reproducible and conclusions match the evidence.</td>
+        <td>Cherry-picked run, missing baseline, moving goalposts or unsupported “better” claim.</td>
+      </tr>
+      <tr>
+        <td><strong>BREAK</strong></td>
+        <td>Design inputs and operating conditions intended to make the system fail.</td>
+        <td>Failure taxonomy exists; failures are reproducible; mitigations are regression-tested.</td>
+        <td>Only tests the happy path.</td>
+      </tr>
+      <tr>
+        <td><strong>DEFEND</strong></td>
+        <td>Defend architecture, metrics, implementation and trade-offs under hostile questioning.</td>
+        <td>Can explain rejected alternatives and change position when evidence disproves an assumption.</td>
+        <td>Confuses confidence with evidence or cannot explain why a design exists.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>03.2 — Hard Competency Specifications</h3>
+
+  <div class="detail-grid">
+
+    <div class="detail-card">
+      <div class="num">01</div>
+      <h4>Mathematical + Algorithmic Ownership</h4>
+      <h5>The candidate must be able to do this cold</h5>
+      <ul>
+        <li>Derive gradients for linear/logistic regression, softmax cross-entropy and a two-layer network.</li>
+        <li>Derive the computational and memory complexity of self-attention.</li>
+        <li>Explain why normalization, residual connections and initialization affect optimization.</li>
+        <li>Reason about bias/variance, leakage, calibration, confidence intervals and uncertainty.</li>
+        <li>Analyze algorithmic complexity and identify the dominant term.</li>
+        <li>Explain floating-point error, overflow/underflow and why numerical instability occurs.</li>
+      </ul>
+      <h5>Mandatory builds</h5>
+      <ul>
+        <li>autograd scalar engine;</li>
+        <li>linear/logistic regression from scratch;</li>
+        <li>two-layer neural network with manual backprop;</li>
+        <li>selected data structures without library shortcuts.</li>
+      </ul>
+      <h5>Gate battery</h5>
+      <p><strong>3-hour closed-book.</strong> One derivation problem, one unfamiliar algorithm, one implementation, one debugging problem and one oral defense.</p>
+      <h5>CRACKED threshold</h5>
+      <p>At least 80% of the written battery, all critical derivations logically correct, and no critical implementation bug left unexplained.</p>
+      <h5>Automatic fail</h5>
+      <p>Cannot derive the mechanism they claim to understand.</p>
+    </div>
+
+    <div class="detail-card">
+      <div class="num">02</div>
+      <h4>ML/DL Engineering Ownership</h4>
+      <h5>The candidate must be able to</h5>
+      <ul>
+        <li>Choose a baseline before selecting a sophisticated architecture.</li>
+        <li>Diagnose whether failure originates in data, objective, optimization, architecture or evaluation.</li>
+        <li>Design ablations that isolate causal contributions.</li>
+        <li>Explain training instability from observed curves and system telemetry.</li>
+        <li>Distinguish optimization failure from generalization failure.</li>
+        <li>Build reproducible training with configs, seeds, checkpoints and experiment records.</li>
+      </ul>
+      <h5>Mandatory builds</h5>
+      <ul>
+        <li>from-scratch training loop;</li>
+        <li>controlled architecture ablation;</li>
+        <li>dataset leakage test;</li>
+        <li>reproducibility package.</li>
+      </ul>
+      <h5>Gate battery</h5>
+      <p>Given a deliberately broken training run, diagnose the root cause <strong>before</strong> modifying code. Then design the minimum experiment needed to falsify the diagnosis.</p>
+      <h5>CRACKED threshold</h5>
+      <p>Diagnosis must be evidence-backed; proposed experiment must isolate the suspected cause; final conclusion must survive counter-evidence.</p>
+      <h5>Automatic fail</h5>
+      <p>“Try a larger model / more epochs / different optimizer” without a causal hypothesis.</p>
+    </div>
+
+    <div class="detail-card">
+      <div class="num">03</div>
+      <h4>Data Engineering Ownership</h4>
+      <h5>The candidate must be able to</h5>
+      <ul>
+        <li>Define a dataset contract and reject invalid records.</li>
+        <li>Detect leakage, duplication, schema drift and distribution shift.</li>
+        <li>Explain partitioning, shuffles, joins, indexes and query plans.</li>
+        <li>Design replayable pipelines with lineage and versioned artifacts.</li>
+        <li>Reason about batch vs streaming semantics and failure recovery.</li>
+      </ul>
+      <h5>Mandatory build</h5>
+      <p>Pipeline: ingestion → validation → transformation → storage → training/evaluation dataset → lineage → replay.</p>
+      <h5>Break battery</h5>
+      <p>Inject malformed schema, duplicated records, missing partitions, late events and distribution shift. The pipeline must detect or safely handle each class.</p>
+      <h5>CRACKED threshold</h5>
+      <p>No silent corruption. Every rejected class has a reason, metric and recovery path.</p>
+      <h5>Automatic fail</h5>
+      <p>Data quality is checked only by manually opening a CSV or notebook.</p>
+    </div>
+
+    <div class="detail-card">
+      <div class="num">04</div>
+      <h4>LLM / RAG Ownership</h4>
+      <h5>The candidate must be able to</h5>
+      <ul>
+        <li>Explain attention, tokenization, context limitations and inference behavior.</li>
+        <li>Separate retrieval failure from generation failure.</li>
+        <li>Measure retrieval recall/precision-like task metrics before judging generation.</li>
+        <li>Diagnose chunking, query, reranking, context-packing and citation failures.</li>
+        <li>Control context budgets and reason about latency/cost consequences.</li>
+      </ul>
+      <h5>Mandatory build</h5>
+      <p>RAG system with multiple retrieval baselines, reranking, evaluation set, citation checking, failure taxonomy and regression suite.</p>
+      <h5>Gate battery</h5>
+      <p>Given 25–50 deliberately difficult queries, classify every failure as retrieval, ranking, context, generation, grounding or evaluation failure.</p>
+      <h5>CRACKED threshold</h5>
+      <p>Every failure receives an evidence-backed category; proposed fix targets the actual layer rather than blindly changing the model.</p>
+      <h5>Automatic fail</h5>
+      <p>“Use a better LLM” is the default answer to retrieval failures.</p>
+    </div>
+
+    <div class="detail-card">
+      <div class="num">05</div>
+      <h4>Agent Systems Ownership</h4>
+      <h5>The candidate must be able to</h5>
+      <ul>
+        <li>Represent agent state explicitly rather than hiding it in prompts.</li>
+        <li>Design typed tools, authorization boundaries and deterministic control paths.</li>
+        <li>Handle retries, timeouts, partial failure, checkpointing and human approval.</li>
+        <li>Evaluate both final outcomes and intermediate trajectories.</li>
+        <li>Reproduce and debug a failed run from an event trace.</li>
+      </ul>
+      <h5>Mandatory build</h5>
+      <p>Agent runtime with typed tools, persistent state, event log, replay, retry policy, approval gate, failure recovery and automated evaluation.</p>
+      <h5>Break battery</h5>
+      <ul>
+        <li>tool returns malformed data;</li>
+        <li>tool becomes unavailable;</li>
+        <li>context becomes inconsistent;</li>
+        <li>instruction conflicts with policy;</li>
+        <li>agent enters a loop;</li>
+        <li>tool attempts an unauthorized action.</li>
+      </ul>
+      <h5>CRACKED threshold</h5>
+      <p>Every failure terminates safely, leaves an auditable trace and enters the regression suite.</p>
+      <h5>Automatic fail</h5>
+      <p>Agent succeeds in a demo but has no deterministic failure/recovery model.</p>
+    </div>
+
+    <div class="detail-card">
+      <div class="num">06</div>
+      <h4>Inference + GPU Ownership</h4>
+      <h5>The candidate must be able to</h5>
+      <ul>
+        <li>Explain prefill vs decode and identify compute- vs memory-bound regimes.</li>
+        <li>Reason about KV-cache memory and batching.</li>
+        <li>Read a profiler trace and identify the dominant bottleneck.</li>
+        <li>Explain occupancy, register pressure, memory bandwidth and launch overhead.</li>
+        <li>Understand quantization and speculative decoding as measured trade-offs.</li>
+        <li>Connect high-level serving behavior to accelerator-level execution.</li>
+      </ul>
+      <h5>Mandatory builds</h5>
+      <ul>
+        <li>CUDA vector/reduction/GEMM primitive;</li>
+        <li>Triton kernel;</li>
+        <li>inference benchmark harness;</li>
+        <li>quantization comparison;</li>
+        <li>profiler-based optimization.</li>
+      </ul>
+      <h5>Gate battery</h5>
+      <p>Given a latency/throughput target, produce a baseline, profile it, identify the bottleneck, implement one optimization and prove the improvement.</p>
+      <h5>CRACKED threshold</h5>
+      <p>No optimization is accepted without profiler evidence and reproducible benchmark conditions.</p>
+      <h5>Automatic fail</h5>
+      <p>Only knows serving flags; cannot explain the hardware/software bottleneck.</p>
+    </div>
+
+    <div class="detail-card">
+      <div class="num">07</div>
+      <h4>Distributed Systems Ownership</h4>
+      <h5>The candidate must be able to</h5>
+      <ul>
+        <li>Explain data, tensor, pipeline, expert and context parallelism.</li>
+        <li>Reason about communication/computation overlap and scaling efficiency.</li>
+        <li>Understand collective communication and topology effects.</li>
+        <li>Handle worker failure, checkpoint/restart and stragglers.</li>
+        <li>Calculate why scaling stops being linear.</li>
+      </ul>
+      <h5>Mandatory build</h5>
+      <p>Multi-GPU workload with scaling curve, communication measurements and injected worker failure.</p>
+      <h5>Gate battery</h5>
+      <p>Explain a measured scaling curve from single GPU through multiple GPUs and identify where communication becomes dominant.</p>
+      <h5>CRACKED threshold</h5>
+      <p>Can predict the next scaling bottleneck before testing it.</p>
+      <h5>Automatic fail</h5>
+      <p>“Distributed training means add more GPUs” is the mental model.</p>
+    </div>
+
+    <div class="detail-card">
+      <div class="num">08</div>
+      <h4>Production / SRE Ownership</h4>
+      <h5>The candidate must be able to</h5>
+      <ul>
+        <li>Define SLIs/SLOs for latency, availability, correctness and AI quality.</li>
+        <li>Trace a request across model, retrieval, tools and infrastructure.</li>
+        <li>Deploy with canary, rollback and health checks.</li>
+        <li>Reason about capacity, queueing and resource limits.</li>
+        <li>Run an incident, contain damage and write a useful postmortem.</li>
+      </ul>
+      <h5>Mandatory build</h5>
+      <p>Kubernetes AI service with telemetry, autoscaling, canary, rollback, secrets/IAM and incident runbook.</p>
+      <h5>Break battery</h5>
+      <p>Traffic spike + failed pod + bad model release + dependency timeout. Candidate must restore service without ad-hoc SSH heroics.</p>
+      <h5>CRACKED threshold</h5>
+      <p>Failure is detected, bounded, recovered and converted into a permanent regression/control.</p>
+      <h5>Automatic fail</h5>
+      <p>No rollback path or no visibility into latency/cost/quality.</p>
+    </div>
+
+    <div class="detail-card">
+      <div class="num">09</div>
+      <h4>AI Security Ownership</h4>
+      <h5>The candidate must be able to</h5>
+      <ul>
+        <li>Threat-model model, data, tools, identity, network and supply chain.</li>
+        <li>Demonstrate prompt injection and tool-abuse paths.</li>
+        <li>Design least-privilege tool permissions and trust boundaries.</li>
+        <li>Detect data exfiltration and unsafe tool execution.</li>
+        <li>Turn successful attacks into regression tests.</li>
+      </ul>
+      <h5>Mandatory build</h5>
+      <p>Attack/defense harness with threat model, attack corpus, mitigations, telemetry and regression suite.</p>
+      <h5>CRACKED threshold</h5>
+      <p>At least three distinct attack classes are reproduced, mitigated and regression-tested.</p>
+      <h5>Automatic fail</h5>
+      <p>Security is a final checklist instead of an architectural property.</p>
+    </div>
+
+    <div class="detail-card">
+      <div class="num">10</div>
+      <h4>Research Ownership</h4>
+      <h5>The candidate must be able to</h5>
+      <ul>
+        <li>Identify the exact claim a paper makes.</li>
+        <li>Reproduce the baseline with controlled environment and seeds.</li>
+        <li>Design ablations that isolate mechanisms.</li>
+        <li>Quantify uncertainty and effect size.</li>
+        <li>Identify benchmark leakage, saturation or evaluator weakness.</li>
+        <li>Produce a negative result without manipulating the narrative.</li>
+      </ul>
+      <h5>Mandatory build</h5>
+      <p>One full reproduction + ≥3 meaningful ablations + one extension or negative result + public reproducibility package.</p>
+      <h5>CRACKED threshold</h5>
+      <p>A technically stronger reviewer must be able to attack the methodology and you must be able to answer with evidence.</p>
+      <h5>Automatic fail</h5>
+      <p>Paper summary presented as research.</p>
+    </div>
+
+    <div class="detail-card">
+      <div class="num">11</div>
+      <h4>Technical Judgment</h4>
+      <h5>The candidate must be able to</h5>
+      <ul>
+        <li>Choose the simplest architecture that satisfies the constraints.</li>
+        <li>State what they are optimizing: quality, latency, cost, reliability, safety or scientific value.</li>
+        <li>Explain build-vs-buy and model-selection decisions.</li>
+        <li>Quantify major cost drivers.</li>
+        <li>State when the system should <em>not</em> be used.</li>
+      </ul>
+      <h5>Mandatory artifact</h5>
+      <p>Architecture decision record containing requirements, alternatives, rejected options, quantitative trade-offs, risks and reversal conditions.</p>
+      <h5>CRACKED threshold</h5>
+      <p>Can argue both for and against their own design.</p>
+      <h5>Automatic fail</h5>
+      <p>Technology choice is justified by popularity rather than constraints.</p>
+    </div>
+
+    <div class="detail-card">
+      <div class="num">12</div>
+      <h4>Communication Under Fire</h4>
+      <h5>The candidate must be able to</h5>
+      <ul>
+        <li>Explain a complex system at implementation, architecture and executive levels.</li>
+        <li>Answer hostile “why not X?” questions.</li>
+        <li>Distinguish measured fact, assumption, inference and speculation.</li>
+        <li>Admit uncertainty without losing technical control.</li>
+        <li>Change an argument when evidence disproves it.</li>
+      </ul>
+      <h5>Mandatory test</h5>
+      <p>10-minute architecture defense followed by 15 minutes of adversarial questioning.</p>
+      <h5>CRACKED threshold</h5>
+      <p>No hand-waving. Every important claim maps to code, measurement, equation, experiment or explicit assumption.</p>
+      <h5>Automatic fail</h5>
+      <p>Bluffing when the evidence is absent.</p>
+    </div>
+  </div>
+
+  <h3>03.3 — The No-AI Integrity Battery</h3>
+  <div class="phase-detail">
+    <div class="phase-sub">Quarterly · 3–4 hours · Closed Book</div>
+    <h3>Prove the capability still belongs to you.</h3>
+    <div class="phase-columns">
+      <div>
+        <h4>Candidate receives</h4>
+        <ul>
+          <li>unfamiliar problem;</li>
+          <li>incomplete specification;</li>
+          <li>limited documentation;</li>
+          <li>broken starter system or failing test suite;</li>
+          <li>explicit resource/time constraints.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Candidate must produce</h4>
+        <ul>
+          <li>requirements interpretation;</li>
+          <li>design;</li>
+          <li>working implementation;</li>
+          <li>tests;</li>
+          <li>benchmark;</li>
+          <li>failure analysis;</li>
+          <li>short defense.</li>
+        </ul>
+      </div>
+    </div>
+    <p><strong>Forbidden:</strong> coding assistants, generated solutions, tutorials, solution videos and copied snippets. Documentation may be permitted only when the specific gate explicitly allows it.</p>
+    <p><strong>Pass:</strong> correct solution + reasoning quality + test quality + debugging quality + time discipline. The purpose is not to fetishize “no AI”; it is to detect whether AI acceleration has replaced underlying competence.</p>
+  </div>
+
+  <h3>03.4 — The CRACKED Evidence Ladder</h3>
+  <table class="rubric">
+    <thead><tr><th>Evidence</th><th>Weight</th><th>What it proves</th><th>What it does NOT prove</th></tr></thead>
+    <tbody>
+      <tr><td>Course completed</td><td>0%</td><td>Exposure to material.</td><td>Competence.</td></tr>
+      <tr><td>Certificate</td><td>0%</td><td>Completion of an assessment.</td><td>Independent engineering ability.</td></tr>
+      <tr><td>Tutorial project</td><td>≤10%</td><td>Ability to follow instructions.</td><td>Original reasoning.</td></tr>
+      <tr><td>Independent implementation</td><td>20%</td><td>Ability to construct a solution.</td><td>Production reliability or research novelty.</td></tr>
+      <tr><td>Benchmark + profiler/eval evidence</td><td>20%</td><td>Measurement discipline.</td><td>Generalization beyond the tested conditions.</td></tr>
+      <tr><td>Adversarial failure analysis</td><td>20%</td><td>Depth of understanding and reliability thinking.</td><td>Scientific novelty.</td></tr>
+      <tr><td>Reproducible public artifact</td><td>20%</td><td>Proof that others can inspect/reproduce the work.</td><td>External impact by itself.</td></tr>
+      <tr><td>External hostile review</td><td>20%</td><td>Ability to survive expert scrutiny.</td><td>Permanent mastery; skills still require periodic retesting.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>03.5 — Automatic Disqualification Behaviors</h3>
+  <div class="redline">
+    <ul>
+      <li><strong>Benchmark theater:</strong> selecting the metric or run that makes the result look best.</li>
+      <li><strong>Framework camouflage:</strong> using a library abstraction to conceal lack of mechanism-level understanding.</li>
+      <li><strong>AI laundering:</strong> presenting generated work as personally reasoned without review or reconstruction.</li>
+      <li><strong>Demo fraud:</strong> showing a happy-path demo while hiding known failure modes.</li>
+      <li><strong>Research cosplay:</strong> summarizing papers without reproducing or challenging their claims.</li>
+      <li><strong>Stack collecting:</strong> listing technologies without an artifact demonstrating independent use.</li>
+      <li><strong>Metric shopping:</strong> changing the evaluation criterion after seeing the result.</li>
+      <li><strong>Complexity worship:</strong> choosing a sophisticated architecture when a simpler one satisfies the constraints.</li>
+      <li><strong>Unowned code:</strong> inability to explain or debug a critical component in the portfolio.</li>
+      <li><strong>False certainty:</strong> stating an inference or assumption as though it were measured fact.</li>
+    </ul>
+  </div>
+
+  <h3>03.6 — Final CRACKED Qualification</h3>
+  <table class="rubric">
+    <thead><tr><th>Requirement</th><th>Minimum standard</th></tr></thead>
+    <tbody>
+      <tr><td>Core competency mastery</td><td>Every core competency ≥ L3.</td></tr>
+      <tr><td>Specialization depth</td><td>At least two areas ≥ L4.</td></tr>
+      <tr><td>No-AI integrity</td><td>Pass quarterly closed-book battery.</td></tr>
+      <tr><td>Flagship systems artifact</td><td>Production-grade system with benchmark, telemetry, failure drills and postmortem.</td></tr>
+      <tr><td>Research artifact</td><td>Reproduction + ablations + extension/negative result.</td></tr>
+      <tr><td>Performance artifact</td><td>Profiler-backed optimization with reproducible speedup.</td></tr>
+      <tr><td>Security artifact</td><td>Threat model + reproduced attacks + mitigations + regression tests.</td></tr>
+      <tr><td>Public proof</td><td>Repository, documentation, benchmark and technical write-up.</td></tr>
+      <tr><td>External scrutiny</td><td>At least one technically stronger reviewer has challenged the work.</td></tr>
+      <tr><td>Defense</td><td>10-minute architecture defense + 15-minute hostile questioning.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="redline">
+    <strong>THE ACTUAL STANDARD:</strong>
+    If you can complete courses but cannot pass the batteries above, you are educated — not CRACKED.
+    If you can build demos but cannot measure or break them, you are productive — not CRACKED.
+    If you can reproduce papers but cannot challenge them, you are a reader — not CRACKED.
+    If you can optimize systems but cannot explain the mechanism, you are an operator — not CRACKED.
+    <strong>CRACKED means the capability survives removal of scaffolding.</strong>
+  </div>
+</div>
+
+<!-- ── 04 DAILY OS ── -->
+
+<!-- ── 07 PROJECTS ── -->
+<div class="section" id="projects">
+  <div class="section-label">07 / Proof-of-Work Portfolio</div>
+  <h2>Build Projects<br><em>That Are Hard to Fake</em></h2>
+  <p>Six polished CRUD demos will not make you a research-grade AI engineer. Build a portfolio where each artifact proves a different layer of competence.</p>
+  <div class="project-matrix fade">
+    <div class="project"><div class="ptype">Project A · From Scratch</div><h4>Mini Deep Learning Framework</h4><ul><li>Tensor abstraction, autograd, modules, optimizers, batching and checkpointing.</li><li>Implement backprop and core operators yourself.</li><li>Compare correctness and performance against PyTorch.</li><li>Write a technical report explaining every major design decision.</li></ul></div>
+    <div class="project"><div class="ptype">Project B · Research</div><h4>Paper Reproduction + Extension</h4><ul><li>Choose a meaningful recent method and reproduce the core experiment.</li><li>Run controlled ablations and report negative results.</li><li>Change one architectural assumption and test the consequence.</li><li>Release code, configs, seeds, environment and reproducibility notes.</li></ul></div>
+    <div class="project"><div class="ptype">Project C · Agent Reliability</div><h4>Production-Grade Agent System</h4><ul><li>Tool use, structured state, retries, human approval and failure recovery.</li><li>Build an evaluation harness with adversarial cases and regression tests.</li><li>Measure success rate, cost/task, latency and failure taxonomy.</li><li>Demonstrate what happens when tools, context or models fail.</li></ul></div>
+    <div class="project"><div class="ptype">Project D · Inference</div><h4>Inference Performance Lab</h4><ul><li>Serve a model with a modern inference engine and establish a baseline.</li><li>Profile bottlenecks; experiment with batching, quantization, caching or kernels.</li><li>Report TTFT, inter-token latency, throughput, memory and cost.</li><li>Explain the hardware/software bottleneck with evidence.</li></ul></div>
+    <div class="project"><div class="ptype">Project E · Distributed Systems</div><h4>Multi-GPU / Distributed Training System</h4><ul><li>Run a real distributed workload and document communication patterns.</li><li>Measure scaling efficiency, memory behavior and failure recovery.</li><li>Explain data/tensor/pipeline parallelism trade-offs.</li><li>Provide an operational runbook and incident scenario.</li></ul></div>
+    <div class="project"><div class="ptype">Project F · Platform</div><h4>AI Platform Command Center</h4><ul><li>Containerized inference/training workloads on Kubernetes.</li><li>Observability for model, token and infrastructure metrics.</li><li>Canary release, rollback, access control and resource governance.</li><li>Track reliability and cost as first-class engineering metrics.</li></ul></div>
+    <div class="project"><div class="ptype">Project G · Security</div><h4>AI Red-Team / Defense Harness</h4><ul><li>Test prompt injection, tool abuse, data leakage and unsafe tool execution.</li><li>Create attacks, mitigations and regression tests.</li><li>Quantify attack success before and after defenses.</li><li>Publish a threat model and security design review.</li></ul></div>
+    <div class="project"><div class="ptype">Project H · Domain Moat</div><h4>Deep Domain AI System</h4><ul><li>Select one serious domain and solve a problem with real constraints.</li><li>Include domain-specific evaluation, failure modes and economics.</li><li>Document why generic AI approaches fail in this domain.</li><li>Produce both an engineering artifact and a domain-facing technical report.</li></ul></div>
+  </div>
+  <div class="audit-box">
+    <h4>Project quality threshold</h4>
+    <div class="score"><strong>Correctness</strong><span>20%</span></div>
+    <div class="score"><strong>Systems depth</strong><span>20%</span></div>
+    <div class="score"><strong>Measurement / evaluation</strong><span>15%</span></div>
+    <div class="score"><strong>Performance / efficiency</strong><span>10%</span></div>
+    <div class="score"><strong>Reliability / security</strong><span>10%</span></div>
+    <div class="score"><strong>Research / novelty / reasoning</strong><span>10%</span></div>
+    <div class="score"><strong>Documentation / communication</strong><span>10%</span></div>
+    <div class="score"><strong>Public proof / reproducibility</strong><span>5%</span></div>
+  </div>
+</div>
+
+<div class="section" id="daily">
+  <div class="section-label">08 / Daily Operating System</div>
+  <h2>How to Structure<br><em>Every Single Day</em></h2>
+  <p>The gap between an average ML engineer and an untouchable one isn't talent — it's daily structure. You need a system that builds depth and produces artifacts simultaneously. Here is that system.</p>
+
+  <div class="callout red">
+    <p>The single biggest mistake engineers make: using AI to skip the hard thinking. Every time you let a model do your architecture reasoning, you atrophy the muscle that makes you worth $300K.</p>
+  </div>
+
+  <div class="day-grid fade">
+    <div class="day-row">
+      <div class="day-time">05:30–07:00</div>
+      <div class="day-icon">🔇</div>
+      <div class="day-body">
+        <span class="dtag">Deep Work · No AI tools · No phone</span>
+        <strong>Architecture Thinking & Hard Problems</strong>
+        <p>The most cognitively demanding work goes here — design decisions, algorithm choices, system architecture. This is the session that makes you irreplaceable. Use AI tools only after you've committed your own reasoning to paper first.</p>
+      </div>
+    </div>
+    <div class="day-row">
+      <div class="day-time">07:00–07:45</div>
+      <div class="day-icon">📄</div>
+      <div class="day-body">
+        <span class="dtag">Deliberate Reading · One Paper or Technical Deep-Dive</span>
+        <strong>Stay at the Frontier</strong>
+        <p>One paper from arXiv, one in-depth engineering blog post, or one chapter of a technical book — read with a pen. Write 3 sentences of your own reaction: what's the key insight, what assumption is being made, what would you challenge?</p>
+      </div>
+    </div>
+    <div class="day-row">
+      <div class="day-time">07:45–10:00</div>
+      <div class="day-icon">⚙️</div>
+      <div class="day-body">
+        <span class="dtag">Build Block · AI tools permitted for execution only</span>
+        <strong>Production Engineering — Code, Systems, Deployment</strong>
+        <p>Implement what you designed in Block 1. MLOps pipelines, model training, API development, infrastructure. AI tools handle boilerplate. You handle architecture and debugging logic. Document every non-trivial decision.</p>
+      </div>
+    </div>
+    <div class="day-row">
+      <div class="day-time">10:00–11:30</div>
+      <div class="day-icon">🧪</div>
+      <div class="day-body">
+        <span class="dtag">Experimentation · Evaluation · Monitoring</span>
+        <strong>Own the Production Layer</strong>
+        <p>Run experiments properly — not just "does it work" but "why does it work." Set up monitoring for drift. Write evaluation scripts. Learn what your systems look like when they fail. This is where most engineers are lazy, and where you become indispensable.</p>
+      </div>
+    </div>
+    <div class="day-row">
+      <div class="day-time">13:00–14:30</div>
+      <div class="day-icon">🌐</div>
+      <div class="day-body">
+        <span class="dtag">Cross-Domain Study · Rotate Weekly</span>
+        <strong>Your Domain Depth Block</strong>
+        <p>Week 1: Domain deep-dive (healthcare, fintech, robotics — whichever you've chosen). Week 2: Systems thinking / distributed systems. Week 3: AI safety / alignment / governance. Week 4: Math fundamentals (probability theory, information theory).</p>
+      </div>
+    </div>
+    <div class="day-row">
+      <div class="day-time">14:30–15:30</div>
+      <div class="day-icon">✍️</div>
+      <div class="day-body">
+        <span class="dtag">Writing Block · 400+ words · Publish or archive</span>
+        <strong>Build the Public Record</strong>
+        <p>One technical writeup per week. Architecture decision records, failure post-mortems, implementation notes, design essays. Even private writing forces precision of thought. Public writing builds reputation. Both compound permanently.</p>
+      </div>
+    </div>
+    <div class="day-row">
+      <div class="day-time">15:30–17:00</div>
+      <div class="day-icon">🏗️</div>
+      <div class="day-body">
+        <span class="dtag">Open Source / Personal Projects / Systems Work</span>
+        <strong>Build Artifacts That Outlast You</strong>
+        <p>Contribute to a real open-source ML project or build your own framework/tool. Not toy projects — systems with real users or real utility. Every production system you build encodes your architectural judgment. These are permanent resume items.</p>
+      </div>
+    </div>
+    <div class="day-row">
+      <div class="day-time">21:00–21:30</div>
+      <div class="day-icon">🪞</div>
+      <div class="day-body">
+        <span class="dtag">Reflection · 3 questions · 10 minutes</span>
+        <strong>Daily Compounding Protocol</strong>
+        <p>Three questions: (1) What did I understand today that I didn't yesterday? (2) What did I let AI think for me that I should have thought myself? (3) What is the hardest question in my current work that I haven't answered yet? Write tomorrow's deep work problem tonight.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── 05 PHASES ── -->
+<div class="section" id="curriculum">
+<div class="section-label">04B / Detailed Curriculum</div>
+<h2>What “Learn It”<br><em>Actually Means.</em></h2>
+<p>Every module is learned through six layers: concept → implementation → systems behavior → measurement → adversarial testing → proof. Reading material is preparation, never completion.</p>
+<div class="curriculum"><div class="cell"><strong>CONCEPT</strong><span>Mechanism, equations, assumptions, trade-offs.</span></div><div class="cell"><strong>IMPLEMENT</strong><span>Build the critical core with minimal scaffolding.</span></div><div class="cell"><strong>SYSTEM</strong><span>Scale, failure, resource and operational behavior.</span></div><div class="cell"><strong>MEASURE</strong><span>Baseline, metrics, controls and uncertainty.</span></div><div class="cell"><strong>BREAK</strong><span>Adversarial inputs, overload, attacks and edge cases.</span></div><div class="cell"><strong>PROVE</strong><span>Repository, tests, benchmark, design record and explanation.</span></div></div>
+<div class="module"><div class="meta">L0 · Foundations</div><div class="mh">01 — Mathematics, CS and Programming</div><ul><li><strong>Math:</strong> linear algebra, SVD/eigensystems, probability/Bayes, estimation, hypothesis tests, calculus, gradients/Hessians, convexity, SGD/Adam, numerical stability and floating-point behavior.</li><li><strong>CS:</strong> complexity, graphs, trees, hashing, DP, processes/threads, memory, filesystems, sockets, transactions, indexes, isolation, concurrency, locks, queues and backpressure.</li><li><strong>Programming:</strong> Python internals, testing, packaging, profiling, debugging; C++ RAII, templates, STL, move semantics, memory and concurrency; build systems and sanitizers.</li><li><strong>Build:</strong> data-structure library + scalar autograd + concurrent producer/consumer system.</li><li><strong>Gate:</strong> 3-hour closed-book implementation + derivation exam + oral defense.</li></ul></div><div class="module"><div class="meta">L1 · ML/DL</div><div class="mh">02 — Machine Learning and Deep Learning</div><ul><li><strong>Classical:</strong> regression, logistic models, SVM, trees, boosting, clustering and dimensionality reduction.</li><li><strong>Deep:</strong> MLPs, CNNs, normalization, residuals, attention, transformers, ViTs, diffusion/generative modeling and multimodality.</li><li><strong>Training:</strong> losses/gradients, initialization, optimizers, schedules, mixed precision, checkpointing, accumulation and distributed basics.</li><li><strong>Science:</strong> leakage, baselines, seeds, confidence intervals, effect sizes, calibration, uncertainty and error decomposition.</li><li><strong>Build:</strong> classical algorithms + MLP/CNN/attention from scratch + optimization study.</li></ul></div><div class="module"><div class="meta">L2 · Data</div><div class="mh">03 — Data Engineering for AI</div><ul><li><strong>Storage:</strong> object storage, partitions, formats, schema evolution and data contracts.</li><li><strong>Quality:</strong> completeness, validity, uniqueness, freshness, distribution checks and anomaly detection.</li><li><strong>Lineage:</strong> dataset/version tracking, provenance, reproducibility and replay.</li><li><strong>SQL:</strong> joins, windows, indexes, query plans, transactions and isolation.</li><li><strong>Streaming:</strong> Kafka partitions, ordering, consumer groups, retries and delivery semantics.</li><li><strong>Distributed:</strong> Spark execution, shuffles, partitioning and skew; retrieval corpus construction and evaluation.</li><li><strong>Build:</strong> pipeline with quality gates, lineage, replay and corruption tests.</li></ul></div><div class="module"><div class="meta">L3 · LLM/Agents</div><div class="mh">04 — LLM and Agent Engineering</div><ul><li><strong>Model:</strong> attention, positional methods, normalization, residuals, MoE concepts, tokenization and context behavior.</li><li><strong>RAG:</strong> retrieval quality, query transformation, reranking, context packing, citation fidelity and retrieval evaluation.</li><li><strong>Agents:</strong> state machines, tools, memory, checkpoints, retries, long-running jobs and human approval.</li><li><strong>Protocols:</strong> MCP-style capability discovery, schemas, authorization and trust boundaries.</li><li><strong>Evaluation:</strong> outcome, trajectory, tool-call correctness, recovery, long-horizon degradation and cost.</li><li><strong>Build:</strong> agent runtime with typed tools, state log, replay, eval harness and failure recovery.</li></ul></div><div class="module"><div class="meta">L4 · Inference</div><div class="mh">05 — LLM Inference Engineering</div><ul><li><strong>Execution:</strong> prefill/decode, compute vs memory bound behavior, scheduling and admission control.</li><li><strong>Memory:</strong> KV cache, paged attention, prefix caching, cache pressure/eviction and KV offload.</li><li><strong>Serving:</strong> continuous batching, chunked prefill, structured outputs, LoRA, routing and failure handling.</li><li><strong>Optimization:</strong> FP8/INT8/INT4, speculative decoding, CUDA graphs, fused kernels and quantization trade-offs.</li><li><strong>Distributed:</strong> tensor/pipeline/data/expert/context parallelism; disaggregated prefill/decode and KV transfer.</li><li><strong>Metrics:</strong> TTFT, inter-token latency, queue time, throughput, utilization, memory and cost/token.</li><li><strong>Build:</strong> benchmark multiple serving configurations and explain every delta.</li></ul></div><div class="module"><div class="meta">L4 · GPU</div><div class="mh">06 — CUDA, Triton and Kernel Engineering</div><ul><li><strong>Architecture:</strong> warps, blocks, scheduling, synchronization, memory hierarchy and occupancy.</li><li><strong>Memory:</strong> coalescing, shared memory, registers, caches and bandwidth ceilings.</li><li><strong>CUDA:</strong> streams, events, async copies, CUDA graphs, mixed precision and tensor-core concepts.</li><li><strong>Triton:</strong> tiling, masking, reductions, autotuning and generated-kernel reasoning.</li><li><strong>Low level:</strong> PTX/SASS literacy sufficient to connect source choices to generated instructions.</li><li><strong>Profiling:</strong> Nsight methodology and roofline/bottleneck reasoning.</li><li><strong>Build:</strong> vector op → reduction → GEMM → softmax → attention primitive.</li></ul></div><div class="module"><div class="meta">L5 · Distributed AI</div><div class="mh">07 — Multi-GPU, Networking and Scheduling</div><ul><li><strong>Parallelism:</strong> DDP, FSDP/sharding, tensor/pipeline/expert/context parallelism.</li><li><strong>Communication:</strong> collective operations, NCCL concepts, topology and overlap.</li><li><strong>Networking:</strong> RDMA concepts, latency/bandwidth and interconnect topology.</li><li><strong>Reliability:</strong> checkpointing, restart, stragglers, worker failure and fault tolerance.</li><li><strong>Scheduling:</strong> queues, quotas, GPU fragmentation, utilization and workload priority; DRA/Kueue concepts.</li><li><strong>Build:</strong> multi-GPU scaling experiment with injected failure.</li></ul></div><div class="module"><div class="meta">L5–L6 · Platform</div><div class="mh">08 — Kubernetes and AI Platform Engineering</div><ul><li><strong>Core:</strong> pods, deployments, services, Gateway API, scheduling, volumes, RBAC and namespaces.</li><li><strong>Resources:</strong> requests/limits, autoscaling, node pools, taints/tolerations and topology.</li><li><strong>AI infrastructure:</strong> DRA, accelerator claims, device-aware scheduling and workload queues.</li><li><strong>AI Gateway:</strong> model routing, policy, authentication, rate limiting, retries and inference-aware scheduling.</li><li><strong>Operations:</strong> Helm, GitOps, secrets, workload identity, canaries, rollback and disaster recovery.</li><li><strong>Build:</strong> Kubernetes AI platform with inference, telemetry, canary/rollback and accelerator scheduling.</li></ul></div><div class="module"><div class="meta">L6–L7 · Reliability/Security</div><div class="mh">09 — AI SRE, Security and Governance</div><ul><li><strong>SRE:</strong> SLIs/SLOs for latency, availability, correctness, quality and safety; incidents and postmortems.</li><li><strong>Observability:</strong> model/tool/retrieval/cache/token/GPU traces correlated to user outcomes.</li><li><strong>Security:</strong> prompt injection, exfiltration, tool abuse, privilege escalation, supply chain, identity and network boundaries.</li><li><strong>Governance:</strong> model/data provenance, risk registers and standards literacy.</li><li><strong>Build:</strong> attack/defense harness with telemetry and regression suite.</li></ul></div><div class="module"><div class="meta">L8 · Research</div><div class="mh">10 — Research Engineering</div><ul><li><strong>Paper analysis:</strong> claim, mechanism, assumptions, evidence, baseline and limitations.</li><li><strong>Reproduction:</strong> exact environment, seeds, preprocessing, configs and evaluation.</li><li><strong>Ablation:</strong> controls, interactions, effect sizes, uncertainty and multiple-comparison discipline.</li><li><strong>Benchmark science:</strong> leakage, saturation, contamination, invalid questions and evaluator bias.</li><li><strong>Software:</strong> configs, tests, checkpointing and reproducible experiment registry.</li><li><strong>Build:</strong> reproduction + ≥3 ablations + extension/negative result + public report.</li></ul></div><div class="module"><div class="meta">L9 · Domain/Strategy</div><div class="mh">11 — Domain, Economics and Technical Judgment</div><ul><li><strong>Domain:</strong> workflows, stakeholders, constraints, failure costs, data provenance and regulation.</li><li><strong>Economics:</strong> cost/request, cost/token, GPU utilization, capacity, value generated and build-vs-buy.</li><li><strong>Product:</strong> quality, task completion, trust and business outcomes.</li><li><strong>Strategy:</strong> architecture choices, vendor lock-in, deprecation, capacity planning and roadmap prioritization.</li><li><strong>Build:</strong> domain system + technical strategy memo + unit economics + risk register.</li></ul></div><div class="audit-hero"><h3>2026 frontier requirement</h3><p>Inference is a systems discipline. Current vLLM capabilities include prefix caching, chunked prefill, FP8 KV cache, speculative decoding, multiple parallelism modes and disaggregated prefill/decode. Kubernetes has also formalized AI Gateway work around AI-aware networking and inference infrastructure. These are mechanisms to understand and benchmark, not checkbox technologies.</p></div></div><div class="section" id="phases">
+<div class="section-label">05 / Execution Roadmap</div><h2>Six Phases.<br><em>Zero Fake Progress.</em></h2>
+<p>Every phase is a qualification block. The calendar does not promote you. Evidence does.</p>
+<div class="phase-detail"><div class="phase-sub">Phase 01 · Foundation</div><h3>Become dangerous without frameworks.</h3><div class="phase-columns"><div><h4>Curriculum</h4><p>Python/C++/debugging/testing; DSA; OS/networking/DB/concurrency; math; classical ML; numerical stability.</p></div><div><h4>Proof-of-work</h4><p>DSA library; scalar autograd; selected ML algorithms; concurrency system; 3-hour no-AI exam.</p></div></div><p><strong>EXIT GATE:</strong> Foundations ≥ L2; selected foundations ≥ L3; oral defense passed.</p></div><div class="phase-detail"><div class="phase-sub">Phase 02 · AI Engineering</div><h3>Build complete AI systems.</h3><div class="phase-columns"><div><h4>Curriculum</h4><p>PyTorch training; transformers; multimodality; RAG; tools; agents; memory; protocols; agent evaluation.</p></div><div><h4>Proof-of-work</h4><p>End-to-end AI product; reliable agent runtime; retrieval benchmark; paper reproduction; public report.</p></div></div><p><strong>EXIT GATE:</strong> Quantitative eval suite; failure taxonomy; reproducible repo; hostile architecture defense.</p></div><div class="phase-detail"><div class="phase-sub">Phase 03 · Production</div><h3>Own the system after deployment.</h3><div class="phase-columns"><div><h4>Curriculum</h4><p>Docker/Linux; Kubernetes; Gateway API; GitOps; telemetry; IAM; SLOs; incidents; rollback; DR.</p></div><div><h4>Proof-of-work</h4><p>Kubernetes AI platform; load test; capacity model; telemetry; canary/rollback; incident runbook; security tests.</p></div></div><p><strong>EXIT GATE:</strong> Survive traffic spike + node failure + model failure + bad deployment.</p></div><div class="phase-detail"><div class="phase-sub">Phase 04 · Performance</div><h3>Descend below the API.</h3><div class="phase-columns"><div><h4>Curriculum</h4><p>CUDA; Triton; PTX/SASS; vLLM/SGLang; KV cache; batching; quantization; speculative decoding; distributed inference.</p></div><div><h4>Proof-of-work</h4><p>Five kernels; inference benchmark lab; profiler optimization; quantization study; serving comparison.</p></div></div><p><strong>EXIT GATE:</strong> Profiler-backed optimization with reproducible before/after evidence.</p></div><div class="phase-detail"><div class="phase-sub">Phase 05 · Research</div><h3>Interrogate papers.</h3><div class="phase-columns"><div><h4>Curriculum</h4><p>Paper decomposition; experiment design; reproducibility; statistics; ablations; benchmark criticism; research software; peer review.</p></div><div><h4>Proof-of-work</h4><p>Full reproduction; ≥3 ablations; extension/negative result; configs/seeds; report; external review.</p></div></div><p><strong>EXIT GATE:</strong> Another person can reproduce it and you can defend why the result should be believed.</p></div><div class="phase-detail"><div class="phase-sub">Phase 06 · Leverage</div><h3>Become known for something difficult.</h3><div class="phase-columns"><div><h4>Curriculum</h4><p>Open source; domain specialization; technical writing; system design; research communication; economics; strategy.</p></div><div><h4>Proof-of-work</h4><p>Upstream contribution; flagship domain system; publication/submission or equivalent; community presentation; senior design defense.</p></div></div><p><strong>EXIT GATE:</strong> External engineers can identify your specialty from your work.</p></div><div class="redline"><strong>PROGRESSION LAW:</strong> Critical skills below L2 block progression. Core skills must reach L3. Specialization must reach L4. Courses, certificates and framework badges never substitute for evidence.</div></div><!-- ── 06 MOAT ── -->
+<div class="section" id="moat">
+  <div class="section-label">09 / Building Moats</div>
+  <h2>Structural Advantages<br><em>AI Cannot Copy</em></h2>
+  <p>Skills are tools. Moats are structural advantages that compound over time and resist commoditization. Every high-leverage action you take should build at least one of these.</p>
+
+  <div class="moat fade">
+    <div class="moat-cell">
+      <span class="icon">🔬</span>
+      <h4>Production Track Record</h4>
+      <p>Systems that are live, serving real users, and have survived real failures. A documented history of production ML systems — with metrics, failure modes, and design decisions — is essentially unfakeable. "What broke and how did you fix it" is the interview question that separates engineers.</p>
+    </div>
+    <div class="moat-cell">
+      <span class="icon">🏥</span>
+      <h4>Domain Expertise Intersection</h4>
+      <p>The highest-paid AI engineers in 2026 are not the ones with the most AI skills — they're the ones with the deepest intersection of AI and domain knowledge. Healthcare, fintech, robotics, legal — pick one and go deep enough that you understand the domain's constraints, not just its data formats.</p>
+    </div>
+    <div class="moat-cell">
+      <span class="icon">📡</span>
+      <h4>Frontier Awareness</h4>
+      <p>Being genuinely current — reading papers before they become blog posts, understanding techniques before they become libraries. The engineer who knew about LoRA before it was in every HuggingFace tutorial had a 12-month salary advantage. Maintain this edge systematically, not accidentally.</p>
+    </div>
+    <div class="moat-cell">
+      <span class="icon">🧩</span>
+      <h4>Systems Thinking</h4>
+      <p>Understanding how AI systems fail in production — not just how to build them. Data drift, distribution shift, feedback loops, latency degradation, cost blow-ups at scale. The engineer who can diagnose and prevent these issues in complex systems is worth multiple junior engineers who can only build greenfield.</p>
+    </div>
+    <div class="moat-cell">
+      <span class="icon">🗣️</span>
+      <h4>Technical Communication</h4>
+      <p>The ability to translate complex AI system behavior to non-technical stakeholders is genuinely rare and increasingly valuable as AI becomes embedded in every business. Engineers who can explain model limitations, failure modes, and architectural trade-offs in business terms are in a different hiring category.</p>
+    </div>
+    <div class="moat-cell">
+      <span class="icon">🌍</span>
+      <h4>Reputation Network</h4>
+      <p>The engineers who get the best opportunities in 2026 aren't finding them on job boards — they're being referred by people who know their work. GitHub visibility, conference participation, technical writing, open-source contributions. Reputation compounds; it doesn't expire.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── 06 GATES ── -->
+<div class="section" id="gates">
+  <div class="section-label">06 / Candidate Gates</div>
+  <h2>Pass the Gate<br><em>or Repeat the Phase.</em></h2>
+  <p>These are deliberately uncomfortable. Elite teams do not hire because a candidate “covered the syllabus”. They hire because the candidate can repeatedly produce correct work under constraints.</p>
+
+  <table class="gate-table fade">
+    <thead><tr><th>Gate</th><th>Standard</th><th>Minimum Evidence</th><th>Failure Condition</th></tr></thead>
+    <tbody>
+      <tr><td><span class="gate hard">G1</span> CS / DSA</td><td>Solve unfamiliar problems under time pressure and explain complexity.</td><td>Timed set + oral defense + implementation from scratch.</td><td>Pattern memorization; cannot derive or debug.</td></tr>
+      <tr><td><span class="gate hard">G2</span> ML Theory</td><td>Derive losses, gradients, optimization behavior and generalization arguments.</td><td>Written derivations + whiteboard defense + scratch implementation.</td><td>“PyTorch does it” as an explanation.</td></tr>
+      <tr><td><span class="gate hard">G3</span> LLM / Agents</td><td>Design a reliable agentic workflow with explicit evals and failure recovery.</td><td>Working system + eval suite + threat model + postmortem.</td><td>Demo works but no quantitative reliability evidence.</td></tr>
+      <tr><td><span class="gate hard">G4</span> Production</td><td>Deploy, observe, roll back and debug an AI service.</td><td>Containerized service + CI/CD + telemetry + incident drill.</td><td>No rollback path; no latency/cost visibility.</td></tr>
+      <tr><td><span class="gate hard">G5</span> GPU / Inference</td><td>Find and fix a real performance bottleneck.</td><td>Profiler traces + optimization + before/after benchmark.</td><td>Only knows API-level serving configuration.</td></tr>
+      <tr><td><span class="gate hard">G6</span> Research</td><td>Reproduce and challenge published work.</td><td>Reproduction report + ablation table + extension or negative result.</td><td>Paper summary without experimental ownership.</td></tr>
+      <tr><td><span class="gate hard">G7</span> Security</td><td>Threat-model an AI system and mitigate realistic attacks.</td><td>Threat model + attack harness + fixes + regression tests.</td><td>Security treated as an afterthought.</td></tr>
+      <tr><td><span class="gate hard">G8</span> Communication</td><td>Defend architecture to an adversarial reviewer.</td><td>10-minute design defense + written ADR + trade-off matrix.</td><td>Cannot explain why an alternative was rejected.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="redline">
+    <strong>NO-AI EXAM RULE:</strong> At least once per quarter, complete a 3–4 hour closed-book build/problem session with no coding assistant, no model-generated code and no tutorial. The purpose is not nostalgia. It is to verify that the underlying capability still belongs to you.
+  </div>
+</div>
+
+<h3>Gate Scoring Protocol</h3>
+<table class="rubric"><thead><tr><th>Dimension</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead><tbody>
+<tr><td>Reasoning</td><td>Recipes</td><td>Explains with references</td><td>Derives normal cases</td><td>Handles unfamiliar cases</td><td>Creates new approaches</td></tr>
+<tr><td>Implementation</td><td>Cannot build</td><td>Copies/adapts</td><td>Independent</td><td>Robust</td><td>Foundational component</td></tr>
+<tr><td>Measurement</td><td>No metrics</td><td>Default metrics</td><td>Valid metrics</td><td>Controls confounders</td><td>Improves evaluation</td></tr>
+<tr><td>Debugging</td><td>Guesses</td><td>Mechanical logs</td><td>Root cause</td><td>Diagnostic method</td><td>Predictive failure model</td></tr>
+<tr><td>Systems</td><td>Notebook</td><td>Deploys with help</td><td>Owns service</td><td>Owns reliability/performance</td><td>Platform architecture</td></tr>
+<tr><td>Communication</td><td>Cannot defend</td><td>Describes</td><td>Explains choices</td><td>Defends trade-offs</td><td>Changes expert opinion with evidence</td></tr>
+</tbody></table>
+<div class="redline"><strong>PASS:</strong> no dimension below 2; core gate average ≥3; at least one specialization dimension = 4. Fabricated benchmarks, hidden failures or unexplained generated code = automatic fail.</div>
+<!-- ── 07 ROLES ── -->
+<div class="section" id="roles">
+  <div class="section-label">10 / Role Architecture</div>
+  <h2>The Role Families<br><em>Worth Building Toward</em></h2>
+  <p>No role is permanently safe. The objective is to become unusually valuable inside role families where deep systems knowledge, research judgment, infrastructure ownership or domain expertise create high switching costs.</p>
+
+  <div class="cards fade">
+    <div class="card">
+      <span class="ctag">Fast-growing · AI postings roughly doubled since 2023</span>
+      <h4>Agentic AI Engineer</h4>
+      <ul>
+        <li>Design and build multi-agent systems with memory, tool use, reasoning chains</li>
+        <li>Make agents behave reliably under real-world constraints — not just demos</li>
+        <li>AI-skilled workers command a 62% average wage premium globally in PwC’s 2026 analysis; this is not an agent-specific salary estimate.</li>
+        <li>The role family is evolving rapidly; build durable systems capability rather than betting on a title.</li>
+        <li>Core requirement: systems thinking + reliability engineering + LLM depth</li>
+        <li>The gap between "agent that works in a notebook" and "agent in production" is your value</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="ctag">Most Stable · Highest Production Demand</span>
+      <h4>MLOps / LLMOps Architect</h4>
+      <ul>
+        <li>Without MLOps, even the best AI initiatives fail in production — every company knows this now</li>
+        <li>Design CI/CD pipelines for ML, manage model versioning, monitor drift and bias</li>
+        <li>Ensure compliance with internal and external governance standards</li>
+        <li>One of the most stable ML career paths in 2026 per industry analysis</li>
+        <li>Companies running many models across departments need this architecture badly</li>
+        <li>Key stack: Kubernetes, MLflow, Kubeflow, SageMaker/Vertex, observability tooling</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="ctag">Highest Salary Premium · Domain + AI Combination</span>
+      <h4>Applied Domain ML Engineer</h4>
+      <ul>
+        <li>Healthcare AI: high-value domain intersection — diagnostics, predictive analytics, clinical decision support</li>
+        <li>Fintech AI: major applied-AI domain — fraud, risk, algorithmic trading</li>
+        <li>Domain fluency reduces deployment risk and accelerates business ROI</li>
+        <li>Employers prefer this combination over pure AI generalists at all seniority levels</li>
+        <li>Regulatory knowledge (HIPAA, EU AI Act, financial compliance) commands additional premium</li>
+        <li>The intersection is where AI skill + domain depth = premium no pure ML engineer can match</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="ctag">Emerging · Underrated · Getting Crowded Fast</span>
+      <h4>AI Evaluation & Safety Engineer</h4>
+      <ul>
+        <li>Build evaluation frameworks for LLM outputs — hallucination, consistency, reliability</li>
+        <li>Red-teaming, adversarial testing, alignment-adjacent work</li>
+        <li>Every company deploying AI in production will need this — almost no one has it yet</li>
+        <li>Growing regulatory pressure (EU AI Act, US executive orders) makes this structural</li>
+        <li>Rarest combination: ML depth + critical thinking + safety mindset</li>
+        <li>Get ahead of this now — it's early but accelerating fast</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="ctag">Senior Track · Requires Systems Depth</span>
+      <h4>AI Infrastructure / Platform Engineer</h4>
+      <ul>
+        <li>Distributed training across GPU clusters, multi-node optimization</li>
+        <li>PhD premium is a large research-skill premium above base. Distributed-systems depth is treated here as a capability moat, not as a fixed salary premium.</li>
+        <li>Build the platforms other engineers use to train and deploy models</li>
+        <li>Combination of SRE, systems engineering, and deep ML knowledge</li>
+        <li>Extremely rare — pool of 200 people nationally for some specific combinations</li>
+        <li>5–7 year build but one of the highest-compensation tracks available</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="ctag">New Role · Exploding Demand</span>
+      <h4>Forward Deployed AI Engineer</h4>
+      <ul>
+        <li>Embed with customers to design, build, and iterate AI systems for their specific problems</li>
+        <li>Translates abstract agent behavior into measurable business outcomes</li>
+        <li>Combines technical depth with client-facing judgment — extremely rare combo</li>
+        <li>Strong base in ML + systems thinking + communication = the rare combination</li>
+        <li>Hired by AI companies to deploy their products in enterprise contexts</li>
+        <li>The "consultant" role of the AI era — but one that requires genuine technical depth</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── 07 IRON RULES ── -->
+<div class="section" id="rules">
+  <div class="section-label">11 / Iron Rules</div>
+  <h2>Non-Negotiable<br><em>Operating Principles</em></h2>
+
+  <div class="rules-list fade">
+    <div class="rule-item">
+      <div class="rn">01</div>
+      <div class="rule-text">
+        <h4>Own Every Line of Logic You Ship</h4>
+        <p>If you cannot explain every architectural decision, every model choice, every trade-off in the systems you build — you are a prompt engineer, not an ML engineer. AI-generated code you haven't verified and understood is a liability that will surface in production and in interviews.</p>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rn">02</div>
+      <div class="rule-text">
+        <h4>Production Over Notebooks — Always</h4>
+        <p>A model that works in a Kaggle notebook impresses no one in 2026. Every project should have: a serving layer, monitoring, versioning, and documentation of failure modes. The gap between "works on my machine" and "works for 10,000 users at 3am" is where your value lives.</p>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rn">03</div>
+      <div class="rule-text">
+        <h4>Learn the Failure Modes Before You Ship</h4>
+        <p>The most valuable ML engineers in production environments are the ones who can predict how a system will fail before it does. Study distribution shift, data pipeline failures, feedback loops, model degradation. Know your system's threat model, not just its happy path.</p>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rn">04</div>
+      <div class="rule-text">
+        <h4>Depth in One Domain Over Breadth in All</h4>
+        <p>In a world where AI gives everyone surface-level competence in everything, depth is the only defensible position. Pick one domain — healthcare, fintech, robotics, any vertical — and develop genuine subject matter expertise alongside your ML skills. This intersection is where the salary premium lives.</p>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rn">05</div>
+      <div class="rule-text">
+        <h4>Stay Two Cycles Ahead of the Curriculum</h4>
+        <p>If you're learning what Coursera is teaching, you're 18 months behind the market. Read papers before they become blog posts. Implement techniques before they become libraries. The engineer who understood LoRA before it was in every tutorial had a year-long salary advantage.</p>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rn">06</div>
+      <div class="rule-text">
+        <h4>Every Project Produces a Public Artifact</h4>
+        <p>A GitHub repo with a strong README and real engineering decisions documented. A technical blog post explaining what you built and why. A postmortem of something that failed. These are permanent, compound assets that differentiate you in a market flooded with AI-polished resumes and identical portfolios.</p>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rn">07</div>
+      <div class="rule-text">
+        <h4>Use AI to Accelerate Execution, Never to Replace Thinking</h4>
+        <p>AI tools are the most powerful productivity multiplier in engineering history — for engineers who already have strong judgment. Use them aggressively for boilerplate, debugging, documentation, and exploration. The moment you use them to outsource your architecture decisions, you start becoming replaceable.</p>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rn">08</div>
+      <div class="rule-text">
+        <h4>Hire-Ability is a Skill You Actively Maintain</h4>
+        <p>The hiring bar in 2026 has moved upstream — companies test for thinking, not syntax. Aptitude assessments surged 54x since 2024. Practice system design. Practice explaining complex trade-offs clearly. Practice defending your architectural decisions to an adversarial interviewer. These are perishable skills if you don't exercise them.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 08 MILESTONES ── -->
+<div class="section" id="milestones">
+  <div class="section-label">12 / 10-Year Roadmap</div>
+  <h2>Year-by-Year<br><em>Checkpoints</em></h2>
+  <p>Each year must close with concrete, permanent artifacts that compound. Titles and job changes don't count — systems you've built, things you've shipped, writing that exists, and reputations that precede you do.</p>
+
+  <div class="tl fade">
+    <div class="tl-left">2027</div>
+    <div class="tl-line"><div class="tl-dot"></div></div>
+    <div class="tl-right">
+      <h4>Foundation → Engineering Conversion</h4>
+      <ul>
+        <li>Core ML/DL/math/CS fundamentals can be defended without AI assistance.</li>
+        <li>One end-to-end production AI system with observability, evaluation, security and rollback.</li>
+        <li>One serious agent system with an explicit eval harness and failure taxonomy.</li>
+        <li>One paper reproduction with controlled ablations and a reproducibility package.</li>
+        <li>One inference/performance project with profiler evidence and before/after benchmarks.</li>
+        <li>GitHub portfolio demonstrates architecture, tests, measurements, failures and technical writing — not screenshots.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tl">
+    <div class="tl-left">2026</div>
+    <div class="tl-line"><div class="tl-dot" style="border-color:var(--orange); background:var(--orange)"></div></div>
+    <div class="tl-right">
+      <h4>Research-Lab / Elite-Engineering Readiness</h4>
+      <ul>
+        <li>Two or more serious systems shipped; at least one includes distributed or GPU/inference engineering.</li>
+        <li>One research artifact strong enough to survive technical peer review or submission.</li>
+        <li>One meaningful open-source contribution or upstream technical contribution.</li>
+        <li>Can reproduce and explain a modern model/system paper under time and compute constraints.</li>
+        <li>Can pass a hostile systems-design interview and defend every major trade-off.</li>
+        <li>Can demonstrate measurable performance, reliability and cost improvements rather than claiming them.</li>
+        <li>Known for a specific intersection: AI + medical imaging, AI inference, agent reliability, AI security, or distributed ML.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tl">
+    <div class="tl-left">2027</div>
+    <div class="tl-line"><div class="tl-dot" style="border-color:var(--gold); background:var(--gold)"></div></div>
+    <div class="tl-right">
+      <h4>Compounding Begins</h4>
+      <ul>
+        <li>Known for something specific — a technique, a domain, a type of system</li>
+        <li>3+ production ML/AI systems with documented architecture decisions and postmortems</li>
+        <li>Cross-domain synthesis visible: domain knowledge actively informing ML system design</li>
+        <li>Network of 10+ practitioners who know your work specifically, not just your name</li>
+        <li>Speaking or writing presence in at least one community (conference, newsletter, YouTube)</li>
+        <li>Total comp in top quartile for role level — leverage your documented track record</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tl">
+    <div class="tl-left">2028–30</div>
+    <div class="tl-line"><div class="tl-dot" style="border-color:var(--green); background:var(--green)"></div></div>
+    <div class="tl-right">
+      <h4>Senior — The Compounding Years</h4>
+      <ul>
+        <li>Senior or Staff ML/AI Engineer — leading system design decisions, not implementing assigned tasks</li>
+        <li>Proprietary frameworks, tools, or methodologies that others use</li>
+        <li>Research or technical writing that is cited, shared, or built upon</li>
+        <li>Domain expertise deep enough to consult independently if desired</li>
+        <li>Architecture decisions that have been stress-tested by production — with documented learnings</li>
+        <li>Compensation in top 10% for role — this is achievable with compounding track record</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tl">
+    <div class="tl-left">2031–35</div>
+    <div class="tl-line"><div class="tl-dot" style="border-color:var(--blue); background:var(--blue)"></div></div>
+    <div class="tl-right">
+      <h4>Untouchable — Doing Work Only You Can Do</h4>
+      <ul>
+        <li>Principal Engineer, AI Architect, CTO, or independent principal — your agenda, your systems</li>
+        <li>A body of work that is permanently attributable to your judgment</li>
+        <li>Reputation that generates inbound opportunities without job applications</li>
+        <li>Cross-domain synthesis is your competitive moat — the intersection only you inhabit</li>
+        <li>The AI tools of 2035 make you more powerful, not more replaceable, because your judgment is the input</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+  <div class="callout red">
+    <p>2027 standard: you should be able to walk into an interview, whiteboard a system, implement a critical component from scratch, inspect a benchmark, challenge an assumption, and show the repository that proves you have already done it.</p>
+  </div>
+<!-- ── 09 FORBIDDEN ── -->
+<div class="section" id="forbidden">
+  <div class="section-label">13 / What Not To Do</div>
+  <h2>The Commoditization<br><em>Accelerators</em></h2>
+
+  <div class="forbidden fade">
+    <h3>⚠ FORBIDDEN — These Behaviors Make You Replaceable Faster</h3>
+    <p>If you find yourself doing these regularly, you are actively training yourself into obsolescence. Each one narrows the gap between you and what an AI tool can do alone.</p>
+    <ul>
+      <li>Letting AI write your architecture decisions before you've formed your own</li>
+      <li>Building portfolio projects that only work in notebooks</li>
+      <li>Treating LangChain tutorials as "learning LLM engineering"</li>
+      <li>Collecting certifications as a substitute for shipping real systems</li>
+      <li>Having zero production postmortems — never learning from failure</li>
+      <li>Staying in a single role domain past the point of marginal learning</li>
+      <li>Applying for jobs by volume instead of by positioning</li>
+      <li>Building in private with no public artifacts</li>
+      <li>Reading AI news without implementing anything from it</li>
+      <li>Copy-pasting code you can't explain line by line in an interview</li>
+      <li>Optimizing for interview performance over production judgment</li>
+      <li>Calling yourself an "AI Engineer" because you use GPT API wrappers</li>
+      <li>Avoiding math because libraries handle it</li>
+      <li>Treating monitoring and observability as someone else's problem</li>
+      <li>Spending more time on LinkedIn posts than on systems that prove your skill</li>
+      <li>Using multi-agent frameworks as a substitute for understanding distributed systems</li>
+      <li>Benchmarking only accuracy while ignoring latency, throughput, memory and cost</li>
+      <li>Claiming “production-ready” without load testing, observability and rollback</li>
+      <li>Fine-tuning a model when a better data/evaluation/system design would solve the problem</li>
+      <li>Calling an inference optimization successful without profiler evidence</li>
+      <li>Publishing research without reproducible configs, seeds and honest negative results</li>
+      <li>Learning CUDA only as syntax instead of understanding memory, execution and profiling</li>
+      <li>Using Kubernetes as YAML memorization instead of learning scheduling, networking and failure behavior</li>
+
+      <li>Building followers before building a track record worth following</li>
+    </ul>
+  </div>
+</div>
+
+
+
+<!-- ── 14 FORENSIC CURRICULUM AUDIT ── -->
+<div class="section" id="audit">
+  <div class="section-label">14 / Forensic 2026–2027 Audit</div>
+  <h2>Every Material<br><em>Must Earn Its Place.</em></h2>
+
+  <div class="audit-hero">
+    <h3>Curriculum audit status: HARDENED</h3>
+    <p>This pass changes the roadmap from a technology inventory into a capability-controlled curriculum. Every major material family is now assigned a verdict: keep, upgrade, deepen, reposition, or add. The priority is official documentation, primary literature, serious textbooks, benchmark papers and implementation work — not endless tutorial consumption.</p>
+    <span class="audit-status keep">KEEP</span>
+    <span class="audit-status upgrade">UPGRADE</span>
+    <span class="audit-status deepen">DEEPEN</span>
+    <span class="audit-status reposition">REPOSITION</span>
+    <span class="audit-status add">ADD</span>
+  </div>
+
+  <table class="audit-matrix">
+    <thead><tr><th>#</th><th>Material Family</th><th>Verdict</th><th>Core Material</th><th>2026–27 Required Depth</th></tr></thead>
+    <tbody><tr><td>01</td><td class="topic">CS + Systems</td><td><span class="audit-status keep">PRIMARY</span></td><td>OS, networking, concurrency, databases, distributed systems</td><td>Use a systems textbook + Linux man pages + PostgreSQL/Kafka/Kubernetes docs. The material must culminate in debugging and design, not memorization.</td></tr><tr><td>02</td><td class="topic">ML Foundations</td><td><span class="audit-status keep">PRIMARY</span></td><td>ISLR / ESL concepts, CS229-style notes, PyTorch implementation work</td><td>Math → derivation → implementation → experiment. Every major algorithm gets a from-scratch implementation.</td></tr><tr><td>03</td><td class="topic">Deep Learning</td><td><span class="audit-status keep">PRIMARY</span></td><td>Dive into Deep Learning + PyTorch docs</td><td>Add compiler/runtime awareness: torch.compile, graph breaks, profiling and memory behavior. PyTorch exposes torch.compile through TorchDynamo/Inductor. urlPyTorch torch.compile docshttps://docs.pytorch.org/docs/2.9/generated/torch.compile.html</td></tr><tr><td>04</td><td class="topic">Transformers / LLMs</td><td><span class="audit-status keep">PRIMARY</span></td><td>Hugging Face Transformers docs + original papers + model technical reports</td><td>Study attention, positional methods, MoE, multimodality, long context, inference constraints and training economics.</td></tr><tr><td>05</td><td class="topic">RAG / Retrieval</td><td><span class="audit-status deepen">DEEPEN</span></td><td>FAISS / vector DB docs + retrieval papers + hybrid-search material</td><td>Retrieval quality, chunking, reranking, query rewriting, hybrid search, context budgets, retrieval eval and failure analysis.</td></tr><tr><td>06</td><td class="topic">Agents</td><td><span class="audit-status deepen">DEEPEN</span></td><td>Model/tool APIs + agent framework internals + agent benchmark papers</td><td>Tool calling, state machines, long-horizon execution, retries, human approval, memory, trajectory evaluation and recovery.</td></tr><tr><td>07</td><td class="topic">MCP / Tool Protocols</td><td><span class="audit-status upgrade">UPGRADE</span></td><td>Official MCP specification</td><td>Protocol semantics, capability negotiation, tool schemas, auth, trust boundaries and safe tool execution — not merely client usage.</td></tr><tr><td>08</td><td class="topic">LLM Evaluation</td><td><span class="audit-status deepen">CRITICAL</span></td><td>Stanford AI Index + benchmark papers + custom eval harnesses</td><td>Separate model capability, system reliability, agent trajectory quality, security and production SLOs.</td></tr><tr><td>09</td><td class="topic">AI Security</td><td><span class="audit-status deepen">CRITICAL</span></td><td>OWASP GenAI Security + NIST AI RMF GenAI Profile</td><td>Threat modeling, prompt injection, data leakage, tool abuse, supply chain, identity, monitoring and regression testing. urlNIST GenAI Risk Profilehttps://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf</td></tr><tr><td>10</td><td class="topic">Inference</td><td><span class="audit-status deepen">CRITICAL</span></td><td>vLLM + SGLang + KServe + inference gateway documentation</td><td>Serving architecture, batching, KV cache, prefix caching, scheduling, multi-LoRA, routing, autoscaling, TTFT, TPOT and throughput. vLLM's current docs cover online/offline serving and multiple hardware backends. urlvLLM docshttps://docs.vllm.ai/en/stable/</td></tr><tr><td>11</td><td class="topic">GPU Programming</td><td><span class="audit-status deepen">CRITICAL</span></td><td>NVIDIA CUDA Programming Guide + samples + profiling docs</td><td>CUDA C++, memory hierarchy, streams, events, synchronization, occupancy, memory bandwidth, tensor cores, profiling, PTX literacy and architecture-specific tuning. Current CUDA docs include CUDA 13.x, PTX, Nsight and cuTile material. urlCUDA Toolkit docshttps://docs.nvidia.com/cuda/</td></tr><tr><td>12</td><td class="topic">Kernel Engineering</td><td><span class="audit-status deepen">CRITICAL</span></td><td>Triton language/tutorials + CUDA comparison work</td><td>Write kernels, benchmark against baselines, inspect generated code and understand when a custom kernel is justified.</td></tr><tr><td>13</td><td class="topic">Compiler / Runtime</td><td><span class="audit-status add">ADD</span></td><td>TorchInductor / Triton / compiler docs</td><td>Graph capture, fusion, compilation boundaries, guards, code generation, kernel selection and performance regressions.</td></tr><tr><td>14</td><td class="topic">Distributed Training</td><td><span class="audit-status deepen">CRITICAL</span></td><td>PyTorch Distributed + FSDP/DTensor material + NCCL concepts</td><td>Data/tensor/pipeline parallelism, communication/computation overlap, sharding, checkpointing, scaling efficiency and failures. urlPyTorch distributed docshttps://docs.pytorch.org/docs/2.9/distributed.html</td></tr><tr><td>15</td><td class="topic">Distributed Systems</td><td><span class="audit-status deepen">CRITICAL</span></td><td>Designing Data-Intensive Applications + systems papers + implementation</td><td>Consensus concepts, replication, partitioning, consistency, queues, backpressure, retries, idempotency and failure models.</td></tr><tr><td>16</td><td class="topic">Kubernetes</td><td><span class="audit-status deepen">DEEPEN</span></td><td>Kubernetes docs + production labs</td><td>Scheduling, networking, storage, autoscaling, security, workload identity and AI-specific primitives. DRA reached GA in Kubernetes 1.34; v1.35 adds further AI-relevant scheduling/resource capabilities. urlKubernetes docshttps://kubernetes.io/docs/</td></tr><tr><td>17</td><td class="topic">AI Inference on K8s</td><td><span class="audit-status deepen">CRITICAL</span></td><td>KServe + Gateway API Inference Extension + llm-d + vLLM</td><td>Model-aware routing, KV-cache-aware routing, prefill/decode disaggregation, multi-model serving, canaries and failure recovery. CNCF now treats inference gateways as a core production pattern. urlCNCF inference guidancehttps://www.cncf.io/blog/2026/02/26/kubernetes-wg-serving-concludes-following-successful-advancement-of-ai-inference-support/</td></tr><tr><td>18</td><td class="topic">GPU Scheduling</td><td><span class="audit-status add">ADD</span></td><td>Kubernetes DRA + NVIDIA DRA + HAMi concepts</td><td>Device allocation, sharing, topology, heterogeneous accelerators, isolation and utilization. DRA is now a first-class Kubernetes direction for accelerator allocation. urlCNCF GPU scheduling updatehttps://www.cncf.io/blog/2026/07/23/the-future-of-ai-is-community-driven-and-open/</td></tr><tr><td>19</td><td class="topic">Observability</td><td><span class="audit-status deepen">DEEPEN</span></td><td>OpenTelemetry + Prometheus/Grafana + AI-specific metrics</td><td>Trace model calls, token counts, tool calls, cache behavior, latency, errors, GPU utilization and cost. Observability must connect infrastructure → model → user outcome.</td></tr><tr><td>20</td><td class="topic">AI Economics</td><td><span class="audit-status add">ADD</span></td><td>Cloud/GPU pricing + internal cost models + OpenCost</td><td>Cost/request, cost/token, GPU utilization, warm-idle cost, cache effects, capacity planning and SLO/cost trade-offs. urlCNCF OpenCost inference cost workhttps://www.cncf.io/blog/2026/08/05/opencost-1-121-0-first-of-a-kind-kubernetes-inference-cost-tracking/</td></tr><tr><td>21</td><td class="topic">MLOps</td><td><span class="audit-status reposition">REPOSITION</span></td><td>MLflow / DVC / CI/CD / registry material</td><td>Keep the fundamentals, but stop treating MLflow/Kubeflow as the curriculum. Focus on reproducibility, lineage, promotion, rollback and operational ownership.</td></tr><tr><td>22</td><td class="topic">Research Engineering</td><td><span class="audit-status deepen">CRITICAL</span></td><td>Recent papers + official code + benchmark suites</td><td>Reproduction, controlled ablation, statistical analysis, profiling, negative results, experiment tracking and clean release engineering.</td></tr><tr><td>23</td><td class="topic">Open Source</td><td><span class="audit-status upgrade">UPGRADE</span></td><td>Upstream contribution workflows and project issue trackers</td><td>Move from “GitHub project” to real contribution: issue triage, bug reproduction, tests, PR review, benchmark evidence and maintainer communication.</td></tr><tr><td>24</td><td class="topic">Domain Depth</td><td><span class="audit-status deepen">KEEP + DEEPEN</span></td><td>Primary domain literature, standards, datasets and regulatory material</td><td>Must understand the domain without ML framing. The model is the tool; the domain problem is the reason.</td></tr></tbody>
+  </table>
+
+  <div class="redline">
+    <strong>RESOURCE RULE:</strong> No resource is “completed” because pages were read. A resource is completed only when its ideas have been implemented, tested, benchmarked, defended or used to produce a real artifact.
+  </div>
+
+  <div class="audit-checklist">
+    <div class="audit-check"><strong>Primary-source first</strong><span>Official documentation, papers, standards and source code outrank third-party tutorials whenever the primary source is available.</span></div>
+    <div class="audit-check"><strong>Framework-last learning</strong><span>Understand the mechanism before memorizing the framework API that exposes it.</span></div>
+    <div class="audit-check"><strong>Version-aware</strong><span>Pin a working version for reproducibility, but maintain a “current frontier” note so the roadmap does not fossilize.</span></div>
+    <div class="audit-check"><strong>Benchmark everything</strong><span>Every systems material must terminate in a measurable experiment: latency, throughput, memory, cost, accuracy or reliability.</span></div>
+    <div class="audit-check"><strong>Failure-first</strong><span>Study failure modes before production claims: crashes, drift, bad retrieval, saturation, contention, security attacks and cost blow-ups.</span></div>
+    <div class="audit-check"><strong>Research-grade notes</strong><span>Every major paper gets: hypothesis, mechanism, assumptions, baseline, ablations, weaknesses and replication plan.</span></div>
+  </div>
+</div>
+
+<!-- ── 15 RESOURCE CANON ── -->
+<div class="section" id="canon">
+  <div class="section-label">15 / Resource Canon</div>
+  <h2>Stop Collecting Courses.<br><em>Build a Canon.</em></h2>
+  <p>The roadmap now explicitly prefers a small number of authoritative, deep resources over dozens of shallow courses. The links below are starting points; the real curriculum is the work performed against them.</p>
+
+  <div class="material-grid">
+    <div class="material-card"><div class="kind">GPU</div><h4><a href="https://docs.nvidia.com/cuda/" target="_blank">NVIDIA CUDA Toolkit</a></h4><p>Programming guide, PTX, libraries, profiling and release notes. CUDA 13.x currently includes CUDA C++/Python, cuTile and updated profiling/compiler material.</p></div>
+    <div class="material-card"><div class="kind">INFERENCE</div><h4><a href="https://docs.vllm.ai/en/stable/" target="_blank">vLLM</a></h4><p>Serving, batching, structured outputs, tool calling, LoRA and distributed execution. Read the implementation, not only the quickstart.</p></div>
+    <div class="material-card"><div class="kind">CLOUD NATIVE</div><h4><a href="https://kubernetes.io/docs/" target="_blank">Kubernetes</a></h4><p>Core scheduling plus AI-specific resource management, DRA, autoscaling and production operations.</p></div>
+    <div class="material-card"><div class="kind">ML RUNTIME</div><h4><a href="https://docs.pytorch.org/" target="_blank">PyTorch</a></h4><p>Training, torch.compile, distributed, profiling and compiler/runtime behavior.</p></div>
+    <div class="material-card"><div class="kind">SECURITY</div><h4><a href="https://genai.owasp.org/" target="_blank">OWASP GenAI</a></h4><p>Use security guidance to build attack harnesses and regression tests, not merely compliance checklists.</p></div>
+    <div class="material-card"><div class="kind">RISK</div><h4><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank">NIST AI RMF</a></h4><p>Govern, map, measure and manage AI risk across the lifecycle.</p></div>
+    <div class="material-card"><div class="kind">RESEARCH</div><h4><a href="https://arxiv.org/" target="_blank">arXiv + primary papers</a></h4><p>Read original methods, then reproduce them. Blog summaries do not count as research literacy.</p></div>
+    <div class="material-card"><div class="kind">OBSERVABILITY</div><h4><a href="https://opentelemetry.io/docs/" target="_blank">OpenTelemetry</a></h4><p>Tracing and metrics across model calls, tools, services and infrastructure.</p></div>
+    <div class="material-card"><div class="kind">SERVING</div><h4><a href="https://kserve.github.io/website/" target="_blank">KServe</a></h4><p>Model serving, autoscaling, traffic management and Kubernetes-native deployment patterns.</p></div>
+  </div>
+</div>
+
+<!-- ── 16 MATERIAL REFRESH LOOP ── -->
+<div class="section" id="refresh">
+  <div class="section-label">16 / Anti-Obsolescence System</div>
+  <h2>The Roadmap<br><em>Must Update Itself.</em></h2>
+  <p>2026 technology moves too quickly for a static curriculum. The roadmap now contains an explicit refresh loop instead of pretending today's framework list will remain correct for two years.</p>
+  <div class="refresh-loop">
+    <div class="refresh-step"><b>01</b><strong>SCAN</strong><p>Quarterly scan official releases, standards, major papers, CNCF/NVIDIA/PyTorch changes and serious engineering postmortems.</p></div>
+    <div class="refresh-step"><b>02</b><strong>CLASSIFY</strong><p>Mark each topic KEEP / UPGRADE / DEEPEN / REPOSITION / REMOVE / ADD.</p></div>
+    <div class="refresh-step"><b>03</b><strong>TEST</strong><p>Build a small benchmark or proof-of-concept before promoting a new technology into the core curriculum.</p></div>
+    <div class="refresh-step"><b>04</b><strong>INTEGRATE</strong><p>Update the relevant phase, project, assessment and resource canon together.</p></div>
+    <div class="refresh-step"><b>05</b><strong>FREEZE</strong><p>Pin a versioned quarterly curriculum snapshot so completed work remains reproducible.</p></div>
+  </div>
+  <div class="audit-hero">
+    <h3>Quarterly curriculum gate</h3>
+    <p>If a technology is fashionable but does not materially improve capability, performance, reliability, research leverage or employability, it stays outside the core curriculum. The roadmap is not a museum of frameworks.</p>
+  </div>
+</div>
+
+
+  <div class="audit-hero">
+    <h3>Final curriculum acceptance criteria</h3>
+    <p><strong>Coverage:</strong> no major AI-engineering layer left implicit. <strong>Depth:</strong> each core skill has an implementation threshold. <strong>Proof:</strong> each phase has an artifact or gate. <strong>Freshness:</strong> current 2026 infrastructure and research patterns are represented. <strong>Statistics:</strong> market numbers have explicit 2026 provenance or have been removed. <strong>Resilience:</strong> quarterly refresh mechanism prevents silent obsolescence.</p>
+  </div>
+
+
+<!-- ── 17 STATISTICS PROVENANCE ── -->
+<div class="section" id="stats">
+  <div class="section-label">17 / Statistics Provenance</div>
+  <h2>Every Number<br><em>Has a Source.</em></h2>
+  <p>The market statistics in this roadmap have been cleaned so unsupported legacy figures are not presented as current facts. Current statistics are labeled with their year and source; qualitative judgments are deliberately written as judgments rather than disguised as measurements.</p>
+
+  <table class="audit-matrix">
+    <thead><tr><th>Metric</th><th>Current figure</th><th>Source</th><th>How the roadmap uses it</th></tr></thead>
+    <tbody>
+      <tr><td class="topic">AI organizational adoption</td><td>88%</td><td>Stanford AI Index 2026</td><td>Evidence that AI has moved beyond niche experimentation.</td></tr>
+      <tr><td class="topic">Software-developer employment, ages 22–25</td><td>Nearly −20% from 2024</td><td>Stanford AI Index 2026 · Economy</td><td>Evidence for raising the minimum bar for early-career candidates.</td></tr>
+      <tr><td class="topic">AI-skill wage premium</td><td>62% average</td><td>PwC 2026 Global AI Jobs Barometer</td><td>Evidence that AI capability is economically differentiated; not used as a personal salary guarantee.</td></tr>
+      <tr><td class="topic">U.S. AI job-posting growth</td><td>Roughly 2× since 2023</td><td>LinkedIn, 2026 research</td><td>Used to support the claim that AI hiring has expanded rapidly.</td></tr>
+      <tr><td class="topic">Kubernetes production usage</td><td>82% of container users</td><td>CNCF Annual Cloud Native Survey, published 2026</td><td>Evidence that Kubernetes is established infrastructure rather than a speculative skill.</td></tr>
+      <tr><td class="topic">GenAI on Kubernetes</td><td>66% of organizations hosting GenAI models use Kubernetes for some/all inference</td><td>CNCF Annual Cloud Native Survey, published 2026</td><td>Evidence for AI-infrastructure depth in the roadmap.</td></tr>
+      <tr><td class="topic">Daily AI-model deployment</td><td>7% of surveyed organizations</td><td>CNCF Annual Cloud Native Survey, published 2026</td><td>Evidence of the production-maturity gap and the value of operational engineering.</td></tr>
+      <tr><td class="topic">OSWorld agent success</td><td>~66% task success, up from 12%</td><td>Stanford AI Index 2026</td><td>Evidence that agents improved dramatically but still fail roughly one-third of structured attempts.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="redline"><strong>STATISTICS RULE:</strong> A number without a source, date and population/context is not allowed into the core market narrative. If a current authoritative figure cannot be verified, the roadmap uses qualitative language instead.</div>
+
+  <div class="audit-hero">
+    <h3>Primary 2026 sources</h3>
+    <p>
+      <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" target="_blank">Stanford HAI — 2026 AI Index</a> ·
+      <a href="https://www.pwc.com/gx/en/services/ai/ai-jobs-barometer.html" target="_blank">PwC — 2026 Global AI Jobs Barometer</a> ·
+      <a href="https://news.linkedin.com/2026/new-linkedin-research-finds-women-account-for-just-26-percent-of-ai-hires-as-ai-jobs-surge" target="_blank">LinkedIn — 2026 AI hiring research</a> ·
+      <a href="https://www.cncf.io/reports/the-cncf-annual-cloud-native-survey/" target="_blank">CNCF — Annual Cloud Native Survey</a>
+    </p>
+  </div>
+</div>
+
+<div class="section" id="sources">
+  <div class="section-label">18 / Calibration Notes</div>
+  <h2>Why the Stack<br><em>Changed</em></h2>
+  <p>This revision deliberately moves the roadmap away from “learn the latest framework” toward infrastructure, inference economics, evaluation, reliability, security and research execution.</p>
+  <div class="audit-box">
+    <ul>
+      <li>Kubernetes has become a major AI infrastructure layer; 66% of organizations hosting generative AI reported using Kubernetes for some or all inference workloads in the 2025 CNCF survey.</li>
+      <li>The same survey reported a large production maturity gap: only 7% of surveyed organizations deploy AI models daily.</li>
+      <li>Stanford's 2026 AI Index reports rapid frontier-model progress while also documenting benchmark saturation and reliability concerns.</li>
+      <li>The roadmap therefore treats inference performance, observability, distributed systems, evaluation, security and reproducibility as first-class competencies.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <h2>Stay<br><em>Untouchable.</em></h2>
+  <p style="margin-bottom: 8px; margin-top: 16px;">AI/ML ENGINEER · CRACKED CANDIDATE PROTOCOL · 2026–2027</p>
+  <p>Models become cheaper and more capable. The moat is what you can reason about, build, measure, optimize, defend and prove.</p>
+</footer>
+
+<script>
+// Intersection observer for fade-in elements
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('on');
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+
+// Animate velocity bars when visible
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const fill = entry.target.querySelector('.vel-fill');
+      if (fill) {
+        const w = fill.dataset.width;
+        setTimeout(() => fill.style.width = w + '%', 100);
+      }
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.velocity-bar').forEach(b => barObserver.observe(b));
+
+// Active nav
+const sections = document.querySelectorAll('[id]');
+const links = document.querySelectorAll('.nav a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+  links.forEach(l => {
+    l.style.color = l.getAttribute('href') === '#' + cur ? 'white' : '';
+    l.style.borderBottomColor = l.getAttribute('href') === '#' + cur ? '#c0392b' : '';
+  });
+});
+</script>
+</body>
+</html>
