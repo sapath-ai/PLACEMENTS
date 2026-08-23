@@ -1,0 +1,1963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physical AI — Strategic Career Roadmap 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050810;
+    --bg2: #080d1a;
+    --panel: #0d1425;
+    --panel2: #111b30;
+    --border: #1e2d4a;
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --accent3: #10b981;
+    --accent4: #f59e0b;
+    --accent5: #ef4444;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --bright: #f8fafc;
+    --glow: rgba(0,212,255,0.15);
+    --glow2: rgba(124,58,237,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 4rem 2rem;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 30%, rgba(0,212,255,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 70%, rgba(124,58,237,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 50% 90%, rgba(16,185,129,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
+  }
+
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 1;
+    color: var(--bright);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-title span {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2.5rem;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* ── NAV ── */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(5, 8, 16, 0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-item {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 1.2rem 1.4rem;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  .nav-item:hover, .nav-item.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    color: var(--bright);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-desc {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 700px;
+    margin-bottom: 3rem;
+  }
+
+  /* ── PHASE TIMELINE ── */
+  .phases {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .phases::before {
+    content: '';
+    position: absolute;
+    left: 3.5rem;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2), var(--accent3));
+    opacity: 0.3;
+  }
+
+  .phase {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: 2rem;
+    padding-bottom: 3rem;
+    position: relative;
+  }
+
+  .phase-num {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 0.25rem;
+  }
+
+  .phase-dot {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 1px solid;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+
+  .phase-dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    opacity: 0.2;
+  }
+
+  .p1 .phase-dot { color: var(--accent); border-color: var(--accent); background: rgba(0,212,255,0.08); }
+  .p1 .phase-dot::after { background: var(--accent); }
+  .p2 .phase-dot { color: var(--accent2); border-color: var(--accent2); background: rgba(124,58,237,0.08); }
+  .p2 .phase-dot::after { background: var(--accent2); }
+  .p3 .phase-dot { color: var(--accent3); border-color: var(--accent3); background: rgba(16,185,129,0.08); }
+  .p3 .phase-dot::after { background: var(--accent3); }
+  .p4 .phase-dot { color: var(--accent4); border-color: var(--accent4); background: rgba(245,158,11,0.08); }
+  .p4 .phase-dot::after { background: var(--accent4); }
+
+  .phase-timeline-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+
+  .phase-content {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .phase-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+  }
+
+  .p1 .phase-content::before { background: linear-gradient(90deg, var(--accent), transparent); }
+  .p2 .phase-content::before { background: linear-gradient(90deg, var(--accent2), transparent); }
+  .p3 .phase-content::before { background: linear-gradient(90deg, var(--accent3), transparent); }
+  .p4 .phase-content::before { background: linear-gradient(90deg, var(--accent4), transparent); }
+
+  .phase-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .phase-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--bright);
+  }
+
+  .phase-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2rem;
+    border: 1px solid;
+    flex-shrink: 0;
+  }
+
+  .p1 .phase-badge { color: var(--accent); border-color: var(--accent); background: rgba(0,212,255,0.08); }
+  .p2 .phase-badge { color: var(--accent2); border-color: var(--accent2); background: rgba(124,58,237,0.08); }
+  .p3 .phase-badge { color: var(--accent3); border-color: var(--accent3); background: rgba(16,185,129,0.08); }
+  .p4 .phase-badge { color: var(--accent4); border-color: var(--accent4); background: rgba(245,158,11,0.08); }
+
+  .phase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .skill-card {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+  }
+
+  .skill-card-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--bright);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .skill-card-title .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .skill-list li {
+    font-size: 0.8rem;
+    color: var(--muted);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .skill-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--border);
+    font-size: 0.7rem;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--glow);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .project-card:hover::after { opacity: 1; }
+
+  .project-level {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+  }
+
+  .lvl-beginner { color: var(--accent3); background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); }
+  .lvl-intermediate { color: var(--accent4); background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); }
+  .lvl-advanced { color: var(--accent5); background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); }
+  .lvl-elite { color: var(--accent2); background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.3); }
+
+  .project-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--bright);
+    margin-bottom: 0.5rem;
+  }
+
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.5rem;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--muted);
+  }
+
+  .project-wow {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  /* ── RESOURCES ── */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .resource-block {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .resource-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .resource-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .resource-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--bright);
+  }
+
+  .resource-body {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .resource-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(30,45,74,0.5);
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .resource-item:last-child { border-bottom: none; }
+
+  .resource-item strong {
+    color: var(--text);
+    font-weight: 500;
+    display: block;
+    font-size: 0.8rem;
+  }
+
+  /* ── MATH/PHYSICS TABLE ── */
+  .math-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .math-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+
+  .math-area {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--bright);
+    margin-bottom: 0.25rem;
+  }
+
+  .math-why {
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 1rem;
+  }
+
+  .math-topics {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .math-topics li {
+    font-size: 0.8rem;
+    color: var(--muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .math-topics li::before {
+    content: '◆';
+    font-size: 0.4rem;
+    color: var(--accent2);
+    margin-top: 0.35rem;
+    flex-shrink: 0;
+  }
+
+  /* ── COMPANIES ── */
+  .companies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .company-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    transition: border-color 0.3s;
+  }
+
+  .company-card:hover { border-color: var(--accent2); }
+
+  .company-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+
+  .company-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--bright);
+  }
+
+  .company-type {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2rem;
+    background: rgba(124,58,237,0.1);
+    border: 1px solid rgba(124,58,237,0.3);
+    color: var(--accent2);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .company-row {
+    display: flex;
+    font-size: 0.8rem;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .company-row-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    min-width: 90px;
+    flex-shrink: 0;
+    padding-top: 0.1rem;
+  }
+
+  .company-row-val {
+    color: var(--text);
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .company-skills {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  /* ── CV SECTION ── */
+  .cv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .cv-grid { grid-template-columns: 1fr; }
+    .phases::before { left: 2rem; }
+    .phase { grid-template-columns: 4rem 1fr; gap: 1rem; }
+    .hero-stats { gap: 1.5rem; }
+  }
+
+  .cv-panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+
+  .cv-panel-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--bright);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cv-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(30,45,74,0.4);
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  .cv-item:last-child { border-bottom: none; }
+
+  .cv-item-check {
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 3px;
+    background: rgba(16,185,129,0.15);
+    border: 1px solid rgba(16,185,129,0.4);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.55rem;
+    color: var(--accent3);
+    margin-top: 0.15rem;
+  }
+
+  /* ── PAPERS ── */
+  .papers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .paper-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+
+  .paper-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--border);
+    flex-shrink: 0;
+    min-width: 2rem;
+  }
+
+  .paper-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--bright);
+    margin-bottom: 0.25rem;
+  }
+
+  .paper-meta {
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .paper-why {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .highlight-box {
+    background: rgba(0,212,255,0.04);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .highlight-box strong { color: var(--accent); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-eyebrow">Strategic Career Roadmap · 2026 Edition</div>
+  <h1 class="hero-title">Physical <span>AI</span></h1>
+  <p class="hero-sub">From zero to researcher-grade. A 2026→2027 engineering roadmap for building intelligent machines end-to-end — from robotics fundamentals and ROS 2 systems to robot learning, foundation models, world models, deployment, safety, and the physical-AI data flywheel.</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">4</span>
+      <span class="stat-label">Learning Phases</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">12+</span>
+      <span class="stat-label">Flagship Projects</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">6</span>
+      <span class="stat-label">Core Skill Tracks</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">24mo</span>
+      <span class="stat-label">Full Roadmap</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <button class="nav-item active" data-target="overview">Overview</button>
+    <button class="nav-item" data-target="architecture">2026→27 Architecture</button>
+    <button class="nav-item" data-target="phases">Phases</button>
+    <button class="nav-item" data-target="math">Math & Physics</button>
+    <button class="nav-item" data-target="projects">Projects</button>
+    <button class="nav-item" data-target="resources">Books & Courses</button>
+    <button class="nav-item" data-target="papers">Research Papers</button>
+    <button class="nav-item" data-target="companies">Companies</button>
+    <button class="nav-item" data-target="cv">CV & Skills</button>
+  </div>
+</nav>
+
+<!-- OVERVIEW -->
+<div id="overview" class="section">
+  <div class="section-label">What is Physical AI?</div>
+  <h2 class="section-title">The Next Wave of Intelligence</h2>
+  <p class="section-desc">Physical AI refers to AI systems that perceive, reason, and act in the physical world — robots, autonomous machines, and embodied agents. NVIDIA's Jensen Huang declared it the "ChatGPT moment for robotics" in 2026.</p>
+
+  <div class="highlight-box">
+    <strong>Why now?</strong> NVIDIA GR00T N, Isaac Sim, Cosmos world models, Figure AI, Boston Dynamics Atlas, Tesla Optimus, and humanoid robots from ABB, FANUC, KUKA and YASKAWA are all converging in 2026. The Physical AI Special Interest Group in ROS2 was just launched. This is the exact moment to enter this field — the infrastructure is being built right now, and early specialists will shape the next decade.
+  </div>
+
+  <div class="two-col">
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent)"></div>Core Domains</div>
+      <ul class="skill-list">
+        <li>Robotics Systems & ROS 2</li>
+        <li>Perception, State Estimation & SLAM</li>
+        <li>Planning, Manipulation & Control</li>
+        <li>Simulation, Digital Twins & Isaac Lab</li>
+        <li>Robot Learning: RL + Imitation</li>
+        <li>Robot Data Engineering & Teleoperation</li>
+        <li>VLA / Robot Foundation Models</li>
+        <li>World Models & World Action Models</li>
+        <li>Edge AI, Real-Time Deployment & RobotOps</li>
+        <li>Safety, Evaluation & Failure Engineering</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent2)"></div>Who Succeeds Here</div>
+      <ul class="skill-list">
+        <li>Engineers who build, not just study</li>
+        <li>People comfortable with C++ AND Python</li>
+        <li>Those who understand both software AND physics</li>
+        <li>Researchers who publish or open-source work</li>
+        <li>Engineers fluent in simulation AND hardware</li>
+        <li>People who contribute to ROS2 ecosystem</li>
+        <li>Those who understand real-world constraints</li>
+        <li>Engineers who deploy, not just prototype</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- 2026→2027 ARCHITECTURE -->
+<div id="architecture" class="section">
+  <div class="section-label">2026→2027 Operating Architecture</div>
+  <h2 class="section-title">The Physical AI Lifecycle</h2>
+  <p class="section-desc">The roadmap is no longer organized as “learn ROS → learn RL → learn VLA.” Modern Physical AI is a closed engineering loop: build the robot stack, generate and curate data, train policies, simulate and evaluate them, deploy safely, observe failures, and feed the resulting data back into the next training cycle.</p>
+
+  <div class="highlight-box">
+    <strong>Core loop:</strong> PERCEIVE → REPRESENT → REASON → PLAN → ACT → EVALUATE → FAIL → RECOVER → COLLECT DATA → TRAIN → SIMULATE → DEPLOY → MONITOR → REPEAT.
+  </div>
+
+  <div class="two-col">
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent)"></div>Track A — Robotics Systems</div>
+      <ul class="skill-list">
+        <li>ROS 2 nodes, topics, services and actions</li><li>DDS, QoS, executors and composition</li><li>TF2 and coordinate-frame discipline</li><li>URDF/Xacro and robot description</li><li>ros2_control and controller interfaces</li><li>Navigation and manipulation stacks</li><li>Real-time constraints and latency</li><li>Diagnostics, logging and rosbag2</li><li>Hardware interfaces and sensor drivers</li><li>Systems debugging and profiling</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent2)"></div>Track B — Intelligence</div>
+      <ul class="skill-list">
+        <li>Perception and 3D scene understanding</li><li>State estimation and sensor fusion</li><li>Motion planning and trajectory optimization</li><li>Classical control and MPC</li><li>Reinforcement learning</li><li>Imitation learning and behavior cloning</li><li>Diffusion and flow-based policies</li><li>Vision-language-action models</li><li>World models and predictive dynamics</li><li>Embodied reasoning and task planning</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent3)"></div>Track C — Simulation & Data</div>
+      <ul class="skill-list">
+        <li>Gazebo and modern ROS simulation</li><li>MuJoCo contact-rich simulation</li><li>Isaac Sim and Isaac Lab</li><li>USD and digital-twin workflows</li><li>Domain randomization</li><li>System identification</li><li>Teleoperation and demonstration capture</li><li>Robot dataset schemas and versioning</li><li>Real/sim data mixing</li><li>Offline replay and evaluation</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent4)"></div>Track D — Deployment & Reliability</div>
+      <ul class="skill-list">
+        <li>PyTorch → ONNX → TensorRT deployment</li><li>CUDA and GPU profiling</li><li>Jetson-class edge inference</li><li>Real-time inference and control budgets</li><li>Telemetry and fleet observability</li><li>Policy rollout and rollback</li><li>Runtime monitoring and watchdogs</li><li>Safety constraints and recovery</li><li>Failure injection and fault analysis</li><li>Continuous robot-learning feedback loops</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:24px">
+    <strong>2027 standard:</strong> A Physical AI engineer is expected to understand the interfaces between these tracks. The goal is not to memorize every framework; it is to engineer the full perception→decision→action lifecycle and explain the trade-offs at every boundary.
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- PHASES -->
+<div id="phases" class="section">
+  <div class="section-label">Learning Architecture</div>
+  <h2 class="section-title">4-Phase Mastery Roadmap</h2>
+  <p class="section-desc">24 months of progression across six parallel skill tracks. Each phase increases system complexity while the tracks continue in parallel: Robotics Systems, Intelligence, Simulation & Data, Foundation Models, Deployment, and Research/Safety.</p>
+
+  <div class="phases">
+
+    <!-- Phase 1 -->
+    <div class="phase p1">
+      <div class="phase-num">
+        <div class="phase-dot">01</div>
+        <div class="phase-timeline-label">Months<br>1–4</div>
+      </div>
+      <div class="phase-content">
+        <div class="phase-head">
+          <div class="phase-name">Foundations — Software + Robot Thinking</div>
+          <div class="phase-badge">Foundation</div>
+        </div>
+        <div class="phase-grid">
+          <div class="skill-card"><div class="skill-card-title"><div class="dot" style="background:var(--accent)"></div>Programming & Systems</div><ul class="skill-list">
+            <li>Python: NumPy, SciPy, OpenCV and PyTorch</li><li>C++: STL, RAII, smart pointers and templates</li><li>CMake, Git, Linux and shell tooling</li><li>Processes, threads and synchronization</li><li>Memory ownership and performance basics</li><li>Docker and reproducible environments</li><li>Unit testing and integration testing</li><li>Profiling and debugging with gdb/perf</li><li>Configuration management and reproducibility</li><li>Clean repository and experiment structure</li>
+          </ul></div>
+          <div class="skill-card"><div class="skill-card-title"><div class="dot" style="background:var(--accent)"></div>ROS 2 Systems</div><ul class="skill-list">
+            <li>Nodes, topics, services and actions</li><li>TF2 and coordinate-frame discipline</li><li>URDF/Xacro and robot descriptions</li><li>Parameters, launch and lifecycle concepts</li><li>DDS discovery and middleware architecture</li><li>QoS: reliability, durability, history and deadlines</li><li>Executors and callback groups</li><li>Composable nodes and intra-process communication</li><li>rosbag2, diagnostics and tracing</li><li>Nav2 architecture and controller/planner interfaces</li>
+          </ul></div>
+          <div class="skill-card"><div class="skill-card-title"><div class="dot" style="background:var(--accent)"></div>Math & ML Foundation</div><ul class="skill-list">
+            <li>Vectors, matrices and eigendecomposition</li><li>Probability and Bayes theorem</li><li>Gaussian models and covariance</li><li>Optimization and least squares</li><li>PyTorch tensors and autograd</li><li>CNNs and representation learning</li><li>Loss functions and regularization</li><li>Train/validation/test discipline</li><li>Experiment tracking and reproducible seeds</li><li>Basic statistical interpretation of experiments</li>
+          </ul></div>
+          <div class="skill-card"><div class="skill-card-title"><div class="dot" style="background:var(--accent)"></div>Simulation Foundations</div><ul class="skill-list">
+            <li>Gazebo and ROS 2 simulation workflow</li><li>MuJoCo model and contact basics</li><li>Isaac Sim scene and asset concepts</li><li>Rigid-body dynamics intuition</li><li>Collision geometry and contact modeling</li><li>Sensor simulation</li><li>Simulation time and synchronization</li><li>Reset and deterministic episode design</li><li>Basic domain randomization</li><li>Simulation-vs-reality error analysis</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase p2">
+      <div class="phase-num">
+        <div class="phase-dot">02</div>
+        <div class="phase-timeline-label">Months<br>5–10</div>
+      </div>
+      <div class="phase-content">
+        <div class="phase-head">
+          <div class="phase-name">Core Stack — Perception + Planning + Control</div>
+          <div class="phase-badge">Core Skills</div>
+        </div>
+        <div class="phase-grid">
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent2)"></div>Computer Vision</div>
+            <ul class="skill-list">
+              <li>Object detection (YOLO, DINO)</li>
+              <li>Semantic + instance segmentation</li>
+              <li>Depth estimation, stereo vision</li>
+              <li>Point cloud processing (PCL)</li>
+              <li>Camera intrinsics/extrinsics</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent2)"></div>SLAM & Localization</div>
+            <ul class="skill-list">
+              <li>EKF/UKF filters</li>
+              <li>ORB-SLAM3, Cartographer</li>
+              <li>LiDAR SLAM (LOAM, LeGO-LOAM)</li>
+              <li>Visual-Inertial Odometry</li>
+              <li>Occupancy grids & mapping</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent2)"></div>Motion Planning</div>
+            <ul class="skill-list">
+              <li>A*, Dijkstra, RRT, RRT*</li>
+              <li>MoveIt2 for manipulation</li>
+              <li>Trajectory optimization</li>
+              <li>Collision detection</li>
+              <li>Inverse kinematics (IK)</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent2)"></div>Control Theory</div>
+            <ul class="skill-list">
+              <li>PID, LQR controllers</li>
+              <li>Model Predictive Control (MPC)</li>
+              <li>State space models</li>
+              <li>ros2_control framework</li>
+              <li>Real-time control loops</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent2)"></div>Reinforcement Learning</div>
+            <ul class="skill-list">
+              <li>PPO, SAC, TD3 algorithms</li>
+              <li>Gymnasium environments</li>
+              <li>Reward shaping</li>
+              <li>Isaac Gym / Isaac Lab</li>
+              <li>Curriculum learning</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent2)"></div>Robot Systems Engineering</div>
+            <ul class="skill-list"><li>Sensor interfaces and calibration</li><li>Camera/IMU/LiDAR timing</li><li>CAN and Ethernet concepts</li><li>Actuator limits and saturation</li><li>Latency budgets end-to-end</li><li>Hardware-in-the-loop testing</li><li>Watchdogs and diagnostics</li><li>Fault injection</li><li>Data logging architecture</li><li>Recovery-state design</li></ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent2)"></div>Perception & Calibration</div>
+            <ul class="skill-list"><li>Camera intrinsic calibration</li><li>Camera/robot extrinsics</li><li>Hand-eye calibration</li><li>IMU-camera calibration</li><li>LiDAR-camera calibration</li><li>Temporal synchronization</li><li>3D point-cloud filtering</li><li>Depth uncertainty</li><li>Pose estimation</li><li>Calibration verification</li></ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent2)"></div>NVIDIA Stack</div>
+            <ul class="skill-list">
+              <li>Isaac ROS perception and acceleration packages</li>
+              <li>Isaac Sim + Isaac Lab workflow</li>
+              <li>CUDA & TensorRT fundamentals</li>
+              <li>Jetson Orin deployment</li>
+              <li>Jetson Thor awareness and edge AI</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase p3">
+      <div class="phase-num">
+        <div class="phase-dot">03</div>
+        <div class="phase-timeline-label">Months<br>11–18</div>
+      </div>
+      <div class="phase-content">
+        <div class="phase-head">
+          <div class="phase-name">Advanced — Foundation Models + Embodied Intelligence</div>
+          <div class="phase-badge">Advanced</div>
+        </div>
+        <div class="phase-grid">
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent3)"></div>Robot Foundation Models</div>
+            <ul class="skill-list">
+              <li>GR00T family and modern NVIDIA robot foundation models</li>
+              <li>RT-2, OpenVLA, π0-family and modern VLAs</li>
+              <li>Action Chunking Transformers</li>
+              <li>Diffusion Policy</li>
+              <li>Behavior cloning at scale</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent3)"></div>World Models</div>
+            <ul class="skill-list">
+              <li>Cosmos-style world foundation models</li>
+              <li>Video and latent dynamics prediction</li>
+              <li>Action-conditioned world models</li>
+              <li>JEPA-style predictive representations</li>
+              <li>World Action Model concepts</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent3)"></div>Manipulation AI</div>
+            <ul class="skill-list">
+              <li>6-DOF grasp planning</li>
+              <li>Dexterous manipulation</li>
+              <li>Tactile sensing integration</li>
+              <li>Object pose estimation</li>
+              <li>Deformable object handling</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent3)"></div>Digital Twins</div>
+            <ul class="skill-list">
+              <li>Omniverse USD pipelines</li>
+              <li>PhysX 5 simulation</li>
+              <li>Photorealistic rendering</li>
+              <li>Sensor simulation (LiDAR, IMU)</li>
+              <li>Factory digital twin workflows</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent3)"></div>Imitation Learning</div>
+            <ul class="skill-list">
+              <li>Data collection pipelines</li>
+              <li>Teleoperation systems</li>
+              <li>DAGGER & variants</li>
+              <li>HumanPlus-style mirroring</li>
+              <li>Multi-task policy training</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent3)"></div>Robot Data Engineering</div>
+            <ul class="skill-list"><li>Teleoperation data capture</li><li>State/action representation</li><li>Synchronized multi-camera data</li><li>Proprioceptive logging</li><li>Dataset schemas and metadata</li><li>Dataset versioning and provenance</li><li>Quality filtering and failure mining</li><li>Language annotation</li><li>Real/sim data mixing</li><li>Offline replay and dataset evaluation</li></ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent3)"></div>Modern Policy Learning</div>
+            <ul class="skill-list"><li>Behavior cloning</li><li>ACT and action chunking</li><li>Diffusion Policy</li><li>Flow matching policies</li><li>Real-time chunking concepts</li><li>Reward models</li><li>Offline RL</li><li>DAgger and corrective data</li><li>LoRA/parameter-efficient adaptation</li><li>Cross-task policy evaluation</li></ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent3)"></div>World Models & Predictive AI</div>
+            <ul class="skill-list"><li>Latent dynamics modeling</li><li>Video prediction</li><li>Action-conditioned prediction</li><li>JEPA-style representation learning</li><li>World-model rollouts</li><li>Learned dynamics for planning</li><li>Cosmos-style physical simulation models</li><li>World Action Model concepts</li><li>Uncertainty in predictive models</li><li>Closed-loop imagined evaluation</li></ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent3)"></div>LLM + Robotics</div>
+            <ul class="skill-list">
+              <li>Language-conditioned policies</li>
+              <li>VLMs for scene understanding</li>
+              <li>SayCan, Code as Policies</li>
+              <li>Task planning with LLMs</li>
+              <li>Open-vocabulary detection</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4 -->
+    <div class="phase p4">
+      <div class="phase-num">
+        <div class="phase-dot">04</div>
+        <div class="phase-timeline-label">Months<br>19–24</div>
+      </div>
+      <div class="phase-content">
+        <div class="phase-head">
+          <div class="phase-name">Expert — Research, Deployment & Differentiation</div>
+          <div class="phase-badge">Research-Grade</div>
+        </div>
+        <div class="phase-grid">
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent4)"></div>Humanoid Robotics</div>
+            <ul class="skill-list">
+              <li>Whole-body control (WBC)</li>
+              <li>Legged locomotion (MIT Mini Cheetah)</li>
+              <li>Centroidal dynamics</li>
+              <li>Contact-rich manipulation</li>
+              <li>Atlas-style motion generation</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent4)"></div>MLOps for Robots</div>
+            <ul class="skill-list">
+              <li>Continuous robot training loops</li>
+              <li>Fleet management at scale</li>
+              <li>OTA updates & rollback</li>
+              <li>A/B testing policies in sim</li>
+              <li>Data flywheel design</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent4)"></div>Safety & Robustness</div>
+            <ul class="skill-list">
+              <li>Formal verification basics</li>
+              <li>Safe RL constraints</li>
+              <li>Anomaly detection in robots</li>
+              <li>ISO 10218 robot safety</li>
+              <li>Fail-safe system design</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent4)"></div>Robot Evaluation Engineering</div>
+            <ul class="skill-list"><li>Task success metrics</li><li>Latency and throughput measurement</li><li>Intervention rate</li><li>Recovery rate</li><li>OOD evaluation</li><li>Cross-environment testing</li><li>Cross-embodiment testing</li><li>Statistical significance and confidence intervals</li><li>Ablation studies</li><li>Failure taxonomy and reproducible evaluation</li></ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent4)"></div>Edge & Real-Time Deployment</div>
+            <ul class="skill-list"><li>PyTorch to ONNX export</li><li>TensorRT optimization</li><li>FP16/INT8 quantization</li><li>CUDA profiling</li><li>GPU memory budgeting</li><li>Jetson Orin deployment</li><li>Jetson Thor awareness</li><li>Inference latency budgets</li><li>Control-loop scheduling</li><li>Thermal/power-aware deployment</li></ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent4)"></div>Safety & Failure Engineering</div>
+            <ul class="skill-list"><li>Runtime safety monitors</li><li>Collision and workspace constraints</li><li>Force/torque limits</li><li>Watchdogs and emergency stops</li><li>Fallback controllers</li><li>OOD detection</li><li>Policy uncertainty</li><li>Fault injection and recovery</li><li>Semantic and physical safety</li><li>Safety validation and documentation</li></ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent4)"></div>RobotOps & Continuous Learning</div>
+            <ul class="skill-list"><li>Robot telemetry</li><li>Trajectory and event logging</li><li>Fleet observability</li><li>Policy versioning</li><li>Staged rollout and canaries</li><li>OTA updates and rollback</li><li>Failure-triggered data collection</li><li>Simulation gate before deployment</li><li>Retraining pipelines</li><li>Closed-loop data flywheel</li></ul>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-title"><div class="dot" style="background:var(--accent4)"></div>Research Output</div>
+            <ul class="skill-list">
+              <li>Write & publish on arXiv</li>
+              <li>Contribute to Isaac ROS / ROS2</li>
+              <li>Present at ROSCon / ICRA</li>
+              <li>Maintain open-source repos</li>
+              <li>Build reproducible benchmarks</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- MATH & PHYSICS -->
+<div id="math" class="section">
+  <div class="section-label">Foundations</div>
+  <h2 class="section-title">Mathematics & Physics You Need</h2>
+  <p class="section-desc">Not everything — just what matters. Prioritized by actual usage frequency in Physical AI work, not academic completeness.</p>
+
+  <div class="math-grid">
+    <div class="math-card">
+      <div class="math-area">Linear Algebra</div>
+      <div class="math-why">// Used daily in perception, control, learning</div>
+      <ul class="math-topics">
+        <li>Matrix ops, SVD, eigendecomposition</li>
+        <li>Rotation matrices, quaternions, SO(3)</li>
+        <li>Homogeneous coordinates & transforms</li>
+        <li>Least squares, pseudoinverse</li>
+        <li>Jacobian matrices (robotics kinematic chains)</li>
+      </ul>
+    </div>
+    <div class="math-card">
+      <div class="math-area">Probability & Statistics</div>
+      <div class="math-why">// SLAM, sensor fusion, uncertainty</div>
+      <ul class="math-topics">
+        <li>Bayes theorem, conditional probability</li>
+        <li>Gaussian distributions, covariance</li>
+        <li>Kalman Filter & EKF derivation</li>
+        <li>Particle filters / Monte Carlo methods</li>
+        <li>Information theory (entropy, KL divergence)</li>
+      </ul>
+    </div>
+    <div class="math-card">
+      <div class="math-area">Calculus & Optimization</div>
+      <div class="math-why">// Neural nets, trajectory optimization</div>
+      <ul class="math-topics">
+        <li>Gradient descent, chain rule</li>
+        <li>Constrained optimization (Lagrange)</li>
+        <li>Convex optimization (Boyd's book)</li>
+        <li>Ordinary differential equations</li>
+        <li>Variational methods for control</li>
+      </ul>
+    </div>
+    <div class="math-card">
+      <div class="math-area">Rigid Body Mechanics</div>
+      <div class="math-why">// Every robot joint, every contact</div>
+      <ul class="math-topics">
+        <li>Newton-Euler dynamics</li>
+        <li>Lagrangian mechanics</li>
+        <li>Moment of inertia tensors</li>
+        <li>Denavit-Hartenberg parameters</li>
+        <li>Forward/inverse dynamics</li>
+      </ul>
+    </div>
+    <div class="math-card">
+      <div class="math-area">Control Theory</div>
+      <div class="math-why">// Stability, feedback, real-time loops</div>
+      <ul class="math-topics">
+        <li>State-space representations</li>
+        <li>Lyapunov stability analysis</li>
+        <li>LQR derivation and tuning</li>
+        <li>Pole placement</li>
+        <li>Model Predictive Control math</li>
+      </ul>
+    </div>
+    <div class="math-card">
+      <div class="math-area">Physics for Sensors</div>
+      <div class="math-why">// LiDAR, cameras, IMUs, force sensors</div>
+      <ul class="math-topics">
+        <li>Pinhole camera model & optics</li>
+        <li>IMU noise models (Allan variance)</li>
+        <li>LiDAR ray-casting geometry</li>
+        <li>Contact mechanics & friction (Coulomb)</li>
+        <li>Electromagnetic basics (motor physics)</li>
+      </ul>
+    </div>
+    <div class="math-card">
+      <div class="math-area">Graph Theory & Algorithms</div>
+      <div class="math-why">// Planning, SLAM pose graphs</div>
+      <ul class="math-topics">
+        <li>Graph search (A*, Dijkstra)</li>
+        <li>Pose graph optimization</li>
+        <li>Visibility graphs</li>
+        <li>Probabilistic roadmaps (PRM)</li>
+        <li>Factor graphs (GTSAM)</li>
+      </ul>
+    </div>
+    <div class="math-card">
+      <div class="math-area">Deep Learning Math</div>
+      <div class="math-why">// Foundation models, diffusion, transformers</div>
+      <ul class="math-topics">
+        <li>Backpropagation & automatic diff</li>
+        <li>Attention mechanism math</li>
+        <li>Score matching (diffusion models)</li>
+        <li>Policy gradient theorem (RL)</li>
+        <li>Contrastive learning objectives</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- PROJECTS -->
+<div id="projects" class="section">
+  <div class="section-label">Portfolio Building</div>
+  <h2 class="section-title">Projects That Set You Apart</h2>
+  <p class="section-desc">These are not tutorial reproductions. Each project is designed to demonstrate real engineering judgment and make recruiters stop scrolling. Build them publicly on GitHub.</p>
+
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-level lvl-beginner">Phase 1 — Beginner</div>
+      <div class="project-name">ROS2 Autonomous Room Mapper</div>
+      <div class="project-desc">Build a real-time 2D occupancy grid mapper using a cheap RPi + RPLiDAR A1. Deploy on actual hardware. Add frontier-based exploration. Containerize with Docker.</div>
+      <div class="project-tags">
+        <span class="tag">ROS2 Humble</span><span class="tag">Nav2</span><span class="tag">Cartographer</span><span class="tag">RPLiDAR</span><span class="tag">Docker</span>
+      </div>
+      <div class="project-wow">💡 WOW factor: Real hardware + reproducible Docker deployment. Most beginners stay in simulation.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-level lvl-beginner">Phase 1 — Beginner</div>
+      <div class="project-name">URDF Robot from Scratch + Gazebo Harmonic</div>
+      <div class="project-desc">Design your own URDF robot arm (5-DOF), spawn it in Gazebo Harmonic, wire up ros2_control, and implement a simple PID joint controller. Write a benchmark for control loop latency.</div>
+      <div class="project-tags">
+        <span class="tag">URDF/Xacro</span><span class="tag">Gazebo Harmonic</span><span class="tag">ros2_control</span><span class="tag">PID</span>
+      </div>
+      <div class="project-wow">💡 WOW factor: Latency benchmarks and proper controller tuning demonstrate engineering rigor.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-level lvl-intermediate">Phase 2 — Intermediate</div>
+      <div class="project-name">Visual-Inertial SLAM on Jetson Orin</div>
+      <div class="project-desc">Port ORB-SLAM3 to Jetson Orin Nano, optimize with TensorRT, achieve real-time performance with a RealSense D435i. Publish a benchmark comparing CPU vs GPU inference latency.</div>
+      <div class="project-tags">
+        <span class="tag">ORB-SLAM3</span><span class="tag">Jetson Orin</span><span class="tag">TensorRT</span><span class="tag">RealSense</span><span class="tag">CUDA</span>
+      </div>
+      <div class="project-wow">💡 WOW factor: Edge deployment + performance benchmarks = immediate credibility with NVIDIA hiring teams.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-level lvl-intermediate">Phase 2 — Intermediate</div>
+      <div class="project-name">Language-Conditioned Pick & Place</div>
+      <div class="project-desc">Use a CLIP-based open-vocab detector (OWL-ViT) + MoveIt2 + a 6-DOF arm sim to pick objects specified in plain English. "Pick the red cup near the laptop." Zero-shot generalization demo.</div>
+      <div class="project-tags">
+        <span class="tag">CLIP / OWL-ViT</span><span class="tag">MoveIt2</span><span class="tag">Isaac Sim</span><span class="tag">Language Models</span>
+      </div>
+      <div class="project-wow">💡 WOW factor: Directly demonstrates the LLM+robotics skill set that every Physical AI company is chasing.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-level lvl-intermediate">Phase 2 — Intermediate</div>
+      <div class="project-name">Multi-Robot Fleet Coordinator (ROS2 + DDS)</div>
+      <div class="project-desc">Simulate 5 robots sharing a map, doing task allocation, and avoiding each other using RMW FastDDS Quality of Service tuning. Implement a simple auction-based task planner.</div>
+      <div class="project-tags">
+        <span class="tag">ROS2 DDS</span><span class="tag">Multi-agent</span><span class="tag">Task allocation</span><span class="tag">Nav2</span>
+      </div>
+      <div class="project-wow">💡 WOW factor: Multi-robot systems are exactly what warehouse and logistics companies (Amazon, Symbotic) need.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-level lvl-intermediate">Phase 2 — Intermediate</div>
+      <div class="project-name">RL-Trained Quadruped Gait in Isaac Lab</div>
+      <div class="project-desc">Train a quadruped robot (Unitree Go2 URDF) to walk, trot, and recover from pushes using PPO in NVIDIA Isaac Lab. Transfer the policy to simulation. Document domain randomization choices.</div>
+      <div class="project-tags">
+        <span class="tag">Isaac Lab</span><span class="tag">PPO</span><span class="tag">Domain Randomization</span><span class="tag">Unitree Go2</span>
+      </div>
+      <div class="project-wow">💡 WOW factor: Locomotion RL on actual robot URDFs is top-tier resume material at Boston Dynamics / Agility.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-level lvl-advanced">Phase 3 — Advanced</div>
+      <div class="project-name">Diffusion Policy for Dexterous Manipulation</div>
+      <div class="project-desc">Collect 50+ teleoperation demos of a dexterous task (cloth folding, cable routing), train a Diffusion Policy, and evaluate generalization. Use Isaac Sim for demo collection + ACT baseline comparison.</div>
+      <div class="project-tags">
+        <span class="tag">Diffusion Policy</span><span class="tag">ACT</span><span class="tag">Teleoperation</span><span class="tag">Imitation Learning</span>
+      </div>
+      <div class="project-wow">💡 WOW factor: Directly mirrors what Figure AI, Physical Intelligence (π) and 1X Technologies work on daily.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-level lvl-advanced">Phase 3 — Advanced</div>
+      <div class="project-name">Factory Digital Twin with Omniverse</div>
+      <div class="project-desc">Build a mini factory digital twin in Omniverse (conveyor + arm), connect real sensor data via MQTT, run anomaly detection, and demonstrate a sim-validated task that deploys to a physical arm.</div>
+      <div class="project-tags">
+        <span class="tag">NVIDIA Omniverse</span><span class="tag">USD</span><span class="tag">PhysX 5</span><span class="tag">Sensor Simulation</span><span class="tag">MQTT</span>
+      </div>
+      <div class="project-wow">💡 WOW factor: ABB, FANUC, KUKA and every industrial robotics company is building exactly this right now.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-level lvl-advanced">Phase 3 — Advanced</div>
+      <div class="project-name">GR00T N Fine-Tuning on Custom Tasks</div>
+      <div class="project-desc">Fine-tune NVIDIA's open GR00T N model on a custom manipulation task using Isaac Lab synthetic data. Compare zero-shot vs fine-tuned performance. Publish results and methodology on arXiv.</div>
+      <div class="project-tags">
+        <span class="tag">GR00T N</span><span class="tag">Foundation Models</span><span class="tag">Isaac Lab</span><span class="tag">Synthetic Data</span>
+      </div>
+      <div class="project-wow">💡 WOW factor: Publishing GR00T N results makes you one of the first researchers globally working on this.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-level lvl-advanced">Phase 3 — Advanced</div>
+      <div class="project-name">VLM-Powered Robot with Scene Graph</div>
+      <div class="project-desc">Build a robot system that uses a Vision-Language Model (LLaVA / InternVL) to construct a semantic scene graph and answer spatial queries to guide manipulation. "Where is the screwdriver relative to the toolbox?"</div>
+      <div class="project-tags">
+        <span class="tag">VLM / LLaVA</span><span class="tag">Scene Graphs</span><span class="tag">Spatial Reasoning</span><span class="tag">ROS2</span>
+      </div>
+      <div class="project-wow">💡 WOW factor: Scene understanding + spatial reasoning is the hardest open problem in robot AI — this shows you're serious.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-level lvl-elite">Phase 4 — Elite</div>
+      <div class="project-name">Whole-Body Humanoid Controller</div>
+      <div class="project-desc">Implement a whole-body controller (WBC) for a humanoid model (Unitree H1 URDF) that coordinates arm and leg motion simultaneously to perform a contact-rich task. Use MPC + RL in Isaac Lab.</div>
+      <div class="project-tags">
+        <span class="tag">WBC</span><span class="tag">MPC</span><span class="tag">Centroidal Dynamics</span><span class="tag">Unitree H1</span><span class="tag">Isaac Lab</span>
+      </div>
+      <div class="project-wow">💡 WOW factor: This is Boston Dynamics / Tesla Optimus / Figure AI-level research. Publish it.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-level lvl-elite">Phase 4 — Elite</div>
+      <div class="project-name">Open-Source ROS2 Physical AI Benchmark Suite</div>
+      <div class="project-desc">Create a reproducible benchmark comparing perception/planning/control stacks (Isaac ROS vs vanilla ROS2 vs custom) across standardized tasks. Open-source it. Get it starred. Contribute it to OSRA.</div>
+      <div class="project-tags">
+        <span class="tag">Isaac ROS</span><span class="tag">Benchmarking</span><span class="tag">Open Source</span><span class="tag">OSRA</span>
+      </div>
+      <div class="project-wow">💡 WOW factor: Contributing to the Physical AI SIG at OSRA puts your name in the same breath as NVIDIA researchers.</div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- RESOURCES -->
+<div id="resources" class="section">
+  <div class="section-label">Curated Learning Material</div>
+  <h2 class="section-title">Books, Courses & Tools</h2>
+  <p class="section-desc">Ruthlessly filtered. Every item here is actually used by practitioners — not padded to look comprehensive.</p>
+
+  <div class="resources-grid">
+
+    <div class="resource-block">
+      <div class="resource-header">
+        <div class="resource-icon" style="background:rgba(0,212,255,0.1); color:var(--accent)">📖</div>
+        <div class="resource-title">Essential Textbooks</div>
+      </div>
+      <div class="resource-body">
+        <div class="resource-item"><strong>Probabilistic Robotics — Thrun, Burgard, Fox</strong>The SLAM and sensor fusion bible. Read Ch. 2–7 deeply.</div>
+        <div class="resource-item"><strong>Modern Robotics — Lynch & Park (free PDF)</strong>Kinematics, dynamics, motion planning. Has a companion Coursera course.</div>
+        <div class="resource-item"><strong>Robotics: Modelling, Planning and Control — Siciliano</strong>The graduate textbook. Heavy but comprehensive on control.</div>
+        <div class="resource-item"><strong>Deep Learning — Goodfellow, Bengio, Courville (free)</strong>Foundations for understanding all modern robot learning.</div>
+        <div class="resource-item"><strong>Spinning Up in Deep RL — OpenAI (free web)</strong>Best practical RL intro. Implements PPO, SAC from scratch.</div>
+        <div class="resource-item"><strong>Convex Optimization — Boyd & Vandenberghe (free)</strong>Essential for trajectory optimization and control.</div>
+      </div>
+    </div>
+
+    <div class="resource-block">
+      <div class="resource-header">
+        <div class="resource-icon" style="background:rgba(124,58,237,0.1); color:var(--accent2)">🎓</div>
+        <div class="resource-title">Key Courses</div>
+      </div>
+      <div class="resource-body">
+        <div class="resource-item"><strong>CS287 Advanced Robotics — UC Berkeley (free YouTube)</strong>Pieter Abbeel's legendary course. State estimation, planning, RL for robots.</div>
+        <div class="resource-item"><strong>Modern Robotics Specialization — Northwestern (Coursera)</strong>Lynch & Park's book in course form. Best structured intro.</div>
+        <div class="resource-item"><strong>NVIDIA DLI Robotics Courses (free with DLI account)</strong>Isaac ROS, Isaac Sim, Jetson AI. Essential NVIDIA stack training.</div>
+        <div class="resource-item"><strong>Self-Driving Cars Specialization — Toronto (Coursera)</strong>State estimation, visual perception, motion planning. Directly transferable.</div>
+        <div class="resource-item"><strong>6.832 Underactuated Robotics — MIT OpenCourseWare</strong>Russ Tedrake's course. Nonlinear control, locomotion, manipulation.</div>
+        <div class="resource-item"><strong>CS285 Deep Reinforcement Learning — UC Berkeley (YouTube)</strong>Levine's RL course. Covers offline RL, IL, robot learning.</div>
+      </div>
+    </div>
+
+    <div class="resource-block">
+      <div class="resource-header">
+        <div class="resource-icon" style="background:rgba(16,185,129,0.1); color:var(--accent3)">🛠</div>
+        <div class="resource-title">Tools & Frameworks</div>
+      </div>
+      <div class="resource-body">
+        <div class="resource-item"><strong>ROS 2 Lyrical / Jazzy / Kilted — ros.org</strong>Use the current LTS as the primary learning target while retaining compatibility awareness for Jazzy and Kilted systems.</div>
+        <div class="resource-item"><strong>NVIDIA Isaac Sim — developer.nvidia.com/isaac</strong>Free. GPU-accelerated physics sim. The industry standard for Physical AI.</div>
+        <div class="resource-item"><strong>NVIDIA Isaac Lab — github.com/isaac-sim/IsaacLab</strong>Robot-learning framework built on Isaac Sim for massively parallel simulation, RL, policy training and evaluation.</div>
+        <div class="resource-item"><strong>MuJoCo — mujoco.org (free since DeepMind acquisition)</strong>Fast contact-rich simulation. Used in most academic RL robot research.</div>
+        <div class="resource-item"><strong>MoveIt2 — moveit.ros.org</strong>Manipulation planning framework. Industry standard for robot arms.</div>
+        <div class="resource-item"><strong>LeRobot — huggingface.co/lerobot</strong>Modern open robot-learning stack for datasets, teleoperation, policy training, evaluation, deployment and cross-embodiment research.</div>
+      </div>
+    </div>
+
+    <div class="resource-block">
+      <div class="resource-header">
+        <div class="resource-icon" style="background:rgba(245,158,11,0.1); color:var(--accent4)">📡</div>
+        <div class="resource-title">Stay Current</div>
+      </div>
+      <div class="resource-body">
+        <div class="resource-item"><strong>arXiv cs.RO (Robotics section)</strong>Read every Monday morning. Filter by "robot learning," "manipulation," "locomotion."</div>
+        <div class="resource-item"><strong>NVIDIA Isaac Blog — blogs.nvidia.com/isaac</strong>New frameworks, tutorials, and research drops from the source.</div>
+        <div class="resource-item"><strong>The Robot Report — therobotreport.com</strong>Industry news. Good for tracking company movements and hiring signals.</div>
+        <div class="resource-item"><strong>ROSCon / ICRA / CoRL Proceedings</strong>Annual conferences. Papers + talks posted free. Most important: CoRL for robot learning.</div>
+        <div class="resource-item"><strong>Yaniv Leviathan / Sergey Levine Twitter/X</strong>Top researchers posting live insights. Follow the paper authors, not the hype accounts.</div>
+        <div class="resource-item"><strong>Towards Data Science + Hugging Face Blog</strong>Practical breakdowns of new models (Diffusion Policy, GR00T) as they drop.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- PAPERS -->
+<div id="papers" class="section">
+  <div class="section-label">Research Literacy</div>
+  <h2 class="section-title">Papers You Must Read</h2>
+  <p class="section-desc">These papers form the intellectual backbone of Physical AI in 2026. Don't just skim — implement the key ideas.</p>
+
+  <div class="papers-list">
+
+    <div class="paper-item">
+      <div class="paper-num">01</div>
+      <div>
+        <div class="paper-title">Learning Dexterous In-Hand Manipulation (OpenAI, 2019)</div>
+        <div class="paper-meta">OpenAI Robotics · Andrychowicz et al.</div>
+        <div class="paper-why">The paper that proved massive-scale RL + domain randomization can solve dexterous manipulation. The conceptual foundation for everything that followed.</div>
+      </div>
+    </div>
+
+    <div class="paper-item">
+      <div class="paper-num">02</div>
+      <div>
+        <div class="paper-title">RT-2: Vision-Language-Action Models (Google DeepMind, 2023)</div>
+        <div class="paper-meta">Brohan et al. · arXiv 2307.15818</div>
+        <div class="paper-why">Showed that VLMs can be directly converted into robot action policies. The paper that started the foundation model era in robotics.</div>
+      </div>
+    </div>
+
+    <div class="paper-item">
+      <div class="paper-num">03</div>
+      <div>
+        <div class="paper-title">Diffusion Policy (MIT / Columbia, 2023)</div>
+        <div class="paper-meta">Chi et al. · arXiv 2303.04137</div>
+        <div class="paper-why">Diffusion models applied to robot manipulation policies. Now a standard baseline. Implementation is on Hugging Face Lerobot.</div>
+      </div>
+    </div>
+
+    <div class="paper-item">
+      <div class="paper-num">04</div>
+      <div>
+        <div class="paper-title">Learning Fine-Grained Bimanual Manipulation (ACT) (Stanford, 2023)</div>
+        <div class="paper-meta">Zhao et al. · arXiv 2304.13705</div>
+        <div class="paper-why">Action Chunking Transformers for bimanual manipulation. Extremely practical — the approach used in low-cost robot arms (ALOHA).</div>
+      </div>
+    </div>
+
+    <div class="paper-item">
+      <div class="paper-num">05</div>
+      <div>
+        <div class="paper-title">π0: A Vision-Language-Action Flow Model (Physical Intelligence, 2024)</div>
+        <div class="paper-meta">Black et al. · physicalintelligence.company</div>
+        <div class="paper-why">The state-of-the-art general-purpose robot policy from Physical Intelligence (π). Multi-task, multi-robot. The paper that defined the field in 2024.</div>
+      </div>
+    </div>
+
+    <div class="paper-item">
+      <div class="paper-num">06</div>
+      <div>
+        <div class="paper-title">Isaac GR00T N: A Foundation Model for Humanoid Robots (NVIDIA, 2025)</div>
+        <div class="paper-meta">NVIDIA Research · arXiv 2503.14734</div>
+        <div class="paper-why">NVIDIA's open robot foundation model. Action generation for humanoids. Required reading if you want to work in the NVIDIA ecosystem.</div>
+      </div>
+    </div>
+
+    <div class="paper-item">
+      <div class="paper-num">07</div>
+      <div>
+        <div class="paper-title">Learning to Walk in Minutes via Massively Parallel Deep Reinforcement Learning (2022)</div>
+        <div class="paper-meta">Rudin et al. · Isaac Gym · arXiv 2109.11978</div>
+        <div class="paper-why">Demonstrated training locomotion policies in minutes using GPU-parallelized sim. The paper that launched the Isaac Lab ecosystem.</div>
+      </div>
+    </div>
+
+    <div class="paper-item">
+      <div class="paper-num">08</div>
+      <div>
+        <div class="paper-title">SayCan: Grounding Language in Robotic Affordances (Google, 2022)</div>
+        <div class="paper-meta">Ahn et al. · arXiv 2204.01691</div>
+        <div class="paper-why">The seminal paper on using LLMs for robot task planning. Combines language with affordance predictions. Required for LLM+robotics work.</div>
+      </div>
+    </div>
+
+    <div class="paper-item">
+      <div class="paper-num">09</div>
+      <div>
+        <div class="paper-title">ORB-SLAM3: An Accurate Open-Source Library (2021)</div>
+        <div class="paper-meta">Campos et al. · arXiv 2007.11898</div>
+        <div class="paper-why">The gold-standard SLAM paper. Monocular, stereo, and RGB-D. Read this alongside the implementation code.</div>
+      </div>
+    </div>
+
+    <div class="paper-item">
+      <div class="paper-num">10</div>
+      <div>
+        <div class="paper-title">Toward General-Purpose Robots via Foundation Models (Survey, 2023)</div>
+        <div class="paper-meta">Hu et al. · arXiv 2312.08782</div>
+        <div class="paper-why">A comprehensive survey of how foundation models (LLMs, VLMs, world models) are being integrated into robotics. Excellent orientation paper.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- COMPANIES -->
+<div id="companies" class="section">
+  <div class="section-label">Industry Landscape</div>
+  <h2 class="section-title">Companies Hiring in Physical AI</h2>
+  <p class="section-desc">Hiring timelines are general patterns — always check careers pages directly. India-remote roles are expanding rapidly at NVIDIA, ABB, and Bosch.</p>
+
+  <div class="companies-grid">
+
+    <div class="company-card">
+      <div class="company-header">
+        <div class="company-name">NVIDIA</div>
+        <div class="company-type">Platform / Chips</div>
+      </div>
+      <div class="company-row"><span class="company-row-label">Focus</span><span class="company-row-val">Isaac ROS, Isaac Lab, GR00T, Omniverse, Jetson, Cosmos</span></div>
+      <div class="company-row"><span class="company-row-label">Hiring Window</span><span class="company-row-val">Rolling. Internship apps: Sept–Nov (summer). India: Pune/Bengaluru offices</span></div>
+      <div class="company-row"><span class="company-row-label">Roles</span><span class="company-row-val">Robotics SW Eng, Sim Engineer, Robot Learning Researcher</span></div>
+      <div class="company-skills">
+        <span class="tag">ROS2</span><span class="tag">Isaac Sim</span><span class="tag">CUDA</span><span class="tag">C++</span><span class="tag">Python</span><span class="tag">RL</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div class="company-name">Boston Dynamics</div>
+        <div class="company-type">Humanoid / Legged</div>
+      </div>
+      <div class="company-row"><span class="company-row-label">Focus</span><span class="company-row-val">Spot, Atlas humanoid, industrial inspection, behavior cloning</span></div>
+      <div class="company-row"><span class="company-row-label">Hiring Window</span><span class="company-row-val">Internship: Jan–Feb apps (summer). Full-time: rolling. HQ: Waltham, MA</span></div>
+      <div class="company-row"><span class="company-row-label">Roles</span><span class="company-row-val">Controls Eng, ML Eng (Behavior Cloning), Perception Eng</span></div>
+      <div class="company-skills">
+        <span class="tag">C++</span><span class="tag">Locomotion RL</span><span class="tag">MPC</span><span class="tag">Behavior Cloning</span><span class="tag">WBC</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div class="company-name">Tesla AI (Optimus)</div>
+        <div class="company-type">Humanoid</div>
+      </div>
+      <div class="company-row"><span class="company-row-label">Focus</span><span class="company-row-val">Optimus humanoid, perception, motion planning, neural nets</span></div>
+      <div class="company-row"><span class="company-row-label">Hiring Window</span><span class="company-row-val">Rolling, year-round. Austin TX primarily. High volume in Q1/Q3.</span></div>
+      <div class="company-row"><span class="company-row-label">Roles</span><span class="company-row-val">Deep Learning Eng, CV Eng, Motion Planning Eng, Controls Eng</span></div>
+      <div class="company-skills">
+        <span class="tag">PyTorch</span><span class="tag">C++</span><span class="tag">Computer Vision</span><span class="tag">NN Training</span><span class="tag">Motion Planning</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div class="company-name">Figure AI</div>
+        <div class="company-type">Humanoid</div>
+      </div>
+      <div class="company-row"><span class="company-row-label">Focus</span><span class="company-row-val">Figure 02/03, general-purpose humanoid for manufacturing</span></div>
+      <div class="company-row"><span class="company-row-label">Hiring Window</span><span class="company-row-val">Rolling, high growth. San Jose CA. Backed by $675M+</span></div>
+      <div class="company-row"><span class="company-row-label">Roles</span><span class="company-row-val">Robotics SW Eng, Robot Learning Eng, Systems Eng</span></div>
+      <div class="company-skills">
+        <span class="tag">Imitation Learning</span><span class="tag">Robot Foundation Models</span><span class="tag">C++</span><span class="tag">ROS2</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div class="company-name">Physical Intelligence (π)</div>
+        <div class="company-type">Robot AI Research</div>
+      </div>
+      <div class="company-row"><span class="company-row-label">Focus</span><span class="company-row-val">π0 foundation model, general manipulation policies at scale</span></div>
+      <div class="company-row"><span class="company-row-label">Hiring Window</span><span class="company-row-val">Rolling. SF-based. $400M raised. Research-heavy hiring.</span></div>
+      <div class="company-row"><span class="company-row-label">Roles</span><span class="company-row-val">Research Scientist, Robot Learning Eng, Infrastructure Eng</span></div>
+      <div class="company-skills">
+        <span class="tag">Diffusion Policy</span><span class="tag">VLA Models</span><span class="tag">PyTorch</span><span class="tag">Data Pipelines</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div class="company-name">ABB Robotics</div>
+        <div class="company-type">Industrial</div>
+      </div>
+      <div class="company-row"><span class="company-row-label">Focus</span><span class="company-row-val">RobotStudio + NVIDIA Omniverse, industrial Physical AI</span></div>
+      <div class="company-row"><span class="company-row-label">Hiring Window</span><span class="company-row-val">Rolling. India offices: Bengaluru, Chennai. Strong India presence.</span></div>
+      <div class="company-row"><span class="company-row-label">Roles</span><span class="company-row-val">Robotics SW Eng, Digital Twin Eng, AI/ML Eng</span></div>
+      <div class="company-skills">
+        <span class="tag">Omniverse</span><span class="tag">ROS2</span><span class="tag">Digital Twins</span><span class="tag">C++</span><span class="tag">Python</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div class="company-name">Amazon Robotics</div>
+        <div class="company-type">Logistics / Warehouse</div>
+      </div>
+      <div class="company-row"><span class="company-row-label">Focus</span><span class="company-row-val">Warehouse automation, Sparrow/Cardinal robots, manipulation</span></div>
+      <div class="company-row"><span class="company-row-label">Hiring Window</span><span class="company-row-val">Massive hiring Q1 & Q3. Boston, Seattle, NYC. India: remote possible.</span></div>
+      <div class="company-row"><span class="company-row-label">Roles</span><span class="company-row-val">Robotics SDE, Applied Scientist, Controls Engineer</span></div>
+      <div class="company-skills">
+        <span class="tag">ROS</span><span class="tag">Manipulation</span><span class="tag">Perception</span><span class="tag">C++</span><span class="tag">Simulation</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div class="company-name">Waymo / Cruise / Motional</div>
+        <div class="company-type">Autonomous Vehicles</div>
+      </div>
+      <div class="company-row"><span class="company-row-label">Focus</span><span class="company-row-val">Autonomous driving — Physical AI on wheels. Heavy perception + planning.</span></div>
+      <div class="company-row"><span class="company-row-label">Hiring Window</span><span class="company-row-val">Waymo: rolling, very competitive. India: Waymo has a Hyderabad research office.</span></div>
+      <div class="company-row"><span class="company-row-label">Roles</span><span class="company-row-val">Perception Eng, Prediction/Planning Eng, Simulation Eng</span></div>
+      <div class="company-skills">
+        <span class="tag">SLAM</span><span class="tag">LiDAR</span><span class="tag">3D Detection</span><span class="tag">C++</span><span class="tag">TensorFlow</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div class="company-name">Agility Robotics</div>
+        <div class="company-type">Humanoid</div>
+      </div>
+      <div class="company-row"><span class="company-row-label">Focus</span><span class="company-row-val">Digit humanoid, warehouse logistics with Amazon partnership</span></div>
+      <div class="company-row"><span class="company-row-label">Hiring Window</span><span class="company-row-val">Rolling. Corvallis, OR / Pittsburgh. Mid-size team, research-heavy.</span></div>
+      <div class="company-row"><span class="company-row-label">Roles</span><span class="company-row-val">Locomotion Engineer, Perception/ML Eng, Embedded SW Eng</span></div>
+      <div class="company-skills">
+        <span class="tag">Locomotion</span><span class="tag">RL</span><span class="tag">Embedded C++</span><span class="tag">ROS2</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div class="company-name">Bosch / Siemens / Honeywell</div>
+        <div class="company-type">Industrial / India-Strong</div>
+      </div>
+      <div class="company-row"><span class="company-row-label">Focus</span><span class="company-row-val">Factory automation, industrial AI, collaborative robots, digital twins</span></div>
+      <div class="company-row"><span class="company-row-label">Hiring Window</span><span class="company-row-val">Strong India hiring (Bengaluru, Pune, Hyderabad). Annual campus + rolling.</span></div>
+      <div class="company-row"><span class="company-row-label">Roles</span><span class="company-row-val">Robotics Engineer, AI/ML Engineer, Systems Engineer</span></div>
+      <div class="company-skills">
+        <span class="tag">ROS2</span><span class="tag">PLCs</span><span class="tag">Digital Twins</span><span class="tag">Embedded</span><span class="tag">Python</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div class="company-name">1X Technologies / Apptronik</div>
+        <div class="company-type">Humanoid (Emerging)</div>
+      </div>
+      <div class="company-row"><span class="company-row-label">Focus</span><span class="company-row-val">Neo humanoid (1X), Apollo humanoid (Apptronik), general AI policies</span></div>
+      <div class="company-row"><span class="company-row-label">Hiring Window</span><span class="company-row-val">Rolling growth-stage hiring. Backed by OpenAI/Samsung. Remote-friendly.</span></div>
+      <div class="company-row"><span class="company-row-label">Roles</span><span class="company-row-val">Robot Learning Eng, Perception, Controls</span></div>
+      <div class="company-skills">
+        <span class="tag">VLA Models</span><span class="tag">Behavior Cloning</span><span class="tag">ROS2</span><span class="tag">PyTorch</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div class="company-name">TCS / Infosys / Wipro Robotics Labs</div>
+        <div class="company-type">India — Service Giants</div>
+      </div>
+      <div class="company-row"><span class="company-row-label">Focus</span><span class="company-row-val">Robotics automation consulting, NVIDIA partner implementations, digital twin services</span></div>
+      <div class="company-row"><span class="company-row-label">Hiring Window</span><span class="company-row-val">Campus: August–October (for Jan joining). Lateral: rolling all year.</span></div>
+      <div class="company-row"><span class="company-row-label">Roles</span><span class="company-row-val">Robotics Engineer, AI Engineer, Automation Specialist</span></div>
+      <div class="company-skills">
+        <span class="tag">ROS2</span><span class="tag">Computer Vision</span><span class="tag">Omniverse</span><span class="tag">Python</span><span class="tag">C++</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- CV & SKILLS -->
+<div id="cv" class="section">
+  <div class="section-label">Career Preparation</div>
+  <h2 class="section-title">CV, Skills & Interview Prep</h2>
+  <p class="section-desc">What hiring managers actually look for in Physical AI candidates, distilled from job descriptions at NVIDIA, Boston Dynamics, Figure AI, and Tesla.</p>
+
+  <div class="cv-grid">
+
+    <div class="cv-panel">
+      <div class="cv-panel-title">✦ CV Must-Haves (Technical)</div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>ROS2 experience listed with specific packages (Nav2, MoveIt2, Isaac ROS), not just "ROS"</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>C++ proficiency with evidence (not just "familiar") — mention STL, real-time constraints, ROS2 nodelets</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>Simulation platforms used: Isaac Sim, Gazebo, MuJoCo — with what you achieved in them</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>Public GitHub with actual robot projects (not just ML repos). Stars and forks are noticed.</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>Any arXiv preprint, workshop paper, or ROSCon talk — even a poster counts enormously</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>Hardware experience: Jetson Orin, RPi, real robot arms (even low-cost SO-ARM100 or ALOHA clone)</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>Quantified results: "Reduced localization drift by 40%", "Achieved 95% grasp success rate" not just "built a SLAM system"</div></div>
+    </div>
+
+    <div class="cv-panel">
+      <div class="cv-panel-title">✦ CV Must-Haves (Soft + Research)</div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>Evidence of collaboration: open-source contributions, team projects, university robotics club</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>Mention if you've contributed PRs to Isaac ROS, Nav2, MoveIt2, or any ROS2 core package</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>Blog posts or technical writeups (Medium, Substack, personal site) showing depth of understanding</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>NVIDIA DLI certifications (free, recognized by NVIDIA HRs explicitly)</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>Conference attendance: ROSCon, ICRA, CoRL — even virtual attendance shows commitment</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>Describe problems you solved, not features you implemented. "I debugged a 200ms latency spike in the perception pipeline" beats "I worked on perception."</div></div>
+    </div>
+
+    <div class="cv-panel">
+      <div class="cv-panel-title">✦ Technical Interview Topics</div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div><strong>Robotics Fundamentals:</strong> Explain Kalman Filter derivation, TF tree design, coordinate frame transforms</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div><strong>C++ Systems:</strong> Memory management, smart pointers, real-time guarantees, lock-free data structures</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div><strong>ML/RL:</strong> Explain PPO loss function, why sim-to-real fails and how to fix it, Diffusion Policy architecture</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div><strong>Design Questions:</strong> "Design a perception stack for a warehouse robot" — practice system design for robots</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div><strong>Debugging Stories:</strong> Interviewers love: "Tell me about a hard bug you solved." Have 2–3 real robot debugging stories ready.</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div><strong>Trade-offs:</strong> "Why use EKF vs particle filter?", "When would you use MPC vs RL?" — understand when, not just how.</div></div>
+    </div>
+
+    <div class="cv-panel">
+      <div class="cv-panel-title">✦ What Separates You From Freshers</div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>You've deployed to real hardware, not just simulated. Even a cheap RPLiDAR + RPi4 counts.</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>You've read and can discuss the key papers (RT-2, GR00T, Diffusion Policy) at a technical level.</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>You understand NVIDIA's stack end-to-end: Isaac Sim → Isaac Lab → Isaac ROS → Jetson deployment.</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>You have an opinion on the field. "I think sim-to-real gap is the biggest unsolved problem because..." shows intellectual engagement.</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>You've contributed to open source — even a small bug fix in Nav2 or Isaac ROS is visible to every recruiter who checks GitHub.</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>You have a public benchmark or dataset — even a small one — that others can cite or use.</div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Physical AI Roadmap · 2026→2027 Core Architecture Update · Built around modern ROS 2, NVIDIA Isaac, robot-learning, data, world-model, deployment and safety workflows<br>
+  Companies: NVIDIA · Boston Dynamics · Tesla · Figure AI · Physical Intelligence · ABB · FANUC · KUKA · Amazon Robotics · Agility · 1X Technologies
+</div>
+
+<script>
+  (() => {
+    const nav = document.querySelector('.sticky-nav');
+    const navItems = Array.from(document.querySelectorAll('.nav-item[data-target]'));
+    const sections = navItems
+      .map(item => document.getElementById(item.dataset.target))
+      .filter(Boolean);
+
+    // Keep anchor targets below the sticky navigation bar.
+    const navHeight = () => nav ? nav.getBoundingClientRect().height : 0;
+    sections.forEach(section => {
+      section.style.scrollMarginTop = `${navHeight() + 12}px`;
+    });
+
+    function setActive(id) {
+      navItems.forEach(item => {
+        const active = item.dataset.target === id;
+        item.classList.toggle('active', active);
+        item.setAttribute('aria-current', active ? 'true' : 'false');
+      });
+    }
+
+    // Direct, deterministic navigation. Do not override the browser's native
+    // window.scrollTo() function with a custom function named scrollTo().
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const target = document.getElementById(item.dataset.target);
+        if (!target) return;
+        setActive(target.id);
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Highlight whichever section is closest to the top reading position.
+    // This avoids the old IntersectionObserver race where several large
+    // sections could be intersecting at once and Overview would win/stick.
+    let ticking = false;
+    function updateActiveFromScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const threshold = navHeight() + 28;
+        let current = sections[0]?.id;
+        let bestDistance = Infinity;
+
+        for (const section of sections) {
+          const distance = Math.abs(section.getBoundingClientRect().top - threshold);
+          if (section.getBoundingClientRect().top <= threshold + 80 && distance < bestDistance) {
+            bestDistance = distance;
+            current = section.id;
+          }
+        }
+
+        // At the very top of the document, Overview is the correct state.
+        if (window.scrollY <= 8 && sections[0]) current = sections[0].id;
+        if (current) setActive(current);
+        ticking = false;
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveFromScroll, { passive: true });
+    window.addEventListener('resize', () => {
+      sections.forEach(section => {
+        section.style.scrollMarginTop = `${navHeight() + 12}px`;
+      });
+      updateActiveFromScroll();
+    });
+
+    setActive(sections[0]?.id || '');
+    updateActiveFromScroll();
+  })();
+</script>
+</body>
+</html>

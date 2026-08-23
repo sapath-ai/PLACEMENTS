@@ -12,7 +12,35 @@ a{color:inherit;text-decoration:none}.container{width:min(1180px,calc(100% - 36p
 h1{margin:0;font-size:clamp(38px,6vw,72px);line-height:.95;letter-spacing:-.055em;max-width:800px}.hero-copy{max-width:720px;color:var(--muted);font-size:16px;line-height:1.75;margin:22px 0 0}.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}.pill{border:1px solid var(--border);background:rgba(255,255,255,.025);border-radius:999px;padding:8px 12px;font:10px var(--mono);letter-spacing:.05em;color:#aeb8c7;text-transform:uppercase}.pill.live{color:var(--green);border-color:rgba(69,230,165,.2);background:rgba(69,230,165,.06)}
 .section{margin-top:44px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:18px}.section-title{font-size:24px;margin:0;letter-spacing:-.025em}.section-note{font:10px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.card{position:relative;display:flex;flex-direction:column;min-height:250px;padding:24px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(145deg,rgba(17,23,34,.9),rgba(10,14,20,.95));transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}.card:hover{transform:translateY(-4px);border-color:rgba(124,92,255,.48);box-shadow:0 18px 40px rgba(0,0,0,.28)}.card.featured{grid-column:span 2;min-height:285px;border-color:rgba(124,92,255,.32);background:linear-gradient(145deg,rgba(124,92,255,.10),rgba(17,23,34,.94) 52%,rgba(10,14,20,.98))}
-.card-icon{font-size:34px;margin-bottom:20px}.card-kicker{font:10px var(--mono);color:var(--accent2);letter-spacing:.12em;text-transform:uppercase}.card h3{font-size:22px;margin:9px 0 10px;letter-spacing:-.025em}.card p{color:var(--muted);line-height:1.6;font-size:13px;margin:0}.card-bottom{margin-top:auto;padding-top:24px;display:flex;align-items:center;justify-content:space-between;gap:12px}.status{font:10px var(--mono);color:var(--green);text-transform:uppercase;letter-spacing:.07em}.arrow{font:18px var(--mono);color:#b7c0cf}.future{opacity:.7}.future .status{color:var(--yellow)}
+.card-icon{font-size:34px;margin-bottom:20px}.card-kicker{font:10px var(--mono);color:var(--accent2);letter-spacing:.12em;text-transform:uppercase}.card h3{font-size:22px;margin:9px 0 10px;letter-spacing:-.025em}.card p{color:var(--muted);line-height:1.6;font-size:13px;margin:0}
+.tech-stack{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin:2px 0 14px;
+}
+
+.tech-stack span{
+  display:inline-flex;
+  align-items:center;
+  padding:4px 7px;
+  border:1px solid var(--border);
+  border-radius:5px;
+  background:rgba(255,255,255,.025);
+  color:#aeb7c6;
+  font:8px var(--mono);
+  letter-spacing:.02em;
+  line-height:1;
+  white-space:nowrap;
+  transition:.18s ease;
+}
+
+.tech-stack span:hover{
+  color:var(--text);
+  border-color:rgba(124,92,255,.4);
+  background:rgba(124,92,255,.07);
+}
+.card-bottom{margin-top:auto;padding-top:24px;display:flex;align-items:center;justify-content:space-between;gap:12px}.status{font:10px var(--mono);color:var(--green);text-transform:uppercase;letter-spacing:.07em}.arrow{font:18px var(--mono);color:#b7c0cf}.future{opacity:.7}.future .status{color:var(--yellow)}
 .roadmap-path{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--panel)}.path-step{padding:22px;border-right:1px solid var(--border);min-height:130px}.path-step:last-child{border-right:0}.path-num{font:10px var(--mono);color:var(--accent2);letter-spacing:.1em}.path-step h4{margin:12px 0 7px;font-size:15px}.path-step p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}.footer{margin-top:45px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:15px;color:#667386;font:10px var(--mono);text-transform:uppercase;letter-spacing:.08em}
 @media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.card.featured{grid-column:span 2}.roadmap-path{grid-template-columns:repeat(2,1fr)}.path-step:nth-child(2){border-right:0}.path-step:nth-child(-n+2){border-bottom:1px solid var(--border)}}@media(max-width:620px){.container{width:min(100% - 24px,1180px);padding-top:22px}.hero{padding:28px 22px;border-radius:18px}.topbar{margin-bottom:25px}.grid{grid-template-columns:1fr}.card.featured{grid-column:span 1}.roadmap-path{grid-template-columns:1fr}.path-step,.path-step:nth-child(2){border-right:0;border-bottom:1px solid var(--border)}.path-step:last-child{border-bottom:0}.section-head{align-items:start;flex-direction:column}.footer{flex-direction:column}}
 </style>
@@ -24,12 +52,66 @@ h1{margin:0;font-size:clamp(38px,6vw,72px);line-height:.95;letter-spacing:-.055e
 <div class="eyebrow">Artificial Intelligence Engineering</div>
 <h1>Build systems that think, learn &amp; operate.</h1>
 <p class="hero-copy">A growing collection of structured roadmaps for AI engineering, research, intelligent systems, and the infrastructure underneath them. Start with the roadmap that matches the system you want to build.</p>
-<div class="hero-meta"><span class="pill live">01 roadmap available</span><span class="pill">More tracks coming</span><span class="pill">Engineering + Research</span></div>
+<div class="hero-meta"><span class="pill live">02 roadmaps available</span><span class="pill">More tracks coming</span><span class="pill">Engineering + Research</span></div>
 </section>
 <section class="section">
 <div class="section-head"><div><div class="eyebrow">Roadmap Library</div><h2 class="section-title">Artificial Intelligence</h2></div><div class="section-note">Expandable category</div></div>
 <div class="grid">
 <a class="card featured" href="AI-HEALTHCARE-ENGINEER/"><div class="card-icon">🏥</div><div class="card-kicker">Available now · Featured</div><h3>AI Healthcare Engineer</h3><p>A strategic roadmap for building AI systems in healthcare — spanning machine learning, medical imaging, clinical intelligence, research, deployment, and healthcare engineering.</p><div class="card-bottom"><span class="status">● Explore roadmap</span><span class="arrow">→</span></div></a>
+
+<a class="card featured" href="PHYSICAL-AI-ENGINEER/">
+
+  <div class="card-icon">🤖</div>
+
+  <div class="card-kicker">
+    Available now · New
+  </div>
+
+  <h3>
+    Physical AI Engineer
+  </h3>
+
+  <div class="tech-stack">
+    <span>ROS 2</span>
+    <span>DDS</span>
+    <span>TF2</span>
+    <span>ros2_control</span>
+    <span>Gazebo</span>
+    <span>MuJoCo</span>
+    <span>Isaac Sim</span>
+    <span>Isaac Lab</span>
+    <span>USD</span>
+    <span>PyTorch</span>
+    <span>ONNX</span>
+    <span>TensorRT</span>
+    <span>CUDA</span>
+    <span>Jetson</span>
+    <span>RL</span>
+    <span>Diffusion</span>
+    <span>VLA</span>
+    <span>World Models</span>
+    <span>Sensor Fusion</span>
+    <span>Motion Planning</span>
+    <span>Digital Twins</span>
+    <span>Teleoperation</span>
+    <span>Edge AI</span>
+    <span>Fleet Observability</span>
+    <span>Safety</span>
+  </div>
+
+  <p>
+    A strategic roadmap for engineering intelligent physical systems,
+    spanning robotics middleware, perception, control, simulation,
+    embodied intelligence, robot learning, deployment, and reliable
+    real-world operation.
+  </p>
+
+  <div class="card-bottom">
+    <span class="status">● Explore roadmap</span>
+    <span class="arrow">→</span>
+  </div>
+
+</a>
 <div class="card future"><div class="card-icon">🧠</div><div class="card-kicker">Future track</div><h3>LLM Engineering</h3><p>Model adaptation, inference, evaluation, serving, and production-grade LLM systems.</p><div class="card-bottom"><span class="status">Coming soon</span><span class="arrow">+</span></div></div>
 <div class="card future"><div class="card-icon">🔎</div><div class="card-kicker">Future track</div><h3>RAG Engineering</h3><p>Retrieval systems, embeddings, vector search, evaluation, grounding, and production RAG.</p><div class="card-bottom"><span class="status">Coming soon</span><span class="arrow">+</span></div></div>
 <div class="card future"><div class="card-icon">🤖</div><div class="card-kicker">Future track</div><h3>Agentic AI</h3><p>Tool use, orchestration, memory, planning, multi-agent systems, and reliable autonomous workflows.</p><div class="card-bottom"><span class="status">Coming soon</span><span class="arrow">+</span></div></div>
