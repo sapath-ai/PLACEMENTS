@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C++ Mastery Roadmap — Zero to Elite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --bg:           #070B14;
+  --bg-card:      #0D1322;
+  --bg-card-hover:#111827;
+  --bg-inner:     #0A0F1E;
+  --bg-tag:       #141C30;
+
+  --border:       #1E2A42;
+  --border-light: #253148;
+
+  --cyan:         #00D4FF;
+  --cyan-dim:     #00D4FF22;
+  --cyan-mid:     #00D4FF44;
+  --orange:       #FF6B35;
+  --orange-dim:   #FF6B3522;
+  --purple:       #7C3AED;
+  --purple-dim:   #7C3AED22;
+  --green:        #10B981;
+  --green-dim:    #10B98122;
+  --yellow:       #F59E0B;
+  --yellow-dim:   #F59E0B22;
+  --red:          #EF4444;
+
+  --text-primary:   #E8EDF7;
+  --text-secondary: #8A9BB8;
+  --text-tertiary:  #4A5875;
+  --text-accent:    #00D4FF;
+
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.shell {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px 120px;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  padding: 72px 0 48px;
+  position: relative;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--cyan);
+}
+
+.hero-title {
+  font-family: var(--font-mono);
+  font-size: clamp(26px, 4vw, 42px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.hero-title span.accent { color: var(--cyan); }
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.meta-chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  background: var(--bg-tag);
+  letter-spacing: 0.04em;
+}
+.meta-chip.cyan { border-color: var(--cyan-mid); color: var(--cyan); background: var(--cyan-dim); }
+
+/* ============================================================
+   FILTER / VIEW TOGGLE
+   ============================================================ */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.filter-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  align-self: center;
+  margin-right: 6px;
+  white-space: nowrap;
+}
+
+.filter-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.filter-btn:hover { border-color: var(--cyan-mid); color: var(--text-primary); }
+.filter-btn.active-full { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
+.filter-btn.active-interview { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+.filter-btn.active-systems { border-color: var(--purple); color: var(--purple); background: var(--purple-dim); }
+
+/* ============================================================
+   TIMELINE RAIL
+   ============================================================ */
+.timeline {
+  position: relative;
+  padding-left: 48px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--cyan-mid), var(--border), transparent);
+}
+
+/* ============================================================
+   PHASE CARD
+   ============================================================ */
+.phase {
+  position: relative;
+  margin-bottom: 16px;
+  transition: opacity 0.25s ease;
+}
+
+.phase.hidden { display: none; }
+
+/* Timeline dot */
+.phase::before {
+  content: '';
+  position: absolute;
+  left: -41px;
+  top: 24px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--border-light);
+  background: var(--bg);
+  transition: border-color 0.2s, background 0.2s;
+  z-index: 2;
+}
+.phase.has-progress::before {
+  border-color: var(--cyan);
+  background: var(--cyan-dim);
+}
+.phase.complete::before {
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan-mid);
+}
+
+.phase-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+.phase-card:hover { border-color: var(--border-light); }
+
+/* Compile-progress bar (left accent) */
+.phase-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: var(--fill, 0%);
+  background: linear-gradient(to bottom, var(--phase-color, var(--cyan)), var(--phase-color-alt, var(--cyan)));
+  transition: height 0.4s ease;
+  border-radius: 0 0 3px 3px;
+}
+.phase-card { position: relative; }
+
+/* ============================================================
+   PHASE HEADER
+   ============================================================ */
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s ease;
+}
+.phase-header:hover { background: var(--bg-card-hover); }
+
+.phase-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--phase-color, var(--cyan));
+  background: var(--phase-color-bg, var(--cyan-dim));
+  border: 1px solid var(--phase-color-border, var(--cyan-mid));
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.phase-header-text { flex: 1; min-width: 0; }
+
+.phase-title {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+  line-height: 1.3;
+}
+
+.phase-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.phase-duration {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.05em;
+}
+
+.phase-track-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.track-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+.track-tag.interview { background: var(--green-dim); color: var(--green); }
+.track-tag.systems   { background: var(--purple-dim); color: var(--purple); }
+.track-tag.full      { background: var(--cyan-dim); color: var(--cyan); }
+
+.phase-progress-text {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-tertiary);
+  margin-left: auto;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.phase-progress-text.has-progress { color: var(--phase-color, var(--cyan)); }
+
+.chevron {
+  color: var(--text-tertiary);
+  font-size: 16px;
+  transition: transform 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.phase-header:hover .chevron { color: var(--text-secondary); }
+.phase-card.open .chevron { transform: rotate(90deg); }
+
+/* ============================================================
+   PHASE BODY
+   ============================================================ */
+.phase-body {
+  display: none;
+  border-top: 1px solid var(--border);
+}
+.phase-card.open .phase-body { display: block; }
+
+/* ============================================================
+   BODY SECTIONS
+   ============================================================ */
+.body-section {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.body-section:last-child { border-bottom: none; }
+
+.section-heading {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Topics grid */
+.topics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+@media (max-width: 600px) { .topics-grid { grid-template-columns: 1fr; } }
+
+.topic-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--bg-inner);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.topic-item:hover { border-color: var(--border-light); background: var(--bg-tag); }
+.topic-item.checked { border-color: var(--phase-color, var(--cyan)); background: var(--phase-color-bg, var(--cyan-dim)); }
+
+.topic-cb {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1.5px solid var(--border-light);
+  background: transparent;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  pointer-events: none;
+}
+.topic-item.checked .topic-cb {
+  border-color: var(--phase-color, var(--cyan));
+  background: var(--phase-color, var(--cyan));
+}
+.topic-cb-check {
+  opacity: 0;
+  color: #000;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+}
+.topic-item.checked .topic-cb-check { opacity: 1; }
+
+.topic-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  pointer-events: none;
+}
+.topic-item.checked .topic-label { color: var(--text-primary); }
+
+/* Projects */
+.project-card {
+  background: var(--bg-inner);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.project-card:last-child { margin-bottom: 0; }
+.project-card:hover { border-color: var(--border-light); background: var(--bg-tag); }
+.project-card.checked { border-color: var(--orange); background: var(--orange-dim); }
+
+.project-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.project-cb {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1.5px solid var(--border-light);
+  background: transparent;
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  pointer-events: none;
+}
+.project-card.checked .project-cb { border-color: var(--orange); background: var(--orange); }
+.project-cb-check { opacity: 0; color: #fff; font-size: 10px; font-weight: 700; pointer-events: none; }
+.project-card.checked .project-cb-check { opacity: 1; }
+
+.project-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  pointer-events: none;
+  line-height: 1.4;
+}
+.project-card.checked .project-name { color: var(--orange); }
+
+.project-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  padding-left: 26px;
+  pointer-events: none;
+}
+
+/* Checkpoint */
+.checkpoint-box {
+  background: var(--orange-dim);
+  border: 1px solid #FF6B3533;
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+}
+
+.checkpoint-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.checkpoint-text {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+.checkpoint-text code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: #FF6B3511;
+  color: var(--orange);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+/* Resources */
+.resource-list { display: flex; flex-direction: column; gap: 6px; }
+
+.resource-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--bg-inner);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.resource-type {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.resource-type.book { background: #7C3AED22; color: var(--purple); }
+.resource-type.course { background: #10B98122; color: var(--green); }
+.resource-type.problems { background: #F59E0B22; color: var(--yellow); }
+.resource-type.tool { background: #00D4FF22; color: var(--cyan); }
+.resource-type.video { background: #EF444422; color: var(--red); }
+
+.resource-name {
+  font-size: 12px;
+  color: var(--text-primary);
+  font-weight: 500;
+  line-height: 1.4;
+}
+.resource-note {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+/* DSA problem counts */
+.dsa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 8px;
+}
+
+.dsa-cat {
+  background: var(--bg-inner);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+
+.dsa-cat-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.dsa-counts { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.dsa-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+.dsa-badge.easy { background: #10B98120; color: var(--green); }
+.dsa-badge.med  { background: #F59E0B20; color: var(--yellow); }
+.dsa-badge.hard { background: #EF444420; color: var(--red); }
+
+/* ============================================================
+   SUMMARY BAR
+   ============================================================ */
+.summary-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+
+.summary-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.summary-num {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--cyan);
+  line-height: 1;
+}
+.summary-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+.summary-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--border);
+}
+
+.master-progress {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.master-bar-track {
+  flex: 1;
+  height: 4px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.master-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--cyan), var(--purple));
+  border-radius: 99px;
+  width: 0%;
+  transition: width 0.4s ease;
+}
+.master-pct {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+@media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
+
+.info-block {
+  background: var(--bg-inner);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+.info-block-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 6px;
+}
+.info-block-value {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+.info-block-value code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--cyan);
+  background: var(--cyan-dim);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.note-box {
+  background: var(--cyan-dim);
+  border: 1px solid var(--cyan-mid);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.note-box strong { color: var(--cyan); font-weight: 600; }
+
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<div class="hero">
+  <div class="hero-eyebrow">C++ Mastery Roadmap</div>
+  <h1 class="hero-title">
+    Zero to <span class="accent">Elite</span><br>
+    C++ Engineering
+  </h1>
+  <p class="hero-sub">
+    From absolute beginner to the level where you debug AI-generated code with confidence, solve LeetCode Hard fluently, and reason about systems the way a senior engineer at Google, Jane Street, or NVIDIA would.
+  </p>
+  <div class="hero-meta">
+    <span class="meta-chip cyan">~15–20 hrs/week</span>
+    <span class="meta-chip">9 Phases</span>
+    <span class="meta-chip">~24–28 months total</span>
+    <span class="meta-chip">C++17/20/23</span>
+    <span class="meta-chip">LeetCode + Systems</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     FILTER BAR
+     ============================================================ -->
+<div class="filter-bar">
+  <span class="filter-label">View</span>
+  <button class="filter-btn active-full" data-filter="full" onclick="setFilter('full', this)">Full Path</button>
+  <button class="filter-btn" data-filter="interview" onclick="setFilter('interview', this)">Interview Track</button>
+  <button class="filter-btn" data-filter="systems" onclick="setFilter('systems', this)">Systems Track</button>
+</div>
+
+<!-- ============================================================
+     TIMELINE
+     ============================================================ -->
+<div class="timeline" id="timeline">
+
+<!-- ████████████████████████████████████████████████████████
+     PHASE 1 — FOUNDATIONS
+     ████████████████████████████████████████████████████████ -->
+<div class="phase" id="phase-1" data-tracks="full interview systems" style="--phase-color:#00D4FF;--phase-color-alt:#0EA5E9;--phase-color-bg:#00D4FF11;--phase-color-border:#00D4FF33;">
+  <div class="phase-card" id="card-1">
+    <div class="phase-header" onclick="togglePhase('card-1','phase-1')">
+      <span class="phase-num">PHASE 01</span>
+      <div class="phase-header-text">
+        <div class="phase-title">Foundations</div>
+        <div class="phase-meta-row">
+          <span class="phase-duration">⏱ 2–3 months · cumulative: 2–3 mo</span>
+          <div class="phase-track-tags">
+            <span class="track-tag interview">Interview</span>
+            <span class="track-tag systems">Systems</span>
+          </div>
+        </div>
+      </div>
+      <span class="phase-progress-text" id="prog-text-1">0 / 0</span>
+      <span class="chevron">›</span>
+    </div>
+
+    <div class="phase-body">
+
+      <div class="body-section">
+        <div class="section-heading">Core Topics</div>
+        <div class="topics-grid" id="topics-1">
+          <div class="topic-item" onclick="toggleTopic(this,'phase-1')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Syntax: types, control flow, functions, scope, namespaces</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-1')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Compilation pipeline: preprocessor → compiler → assembler → linker</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-1')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Memory model: stack, heap, static/global, code segments</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-1')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Pointers: raw, pointer arithmetic, void*, function pointers</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-1')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">References: lvalue refs, const refs, when to use each</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-1')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Undefined behavior: common triggers, why it matters in practice</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-1')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Debugging with gdb: breakpoints, watchpoints, stack traces, core dumps</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-1')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Header files, #include guards, forward declarations, ODR rule</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-1')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Arrays, C-strings, std::string basics</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-1')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Big-O notation and complexity analysis from first principles</div></div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Hands-On Projects</div>
+        <div id="projects-1">
+          <div class="project-card" onclick="toggleProject(this,'phase-1')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Stack & heap visualizer</div></div>
+            <div class="project-desc">Write a program that allocates objects on stack and heap, prints their addresses, and lets you observe memory layout. Add deliberate buffer overflow (safely) to observe UB with ASan.</div>
+          </div>
+          <div class="project-card" onclick="toggleProject(this,'phase-1')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Manual linker exercise</div></div>
+            <div class="project-desc">Split a program across 4 .cpp files. Compile each to .o manually with g++. Link with ld. Introduce a linker error intentionally and resolve it. Understand what nm and objdump tell you.</div>
+          </div>
+          <div class="project-card" onclick="toggleProject(this,'phase-1')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">gdb crash investigation</div></div>
+            <div class="project-desc">Write a program with a deliberate segfault (null dereference, out-of-bounds). Use gdb to: set breakpoints, step through, inspect registers, read the core dump, and write a bug report explaining root cause.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Mastery Checkpoint</div>
+        <div class="checkpoint-box">
+          <div class="checkpoint-label">⬡ Must pass before advancing</div>
+          <div class="checkpoint-text">
+            Given a 50-line program with 3 bugs — a dangling pointer, a stack overflow from infinite recursion, and a use-after-free — locate all three using <code>gdb</code> and <code>valgrind --tool=memcheck</code> alone (no IDE). Explain the compilation steps to produce the binary from scratch. Write a correct Makefile that builds the project incrementally.
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Resources</div>
+        <div class="resource-list">
+          <div class="resource-item"><span class="resource-type book">Book</span><div><div class="resource-name">C++ Primer, 5th ed. — Lippman, Lajoie, Moo</div><div class="resource-note">Chapters 1–6, 12. The canonical introductory reference. Not to be confused with "C++ Primer Plus."</div></div></div>
+          <div class="resource-item"><span class="resource-type book">Book</span><div><div class="resource-name">Computer Systems: A Programmer's Perspective (CS:APP) — Bryant & O'Hallaron</div><div class="resource-note">Chapters 1–3 for memory model and compilation pipeline. Essential for everything that follows.</div></div></div>
+          <div class="resource-item"><span class="resource-type tool">Tool</span><div><div class="resource-name">Compiler Explorer — godbolt.org</div><div class="resource-note">See exactly what your C++ compiles to. Use from Day 1 as a learning habit.</div></div></div>
+          <div class="resource-item"><span class="resource-type video">Video</span><div><div class="resource-name">CppCon "Back to Basics" playlist (YouTube)</div><div class="resource-note">"The C++ Memory Model," "Undefined Behavior," "Debugging Techniques" talks specifically.</div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ████████████████████████████████████████████████████████
+     PHASE 2 — CORE LANGUAGE MASTERY
+     ████████████████████████████████████████████████████████ -->
+<div class="phase" id="phase-2" data-tracks="full interview systems" style="--phase-color:#7C3AED;--phase-color-alt:#6D28D9;--phase-color-bg:#7C3AED11;--phase-color-border:#7C3AED33;">
+  <div class="phase-card" id="card-2">
+    <div class="phase-header" onclick="togglePhase('card-2','phase-2')">
+      <span class="phase-num">PHASE 02</span>
+      <div class="phase-header-text">
+        <div class="phase-title">Core Language Mastery</div>
+        <div class="phase-meta-row">
+          <span class="phase-duration">⏱ 3–4 months · cumulative: 5–7 mo</span>
+          <div class="phase-track-tags">
+            <span class="track-tag interview">Interview</span>
+            <span class="track-tag systems">Systems</span>
+          </div>
+        </div>
+      </div>
+      <span class="phase-progress-text" id="prog-text-2">0 / 0</span>
+      <span class="chevron">›</span>
+    </div>
+
+    <div class="phase-body">
+
+      <div class="body-section">
+        <div class="section-heading">Core Topics</div>
+        <div class="topics-grid" id="topics-2">
+          <div class="topic-item" onclick="toggleTopic(this,'phase-2')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">OOP: classes, access control, inheritance, virtual dispatch, vtable layout</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-2')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Rule of 0/3/5: copy ctor, copy assign, move ctor, move assign, destructor</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-2')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Move semantics: rvalue refs, std::move, std::forward, copy elision (RVO/NRVO)</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-2')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">RAII: resource ownership, exception safety (basic/strong/nothrow guarantees)</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-2')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Smart pointers: unique_ptr, shared_ptr, weak_ptr — implementation internals</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-2')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Templates: function/class templates, template specialization, SFINAE basics</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-2')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">STL internals: how std::vector, std::list, std::map, std::unordered_map actually work</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-2')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Iterators: iterator categories, implementing a custom iterator</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-2')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Operator overloading: when and how, canonical forms</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-2')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Lambdas: capture semantics, closures, generic lambdas, std::function overhead</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-2')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Type system: const correctness, implicit conversions, explicit keyword</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-2')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Error handling: exceptions vs error codes vs std::expected (C++23)</div></div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Hands-On Projects</div>
+        <div id="projects-2">
+          <div class="project-card" onclick="toggleProject(this,'phase-2')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">std::vector from scratch</div></div>
+            <div class="project-desc">Implement a templated Vector&lt;T&gt; with: geometric growth (1.5x), proper move semantics, iterator support, strong exception safety on push_back, and allocator parameter. Must pass 30 unit tests covering edge cases.</div>
+          </div>
+          <div class="project-card" onclick="toggleProject(this,'phase-2')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">unique_ptr & shared_ptr from scratch</div></div>
+            <div class="project-desc">Implement UniquePtr&lt;T&gt; (non-copyable, movable, custom deleter support) and SharedPtr&lt;T&gt; (with reference counting control block, make_shared optimization). No raw new/delete in client code.</div>
+          </div>
+          <div class="project-card" onclick="toggleProject(this,'phase-2')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">std::unordered_map internals</div></div>
+            <div class="project-desc">Build a hash map with separate chaining. Expose the load factor, rehash threshold, and a custom hasher/comparator interface. Benchmark against std::unordered_map at 1M insertions. Explain performance delta.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Mastery Checkpoint</div>
+        <div class="checkpoint-box">
+          <div class="checkpoint-label">⬡ Must pass before advancing</div>
+          <div class="checkpoint-text">
+            Implement <code>std::vector&lt;T&gt;</code> from scratch — templated, with move semantics, proper iterator, and strong exception safety. Compile with <code>-fsanitize=address,undefined</code> and pass all tests with zero errors. Then explain verbally: why does <code>push_back</code> invalidate iterators, and when does it not?
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Resources</div>
+        <div class="resource-list">
+          <div class="resource-item"><span class="resource-type book">Book</span><div><div class="resource-name">Effective Modern C++ — Scott Meyers</div><div class="resource-note">All 42 items. The definitive guide to C++11/14. Every item is testable knowledge.</div></div></div>
+          <div class="resource-item"><span class="resource-type book">Book</span><div><div class="resource-name">C++ Templates: The Complete Guide, 2nd ed. — Vandevoorde, Josuttis, Gregor</div><div class="resource-note">Chapters 1–12 for this phase. Deep reference for template mechanics.</div></div></div>
+          <div class="resource-item"><span class="resource-type video">Video</span><div><div class="resource-name">CppCon: "Back to Basics: Move Semantics" — Nicolai Josuttis (2019, 2021)</div><div class="resource-note">Two-part talk. Best explanation of move semantics that exists on video.</div></div></div>
+          <div class="resource-item"><span class="resource-type tool">Tool</span><div><div class="resource-name">cppinsights.io</div><div class="resource-note">Shows what the compiler actually generates from your template/lambda code. Essential for Phase 2.</div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ████████████████████████████████████████████████████████
+     PHASE 3 — MODERN C++
+     ████████████████████████████████████████████████████████ -->
+<div class="phase" id="phase-3" data-tracks="full systems" style="--phase-color:#10B981;--phase-color-alt:#059669;--phase-color-bg:#10B98111;--phase-color-border:#10B98133;">
+  <div class="phase-card" id="card-3">
+    <div class="phase-header" onclick="togglePhase('card-3','phase-3')">
+      <span class="phase-num">PHASE 03</span>
+      <div class="phase-header-text">
+        <div class="phase-title">Modern C++ — C++17 / 20 / 23</div>
+        <div class="phase-meta-row">
+          <span class="phase-duration">⏱ 2 months · cumulative: 7–9 mo</span>
+          <div class="phase-track-tags">
+            <span class="track-tag systems">Systems</span>
+            <span class="track-tag full">Full</span>
+          </div>
+        </div>
+      </div>
+      <span class="phase-progress-text" id="prog-text-3">0 / 0</span>
+      <span class="chevron">›</span>
+    </div>
+
+    <div class="phase-body">
+
+      <div class="body-section">
+        <div class="section-heading">Core Topics</div>
+        <div class="topics-grid" id="topics-3">
+          <div class="topic-item" onclick="toggleTopic(this,'phase-3')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">C++17: structured bindings, if constexpr, std::optional, std::variant, std::any</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-3')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">C++17: parallel STL algorithms (execution policies), filesystem library</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-3')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">C++20: Concepts — writing, constraining templates, requires expressions</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-3')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">C++20: Ranges — views, adaptors, lazy evaluation, composing pipelines</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-3')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">C++20: Coroutines — co_await, co_yield, co_return, generator pattern</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-3')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">C++20: constexpr / consteval — compile-time computation limits and capabilities</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-3')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">C++20: Modules — replacing #include, build time benefits, current compiler support</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-3')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">C++23: std::expected, std::flat_map, std::print, deducing this</div></div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Hands-On Projects</div>
+        <div id="projects-3">
+          <div class="project-card" onclick="toggleProject(this,'phase-3')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Compile-time JSON schema validator</div></div>
+            <div class="project-desc">Use constexpr + concepts to build a schema validator that rejects malformed inputs at compile time. Forces mastery of constexpr limits and Concepts constraints in practice.</div>
+          </div>
+          <div class="project-card" onclick="toggleProject(this,'phase-3')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Lazy range pipeline library</div></div>
+            <div class="project-desc">Build a miniature ranges library with at least: filter, transform, take, zip, enumerate. Use C++20 Concepts to constrain element types. No copying until materialized. Benchmark against std::ranges.</div>
+          </div>
+          <div class="project-card" onclick="toggleProject(this,'phase-3')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Async generator with coroutines</div></div>
+            <div class="project-desc">Implement a Generator&lt;T&gt; coroutine type that lazily yields values. Use it to implement an infinite Fibonacci sequence and a lazy file line reader. No third-party coroutine library.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Mastery Checkpoint</div>
+        <div class="checkpoint-box">
+          <div class="checkpoint-label">⬡ Must pass before advancing</div>
+          <div class="checkpoint-text">
+            Write a concept <code>Sortable</code> that correctly constrains a sorting function to only accept ranges of totally-ordered elements. Then use <code>if constexpr</code> + structured bindings to write a generic <code>zip_transform</code> that works over any two ranges. Compile without warnings under <code>-std=c++20 -Wall -Wextra -Wpedantic</code>.
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Resources</div>
+        <div class="resource-list">
+          <div class="resource-item"><span class="resource-type book">Book</span><div><div class="resource-name">C++20: The Complete Guide — Nicolai Josuttis</div><div class="resource-note">The most complete single-source reference for C++20 features with working examples.</div></div></div>
+          <div class="resource-item"><span class="resource-type video">Video</span><div><div class="resource-name">CppCon: "C++20 Ranges in Practice" — Tristan Brindle</div><div class="resource-note">Practical walkthrough of ranges that goes beyond the documentation.</div></div></div>
+          <div class="resource-item"><span class="resource-type video">Video</span><div><div class="resource-name">CppCon: "C++ Coroutines from Scratch" — Dawid Pilarski</div><div class="resource-note">Build the coroutine machinery yourself before using library abstractions.</div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ████████████████████████████████████████████████████████
+     PHASE 4 — DSA FOR INTERVIEWS
+     ████████████████████████████████████████████████████████ -->
+<div class="phase" id="phase-4" data-tracks="full interview" style="--phase-color:#F59E0B;--phase-color-alt:#D97706;--phase-color-bg:#F59E0B11;--phase-color-border:#F59E0B33;">
+  <div class="phase-card" id="card-4">
+    <div class="phase-header" onclick="togglePhase('card-4','phase-4')">
+      <span class="phase-num">PHASE 04</span>
+      <div class="phase-header-text">
+        <div class="phase-title">DSA — Interview & Competitive Mastery</div>
+        <div class="phase-meta-row">
+          <span class="phase-duration">⏱ 4–5 months · cumulative: 11–14 mo</span>
+          <div class="phase-track-tags">
+            <span class="track-tag interview">Interview</span>
+            <span class="track-tag full">Full</span>
+          </div>
+        </div>
+      </div>
+      <span class="phase-progress-text" id="prog-text-4">0 / 0</span>
+      <span class="chevron">›</span>
+    </div>
+
+    <div class="phase-body">
+
+      <div class="body-section">
+        <div class="section-heading">Problem Categories & Targets</div>
+        <div class="note-box" style="margin-bottom:14px;"><strong>Strategy:</strong> Solve problems in C++ only. For each category, do Easy → Medium → Hard in order. Write every solution as if it's production code — named variables, comments explaining invariants, complexity analysis as a comment block.</div>
+        <div class="dsa-grid">
+          <div class="dsa-cat"><div class="dsa-cat-name">Arrays & Hashing</div><div class="dsa-counts"><span class="dsa-badge easy">E×15</span><span class="dsa-badge med">M×20</span><span class="dsa-badge hard">H×8</span></div></div>
+          <div class="dsa-cat"><div class="dsa-cat-name">Two Pointers</div><div class="dsa-counts"><span class="dsa-badge easy">E×8</span><span class="dsa-badge med">M×12</span><span class="dsa-badge hard">H×5</span></div></div>
+          <div class="dsa-cat"><div class="dsa-cat-name">Sliding Window</div><div class="dsa-counts"><span class="dsa-badge easy">E×5</span><span class="dsa-badge med">M×10</span><span class="dsa-badge hard">H×5</span></div></div>
+          <div class="dsa-cat"><div class="dsa-cat-name">Binary Search</div><div class="dsa-counts"><span class="dsa-badge easy">E×8</span><span class="dsa-badge med">M×15</span><span class="dsa-badge hard">H×8</span></div></div>
+          <div class="dsa-cat"><div class="dsa-cat-name">Linked Lists</div><div class="dsa-counts"><span class="dsa-badge easy">E×8</span><span class="dsa-badge med">M×10</span><span class="dsa-badge hard">H×3</span></div></div>
+          <div class="dsa-cat"><div class="dsa-cat-name">Trees & BST</div><div class="dsa-counts"><span class="dsa-badge easy">E×12</span><span class="dsa-badge med">M×20</span><span class="dsa-badge hard">H×8</span></div></div>
+          <div class="dsa-cat"><div class="dsa-cat-name">Heaps / Priority Q</div><div class="dsa-counts"><span class="dsa-badge easy">E×5</span><span class="dsa-badge med">M×12</span><span class="dsa-badge hard">H×6</span></div></div>
+          <div class="dsa-cat"><div class="dsa-cat-name">Graph Theory</div><div class="dsa-counts"><span class="dsa-badge easy">E×8</span><span class="dsa-badge med">M×18</span><span class="dsa-badge hard">H×10</span></div></div>
+          <div class="dsa-cat"><div class="dsa-cat-name">Dynamic Programming</div><div class="dsa-counts"><span class="dsa-badge easy">E×8</span><span class="dsa-badge med">M×25</span><span class="dsa-badge hard">H×15</span></div></div>
+          <div class="dsa-cat"><div class="dsa-cat-name">Backtracking</div><div class="dsa-counts"><span class="dsa-badge easy">E×5</span><span class="dsa-badge med">M×10</span><span class="dsa-badge hard">H×6</span></div></div>
+          <div class="dsa-cat"><div class="dsa-cat-name">Tries</div><div class="dsa-counts"><span class="dsa-badge easy">E×3</span><span class="dsa-badge med">M×5</span><span class="dsa-badge hard">H×3</span></div></div>
+          <div class="dsa-cat"><div class="dsa-cat-name">Segment Trees</div><div class="dsa-counts"><span class="dsa-badge med">M×8</span><span class="dsa-badge hard">H×8</span></div></div>
+          <div class="dsa-cat"><div class="dsa-cat-name">Union-Find</div><div class="dsa-counts"><span class="dsa-badge easy">E×3</span><span class="dsa-badge med">M×8</span><span class="dsa-badge hard">H×5</span></div></div>
+          <div class="dsa-cat"><div class="dsa-cat-name">Bit Manipulation</div><div class="dsa-counts"><span class="dsa-badge easy">E×8</span><span class="dsa-badge med">M×10</span><span class="dsa-badge hard">H×5</span></div></div>
+          <div class="dsa-cat"><div class="dsa-cat-name">String Algorithms</div><div class="dsa-counts"><span class="dsa-badge med">M×8</span><span class="dsa-badge hard">H×6</span></div></div>
+          <div class="dsa-cat"><div class="dsa-cat-name">Math & Number Theory</div><div class="dsa-counts"><span class="dsa-badge easy">E×5</span><span class="dsa-badge med">M×8</span><span class="dsa-badge hard">H×4</span></div></div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Core Topics to Implement from Scratch</div>
+        <div class="topics-grid" id="topics-4">
+          <div class="topic-item" onclick="toggleTopic(this,'phase-4')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">AVL tree with rotations and all BST operations</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-4')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Binary heap (min and max) with decrease-key</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-4')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Trie with insert, search, startsWith, delete</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-4')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Segment tree with lazy propagation (range sum, range min)</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-4')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Union-Find with path compression + union by rank</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-4')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Dijkstra, Bellman-Ford, Floyd-Warshall shortest paths</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-4')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Topological sort (Kahn's BFS + DFS-based)</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-4')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">KMP string matching, Z-algorithm, Rabin-Karp</div></div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Mastery Checkpoint</div>
+        <div class="checkpoint-box">
+          <div class="checkpoint-label">⬡ Must pass before advancing</div>
+          <div class="checkpoint-text">
+            Complete a timed mock interview: 2 problems in 45 minutes total — one medium DP, one hard graph — in C++ without running the code until the end. Score: correct, compiles clean, handles all edge cases. Then implement a <code>SegmentTree&lt;T&gt;</code> supporting lazy range-update and range-query from scratch, with a working test suite.
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Resources</div>
+        <div class="resource-list">
+          <div class="resource-item"><span class="resource-type problems">Problems</span><div><div class="resource-name">NeetCode 150 + NeetCode 250 (neetcode.io)</div><div class="resource-note">Best curated problem set for interview prep. Has C++ solutions and explanations.</div></div></div>
+          <div class="resource-item"><span class="resource-type problems">Problems</span><div><div class="resource-name">Codeforces Div. 2 A/B/C problems (after Phase 4 mid-point)</div><div class="resource-note">Real competitive problems. Solving 50+ Codeforces problems calibrates you against global competition.</div></div></div>
+          <div class="resource-item"><span class="resource-type book">Book</span><div><div class="resource-name">Competitive Programmer's Handbook — Antti Laaksonen (free PDF)</div><div class="resource-note">Best single reference for DSA algorithms with C++ code. Covers segment trees, graph algorithms, and DP rigorously.</div></div></div>
+          <div class="resource-item"><span class="resource-type video">Video</span><div><div class="resource-name">Striver's A2Z DSA Sheet + YouTube Series</div><div class="resource-note">Most systematic C++ DSA curriculum currently available. Follow the sheet order strictly.</div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ████████████████████████████████████████████████████████
+     PHASE 5 — SYSTEMS-LEVEL C++
+     ████████████████████████████████████████████████████████ -->
+<div class="phase" id="phase-5" data-tracks="full systems" style="--phase-color:#EF4444;--phase-color-alt:#DC2626;--phase-color-bg:#EF444411;--phase-color-border:#EF444433;">
+  <div class="phase-card" id="card-5">
+    <div class="phase-header" onclick="togglePhase('card-5','phase-5')">
+      <span class="phase-num">PHASE 05</span>
+      <div class="phase-header-text">
+        <div class="phase-title">Systems-Level C++</div>
+        <div class="phase-meta-row">
+          <span class="phase-duration">⏱ 3 months · cumulative: 14–17 mo</span>
+          <div class="phase-track-tags">
+            <span class="track-tag systems">Systems</span>
+            <span class="track-tag full">Full</span>
+          </div>
+        </div>
+      </div>
+      <span class="phase-progress-text" id="prog-text-5">0 / 0</span>
+      <span class="chevron">›</span>
+    </div>
+
+    <div class="phase-body">
+
+      <div class="body-section">
+        <div class="section-heading">Core Topics</div>
+        <div class="topics-grid" id="topics-5">
+          <div class="topic-item" onclick="toggleTopic(this,'phase-5')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Memory layout: struct padding, alignment, ABI considerations</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-5')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Cache hierarchy: L1/L2/L3 sizes, cache lines (64 bytes), false sharing</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-5')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Cache-friendly data structures: AoS vs SoA, data-oriented design</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-5')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">std::thread, std::mutex, std::condition_variable, std::async</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-5')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Atomics: std::atomic, CAS operations, memory ordering (relaxed/acquire/release/seq_cst)</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-5')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Lock-free data structures: the ABA problem, hazard pointers</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-5')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Performance profiling: perf stat, perf record/report, flame graphs</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-5')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Micro-benchmarking: Google Benchmark, avoiding optimizer pitfalls</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-5')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Custom memory allocators: pool allocator, arena allocator, slab allocator</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-5')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">SIMD basics: SSE/AVX intrinsics, vectorization, when the compiler does it for you</div></div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Hands-On Projects</div>
+        <div id="projects-5">
+          <div class="project-card" onclick="toggleProject(this,'phase-5')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Cache-miss benchmark suite</div></div>
+            <div class="project-desc">Write three matrix multiplication implementations: naive (cache-unfriendly), transposed (cache-friendly), and blocked (tiled). Measure with perf and Google Benchmark. Graph the cache-miss rates. Explain the numbers.</div>
+          </div>
+          <div class="project-card" onclick="toggleProject(this,'phase-5')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Lock-free SPSC queue</div></div>
+            <div class="project-desc">Implement a single-producer single-consumer lock-free queue using std::atomic with correct memory ordering. Verify with TSan. Benchmark against mutex-based queue at 10M messages/sec. Document every memory_order decision.</div>
+          </div>
+          <div class="project-card" onclick="toggleProject(this,'phase-5')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Arena allocator</div></div>
+            <div class="project-desc">Build an arena allocator that satisfies the C++ Allocator named requirement. Use it as a custom allocator for std::vector and std::unordered_map. Benchmark total allocation time vs malloc at 1M small allocations.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Mastery Checkpoint</div>
+        <div class="checkpoint-box">
+          <div class="checkpoint-label">⬡ Must pass before advancing</div>
+          <div class="checkpoint-text">
+            Take a naive O(n²) algorithm operating on a struct-of-arrays. Profile it with <code>perf stat</code> to identify cache misses as the bottleneck. Restructure to SoA layout and apply tiling. Achieve ≥3× speedup and explain the memory access pattern change. Then, given a buggy concurrent program, use <code>TSan</code> to identify the data race and fix it with the minimum required synchronization.
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Resources</div>
+        <div class="resource-list">
+          <div class="resource-item"><span class="resource-type book">Book</span><div><div class="resource-name">C++ Concurrency in Action, 2nd ed. — Anthony Williams</div><div class="resource-note">The definitive C++ threading reference. Chapters 5–7 on atomics and lock-free are essential.</div></div></div>
+          <div class="resource-item"><span class="resource-type book">Book</span><div><div class="resource-name">Computer Systems: A Programmer's Perspective — Bryant & O'Hallaron</div><div class="resource-note">Chapters 6 (memory hierarchy) and 12 (concurrent programming). Return to this book here.</div></div></div>
+          <div class="resource-item"><span class="resource-type video">Video</span><div><div class="resource-name">CppCon: "What Every Programmer Should Know About Memory" — Ulrich Drepper</div><div class="resource-note">Long but comprehensive. The single best resource on cache behavior for C++ programmers.</div></div></div>
+          <div class="resource-item"><span class="resource-type tool">Tool</span><div><div class="resource-name">Brendan Gregg's perf examples (brendangregg.com)</div><div class="resource-note">Practical perf usage with real-world flame graph interpretation examples.</div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ████████████████████████████████████████████████████████
+     PHASE 6 — COMPILER & LOW-LEVEL
+     ████████████████████████████████████████████████████████ -->
+<div class="phase" id="phase-6" data-tracks="full systems" style="--phase-color:#06B6D4;--phase-color-alt:#0891B2;--phase-color-bg:#06B6D411;--phase-color-border:#06B6D433;">
+  <div class="phase-card" id="card-6">
+    <div class="phase-header" onclick="togglePhase('card-6','phase-6')">
+      <span class="phase-num">PHASE 06</span>
+      <div class="phase-header-text">
+        <div class="phase-title">Compiler & Low-Level Understanding</div>
+        <div class="phase-meta-row">
+          <span class="phase-duration">⏱ 2 months · cumulative: 16–19 mo</span>
+          <div class="phase-track-tags">
+            <span class="track-tag systems">Systems</span>
+            <span class="track-tag full">Full</span>
+          </div>
+        </div>
+      </div>
+      <span class="phase-progress-text" id="prog-text-6">0 / 0</span>
+      <span class="chevron">›</span>
+    </div>
+
+    <div class="phase-body">
+
+      <div class="body-section">
+        <div class="section-heading">Core Topics</div>
+        <div class="topics-grid" id="topics-6">
+          <div class="topic-item" onclick="toggleTopic(this,'phase-6')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Compiler optimization levels: -O0, -O1, -O2, -O3, -Os — what each enables</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-6')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Reading x86-64 assembly: MOV, CMP, JMP, CALL, function prologues/epilogues</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-6')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Common optimizations: inlining, dead code elimination, loop unrolling, vectorization</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-6')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Undefined behavior exploitation: how the compiler assumes UB never occurs</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-6')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">AddressSanitizer (ASan): heap/stack overflow, use-after-free detection</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-6')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">UBSan: signed overflow, null dereference, misaligned access detection</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-6')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">ThreadSanitizer (TSan): data race detection, understanding its false positive rate</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-6')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Link-time optimization (LTO), profile-guided optimization (PGO)</div></div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Hands-On Projects</div>
+        <div id="projects-6">
+          <div class="project-card" onclick="toggleProject(this,'phase-6')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Assembly diff study</div></div>
+            <div class="project-desc">Take 5 C++ snippets (a loop, a virtual call, a template function, a lambda, an atomic operation). Compile at -O0 and -O2. Using godbolt.org, write a 1-page diff explaining every optimization the compiler made and why.</div>
+          </div>
+          <div class="project-card" onclick="toggleProject(this,'phase-6')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Sanitizer gauntlet</div></div>
+            <div class="project-desc">Take a real open-source C++ project (e.g., a small parser or CLI tool from GitHub). Compile it with -fsanitize=address,undefined,thread. Fix every reported error. Document each bug class and root cause.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Mastery Checkpoint</div>
+        <div class="checkpoint-box">
+          <div class="checkpoint-label">⬡ Must pass before advancing</div>
+          <div class="checkpoint-text">
+            Given a 30-line C++ function, read its <code>-O2</code> assembly output and explain: which variables were register-allocated, whether any loops were unrolled or vectorized, and where the function call boundary is. Then write a program with a subtle signed integer overflow UB and demonstrate that the compiler at <code>-O2</code> generates different (and dangerous) code than at <code>-O0</code>.
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Resources</div>
+        <div class="resource-list">
+          <div class="resource-item"><span class="resource-type book">Book</span><div><div class="resource-name">CS:APP Chapters 3–4 — Bryant & O'Hallaron</div><div class="resource-note">x86-64 assembly and machine-level representation. Non-negotiable for this phase.</div></div></div>
+          <div class="resource-item"><span class="resource-type tool">Tool</span><div><div class="resource-name">Compiler Explorer (godbolt.org) + C++ Insights (cppinsights.io)</div><div class="resource-note">Use both daily during this phase. Make "check the assembly" a reflex.</div></div></div>
+          <div class="resource-item"><span class="resource-type video">Video</span><div><div class="resource-name">CppCon: "Undefined Behavior: Long Form" — Piotr Padlewski & Krzysztof Pszeniczny</div><div class="resource-note">Concrete examples of how UB causes real, dangerous compiler optimizations.</div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ████████████████████████████████████████████████████████
+     PHASE 7 — DEBUGGING AI-GENERATED CODE
+     ████████████████████████████████████████████████████████ -->
+<div class="phase" id="phase-7" data-tracks="full interview systems" style="--phase-color:#EC4899;--phase-color-alt:#DB2777;--phase-color-bg:#EC489911;--phase-color-border:#EC489933;">
+  <div class="phase-card" id="card-7">
+    <div class="phase-header" onclick="togglePhase('card-7','phase-7')">
+      <span class="phase-num">PHASE 07</span>
+      <div class="phase-header-text">
+        <div class="phase-title">Reading & Debugging AI-Generated C++</div>
+        <div class="phase-meta-row">
+          <span class="phase-duration">⏱ 1 month · cumulative: 17–20 mo</span>
+          <div class="phase-track-tags">
+            <span class="track-tag interview">Interview</span>
+            <span class="track-tag systems">Systems</span>
+          </div>
+        </div>
+      </div>
+      <span class="phase-progress-text" id="prog-text-7">0 / 0</span>
+      <span class="chevron">›</span>
+    </div>
+
+    <div class="phase-body">
+
+      <div class="body-section">
+        <div class="section-heading">LLM C++ Failure Patterns</div>
+        <div class="topics-grid" id="topics-7">
+          <div class="topic-item" onclick="toggleTopic(this,'phase-7')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Dangling references: LLMs return references to temporaries or stack-allocated objects</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-7')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Incorrect template instantiation: subtle SFINAE errors that compile but behave wrongly</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-7')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Off-by-one in container iteration: .end() vs .back(), size_t underflow</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-7')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Wrong memory ordering in atomics: using relaxed when acquire/release is needed</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-7')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Iterator invalidation: erasing from vector/map while iterating</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-7')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Incorrect move: using std::move on objects still referenced elsewhere</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-7')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Mutex misuse: locking wrong mutex, forgetting to lock, double-lock deadlock</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-7')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Shared_ptr cycles: circular ownership causing memory leaks</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-7')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Signed/unsigned comparison UB: comparing int with size_t incorrectly</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-7')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Exception unsafety: resource leak when exception thrown mid-construction</div></div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Systematic Audit Protocol</div>
+        <div class="info-grid">
+          <div class="info-block">
+            <div class="info-block-label">Step 1 — Sanitizers first</div>
+            <div class="info-block-value">Always compile AI code with <code>-fsanitize=address,undefined</code> before trusting it. Run every code path through the test suite. Zero sanitizer errors is table stakes.</div>
+          </div>
+          <div class="info-block">
+            <div class="info-block-label">Step 2 — Ownership audit</div>
+            <div class="info-block-value">Trace every raw pointer and reference. Ask: who owns this? What is its lifetime? Is it possible for this to outlive its source? LLMs routinely get this wrong in non-trivial code.</div>
+          </div>
+          <div class="info-block">
+            <div class="info-block-label">Step 3 — Concurrency audit</div>
+            <div class="info-block-value">Every shared mutable state must have a documented synchronization mechanism. Run <code>TSan</code>. Manually verify every <code>memory_order</code> argument against the happens-before relationship required.</div>
+          </div>
+          <div class="info-block">
+            <div class="info-block-label">Step 4 — Edge case stress</div>
+            <div class="info-block-value">Empty inputs, single elements, INT_MAX/INT_MIN values, concurrent access at max thread count, exception thrown at every allocation site. LLMs optimize for the happy path.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Mastery Checkpoint</div>
+        <div class="checkpoint-box">
+          <div class="checkpoint-label">⬡ Must pass before advancing</div>
+          <div class="checkpoint-text">
+            Given 5 AI-generated C++ snippets (provided by your mentor or generated fresh), identify all bugs using only static reading + sanitizer output — no running the code first. Write a bug report for each with: bug class, exact line, root cause, and correct fix. Target: catch ≥90% of injected bugs within 30 minutes per snippet.
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Resources</div>
+        <div class="resource-list">
+          <div class="resource-item"><span class="resource-type tool">Tool</span><div><div class="resource-name">clang-tidy + clang-format</div><div class="resource-note">Run clang-tidy with -checks=* on any AI-generated code. Many LLM bugs are caught by static analysis.</div></div></div>
+          <div class="resource-item"><span class="resource-type tool">Tool</span><div><div class="resource-name">cppcheck (static analysis)</div><div class="resource-note">Different bug classes than clang-tidy. Run both. Neither replaces reading the code carefully.</div></div></div>
+          <div class="resource-item"><span class="resource-type book">Book</span><div><div class="resource-name">C++ Gotchas — Stephen Dewhurst</div><div class="resource-note">99 common C++ mistakes with explanations. Overlaps heavily with LLM failure patterns.</div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ████████████████████████████████████████████████████████
+     PHASE 8 — PRODUCTION ENGINEERING
+     ████████████████████████████████████████████████████████ -->
+<div class="phase" id="phase-8" data-tracks="full systems" style="--phase-color:#84CC16;--phase-color-alt:#65A30D;--phase-color-bg:#84CC1611;--phase-color-border:#84CC1633;">
+  <div class="phase-card" id="card-8">
+    <div class="phase-header" onclick="togglePhase('card-8','phase-8')">
+      <span class="phase-num">PHASE 08</span>
+      <div class="phase-header-text">
+        <div class="phase-title">Large-Scale / Production Engineering</div>
+        <div class="phase-meta-row">
+          <span class="phase-duration">⏱ 2 months · cumulative: 19–22 mo</span>
+          <div class="phase-track-tags">
+            <span class="track-tag systems">Systems</span>
+            <span class="track-tag full">Full</span>
+          </div>
+        </div>
+      </div>
+      <span class="phase-progress-text" id="prog-text-8">0 / 0</span>
+      <span class="chevron">›</span>
+    </div>
+
+    <div class="phase-body">
+
+      <div class="body-section">
+        <div class="section-heading">Core Topics</div>
+        <div class="topics-grid" id="topics-8">
+          <div class="topic-item" onclick="toggleTopic(this,'phase-8')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">CMake: targets, properties, generator expressions, find_package, FetchContent</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-8')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">GoogleTest: test fixtures, parametrized tests, death tests, mocking with GMock</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-8')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">CI/CD pipeline: GitHub Actions building, testing, sanitizing C++ on every commit</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-8')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">API design principles: error handling, versioning, minimizing surface area, Hyrum's Law</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-8')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Code review: what to look for, how to give and receive feedback effectively</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-8')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Working in large codebases: grep, ctags, clangd LSP, git blame strategies</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-8')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Dependency management: vcpkg, Conan, git submodules — trade-offs</div></div>
+          <div class="topic-item" onclick="toggleTopic(this,'phase-8')"><div class="topic-cb"><span class="topic-cb-check">✓</span></div><div class="topic-label">Documentation: Doxygen, architecture decision records (ADRs), API contracts</div></div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Hands-On Projects</div>
+        <div id="projects-8">
+          <div class="project-card" onclick="toggleProject(this,'phase-8')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Production CMake project skeleton</div></div>
+            <div class="project-desc">Build a multi-target CMake project: one static library, one shared library, one executable, one test suite. Integrate GoogleTest via FetchContent. Add GitHub Actions CI running build + tests + ASan + clang-tidy on push.</div>
+          </div>
+          <div class="project-card" onclick="toggleProject(this,'phase-8')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Open source code review contribution</div></div>
+            <div class="project-desc">Submit a meaningful PR to a real C++ open source project (LLVM, folly, abseil, or similar). The PR must pass CI, address reviewer feedback, and be merged. A merged PR is the checkpoint — not the submission.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Mastery Checkpoint</div>
+        <div class="checkpoint-box">
+          <div class="checkpoint-label">⬡ Must pass before advancing</div>
+          <div class="checkpoint-text">
+            Design a C++ library API for a task queue (producers enqueue work, thread pool executes). Write the public header only — no implementation. Your API must: have zero raw pointers in the public interface, handle cancellation, support move-only callables, and be impossible to misuse (ownership is always clear from types alone). Have a senior engineer review it.
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Resources</div>
+        <div class="resource-list">
+          <div class="resource-item"><span class="resource-type book">Book</span><div><div class="resource-name">Professional CMake: A Practical Guide — Craig Scott</div><div class="resource-note">The CMake book that's actually good. Covers modern target-based CMake thoroughly.</div></div></div>
+          <div class="resource-item"><span class="resource-type book">Book</span><div><div class="resource-name">Large-Scale C++ Software Design — John Lakos</div><div class="resource-note">How to structure C++ at Google/Bloomberg scale. Component design, physical dependencies, levelization.</div></div></div>
+          <div class="resource-item"><span class="resource-type video">Video</span><div><div class="resource-name">CppCon: "Modern CMake for Modular Design" — Mathieu Ropert (2017)</div><div class="resource-note">The talk that introduced target-based CMake to the mainstream. Watch before writing a single CMakeLists.txt.</div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ████████████████████████████████████████████████████████
+     PHASE 9 — CAPSTONE PROJECTS
+     ████████████████████████████████████████████████████████ -->
+<div class="phase" id="phase-9" data-tracks="full interview systems" style="--phase-color:#F97316;--phase-color-alt:#EA580C;--phase-color-bg:#F9731611;--phase-color-border:#F9731633;">
+  <div class="phase-card" id="card-9">
+    <div class="phase-header" onclick="togglePhase('card-9','phase-9')">
+      <span class="phase-num">PHASE 09</span>
+      <div class="phase-header-text">
+        <div class="phase-title">Capstone Projects — Open-Source Quality</div>
+        <div class="phase-meta-row">
+          <span class="phase-duration">⏱ 4–6 months · cumulative: 23–28 mo</span>
+          <div class="phase-track-tags">
+            <span class="track-tag interview">Interview</span>
+            <span class="track-tag systems">Systems</span>
+          </div>
+        </div>
+      </div>
+      <span class="phase-progress-text" id="prog-text-9">0 / 0</span>
+      <span class="chevron">›</span>
+    </div>
+
+    <div class="phase-body">
+
+      <div class="body-section">
+        <div class="section-heading">The Four Capstones</div>
+        <div class="note-box" style="margin-bottom:14px;">Each project must be: on GitHub, with a real README, CI pipeline, full test suite, and zero sanitizer errors. These are portfolio pieces — they should be things you can walk through live in an interview.</div>
+        <div id="projects-9">
+          <div class="project-card" onclick="toggleProject(this,'phase-9')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Capstone 1 — Custom Memory Allocator</div></div>
+            <div class="project-desc">A general-purpose malloc/free replacement using mmap/sbrk. Must handle: coalescing free blocks, best-fit vs first-fit strategies (switchable at compile time), thread safety with a per-thread cache (tcmalloc-style), and pass the full glibc malloc test suite. Benchmark against system malloc at various allocation patterns.</div>
+          </div>
+          <div class="project-card" onclick="toggleProject(this,'phase-9')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Capstone 2 — Lock-Free Concurrent Queue (MPMC)</div></div>
+            <div class="project-desc">A production-quality multi-producer multi-consumer queue using only std::atomic. No mutexes. Must: handle the ABA problem correctly, support bulk enqueue/dequeue, be verified with TSan under 16-thread stress test, and beat std::mutex queue by ≥2× throughput at 8 threads. Document every memory_order decision with justification.</div>
+          </div>
+          <div class="project-card" onclick="toggleProject(this,'phase-9')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Capstone 3 — Mini Relational Database Engine</div></div>
+            <div class="project-desc">A disk-based key-value store with: a B+ tree index, write-ahead logging for crash recovery, MVCC for snapshot isolation, and a SQL-like query parser for SELECT/INSERT/DELETE. Not a toy — it must survive crash-recovery tests (kill -9 mid-write, restart, verify data). Target: 50K writes/sec on SSD.</div>
+          </div>
+          <div class="project-card" onclick="toggleProject(this,'phase-9')">
+            <div class="project-top"><div class="project-cb"><span class="project-cb-check">✓</span></div><div class="project-name">Capstone 4 — JIT-Compiled Expression Evaluator</div></div>
+            <div class="project-desc">Parse arithmetic + boolean expressions into an AST, generate x86-64 machine code at runtime using direct code emission (no LLVM), mmap it as executable, and call it. Must: handle variables, function calls (sin/cos/pow), and compile 10K expressions in &lt;50ms. The output is a function pointer you call directly.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Mastery Checkpoint — Final</div>
+        <div class="checkpoint-box">
+          <div class="checkpoint-label">⬡ Elite-level gate</div>
+          <div class="checkpoint-text">
+            Walk a senior engineer at a top company through any one of your capstone projects — live, without notes, answering questions including: "Why did you choose this data structure?", "What happens if this thread is killed mid-operation?", "How does your allocator behave under memory pressure?", "Where is your biggest performance bottleneck and why?" You should be able to answer all of these from deep understanding, not rehearsed talking points.
+          </div>
+        </div>
+      </div>
+
+      <div class="body-section">
+        <div class="section-heading">Resources</div>
+        <div class="resource-list">
+          <div class="resource-item"><span class="resource-type book">Book</span><div><div class="resource-name">Database Internals — Alex Petrov</div><div class="resource-note">B-tree internals, WAL, MVCC — everything needed for Capstone 3. Clear and practical.</div></div></div>
+          <div class="resource-item"><span class="resource-type book">Book</span><div><div class="resource-name">Crafting Interpreters — Robert Nystrom (free online)</div><div class="resource-note">Best resource for building the AST and parser for Capstone 4. Clear C implementation adaptable to C++.</div></div></div>
+          <div class="resource-item"><span class="resource-type video">Video</span><div><div class="resource-name">tcmalloc source code (github.com/google/tcmalloc)</div><div class="resource-note">Read the design doc and source before starting Capstone 1. Sets the standard for what good allocator design looks like.</div></div></div>
+          <div class="resource-item"><span class="resource-type video">Video</span><div><div class="resource-name">CppCon: "Lock-Free Programming" — Herb Sutter (2014, 2-part)</div><div class="resource-note">Essential viewing before Capstone 2. Covers the formal model needed to reason about MPMC queues.</div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</div><!-- /timeline -->
+</div><!-- /shell -->
+
+<!-- ============================================================
+     SUMMARY BAR
+     ============================================================ -->
+<div class="summary-bar">
+  <div class="summary-stat">
+    <div>
+      <div class="summary-num" id="bar-checked">0</div>
+      <div class="summary-label">Topics<br>done</div>
+    </div>
+  </div>
+  <div class="summary-divider"></div>
+  <div class="summary-stat">
+    <div>
+      <div class="summary-num" id="bar-projects" style="color:var(--orange)">0</div>
+      <div class="summary-label">Projects<br>done</div>
+    </div>
+  </div>
+  <div class="summary-divider"></div>
+  <div class="master-progress">
+    <div class="master-bar-track">
+      <div class="master-bar-fill" id="master-fill"></div>
+    </div>
+    <span class="master-pct" id="master-pct">0%</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+/* ── State ── */
+const state = {
+  topics: {},    // topicKey -> bool
+  projects: {}   // projectKey -> bool
+};
+
+/* ── Toggle phase open/close ── */
+function togglePhase(cardId, phaseId) {
+  const card = document.getElementById(cardId);
+  card.classList.toggle('open');
+}
+
+/* ── Toggle a topic checkbox ── */
+function toggleTopic(el, phaseId) {
+  el.classList.toggle('checked');
+  updatePhaseProgress(phaseId);
+  updateMasterBar();
+}
+
+/* ── Toggle a project checkbox ── */
+function toggleProject(el, phaseId) {
+  el.classList.toggle('checked');
+  updatePhaseProgress(phaseId);
+  updateMasterBar();
+}
+
+/* ── Update per-phase progress ── */
+function updatePhaseProgress(phaseId) {
+  const phaseEl = document.getElementById(phaseId);
+  const num = phaseId.split('-')[1];
+  const card = document.getElementById('card-' + num);
+  const progText = document.getElementById('prog-text-' + num);
+
+  const topics = phaseEl.querySelectorAll('.topic-item');
+  const projects = phaseEl.querySelectorAll('.project-card');
+  const allItems = [...topics, ...projects];
+  const checkedItems = allItems.filter(el => el.classList.contains('checked'));
+
+  const total = allItems.length;
+  const done = checkedItems.length;
+  const pct = total ? (done / total) * 100 : 0;
+
+  // Update compile bar fill
+  card.style.setProperty('--fill', pct + '%');
+
+  // Update text
+  progText.textContent = `${done} / ${total}`;
+  if (done > 0) {
+    progText.classList.add('has-progress');
+    phaseEl.classList.add('has-progress');
+  } else {
+    progText.classList.remove('has-progress');
+    phaseEl.classList.remove('has-progress');
+  }
+  if (done === total && total > 0) {
+    phaseEl.classList.add('complete');
+  } else {
+    phaseEl.classList.remove('complete');
+  }
+}
+
+/* ── Master progress bar ── */
+function updateMasterBar() {
+  const allTopics = document.querySelectorAll('.topic-item');
+  const allProjects = document.querySelectorAll('.project-card');
+  const checkedTopics = [...allTopics].filter(el => el.classList.contains('checked'));
+  const checkedProjects = [...allProjects].filter(el => el.classList.contains('checked'));
+
+  const total = allTopics.length + allProjects.length;
+  const done = checkedTopics.length + checkedProjects.length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+
+  document.getElementById('master-fill').style.width = pct + '%';
+  document.getElementById('master-pct').textContent = pct + '%';
+  document.getElementById('bar-checked').textContent = checkedTopics.length;
+  document.getElementById('bar-projects').textContent = checkedProjects.length;
+}
+
+/* ── Filter ── */
+function setFilter(filter, btn) {
+  // Update button states
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.className = 'filter-btn';
+  });
+  btn.className = 'filter-btn active-' + filter;
+
+  // Show/hide phases
+  document.querySelectorAll('.phase').forEach(phase => {
+    const tracks = phase.dataset.tracks || '';
+    if (filter === 'full') {
+      phase.classList.remove('hidden');
+    } else if (tracks.includes(filter)) {
+      phase.classList.remove('hidden');
+    } else {
+      phase.classList.add('hidden');
+    }
+  });
+}
+
+/* ── Init progress text ── */
+(function init() {
+  for (let i = 1; i <= 9; i++) {
+    const phaseEl = document.getElementById('phase-' + i);
+    if (!phaseEl) continue;
+    const topics = phaseEl.querySelectorAll('.topic-item');
+    const projects = phaseEl.querySelectorAll('.project-card');
+    const total = topics.length + projects.length;
+    const progText = document.getElementById('prog-text-' + i);
+    if (progText) progText.textContent = `0 / ${total}`;
+  }
+  // Open phase 1 by default
+  document.getElementById('card-1').classList.add('open');
+})();
+</script>
+
+</body>
+</html>
