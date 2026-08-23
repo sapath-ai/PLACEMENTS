@@ -24,6 +24,30 @@
     --glow2: rgba(124,58,237,0.15);
   }
 
+
+  /* NVIDIA-inspired visual system: black / graphite / NVIDIA green */
+  :root {
+    --bg: #050505;
+    --bg2: #0a0a0a;
+    --panel: #0d0f0d;
+    --panel2: #121512;
+    --border: rgba(118,185,0,.18);
+    --accent: #76b900;
+    --accent2: #a3e635;
+    --accent3: #34d399;
+    --accent4: #cbd5e1;
+    --accent5: #f87171;
+    --text: #d7ddd4;
+    --muted: #7d867a;
+    --bright: #f5f7f2;
+    --glow: rgba(118,185,0,.18);
+    --glow2: rgba(163,230,53,.10);
+    --green-deep: #183000;
+    --line: rgba(255,255,255,.055);
+  }
+
+  html { scroll-behavior: smooth; }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
@@ -69,6 +93,14 @@
     pointer-events: none;
     mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
   }
+
+
+  .accelerator-mark { width:52px; height:52px; margin-bottom:1.4rem; display:grid; place-items:center; position:relative; opacity:0; animation:fadeUp .8s ease .05s forwards; }
+  .accelerator-mark::before { content:''; position:absolute; inset:5px; border:1px solid rgba(118,185,0,.5); transform:rotate(45deg); box-shadow:0 0 22px rgba(118,185,0,.08); }
+  .accelerator-mark span { position:absolute; width:18px; height:3px; background:var(--accent); border-radius:3px; box-shadow:0 0 10px rgba(118,185,0,.35); }
+  .accelerator-mark span:nth-child(1){transform:translateY(-8px) rotate(-12deg)}
+  .accelerator-mark span:nth-child(2){transform:translateY(0) rotate(-12deg);width:24px}
+  .accelerator-mark span:nth-child(3){transform:translateY(8px) rotate(-12deg)}
 
   .hero-eyebrow {
     font-family: 'Space Mono', monospace;
@@ -137,6 +169,23 @@
     text-transform: uppercase;
   }
 
+
+  /* ── FINAL 2026→2027 AUDIT ── */
+  .audit-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1rem; margin-top:1.5rem; }
+  .audit-card { border:1px solid var(--border); background:rgba(255,255,255,0.025); border-radius:14px; padding:1.15rem; }
+  .audit-card h3 { font-family:'Syne',sans-serif; font-size:1rem; color:var(--bright); margin:0 0 .55rem; }
+  .audit-status { display:inline-block; font-family:'Space Mono',monospace; font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; padding:.25rem .45rem; border:1px solid var(--border); border-radius:999px; color:var(--accent); margin-bottom:.7rem; }
+  .audit-card p { color:var(--muted); line-height:1.65; margin:0; font-size:.9rem; }
+  .audit-table-wrap { overflow-x:auto; margin-top:1.5rem; border:1px solid var(--border); border-radius:14px; }
+  .audit-table { width:100%; min-width:720px; border-collapse:collapse; }
+  .audit-table th,.audit-table td { padding:.8rem .9rem; border-bottom:1px solid var(--border); text-align:left; vertical-align:top; }
+  .audit-table th { font-family:'Space Mono',monospace; font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); }
+  .audit-table td { color:var(--muted); font-size:.88rem; line-height:1.5; }
+  .audit-table tr:last-child td { border-bottom:none; }
+  .audit-score { font-family:'Syne',sans-serif; font-weight:800; color:var(--bright); white-space:nowrap; }
+  .audit-callout { margin-top:1.5rem; padding:1.25rem; border-left:3px solid var(--accent); background:rgba(0,212,255,.045); border-radius:0 12px 12px 0; }
+  .audit-callout strong { color:var(--bright); }
+
   /* ── NAV ── */
   .sticky-nav {
     position: sticky;
@@ -168,6 +217,7 @@
     padding: 1.2rem 1.4rem;
     cursor: pointer;
     white-space: nowrap;
+    text-decoration: none;
     border-bottom: 2px solid transparent;
     transition: all 0.2s;
     background: none;
@@ -186,6 +236,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 5rem 2rem;
+    scroll-margin-top: 76px;
   }
 
   .section-label {
@@ -678,6 +729,76 @@
     gap: 0.3rem;
   }
 
+
+  /* ── RESEARCH + CAREER INTELLIGENCE ── */
+  .intel-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .intel-panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.7rem;
+  }
+  .intel-panel h3 {
+    font-family: 'Syne', sans-serif;
+    color: var(--bright);
+    font-size: 1.05rem;
+    margin: 0 0 0.8rem;
+  }
+  .intel-panel p {
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.65;
+    margin: 0 0 1rem;
+  }
+  .intel-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--text);
+    font-size: 0.82rem;
+    line-height: 1.7;
+  }
+  .intel-list li { margin-bottom: 0.28rem; }
+  .intel-badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.25rem 0.55rem;
+    margin-bottom: 0.7rem;
+  }
+  .career-matrix {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    font-size: 0.78rem;
+  }
+  .career-matrix th, .career-matrix td {
+    border: 1px solid var(--border);
+    padding: 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .career-matrix th {
+    font-family: 'Space Mono', monospace;
+    color: var(--accent);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .career-matrix td { color: var(--text); line-height: 1.5; }
+  @media (max-width: 768px) {
+    .intel-grid { grid-template-columns: 1fr; }
+    .career-matrix { display: block; overflow-x: auto; white-space: normal; }
+  }
+
   /* ── CV SECTION ── */
   .cv-grid {
     display: grid;
@@ -833,17 +954,331 @@
   @media (max-width: 640px) {
     .two-col { grid-template-columns: 1fr; }
   }
+
+  /* ═══════════════════════════════════════════════════════════════
+     NVIDIA-INSPIRED COMMAND-CENTER UI OVERHAUL
+     ═══════════════════════════════════════════════════════════════ */
+  body {
+    background:
+      radial-gradient(circle at 50% -10%, rgba(118,185,0,.075), transparent 34%),
+      linear-gradient(180deg, #030403 0%, #070907 42%, #050605 100%);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  body::before {
+    content:'';
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-1;
+    opacity:.28;
+    background-image:
+      linear-gradient(rgba(118,185,0,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(118,185,0,.025) 1px, transparent 1px);
+    background-size:48px 48px;
+    mask-image:linear-gradient(to bottom, black, transparent 92%);
+  }
+
+  .hero {
+    min-height:92vh;
+    padding:7rem 2rem 5rem;
+    background:
+      radial-gradient(ellipse 55% 42% at 50% 42%, rgba(118,185,0,.09), transparent 68%),
+      radial-gradient(ellipse 30% 25% at 12% 65%, rgba(118,185,0,.055), transparent 70%);
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(118,185,0,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(118,185,0,.045) 1px, transparent 1px);
+    background-size:52px 52px;
+    mask-image:radial-gradient(ellipse at center, black 12%, transparent 76%);
+    animation:gridDrift 24s linear infinite;
+  }
+
+  .hero-eyebrow {
+    color:var(--accent);
+    font-size:.68rem;
+    letter-spacing:.34em;
+    text-shadow:0 0 18px rgba(118,185,0,.35);
+  }
+
+  .hero-title {
+    letter-spacing:-.055em;
+    text-shadow:0 0 55px rgba(118,185,0,.08);
+  }
+
+  .hero-title span {
+    background:linear-gradient(110deg,#76b900 0%,#a3e635 48%,#76b900 100%);
+    background-size:200% 100%;
+    animation:greenSweep 5s ease-in-out infinite;
+  }
+
+  .hero-sub { color:#899188; max-width:760px; }
+
+  .hero-stats {
+    gap:0;
+    border:1px solid rgba(118,185,0,.16);
+    background:rgba(10,13,10,.64);
+    backdrop-filter:blur(18px);
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 20px 70px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.025);
+  }
+  .stat {
+    min-width:150px;
+    padding:1.1rem 1.55rem;
+    position:relative;
+    transition:transform .35s ease, background .35s ease;
+  }
+  .stat + .stat::before {
+    content:''; position:absolute; left:0; top:24%; bottom:24%; width:1px; background:var(--line);
+  }
+  .stat:hover { transform:translateY(-4px); background:rgba(118,185,0,.055); }
+  .stat-num { color:var(--accent); text-shadow:0 0 22px rgba(118,185,0,.25); }
+
+  .sticky-nav {
+    background:rgba(4,6,4,.84);
+    border-bottom:1px solid rgba(118,185,0,.15);
+    box-shadow:0 12px 40px rgba(0,0,0,.24);
+  }
+  .sticky-nav::before {
+    content:'';
+    position:absolute;
+    left:0; right:0; top:0; height:1px;
+    background:linear-gradient(90deg,transparent,var(--accent),transparent);
+    opacity:.65;
+  }
+  .nav-inner { max-width:1380px; padding:0 .35rem; }
+  .nav-item {
+    position:relative;
+    font-size:.61rem;
+    color:#778074;
+    padding:1rem 1.05rem;
+    transition:color .25s ease, transform .25s ease, background .25s ease;
+    border-bottom:2px solid transparent;
+  }
+  .nav-item::after {
+    content:'';
+    position:absolute;
+    left:50%; right:50%; bottom:-1px; height:2px;
+    background:var(--accent);
+    box-shadow:0 0 12px rgba(118,185,0,.55);
+    transition:left .3s ease,right .3s ease;
+  }
+  .nav-item:hover { color:#dce5d7; transform:translateY(-1px); background:rgba(118,185,0,.035); }
+  .nav-item:hover::after,.nav-item.active::after { left:16%; right:16%; }
+  .nav-item.active { color:var(--accent); border-bottom-color:transparent; }
+
+  .section {
+    max-width:1320px;
+    padding:6rem 2.5rem;
+    scroll-margin-top:82px;
+    position:relative;
+  }
+  .section::before {
+    content:'';
+    position:absolute;
+    top:0; left:2.5rem; right:2.5rem;
+    height:1px;
+    background:linear-gradient(90deg,rgba(118,185,0,.22),transparent 45%);
+  }
+  .section-label { color:var(--accent); text-shadow:0 0 16px rgba(118,185,0,.18); }
+  .section-title { letter-spacing:-.025em; }
+  .section-desc { color:#858e82; max-width:860px; }
+
+  /* Float / lift transitions for content surfaces */
+  .skill-card,.highlight-box,.project-card,.resource-block,.paper-item,.company-card,
+  .cv-panel,.intel-panel,.audit-card,.audit-table-wrap,.architecture-card,
+  .production-card,.track-card,.research-card {
+    transition:transform .38s cubic-bezier(.2,.75,.25,1), border-color .38s ease,
+               box-shadow .38s ease, background .38s ease;
+  }
+  .skill-card:hover,.highlight-box:hover,.project-card:hover,.resource-block:hover,
+  .paper-item:hover,.company-card:hover,.cv-panel:hover,.intel-panel:hover,
+  .audit-card:hover,.architecture-card:hover,.production-card:hover,.track-card:hover,
+  .research-card:hover {
+    transform:translateY(-7px);
+    border-color:rgba(118,185,0,.34);
+    box-shadow:0 18px 50px rgba(0,0,0,.28), 0 0 28px rgba(118,185,0,.055);
+  }
+
+  .project-card,.company-card,.resource-block,.paper-item,.cv-panel,.intel-panel,.audit-card {
+    background:linear-gradient(145deg,rgba(16,19,16,.94),rgba(9,11,9,.94));
+    border-color:rgba(118,185,0,.12);
+  }
+
+  .tag,.project-level,.intel-badge,.audit-status {
+    transition:transform .25s ease, border-color .25s ease, color .25s ease, background .25s ease;
+  }
+  .tag:hover,.project-level:hover,.intel-badge:hover,.audit-status:hover {
+    transform:translateY(-2px);
+    border-color:rgba(118,185,0,.42);
+    color:#b9e66c;
+    background:rgba(118,185,0,.07);
+  }
+
+  /* Green system signal bars */
+  .section-title::after {
+    content:'';
+    display:block;
+    width:58px;
+    height:3px;
+    margin-top:1rem;
+    background:linear-gradient(90deg,var(--accent),transparent);
+    box-shadow:0 0 14px rgba(118,185,0,.3);
+  }
+
+  .footer {
+    background:#030403 !important;
+    border-top:1px solid rgba(118,185,0,.14) !important;
+    color:#606960 !important;
+  }
+
+  /* Scroll-reveal */
+  .reveal-ready { opacity:0; transform:translateY(22px); }
+  .reveal-ready.revealed { opacity:1; transform:none; transition:opacity .7s ease, transform .7s cubic-bezier(.2,.75,.25,1); }
+
+  /* Micro motion */
+  @keyframes greenSweep { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+  @keyframes gridDrift { from{transform:translate3d(0,0,0)} to{transform:translate3d(52px,52px,0)} }
+  @keyframes brandPulse { 0%,100%{box-shadow:0 0 24px rgba(118,185,0,.04)} 50%{box-shadow:0 0 34px rgba(118,185,0,.12)} }
+  @keyframes floatIn { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+  @media (hover:hover) and (pointer:fine) {
+    .hero-stats { animation:floatIn .9s ease .8s both; }
+  }
+
+  @media (max-width:768px) {
+    .hero { min-height:88vh; padding:6.5rem 1.25rem 3rem; }
+    .hero-stats { display:grid; grid-template-columns:1fr 1fr; width:100%; }
+    .stat { min-width:0; padding:.9rem .65rem; }
+    .stat + .stat::before { display:none; }
+    .section { padding:4rem 1.15rem; }
+    .section::before { left:1.15rem; right:1.15rem; }
+    .nav-inner { padding:0; }
+    .nav-item { padding:.9rem .78rem; font-size:.55rem; }
+  }
+
+  @media (prefers-reduced-motion:reduce) {
+    html { scroll-behavior:auto; }
+    *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+    .grid-bg { animation:none; }
+  }
+
+
+  /* ═══════════════════════════════════════════════════════════════
+     PRODUCT-PAGE UX REVAMP — NVIDIA-INSPIRED PHYSICAL AI
+     ═══════════════════════════════════════════════════════════════ */
+  :root{
+    --nvg:#76b900; --nvg2:#9bea22; --ink:#050705; --ink2:#0a0d0a;
+    --surface:#0c100d; --surface2:#111611; --hair:rgba(177,206,169,.12);
+    --copy:#e9eee7; --dim:#8b9688;
+  }
+  body{background:#040604;color:var(--copy);}
+  body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.035;background:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(255,255,255,.08) 3px);mix-blend-mode:overlay;}
+  .product-hero{min-height:100vh;position:relative;overflow:hidden;background:
+    radial-gradient(circle at 72% 48%,rgba(118,185,0,.13),transparent 25%),
+    radial-gradient(circle at 10% 10%,rgba(118,185,0,.07),transparent 25%),
+    linear-gradient(135deg,#030403 0%,#070b07 55%,#030503 100%);padding:1.35rem 4vw 4rem;}
+  .product-topbar{height:48px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:5;border-bottom:1px solid var(--hair);max-width:1500px;margin:0 auto;}
+  .brand-lockup{display:flex;align-items:center;gap:.65rem;font:700 .7rem 'Space Mono',monospace;letter-spacing:.18em;color:#dfe7dc;}
+  .brand-lockup em{font-style:normal;color:#697467;font-weight:400;font-size:.55rem;letter-spacing:.12em;border-left:1px solid var(--hair);padding-left:.7rem;}
+  .brand-mark{width:25px;height:25px;display:grid;place-items:center;background:var(--nvg);color:#050705;font:800 .85rem 'Syne',sans-serif;clip-path:polygon(0 0,100% 0,100% 72%,72% 100%,0 100%);box-shadow:0 0 24px rgba(118,185,0,.2);}
+  .topbar-meta{font:400 .58rem 'Space Mono',monospace;letter-spacing:.1em;color:#6f796c;}.live-dot{display:inline-block;width:6px;height:6px;background:var(--nvg);border-radius:50%;box-shadow:0 0 10px var(--nvg);animation:livePulse 2s infinite}.meta-divider{margin:0 .65rem;color:#374036}
+  .hero-layout{max-width:1500px;margin:0 auto;min-height:calc(100vh - 48px);display:grid;grid-template-columns:minmax(0,1.08fr) minmax(390px,.72fr);align-items:center;gap:7vw;position:relative;z-index:2;padding:5rem 2vw 3rem;}
+  .hero-copy{text-align:left;max-width:820px;}
+  .hero-copy .accelerator-mark{margin:0 0 1.8rem;width:48px;height:48px;}
+  .hero-eyebrow{font-size:.62rem;letter-spacing:.28em;margin-bottom:1.1rem;color:#91a08e;}
+  .hero-title{display:flex;align-items:baseline;gap:.2em;font-size:clamp(4.5rem,9vw,9.4rem);line-height:.84;letter-spacing:-.075em;margin:0 0 1.7rem;white-space:nowrap;}
+  .hero-title-main{color:#f2f5ef;}
+  .hero-title-accent{color:var(--nvg)!important;background:none!important;-webkit-text-fill-color:var(--nvg)!important;background-clip:initial!important;text-shadow:0 0 45px rgba(118,185,0,.14);}
+  .hero-sub{font-size:1.02rem;line-height:1.8;max-width:720px;margin:0 0 2rem;color:#909b8e;}
+  .hero-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:2.5rem;}.hero-cta{display:inline-flex;align-items:center;gap:.7rem;padding:.82rem 1.05rem;border:1px solid var(--hair);font:700 .62rem 'Space Mono',monospace;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;transition:.3s ease;}.hero-cta.primary{background:var(--nvg);color:#071000;border-color:var(--nvg);box-shadow:0 10px 30px rgba(118,185,0,.13)}.hero-cta.secondary{color:#b5c0b0;background:rgba(255,255,255,.018)}.hero-cta:hover{transform:translateY(-3px);border-color:var(--nvg);}.hero-cta.primary:hover{background:#8bd20b;box-shadow:0 15px 40px rgba(118,185,0,.22)}
+  .hero-stats{justify-content:flex-start;width:max-content;max-width:100%;border:1px solid var(--hair);border-radius:10px;background:rgba(8,11,8,.58);box-shadow:0 18px 60px rgba(0,0,0,.25);}.stat{min-width:135px;padding:1rem 1.15rem;text-align:left}.stat-num{font-size:1.8rem}.stat-label{font-size:.52rem;letter-spacing:.1em}
+  .hero-product-card{height:min(600px,70vh);min-height:480px;border:1px solid rgba(118,185,0,.18);background:linear-gradient(145deg,rgba(15,20,15,.94),rgba(5,8,5,.97));position:relative;overflow:hidden;box-shadow:0 35px 100px rgba(0,0,0,.45),inset 0 1px rgba(255,255,255,.035);clip-path:polygon(0 0,100% 0,100% 92%,92% 100%,0 100%);}
+  .hero-product-card::before{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 15%,rgba(118,185,0,.06) 48%,transparent 72%);transform:translateX(-100%);animation:scanSweep 6s ease-in-out infinite;}
+  .product-card-top,.product-card-footer{position:absolute;left:0;right:0;display:flex;justify-content:space-between;padding:1rem 1.1rem;font:400 .55rem 'Space Mono',monospace;letter-spacing:.1em;color:#657062;z-index:3}.product-card-top{top:0;border-bottom:1px solid var(--hair)}.product-card-top span:last-child{color:var(--nvg)}.product-card-footer{bottom:0;justify-content:flex-start;gap:1rem;border-top:1px solid var(--hair);overflow:hidden;white-space:nowrap}.product-card-footer span{color:#778273}.product-card-footer span:first-child{color:#a4ad9f}
+  .stack-visual{position:absolute;inset:60px 25px 50px;display:grid;place-items:center;}.stack-visual::before,.stack-visual::after{content:'';position:absolute;border:1px solid rgba(118,185,0,.09);border-radius:50%;}.stack-visual::before{width:280px;height:280px;animation:orbitSpin 18s linear infinite}.stack-visual::after{width:430px;height:430px;border-style:dashed;animation:orbitSpin 28s linear infinite reverse}
+  .stack-core{width:155px;height:155px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;background:radial-gradient(circle,#1b2a0d,#080c07 67%);border:1px solid rgba(118,185,0,.4);box-shadow:0 0 70px rgba(118,185,0,.12),inset 0 0 35px rgba(118,185,0,.08);z-index:2}.stack-core strong{font:800 3rem 'Syne',sans-serif;color:var(--nvg)}.stack-core small{font:400 .4rem 'Space Mono',monospace;letter-spacing:.13em;color:#7c8878;text-align:center;margin-top:.2rem}.core-ring{position:absolute;inset:-8px;border:1px solid rgba(118,185,0,.18);border-radius:50%;animation:corePulse 3s ease-in-out infinite}
+  .stack-node{position:absolute;font:700 .55rem 'Space Mono',monospace;letter-spacing:.08em;color:#c1cbbd;border:1px solid rgba(118,185,0,.2);background:rgba(8,11,8,.88);padding:.55rem .7rem;z-index:4;box-shadow:0 8px 25px rgba(0,0,0,.25);transition:.3s}.stack-node:hover{border-color:var(--nvg);color:var(--nvg);transform:translateY(-3px)}.stack-node b{color:var(--nvg);margin-right:.35rem}.node-1{top:13%;left:3%}.node-2{top:13%;right:3%}.node-3{bottom:15%;right:3%}.node-4{bottom:15%;left:3%}.stack-line{position:absolute;height:1px;background:linear-gradient(90deg,transparent,var(--nvg),transparent);opacity:.35;transform-origin:center}.line-1{width:24%;top:27%;left:25%;transform:rotate(26deg)}.line-2{width:24%;top:27%;right:25%;transform:rotate(-26deg)}.line-3{width:24%;bottom:29%;right:25%;transform:rotate(26deg)}.line-4{width:24%;bottom:29%;left:25%;transform:rotate(-26deg)}
+  .hero-scroll{position:absolute;bottom:1.3rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;font:400 .48rem 'Space Mono',monospace;letter-spacing:.18em;color:#566053;z-index:3}.hero-scroll i{width:1px;height:34px;background:linear-gradient(var(--nvg),transparent);animation:scrollPulse 2s ease-in-out infinite}
+  .product-nav{position:sticky;top:0;background:rgba(3,5,3,.9);border-bottom:1px solid rgba(118,185,0,.16);padding:0;backdrop-filter:blur(18px);}.product-nav .nav-inner{max-width:1500px;padding:0 3vw;gap:.25rem}.product-nav .nav-item{font-size:.56rem;padding:.95rem .9rem;position:relative}.product-nav .nav-item::before{content:'';width:4px;height:4px;border-radius:50%;background:#343c32;position:absolute;left:.2rem;top:50%;transform:translateY(-50%);transition:.3s}.product-nav .nav-item.active::before{background:var(--nvg);box-shadow:0 0 9px var(--nvg)}
+  .section{max-width:1500px;padding:7rem 4vw;scroll-margin-top:64px}.section::before{left:4vw;right:4vw;background:linear-gradient(90deg,rgba(118,185,0,.28),transparent 35%)}.section-label{font-size:.58rem;letter-spacing:.22em}.section-title{font-size:clamp(2rem,3.5vw,3.4rem);max-width:850px}.section-title::after{width:80px;height:2px;margin-top:1.2rem}.section-desc{font-size:1rem;max-width:820px;line-height:1.8}
+  .skill-card,.highlight-box,.project-card,.resource-block,.paper-item,.company-card,.cv-panel,.intel-panel,.audit-card,.architecture-card,.production-card,.track-card,.research-card{border-radius:4px!important;box-shadow:0 10px 40px rgba(0,0,0,.18)}
+  .skill-card:hover,.highlight-box:hover,.project-card:hover,.resource-block:hover,.paper-item:hover,.company-card:hover,.cv-panel:hover,.intel-panel:hover,.audit-card:hover,.architecture-card:hover,.production-card:hover,.track-card:hover,.research-card:hover{transform:translateY(-9px) scale(1.008);box-shadow:0 25px 70px rgba(0,0,0,.3),0 0 0 1px rgba(118,185,0,.08)}
+  @keyframes livePulse{0%,100%{opacity:.5;box-shadow:0 0 5px var(--nvg)}50%{opacity:1;box-shadow:0 0 13px var(--nvg)}}
+  @keyframes scanSweep{0%,35%{transform:translateX(-110%)}65%,100%{transform:translateX(110%)}}
+  @keyframes orbitSpin{to{transform:rotate(360deg)}}
+  @keyframes corePulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.05);opacity:1}}
+  @keyframes scrollPulse{0%,100%{opacity:.35;transform:scaleY(.7)}50%{opacity:1;transform:scaleY(1)}}
+  @media(max-width:900px){.hero-layout{grid-template-columns:1fr;gap:2rem;padding-top:4rem}.hero-product-card{height:430px;min-height:430px}.hero-copy{max-width:900px}.hero-title{font-size:clamp(4rem,15vw,7rem)}.topbar-meta{display:none}.product-topbar{justify-content:flex-start}.hero-scroll{display:none}}
+  @media(max-width:600px){.product-hero{padding:1rem 1rem 3rem}.hero-layout{padding:3.5rem 0 2rem}.hero-title{white-space:normal;display:block;line-height:.88}.hero-title-main,.hero-title-accent{display:block}.hero-sub{font-size:.92rem}.hero-stats{display:grid;grid-template-columns:1fr 1fr;width:100%}.stat{min-width:0}.hero-product-card{height:390px;min-height:390px}.stack-visual::after{width:300px;height:300px}.stack-visual::before{width:210px;height:210px}.product-nav .nav-inner{padding:0 .5rem}.product-nav .nav-item{padding:.85rem .7rem;font-size:.5rem}.section{padding:5rem 1.1rem}.section::before{left:1.1rem;right:1.1rem}}
+  @media(prefers-reduced-motion:reduce){.hero-product-card::before,.stack-visual::before,.stack-visual::after,.core-ring,.hero-scroll i,.live-dot{animation:none!important}}
+  /* FINAL HERO TITLE FIX — one coherent, unobstructed PHYSICAL AI wordmark */
+  .hero-title{
+    position:relative!important;
+    display:block!important;
+    width:max-content;
+    max-width:100%;
+    overflow:visible!important;
+    background:none!important;
+    -webkit-background-clip:initial!important;
+    background-clip:initial!important;
+    color:#f2f5ef!important;
+    -webkit-text-fill-color:initial!important;
+    text-shadow:none!important;
+    isolation:isolate;
+  }
+  .hero-title::before,.hero-title::after,.hero-title span::before,.hero-title span::after{
+    content:none!important;
+    display:none!important;
+  }
+  .hero-title-word{
+    display:inline!important;
+    position:relative!important;
+    color:#f2f5ef!important;
+    background:none!important;
+    -webkit-background-clip:initial!important;
+    background-clip:initial!important;
+    -webkit-text-fill-color:#f2f5ef!important;
+    text-shadow:none!important;
+  }
+  .hero-title-ai{
+    color:#76b900!important;
+    -webkit-text-fill-color:#76b900!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    border:0!important;
+    padding:0!important;
+    margin:0!important;
+  }
+  .hero-copy{position:relative!important;z-index:20!important;}
+  @media(max-width:600px){
+    .hero-title{display:block!important;white-space:normal!important;}
+    .hero-title-word{display:inline!important;}
+  }
+
 </style>
 </head>
 <body>
 
 <!-- HERO -->
-<div class="hero">
+<header class="product-hero">
   <div class="grid-bg"></div>
-  <div class="hero-eyebrow">Strategic Career Roadmap · 2026 Edition</div>
-  <h1 class="hero-title">Physical <span>AI</span></h1>
-  <p class="hero-sub">From zero to researcher-grade. A 2026→2027 engineering roadmap for building intelligent machines end-to-end — from robotics fundamentals and ROS 2 systems to robot learning, foundation models, world models, deployment, safety, and the physical-AI data flywheel.</p>
-  <div class="hero-stats">
+  <div class="hero-orbit orbit-a"></div><div class="hero-orbit orbit-b"></div>
+  <div class="product-topbar">
+    <div class="brand-lockup"><span class="brand-mark" aria-hidden="true">N</span><span>PHYSICAL AI</span><em>ENGINEERING SYSTEM</em></div>
+    <div class="topbar-meta"><span class="live-dot"></span> 2026→2027 · v5.0 <span class="meta-divider">/</span> NVIDIA-INSPIRED</div>
+  </div>
+  <div class="hero-layout">
+    <div class="hero-copy">
+      <div class="accelerator-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="hero-eyebrow">Strategic Career Roadmap · Frontier Robotics</div>
+      <h1 class="hero-title" aria-label="Physical AI"><span class="hero-title-word">Physical</span> <span class="hero-title-word hero-title-ai">AI</span></h1>
+      <p class="hero-sub">A product-grade 2026→2027 engineering system for building intelligent machines end-to-end — from robotics fundamentals and ROS 2 systems to robot learning, foundation models, world models, deployment, safety, and the physical-AI data flywheel.</p>
+      <div class="hero-actions"><a href="#phases" class="hero-cta primary">Enter the roadmap <span>↗</span></a><a href="#architecture" class="hero-cta secondary">View system architecture</a></div>
+      <div class="hero-stats">
     <div class="stat">
       <span class="stat-num">4</span>
       <span class="stat-label">Learning Phases</span>
@@ -860,21 +1295,40 @@
       <span class="stat-num">24mo</span>
       <span class="stat-label">Full Roadmap</span>
     </div>
+      </div>
+    </div>
+    <div class="hero-product-card">
+      <div class="product-card-top"><span>PHYSICAL AI STACK</span><span>ONLINE</span></div>
+      <div class="stack-visual">
+        <div class="stack-core"><span class="core-ring"></span><strong>AI</strong><small>EMBODIED INTELLIGENCE</small></div>
+        <div class="stack-node node-1"><b>01</b> PERCEIVE</div>
+        <div class="stack-node node-2"><b>02</b> REASON</div>
+        <div class="stack-node node-3"><b>03</b> ACT</div>
+        <div class="stack-node node-4"><b>04</b> LEARN</div>
+        <div class="stack-line line-1"></div><div class="stack-line line-2"></div><div class="stack-line line-3"></div><div class="stack-line line-4"></div>
+      </div>
+      <div class="product-card-footer"><span>ROS 2</span><span>ISAAC</span><span>VLA</span><span>WORLD MODELS</span><span>ROBOTOPS</span></div>
+    </div>
   </div>
-</div>
+  <div class="hero-scroll"><span>SCROLL TO EXPLORE</span><i></i></div>
+</header>
 
 <!-- NAV -->
-<nav class="sticky-nav">
-  <div class="nav-inner">
-    <button class="nav-item active" data-target="overview">Overview</button>
-    <button class="nav-item" data-target="architecture">2026→27 Architecture</button>
-    <button class="nav-item" data-target="phases">Phases</button>
-    <button class="nav-item" data-target="math">Math & Physics</button>
-    <button class="nav-item" data-target="projects">Projects</button>
-    <button class="nav-item" data-target="resources">Books & Courses</button>
-    <button class="nav-item" data-target="papers">Research Papers</button>
-    <button class="nav-item" data-target="companies">Companies</button>
-    <button class="nav-item" data-target="cv">CV & Skills</button>
+<nav class="sticky-nav product-nav">
+  <div class="nav-inner" role="navigation" aria-label="Roadmap sections">
+    <a class="nav-item active" href="#overview">Overview</a>
+    <a class="nav-item" href="#architecture">2026→27 Architecture</a>
+    <a class="nav-item" href="#robotlearning">Robot Learning Stack</a>
+    <a class="nav-item" href="#production">Production & RobotOps</a>
+    <a class="nav-item" href="#phases">Phases</a>
+    <a class="nav-item" href="#math">Math & Physics</a>
+    <a class="nav-item" href="#projects">Projects</a>
+    <a class="nav-item" href="#resources">Books & Courses</a>
+    <a class="nav-item" href="#papers">Research Papers</a>
+    <a class="nav-item" href="#researchcareer">Research & Career</a>
+    <a class="nav-item" href="#audit">Final Audit</a>
+    <a class="nav-item" href="#companies">Companies</a>
+    <a class="nav-item" href="#cv">CV & Skills</a>
   </div>
 </nav>
 
@@ -961,6 +1415,343 @@
 
   <div class="highlight-box" style="margin-top:24px">
     <strong>2027 standard:</strong> A Physical AI engineer is expected to understand the interfaces between these tracks. The goal is not to memorize every framework; it is to engineer the full perception→decision→action lifecycle and explain the trade-offs at every boundary.
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- MODERN ROBOT LEARNING STACK -->
+<div id="robotlearning" class="section">
+  <div class="section-label">Update 2 · 2026→2027 Modern Robot Learning</div>
+  <h2 class="section-title">The Robot Learning Stack</h2>
+  <p class="section-desc">Robot learning is no longer just “collect demonstrations and train a policy.” The modern stack is a closed loop spanning data collection, dataset engineering, foundation-model adaptation, predictive/world-model supervision, evaluation, deployment, intervention and corrective-data collection.</p>
+
+  <div class="highlight-box">
+    <strong>2026 stack:</strong> DATA → DATASET → REPRESENTATION → POLICY → WORLD MODEL / REWARD → EVALUATION → ROLLOUT → INTERVENTION → CORRECTIVE DATA → FINE-TUNE → REPEAT.
+    Current open tooling now exposes this loop directly: LeRobot 0.6.0 includes world-model policies, GR00T N1.7, reward models, richer datasets, unified evaluation, FSDP, cloud training and deployment/DAgger workflows.
+  </div>
+
+  <div class="two-col">
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent)"></div>1 · Robot Data Engine</div>
+      <ul class="skill-list">
+        <li>Teleoperation design and operator workflow</li>
+        <li>Episode/task specification</li>
+        <li>RGB, depth and multi-camera synchronization</li>
+        <li>Proprioception and action logging</li>
+        <li>Timestamp alignment and control-rate matching</li>
+        <li>State/action normalization</li>
+        <li>Dataset schema, metadata and provenance</li>
+        <li>Dataset versioning and reproducible splits</li>
+        <li>Failure mining and trajectory filtering</li>
+        <li>Language/subtask annotation pipelines</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent2)"></div>2 · Policy Learning</div>
+      <ul class="skill-list">
+        <li>Behavior cloning and supervised action prediction</li>
+        <li>Action Chunking Transformer (ACT)</li>
+        <li>Diffusion Policy</li>
+        <li>Flow-matching action policies</li>
+        <li>Autoregressive action generation</li>
+        <li>Temporal context and action horizons</li>
+        <li>Real-Time Chunking for slow policies</li>
+        <li>Offline RL and reward-conditioned learning</li>
+        <li>DAgger and human corrective supervision</li>
+        <li>Parameter-efficient fine-tuning with LoRA/PEFT</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent3)"></div>3 · VLA Foundation Models</div>
+      <ul class="skill-list">
+        <li>Vision-language-action architecture</li>
+        <li>Vision encoder and multimodal representation</li>
+        <li>Language conditioning and task grounding</li>
+        <li>Action-token versus continuous-action heads</li>
+        <li>Flow-matching VLA policies</li>
+        <li>Cross-embodiment conditioning</li>
+        <li>GR00T N1.7 and its training/deployment workflow</li>
+        <li>π0/π0.5-style generalist policies</li>
+        <li>OpenVLA and smaller deployable VLAs</li>
+        <li>Fine-tuning, evaluation and real-robot deployment</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent4)"></div>4 · Embodied Reasoning</div>
+      <ul class="skill-list">
+        <li>High-level embodied reasoning versus motor execution</li>
+        <li>Goal decomposition into executable subtasks</li>
+        <li>Spatial reasoning and 3D grounding</li>
+        <li>Tool/function calling for physical agents</li>
+        <li>Task and skill selection</li>
+        <li>Long-horizon planning</li>
+        <li>Progress estimation and success detection</li>
+        <li>Recovery and replanning after failure</li>
+        <li>Multi-robot task coordination</li>
+        <li>Reasoning-model → VLA → controller interfaces</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent)"></div>5 · World Models & WAMs</div>
+      <ul class="skill-list">
+        <li>Latent-state world models</li>
+        <li>Action-conditioned future prediction</li>
+        <li>Video prediction for physical dynamics</li>
+        <li>JEPA-style predictive representation learning</li>
+        <li>World-model imagined rollouts</li>
+        <li>World-model supervision for policy learning</li>
+        <li>World Action Model architecture</li>
+        <li>Separating training-time imagination from inference</li>
+        <li>Predictive uncertainty and model error</li>
+        <li>Closed-loop model-based evaluation</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent2)"></div>6 · Reward & Success Models</div>
+      <ul class="skill-list">
+        <li>Binary task success classification</li>
+        <li>Dense progress estimation</li>
+        <li>Video-language reward models</li>
+        <li>VLM-derived zero-shot reward signals</li>
+        <li>Trajectory comparison and preference data</li>
+        <li>Reward model calibration</li>
+        <li>Reward hacking detection</li>
+        <li>Offline reward relabeling</li>
+        <li>Reward-aware dataset inspection</li>
+        <li>Using success models for iterative policy improvement</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent3)"></div>7 · Evaluation Stack</div>
+      <ul class="skill-list">
+        <li>LIBERO and perturbed robustness evaluation</li>
+        <li>RoboTwin-style bimanual evaluation</li>
+        <li>RoboCasa-style long-task evaluation</li>
+        <li>Memory and long-horizon tests</li>
+        <li>Task success and partial-progress metrics</li>
+        <li>Intervention and recovery rates</li>
+        <li>Cross-environment generalization</li>
+        <li>Cross-embodiment generalization</li>
+        <li>Seed variance, confidence intervals and statistical tests</li>
+        <li>Failure taxonomy and reproducible benchmark reports</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent4)"></div>8 · Training & Compute</div>
+      <ul class="skill-list">
+        <li>Mixed precision: FP32, FP16 and BF16</li>
+        <li>Gradient accumulation and memory budgeting</li>
+        <li>LoRA/PEFT versus full fine-tuning</li>
+        <li>FSDP and sharded training</li>
+        <li>Multi-GPU experiment design</li>
+        <li>Dataset streaming and efficient video decoding</li>
+        <li>Checkpointing and resumable experiments</li>
+        <li>Cloud GPU job orchestration</li>
+        <li>Experiment tracking and configuration control</li>
+        <li>Compute-cost versus model-quality analysis</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="section-title" style="font-size:1.55rem;margin-top:42px">2026 Model Families You Must Understand</h3>
+  <div class="two-col">
+    <div class="skill-card">
+      <div class="skill-card-title">Generalist VLA Families</div>
+      <ul class="skill-list">
+        <li>GR00T N1.7 — cross-embodiment humanoid VLA</li>
+        <li>π0 / π0.5-style flow-based policies</li>
+        <li>OpenVLA-style open generalist policies</li>
+        <li>SmolVLA-class compact models</li>
+        <li>MolmoAct2-style deployable VLA</li>
+        <li>EO-1-style interleaved vision-text-action pretraining</li>
+        <li>EVO1-style compact VLA + real-time execution</li>
+        <li>Multitask DiT-style language-conditioned diffusion/flow policies</li>
+        <li>Understand backbone, action head and conditioning separately</li>
+        <li>Compare zero-shot, fine-tuned and embodiment-adapted performance</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">World-Model / Predictive Families</div>
+      <ul class="skill-list">
+        <li>VLA-JEPA-style latent future prediction</li>
+        <li>LingBot-VA-style video-action prediction</li>
+        <li>FastWAM-style world-action modeling</li>
+        <li>Cosmos-style physical-world foundation models</li>
+        <li>Action-conditioned video prediction</li>
+        <li>Latent dynamics learning</li>
+        <li>Training-time imagination</li>
+        <li>Predictive representation learning</li>
+        <li>World-model uncertainty</li>
+        <li>Model-based policy improvement</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:24px">
+    <strong>Critical distinction:</strong> Do not turn this section into a model-name memorization contest. For every modern policy, learn the <em>data format → backbone → conditioning → action representation → training objective → inference loop → latency → evaluation → failure modes → adaptation method</em>. That knowledge survives model releases.
+  </div>
+</div>
+
+<hr class="section-divider">
+
+
+<!-- PRODUCTION PHYSICAL AI -->
+<div id="production" class="section">
+  <div class="section-label">Update 3 · 2026→2027 Production Physical AI</div>
+  <h2 class="section-title">From Research Prototype to Robot in the Real World</h2>
+  <p class="section-desc">A modern Physical AI engineer must cross the last and hardest boundary: taking a trained policy out of a notebook or simulator and operating it safely, deterministically, observably and repeatedly on real hardware.</p>
+
+  <div class="highlight-box">
+    <strong>Production loop:</strong> TRAIN → EXPORT → VALIDATE → DEPLOY → SENSE → INFER → CONTROL → MONITOR → DETECT FAILURE → RECOVER → LOG → REVIEW → RETRAIN → REDEPLOY.
+    Current NVIDIA tooling explicitly connects policy deployment to ROS 2, ONNX/Triton inference, ros2_control and optional safety gating, with Jetson Thor/Orin as supported edge targets. This is the production layer the roadmap now treats as a first-class discipline.
+  </div>
+
+  <div class="two-col">
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent)"></div>1 · Edge AI & Inference Engineering</div>
+      <ul class="skill-list">
+        <li>PyTorch model export and inference graph inspection</li>
+        <li>ONNX graph conversion, validation and operator compatibility</li>
+        <li>TensorRT engine building, optimization and calibration</li>
+        <li>FP32, FP16, BF16 and INT8 precision trade-offs</li>
+        <li>CUDA streams, kernels and asynchronous execution</li>
+        <li>GPU memory budgeting and tensor-memory lifetime analysis</li>
+        <li>Inference latency, throughput and jitter measurement</li>
+        <li>NVIDIA Triton model serving and model repositories</li>
+        <li>NITROS/GPU-accelerated ROS 2 data paths</li>
+        <li>Jetson Orin and Jetson Thor deployment constraints</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent2)"></div>2 · Real-Time Robot Software</div>
+      <ul class="skill-list">
+        <li>Control-loop frequency and end-to-end latency budgets</li>
+        <li>Sensor-to-actuator timing analysis</li>
+        <li>ROS 2 executor and callback scheduling behavior</li>
+        <li>Callback groups and concurrency control</li>
+        <li>Real-time-safe memory allocation patterns</li>
+        <li>Priority inversion and scheduling hazards</li>
+        <li>Lock contention and synchronization costs</li>
+        <li>ros2_control hardware and controller interfaces</li>
+        <li>Deadline, jitter and dropped-frame monitoring</li>
+        <li>Deterministic fallback behavior when AI inference stalls</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent3)"></div>3 · RobotOps & Fleet Engineering</div>
+      <ul class="skill-list">
+        <li>Robot identity, configuration and hardware inventory</li>
+        <li>Telemetry schemas for state, action and health signals</li>
+        <li>Centralized logs and structured event tracing</li>
+        <li>Policy/model version tracking</li>
+        <li>Dataset and deployment provenance</li>
+        <li>Canary rollout to a single robot before fleet rollout</li>
+        <li>Rollback and known-good policy management</li>
+        <li>Remote diagnostics and controlled update workflows</li>
+        <li>Fleet health dashboards and alert thresholds</li>
+        <li>Post-mission review and data-flywheel ingestion</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent4)"></div>4 · Safety-Critical Architecture</div>
+      <ul class="skill-list">
+        <li>Independent safety layer versus learned policy layer</li>
+        <li>Emergency-stop and safe-stop architecture</li>
+        <li>Workspace, velocity and acceleration constraints</li>
+        <li>Force/torque and contact-limit enforcement</li>
+        <li>Collision detection and protective separation</li>
+        <li>Watchdogs for inference, communication and actuator health</li>
+        <li>Runtime policy-output validation</li>
+        <li>Fallback controller and degraded-mode operation</li>
+        <li>Fault containment and safe recovery procedures</li>
+        <li>Safety cases, traceability and verification evidence</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent)" ></div>5 · Failure Engineering</div>
+      <ul class="skill-list">
+        <li>Sensor dropout and corrupted observations</li>
+        <li>Camera motion blur and exposure failures</li>
+        <li>Localization drift and TF/frame inconsistencies</li>
+        <li>Planner deadlocks and unreachable goals</li>
+        <li>Actuator saturation and mechanical limits</li>
+        <li>Network packet loss and communication delays</li>
+        <li>Inference overload and missed control deadlines</li>
+        <li>Out-of-distribution objects and environments</li>
+        <li>Long-horizon error accumulation</li>
+        <li>Fault injection, recovery testing and root-cause analysis</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent2)"></div>6 · Production Evaluation</div>
+      <ul class="skill-list">
+        <li>Simulation-to-real acceptance criteria</li>
+        <li>Task success and partial-success metrics</li>
+        <li>Latency, jitter and control-frequency metrics</li>
+        <li>Intervention rate and recovery rate</li>
+        <li>Safety-violation and near-miss counts</li>
+        <li>Energy, thermal and compute-budget measurements</li>
+        <li>Long-duration soak tests</li>
+        <li>Cross-environment and OOD evaluation</li>
+        <li>Statistical confidence and repeated-seed testing</li>
+        <li>Release gates before real-robot deployment</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:24px">
+    <strong>2027 deployment principle:</strong> Never allow “the neural network works” to be the deployment criterion. A production robot needs bounded latency, observable state, safety gating, deterministic fallback behavior, reproducible releases, failure recovery and evidence that the complete robot system—not merely the model—meets its acceptance criteria.
+  </div>
+
+  <h3 class="subsection-title" style="margin-top:38px">Production Architecture You Must Be Able to Draw From Memory</h3>
+  <div class="two-col">
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent3)"></div>AI Path</div>
+      <ul class="skill-list">
+        <li>Camera / LiDAR / proprioception</li>
+        <li>Sensor synchronization</li>
+        <li>Perception and representation</li>
+        <li>VLA / policy inference</li>
+        <li>Action chunk generation</li>
+        <li>Action validation</li>
+        <li>Motion planning / controller</li>
+        <li>Actuator command</li>
+        <li>Trajectory and outcome logging</li>
+        <li>Corrective-data selection</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent4)"></div>Safety & Operations Path</div>
+      <ul class="skill-list">
+        <li>Independent safety monitor</li>
+        <li>Watchdog and heartbeat checks</li>
+        <li>Workspace and velocity constraints</li>
+        <li>Collision/contact checks</li>
+        <li>Hardware-health monitoring</li>
+        <li>Emergency-stop / safe-stop</li>
+        <li>Fallback controller</li>
+        <li>Telemetry and structured logs</li>
+        <li>Deployment/version metadata</li>
+        <li>Rollback and incident review</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="subsection-title" style="margin-top:38px">Flagship Production Project</h3>
+  <div class="project-card" style="margin-top:16px">
+    <div class="project-level lvl-elite">Update 3 · Production</div>
+    <div class="project-name">End-to-End Physical AI Deployment & RobotOps Platform</div>
+    <div class="project-desc">Train a manipulation or locomotion policy in simulation, export it through ONNX/TensorRT or a supported deployment bundle, execute it through ROS 2 on an edge computer, add an independent safety gate and watchdog, stream telemetry, inject controlled failures, automatically capture failed trajectories, and build a reproducible retraining/redeployment loop. Demonstrate a canary rollout and rollback to a known-good policy.</div>
+    <div class="project-tags">
+      <span class="tag">ROS2</span><span class="tag">Isaac ROS</span><span class="tag">TensorRT</span><span class="tag">Triton</span><span class="tag">Jetson</span><span class="tag">Safety</span><span class="tag">RobotOps</span><span class="tag">Telemetry</span><span class="tag">Failure Injection</span>
+    </div>
+    <div class="project-wow">💡 WOW factor: This demonstrates the entire research-to-production loop instead of another isolated robotics demo.</div>
   </div>
 </div>
 
@@ -1441,12 +2232,12 @@
 
     <div class="project-card">
       <div class="project-level lvl-advanced">Phase 3 — Advanced</div>
-      <div class="project-name">GR00T N Fine-Tuning on Custom Tasks</div>
-      <div class="project-desc">Fine-tune NVIDIA's open GR00T N model on a custom manipulation task using Isaac Lab synthetic data. Compare zero-shot vs fine-tuned performance. Publish results and methodology on arXiv.</div>
+      <div class="project-name">GR00T 1.7 Adaptation on Custom Tasks</div>
+      <div class="project-desc">Adapt NVIDIA's current GR00T 1.7 policy stack on a custom manipulation task using Isaac Lab synthetic data. Compare zero-shot vs fine-tuned performance. Publish results and methodology on arXiv.</div>
       <div class="project-tags">
-        <span class="tag">GR00T N</span><span class="tag">Foundation Models</span><span class="tag">Isaac Lab</span><span class="tag">Synthetic Data</span>
+        <span class="tag">GR00T 1.7</span><span class="tag">Foundation Models</span><span class="tag">Isaac Lab</span><span class="tag">Synthetic Data</span>
       </div>
-      <div class="project-wow">💡 WOW factor: Publishing GR00T N results makes you one of the first researchers globally working on this.</div>
+      <div class="project-wow">💡 WOW factor: Publishing a rigorous GR00T 1.7 adaptation study demonstrates current robot-foundation-model research ability.</div>
     </div>
 
     <div class="project-card">
@@ -1660,6 +2451,219 @@
 
 <hr class="section-divider">
 
+<!-- RESEARCH + CAREER INTELLIGENCE -->
+<div id="researchcareer" class="section">
+  <div class="section-label">Update 4 · 2026→2027 Research + Career Intelligence</div>
+  <h2 class="section-title">Turn Engineering Skill Into Research Signal & Hiring Power</h2>
+  <p class="section-desc">This phase converts the technical roadmap into a research-and-career operating system: what to study, what to reproduce, what to publish, what evidence to build, which roles to target, and how to turn each project into measurable proof.</p>
+
+  <div class="highlight-box">
+    <strong>2026→2027 reality:</strong> the frontier is moving beyond isolated VLA demos toward robot data engines, world models, cross-embodiment learning, reward interfaces, reusable skills, evaluation, and deployment feedback loops. Recent research explicitly argues that VLA + world models alone are insufficient without data, embodiment and reward interfaces; current industry reporting likewise shows data collection and real-world generalization remain major bottlenecks.
+  </div>
+
+  <div class="intel-grid">
+    <div class="intel-panel">
+      <span class="intel-badge">Research Track 01</span>
+      <h3>Research Problem Selection</h3>
+      <p>Stop choosing projects because a model is fashionable. Choose a tractable scientific question with a measurable failure mode and a credible path to novelty.</p>
+      <ol class="intel-list">
+        <li>Define the physical task and operating assumptions.</li>
+        <li>Identify the exact unresolved bottleneck.</li>
+        <li>Separate engineering difficulty from scientific novelty.</li>
+        <li>Map the problem to current literature and baselines.</li>
+        <li>Define a falsifiable hypothesis.</li>
+        <li>Select datasets and hardware constraints before implementation.</li>
+        <li>Choose primary and secondary metrics.</li>
+        <li>Design ablations before collecting results.</li>
+        <li>Define expected failure modes and diagnostic tests.</li>
+        <li>Write the contribution claim before writing the code.</li>
+      </ol>
+    </div>
+
+    <div class="intel-panel">
+      <span class="intel-badge">Research Track 02</span>
+      <h3>Paper Reproduction → Extension</h3>
+      <p>The research ladder is deliberate: reproduce a credible baseline, verify the implementation, identify a weakness, then introduce a controlled improvement.</p>
+      <ol class="intel-list">
+        <li>Read the paper's method, appendix and supplementary material.</li>
+        <li>Recover the exact dataset and preprocessing assumptions.</li>
+        <li>Rebuild the baseline in a pinned environment.</li>
+        <li>Match reported metrics before modifying the method.</li>
+        <li>Record hardware, seed, training time and configuration.</li>
+        <li>Perform sensitivity analysis on important hyperparameters.</li>
+        <li>Identify a reproducible failure mode.</li>
+        <li>Formulate one narrow intervention.</li>
+        <li>Run ablations and negative controls.</li>
+        <li>Release code, configuration and evaluation artifacts.</li>
+      </ol>
+    </div>
+
+    <div class="intel-panel">
+      <span class="intel-badge">Research Track 03</span>
+      <h3>2026→2027 Literature Intelligence</h3>
+      <p>Build a living literature map rather than a static list of famous papers. World models are now a central robot-learning research direction, while new work is pushing hierarchical, compute-scalable and agent-centered approaches.</p>
+      <ol class="intel-list">
+        <li>Track robot foundation models and VLA families.</li>
+        <li>Track world-model and world-action-model methods.</li>
+        <li>Track cross-embodiment and heterogeneous datasets.</li>
+        <li>Track reward and success-model interfaces.</li>
+        <li>Track robot data collection and teleoperation systems.</li>
+        <li>Track long-horizon planning and memory.</li>
+        <li>Track test-time computation and inference-time search.</li>
+        <li>Track sim-to-real and system-identification methods.</li>
+        <li>Track safety, reliability and benchmark methodology.</li>
+        <li>Track open-source releases, code and reproducibility status.</li>
+      </ol>
+    </div>
+
+    <div class="intel-panel">
+      <span class="intel-badge">Career Track 01</span>
+      <h3>Role → Evidence Mapping</h3>
+      <p>Every target role must have explicit proof. Do not put a technology on the CV unless a public artifact demonstrates that you can use it.</p>
+      <ol class="intel-list">
+        <li>Robot Learning Engineer → trained and evaluated policies.</li>
+        <li>Robotics Software Engineer → production ROS 2/C++ stack.</li>
+        <li>Perception Engineer → calibrated, benchmarked perception pipeline.</li>
+        <li>Controls Engineer → dynamics, MPC/WBC and real-time control.</li>
+        <li>Simulation Engineer → Isaac/Gazebo/MuJoCo validation infrastructure.</li>
+        <li>Foundation Model Engineer → data, fine-tuning and inference optimization.</li>
+        <li>Embodied AI Researcher → reproduction, novel method and paper.</li>
+        <li>Edge AI Engineer → TensorRT/CUDA/Jetson deployment evidence.</li>
+        <li>Robot Systems Engineer → hardware interfaces, diagnostics and recovery.</li>
+        <li>Research Intern/PhD candidate → rigorous experiments and public research artifacts.</li>
+      </ol>
+    </div>
+
+    <div class="intel-panel">
+      <span class="intel-badge">Career Track 02</span>
+      <h3>Interview Mastery</h3>
+      <p>Prepare for interviews as engineering design reviews, not trivia exams.</p>
+      <ol class="intel-list">
+        <li>Explain coordinate frames and SE(3) transformations.</li>
+        <li>Derive and debug Kalman-filter style estimators.</li>
+        <li>Explain ROS 2 executors, QoS and DDS behavior.</li>
+        <li>Design a perception stack under latency constraints.</li>
+        <li>Design manipulation planning and recovery.</li>
+        <li>Explain PPO, imitation learning and offline RL.</li>
+        <li>Explain diffusion/flow policy inference and action chunking.</li>
+        <li>Design a VLA data and evaluation pipeline.</li>
+        <li>Diagnose a sim-to-real failure from telemetry.</li>
+        <li>Defend architecture trade-offs with quantitative evidence.</li>
+      </ol>
+    </div>
+
+    <div class="intel-panel">
+      <span class="intel-badge">Career Track 03</span>
+      <h3>Flagship Portfolio Standard</h3>
+      <p>By 2027, depth beats a graveyard of toy repositories. Build a small number of projects that expose engineering judgment, scientific rigor and deployment ability.</p>
+      <ol class="intel-list">
+        <li>One production-grade ROS 2 systems project.</li>
+        <li>One perception/SLAM benchmark with real measurements.</li>
+        <li>One manipulation project with hardware or high-fidelity sim.</li>
+        <li>One modern robot-learning policy reproduction.</li>
+        <li>One VLA/foundation-model adaptation experiment.</li>
+        <li>One world-model or predictive-policy research project.</li>
+        <li>One cross-embodiment or transfer experiment.</li>
+        <li>One RobotOps/deployment pipeline.</li>
+        <li>One open-source contribution beyond personal repositories.</li>
+        <li>One research artifact with paper-quality evaluation.</li>
+      </ol>
+    </div>
+  </div>
+
+  <h3 class="section-title" style="font-size:1.55rem;margin-top:42px">Research → Portfolio → Hiring Matrix</h3>
+  <table class="career-matrix">
+    <thead><tr><th>Target</th><th>Core Evidence</th><th>Research Signal</th><th>Interview Proof</th></tr></thead>
+    <tbody>
+      <tr><td>Robot Learning</td><td>Policy training + closed-loop evaluation</td><td>Baseline + ablation + failure analysis</td><td>Explain policy/data/evaluation trade-offs</td></tr>
+      <tr><td>Robotics Software</td><td>ROS 2/C++ production stack</td><td>Latency/reliability benchmark</td><td>Concurrency, DDS, lifecycle, debugging</td></tr>
+      <tr><td>Embodied AI Research</td><td>Reproduction + novel extension</td><td>Paper/preprint + released artifacts</td><td>Defend hypothesis and experimental design</td></tr>
+      <tr><td>Foundation Models</td><td>Fine-tuning/data/inference pipeline</td><td>Generalization + compute analysis</td><td>Architecture, memory and scaling reasoning</td></tr>
+      <tr><td>Simulation</td><td>Isaac/Gazebo/MuJoCo benchmark</td><td>Sim-to-real/generalization analysis</td><td>Physics, calibration and domain randomization</td></tr>
+      <tr><td>Edge Physical AI</td><td>TensorRT/Jetson deployment</td><td>Latency/throughput/power study</td><td>Profiling and real-time constraints</td></tr>
+    </tbody>
+  </table>
+
+  <div class="two-col" style="margin-top:2rem">
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent)"></div>2027 Research Output Target</div>
+      <ul class="skill-list">
+        <li>2–3 serious reproduction studies</li>
+        <li>1 original research contribution</li>
+        <li>1 benchmark or dataset artifact</li>
+        <li>1 open-source contribution</li>
+        <li>1 public technical report or preprint</li>
+        <li>All experiments reproducible from a clean environment</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title"><div class="dot" style="background:var(--accent2)"></div>2027 Career Signal Target</div>
+      <ul class="skill-list">
+        <li>3–5 flagship repositories</li>
+        <li>1 real-hardware deployment</li>
+        <li>1 modern VLA/WAM project</li>
+        <li>1 systems/deployment project</li>
+        <li>Quantified project outcomes</li>
+        <li>Role-specific CV versions backed by evidence</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<hr class="section-divider">
+
+<!-- FINAL AUDIT -->
+<div id="audit" class="section">
+  <div class="section-label">Final 2026→2027 Hardening</div>
+  <h2 class="section-title">Roadmap Integrity & Freshness Audit</h2>
+  <p class="section-desc">The roadmap is now treated as a living engineering system. This final layer defines what is considered current, what must be verified before execution, and how the roadmap should age without becoming a bloated technology list.</p>
+
+  <div class="highlight-box">
+    <strong>Final standard:</strong> a topic stays in the roadmap only when it has a clear dependency, a concrete engineering outcome, a measurable evaluation method, and a reason to matter for 2026→2027 Physical AI work. Current ROS 2 Lyrical is the primary LTS target through May 2031; NVIDIA's current stack now spans Isaac Sim/Lab, GR00T, Cosmos, Isaac ROS and edge deployment; and current research is rapidly pushing toward world models, cross-embodiment learning, long-horizon reasoning and scalable robot data.
+  </div>
+
+  <div class="audit-grid">
+    <div class="audit-card"><span class="audit-status">PASS</span><h3>Architecture</h3><p>Foundations → systems → learning → data → foundation models → world models → deployment → safety → research → career is now represented as a coherent dependency graph.</p></div>
+    <div class="audit-card"><span class="audit-status">PASS</span><h3>2026 Stack</h3><p>ROS 2 Lyrical, modern Isaac workflows, GR00T 1.7, Cosmos-class physical AI, LeRobot-style data/evaluation and edge deployment are represented as current-generation targets.</p></div>
+    <div class="audit-card"><span class="audit-status">PASS</span><h3>Research Depth</h3><p>Reproduction, baselines, ablations, statistical evaluation, failure analysis, reproducibility and publication evidence are treated as first-class outputs.</p></div>
+    <div class="audit-card"><span class="audit-status">PASS</span><h3>Production Depth</h3><p>Deployment is no longer the final demo: telemetry, canary releases, rollback, safety gating, runtime monitoring and retraining loops are explicit.</p></div>
+    <div class="audit-card"><span class="audit-status">PASS</span><h3>Career Evidence</h3><p>Roles are mapped to technical evidence, portfolio artifacts, research signals and interview proof instead of relying on technology-name collection.</p></div>
+    <div class="audit-card"><span class="audit-status">WATCH</span><h3>Field Volatility</h3><p>VLA and world-model architectures can change faster than durable robotics fundamentals. Model names and benchmark leaders must therefore be refreshed periodically.</p></div>
+  </div>
+
+  <h3 class="section-title" style="font-size:1.55rem;margin-top:42px">2026→2027 Readiness Scorecard</h3>
+  <div class="audit-table-wrap">
+    <table class="audit-table">
+      <thead><tr><th>Capability</th><th>Current Standard</th><th>Roadmap Status</th><th>Evidence Required</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Robotics Systems</strong></td><td>ROS 2 + DDS + C++ + real-time + hardware</td><td class="audit-score">9/10</td><td>Production ROS 2 project, latency/debugging evidence, hardware interface work</td></tr>
+        <tr><td><strong>Robot Learning</strong></td><td>IL + RL + diffusion/flow + offline learning</td><td class="audit-score">9/10</td><td>Reproduction, baseline comparison, ablations and closed-loop evaluation</td></tr>
+        <tr><td><strong>Robot Data</strong></td><td>Teleoperation + synchronized multimodal datasets + curation</td><td class="audit-score">9/10</td><td>Dataset pipeline with provenance, filtering and failure mining</td></tr>
+        <tr><td><strong>Foundation Models</strong></td><td>VLA + embodied reasoning + cross-embodiment adaptation</td><td class="audit-score">9/10</td><td>Current-model adaptation with rigorous evaluation</td></tr>
+        <tr><td><strong>World Models</strong></td><td>Predictive dynamics + action-conditioned models + WAMs</td><td class="audit-score">8.5/10</td><td>World-model experiment connected to planning or policy evaluation</td></tr>
+        <tr><td><strong>Simulation</strong></td><td>MuJoCo + Gazebo + Isaac Sim/Lab + SIL/HIL</td><td class="audit-score">9/10</td><td>Reproducible sim benchmark and sim-to-real evidence</td></tr>
+        <tr><td><strong>Edge Deployment</strong></td><td>CUDA + ONNX + TensorRT + Jetson + profiling</td><td class="audit-score">9/10</td><td>Measured latency, memory, throughput and control-loop impact</td></tr>
+        <tr><td><strong>Safety & Reliability</strong></td><td>Independent safety layer + watchdog + recovery + fault injection</td><td class="audit-score">9/10</td><td>Fault-injection report and safe degraded-mode demonstration</td></tr>
+        <tr><td><strong>Research</strong></td><td>Reproduction → hypothesis → experiment → ablation → publication</td><td class="audit-score">9/10</td><td>Paper-quality artifact with reproducible code/configuration</td></tr>
+        <tr><td><strong>Career</strong></td><td>Role-specific evidence rather than keyword-heavy CV</td><td class="audit-score">9/10</td><td>Flagship repositories, quantified results and interview-ready design stories</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="section-title" style="font-size:1.55rem;margin-top:42px">Maintenance Protocol</h3>
+  <div class="audit-grid">
+    <div class="audit-card"><h3>Quarterly</h3><p>Refresh model versions, active tools, benchmarks, company signals and broken links. Do not rewrite durable robotics fundamentals unless the underlying engineering practice changed.</p></div>
+    <div class="audit-card"><h3>Every Major Release</h3><p>Re-check ROS 2, Isaac, LeRobot, deployment runtimes and robot hardware targets. Mark legacy material explicitly instead of silently mixing generations.</p></div>
+    <div class="audit-card"><h3>Every Research Cycle</h3><p>Add only papers that change the engineering or research decision tree. Each new paper must answer what changed, why it matters and what experiment it enables.</p></div>
+    <div class="audit-card"><h3>Never Chase Hype</h3><p>A new model name does not automatically deserve roadmap space. Prefer transferable concepts, reproducible tooling, benchmarks, deployment evidence and demonstrated research value.</p></div>
+  </div>
+
+  <div class="audit-callout"><strong>Final verdict:</strong> the roadmap is now suitable as a 2026→2027 master curriculum. Its durable core is robotics systems + estimation + planning + control; its modern layer is robot data + policy learning + VLA/WAM/world models; and its professional layer is deployment + safety + evaluation + research + career evidence. Future updates should refine this architecture rather than restart it.</div>
+</div>
+
+
 <!-- COMPANIES -->
 <div id="companies" class="section">
   <div class="section-label">Industry Landscape</div>
@@ -1840,7 +2844,7 @@
     <div class="cv-panel">
       <div class="cv-panel-title">✦ CV Must-Haves (Technical)</div>
       <div class="cv-item"><div class="cv-item-check">✓</div><div>ROS2 experience listed with specific packages (Nav2, MoveIt2, Isaac ROS), not just "ROS"</div></div>
-      <div class="cv-item"><div class="cv-item-check">✓</div><div>C++ proficiency with evidence (not just "familiar") — mention STL, real-time constraints, ROS2 nodelets</div></div>
+      <div class="cv-item"><div class="cv-item-check">✓</div><div>C++ proficiency with evidence (not just "familiar") — mention STL, real-time constraints, ROS 2 composition / composable nodes</div></div>
       <div class="cv-item"><div class="cv-item-check">✓</div><div>Simulation platforms used: Isaac Sim, Gazebo, MuJoCo — with what you achieved in them</div></div>
       <div class="cv-item"><div class="cv-item-check">✓</div><div>Public GitHub with actual robot projects (not just ML repos). Stars and forks are noticed.</div></div>
       <div class="cv-item"><div class="cv-item-check">✓</div><div>Any arXiv preprint, workshop paper, or ROSCon talk — even a poster counts enormously</div></div>
@@ -1883,81 +2887,57 @@
 
 <!-- FOOTER -->
 <div class="footer">
-  Physical AI Roadmap · 2026→2027 Core Architecture Update · Built around modern ROS 2, NVIDIA Isaac, robot-learning, data, world-model, deployment and safety workflows<br>
+  Physical AI Roadmap · 2026→2027 Final Hardened Master Roadmap · Built around modern robotics, robot learning, world models, data, deployment, research and hiring evidence<br>
   Companies: NVIDIA · Boston Dynamics · Tesla · Figure AI · Physical Intelligence · ABB · FANUC · KUKA · Amazon Robotics · Agility · 1X Technologies
 </div>
 
 <script>
-  (() => {
-    const nav = document.querySelector('.sticky-nav');
-    const navItems = Array.from(document.querySelectorAll('.nav-item[data-target]'));
-    const sections = navItems
-      .map(item => document.getElementById(item.dataset.target))
-      .filter(Boolean);
+  // Navigation uses real fragment links so every item works even if JavaScript fails.
+  const navLinks = Array.from(document.querySelectorAll('.nav-item[href^="#"]'));
+  const sections = navLinks.map(link => link.getAttribute('href').slice(1));
 
-    // Keep anchor targets below the sticky navigation bar.
-    const navHeight = () => nav ? nav.getBoundingClientRect().height : 0;
-    sections.forEach(section => {
-      section.style.scrollMarginTop = `${navHeight() + 12}px`;
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.forEach(n => n.classList.remove('active'));
+      link.classList.add('active');
     });
+  });
 
-    function setActive(id) {
-      navItems.forEach(item => {
-        const active = item.dataset.target === id;
-        item.classList.toggle('active', active);
-        item.setAttribute('aria-current', active ? 'true' : 'false');
-      });
-    }
+  if (window.location.hash) {
+    const current = navLinks.find(link => link.getAttribute('href') === window.location.hash);
+    if (current) { navLinks.forEach(n => n.classList.remove('active')); current.classList.add('active'); }
+  }
 
-    // Direct, deterministic navigation. Do not override the browser's native
-    // window.scrollTo() function with a custom function named scrollTo().
-    navItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const target = document.getElementById(item.dataset.target);
-        if (!target) return;
-        setActive(target.id);
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Keep the active tab synchronized with the section currently in view.
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
       });
     });
+  }, { threshold: 0.15, rootMargin: '-76px 0px -60% 0px' });
 
-    // Highlight whichever section is closest to the top reading position.
-    // This avoids the old IntersectionObserver race where several large
-    // sections could be intersecting at once and Overview would win/stick.
-    let ticking = false;
-    function updateActiveFromScroll() {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const threshold = navHeight() + 28;
-        let current = sections[0]?.id;
-        let bestDistance = Infinity;
+  sections.forEach(id => {
+    const section = document.getElementById(id);
+    if (section) observer.observe(section);
+  });
 
-        for (const section of sections) {
-          const distance = Math.abs(section.getBoundingClientRect().top - threshold);
-          if (section.getBoundingClientRect().top <= threshold + 80 && distance < bestDistance) {
-            bestDistance = distance;
-            current = section.id;
-          }
-        }
-
-        // At the very top of the document, Overview is the correct state.
-        if (window.scrollY <= 8 && sections[0]) current = sections[0].id;
-        if (current) setActive(current);
-        ticking = false;
-      });
-    }
-
-    window.addEventListener('scroll', updateActiveFromScroll, { passive: true });
-    window.addEventListener('resize', () => {
-      sections.forEach(section => {
-        section.style.scrollMarginTop = `${navHeight() + 12}px`;
-      });
-      updateActiveFromScroll();
+  // Progressive reveal: sections/cards float into view without changing content.
+  const revealTargets = document.querySelectorAll('.section, .project-card, .resource-block, .paper-item, .company-card, .cv-panel, .intel-panel, .audit-card, .highlight-box');
+  const revealObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('reveal-ready');
+      requestAnimationFrame(() => entry.target.classList.add('revealed'));
+      obs.unobserve(entry.target);
     });
-
-    setActive(sections[0]?.id || '');
-    updateActiveFromScroll();
-  })();
+  }, {threshold:0.08, rootMargin:'0px 0px -6% 0px'});
+  revealTargets.forEach((el, i) => {
+    if (!el.classList.contains('reveal-ready')) el.classList.add('reveal-ready');
+    el.style.transitionDelay = Math.min((i % 6) * 45, 225) + 'ms';
+    revealObserver.observe(el);
+  });
 </script>
 </body>
 </html>
