@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI CAREER INTELLIGENCE — 12-Month Execution Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #020306;
+  --surface: #07090f;
+  --surface2: #0b0e1a;
+  --surface3: #0f1422;
+  --border: #161e30;
+  --border2: #1e2b45;
+  --acid: #00ff88;
+  --acid-dim: rgba(0,255,136,.07);
+  --acid-border: rgba(0,255,136,.15);
+  --red: #ff3355;
+  --red-dim: rgba(255,51,85,.07);
+  --blue: #3d8bff;
+  --blue-dim: rgba(61,139,255,.07);
+  --orange: #ff7b2c;
+  --orange-dim: rgba(255,123,44,.07);
+  --purple: #b44fff;
+  --purple-dim: rgba(180,79,255,.07);
+  --gold: #ffd166;
+  --teal: #00d4ff;
+  --teal-dim: rgba(0,212,255,.07);
+  --text: #c0cfea;
+  --muted: #4e607c;
+  --faint: #1e2c45;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,255,136,.008) 3px, rgba(0,255,136,.008) 4px);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--acid); border-radius: 2px; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 5rem 4rem;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 900px 600px at 10% 40%, rgba(0,255,136,.04) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 400px at 90% 70%, rgba(61,139,255,.04) 0%, transparent 60%);
+}
+
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,136,.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,.018) 1px, transparent 1px);
+  background-size: 70px 70px;
+  animation: gridDrift 40s linear infinite;
+}
+@keyframes gridDrift { from { background-position: 0 0; } to { background-position: 70px 70px; } }
+
+.hero-eyebrow {
+  font-size: 9px;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  opacity: 0;
+  animation: fadeUp .6s ease forwards .2s;
+}
+.hero-eyebrow::before { content:''; width: 28px; height: 1px; background: var(--acid); }
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(5rem, 13vw, 11rem);
+  line-height: .88;
+  letter-spacing: .02em;
+  color: #fff;
+  opacity: 0;
+  animation: fadeUp .6s ease forwards .35s;
+}
+.hero h1 .slash { color: var(--acid); }
+.hero h1 .sub { display: block; font-size: clamp(1.4rem, 3vw, 2.8rem); font-family: 'JetBrains Mono', monospace; font-weight: 300; color: var(--muted); margin-top: .3rem; letter-spacing: .06em; }
+
+.hero-desc {
+  max-width: 680px;
+  margin-top: 2rem;
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 2;
+  opacity: 0;
+  animation: fadeUp .6s ease forwards .5s;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 3.5rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp .6s ease forwards .65s;
+}
+.hstat .n { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; color: var(--acid); display: block; line-height: 1; }
+.hstat .l { font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); margin-top: .2rem; }
+
+@keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
+
+/* SUCCESS CRITERIA BOX */
+.success-banner {
+  background: var(--acid-dim);
+  border: 1px solid var(--acid-border);
+  border-left: 3px solid var(--acid);
+  padding: 1.8rem 2.5rem;
+  margin: 3rem 0;
+}
+.success-banner .sb-label { font-size: 8px; letter-spacing: .3em; text-transform: uppercase; color: var(--acid); margin-bottom: .6rem; }
+.success-banner h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: .8rem; }
+.success-banner ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: .4rem .5rem; }
+.success-banner li { font-size: 11.5px; color: var(--text); display: flex; gap: .5rem; align-items: flex-start; }
+.success-banner li::before { content: '✓'; color: var(--acid); flex-shrink: 0; font-size: 11px; margin-top: 2px; }
+
+/* PHASE HEADER */
+.phase-header {
+  padding: 4rem 5rem 2rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+}
+.phase-divider {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 0;
+}
+
+/* MONTH BLOCK */
+.month-block {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 3rem 5rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.month-block:last-child { border-bottom: none; }
+
+.month-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.month-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5.5rem;
+  line-height: 1;
+  color: rgba(0,255,136,.08);
+  letter-spacing: .05em;
+  flex-shrink: 0;
+}
+
+.month-meta {}
+.month-phase { font-size: 8px; letter-spacing: .3em; text-transform: uppercase; margin-bottom: .3rem; }
+.month-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; letter-spacing: .03em; color: #fff; line-height: 1.05; }
+.month-subtitle { font-size: 11px; color: var(--muted); margin-top: .3rem; letter-spacing: .05em; }
+
+.month-tag { align-self: start; padding-top: .4rem; }
+.badge {
+  font-size: 8px; letter-spacing: .18em; text-transform: uppercase;
+  padding: 3px 12px; border-radius: 2px; display: inline-block;
+}
+.badge-acid { background: var(--acid-dim); border: 1px solid var(--acid-border); color: var(--acid); }
+.badge-blue { background: var(--blue-dim); border: 1px solid rgba(61,139,255,.2); color: #6aabff; }
+.badge-orange { background: var(--orange-dim); border: 1px solid rgba(255,123,44,.2); color: var(--orange); }
+.badge-purple { background: var(--purple-dim); border: 1px solid rgba(180,79,255,.2); color: var(--purple); }
+.badge-gold { background: rgba(255,209,102,.06); border: 1px solid rgba(255,209,102,.2); color: var(--gold); }
+.badge-red { background: var(--red-dim); border: 1px solid rgba(255,51,85,.2); color: var(--red); }
+
+/* CONTENT GRID */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.content-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+.content-grid.full { grid-template-columns: 1fr; }
+
+.block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.8rem;
+  position: relative;
+}
+.block-label {
+  font-size: 8px; letter-spacing: .25em; text-transform: uppercase;
+  color: var(--acid); margin-bottom: .6rem; display: flex; align-items: center; gap: .5rem;
+}
+.block-label::before { content:''; width: 14px; height: 1px; background: var(--acid); display: block; }
+.block-label.blue { color: #6aabff; }
+.block-label.blue::before { background: #6aabff; }
+.block-label.orange { color: var(--orange); }
+.block-label.orange::before { background: var(--orange); }
+.block-label.purple { color: var(--purple); }
+.block-label.purple::before { background: var(--purple); }
+.block-label.gold { color: var(--gold); }
+.block-label.gold::before { background: var(--gold); }
+.block-label.red { color: var(--red); }
+.block-label.red::before { background: var(--red); }
+.block-label.teal { color: var(--teal); }
+.block-label.teal::before { background: var(--teal); }
+
+.block h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: .9rem; font-weight: 600; color: #fff; margin-bottom: .9rem;
+}
+
+.task-list { list-style: none; }
+.task-list li {
+  display: flex; gap: .6rem; align-items: flex-start;
+  margin-bottom: .55rem; font-size: 11.5px; color: var(--text); line-height: 1.7;
+}
+.task-list li::before { content: '□'; color: var(--acid); font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+.task-list li strong { color: #fff; }
+
+.sub-task { font-size: 10.5px; color: var(--muted); margin-top: .2rem; margin-left: 1.4rem; display: block; }
+
+/* TARGETS ROW */
+.targets-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1px;
+  border: 1px solid var(--border);
+  background: var(--border);
+  margin: 1.5rem 0;
+}
+.target-cell {
+  background: var(--surface);
+  padding: 1.2rem 1.5rem;
+  text-align: center;
+}
+.tc-n { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; color: var(--acid); display: block; line-height: 1; letter-spacing: .03em; }
+.tc-n.gold { color: var(--gold); }
+.tc-n.blue { color: #6aabff; }
+.tc-n.orange { color: var(--orange); }
+.tc-n.purple { color: var(--purple); }
+.tc-n.red { color: var(--red); }
+.tc-l { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: .2rem; display: block; }
+
+/* ALERT + INTEL BOXES */
+.alert {
+  background: var(--red-dim); border: 1px solid rgba(255,51,85,.18);
+  border-left: 3px solid var(--red); padding: 1.3rem 1.8rem;
+  font-size: 11.5px; color: var(--text); line-height: 1.9; margin: 1.5rem 0;
+}
+.alert strong { color: var(--red); }
+
+.intel {
+  background: var(--acid-dim); border: 1px solid var(--acid-border);
+  border-left: 3px solid var(--acid); padding: 1.3rem 1.8rem;
+  font-size: 11.5px; color: var(--text); line-height: 1.9; margin: 1.5rem 0;
+}
+.intel strong { color: var(--acid); }
+
+/* PHASE BANNER */
+.phase-banner {
+  padding: 3rem 5rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.pb-line { width: 50px; height: 2px; flex-shrink: 0; }
+.pb-num { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; line-height: 1; flex-shrink: 0; }
+.pb-content {}
+.pb-tag { font-size: 8px; letter-spacing: .3em; text-transform: uppercase; margin-bottom: .2rem; }
+.pb-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: #fff; letter-spacing: .03em; }
+.pb-desc { font-size: 11px; color: var(--muted); margin-top: .3rem; max-width: 700px; line-height: 1.9; }
+
+/* PHASE COLORS */
+.phase-1 .pb-line, .phase-1 .pb-num, .phase-1 .pb-tag { color: var(--acid); background: var(--acid); }
+.phase-1 .pb-num { background: transparent; }
+.phase-2 .pb-line { background: #6aabff; } .phase-2 .pb-num, .phase-2 .pb-tag { color: #6aabff; }
+.phase-3 .pb-line { background: var(--orange); } .phase-3 .pb-num, .phase-3 .pb-tag { color: var(--orange); }
+.phase-4 .pb-line { background: var(--purple); } .phase-4 .pb-num, .phase-4 .pb-tag { color: var(--purple); }
+.phase-5 .pb-line { background: var(--teal); } .phase-5 .pb-num, .phase-5 .pb-tag { color: var(--teal); }
+.phase-6 .pb-line { background: var(--gold); } .phase-6 .pb-num, .phase-6 .pb-tag { color: var(--gold); }
+
+/* TAGS */
+.tags { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: 1rem; }
+.tag { font-size: 8px; letter-spacing: .07em; text-transform: uppercase; background: var(--surface3); border: 1px solid var(--border2); color: var(--text); padding: 2px 8px; border-radius: 2px; }
+
+/* RESOURCE LIST */
+.resource-list { list-style: none; }
+.resource-list li { display: flex; gap: .6rem; align-items: flex-start; margin-bottom: .45rem; font-size: 11px; color: var(--muted); }
+.resource-list li::before { content: '→'; color: var(--blue); flex-shrink: 0; font-size: 10px; margin-top: 2px; }
+.resource-list li strong { color: var(--text); }
+
+/* NAVBAR */
+nav.wnav {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(2,3,6,.93); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto; white-space: nowrap;
+  padding: 0 5rem;
+}
+nav.wnav .inner { display: flex; max-width: 1440px; margin: 0 auto; }
+nav.wnav a {
+  display: inline-block; padding: .75rem 1rem;
+  font-size: 9px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  border-bottom: 2px solid transparent; transition: all .2s;
+}
+nav.wnav a:hover { color: var(--acid); border-bottom-color: rgba(0,255,136,.4); }
+
+hr.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 5rem;
+  max-width: 1440px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--acid); letter-spacing: .05em; }
+footer p { font-size: 9.5px; color: var(--muted); letter-spacing: .07em; }
+
+@media (max-width: 900px) {
+  .hero { padding: 3rem 1.5rem; }
+  .month-block, .phase-banner, footer, nav.wnav { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .content-grid, .content-grid.three { grid-template-columns: 1fr; }
+  .month-header { grid-template-columns: 1fr; }
+  .month-num { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="grid-bg"></div>
+  <div class="hero-eyebrow">AI CAREER INTELLIGENCE · AI/ML · 12-Month Execution Plan 2026</div>
+  <h1>
+    12<span class="slash">/</span>MONTH
+    <span class="sub">WAR PLAN — Full Detail · Every Month · Every Task · Every Target</span>
+  </h1>
+  <p class="hero-desc">
+    This is the complete, month-by-month operational plan derived from the AI CAREER INTELLIGENCE strategy layer.
+    Built on live data from LinkedIn, McKinsey, NVIDIA, KORE1, Gartner, and WEF. Every task, every
+    milestone, every skill target, every resource — nothing omitted.
+    Calibrated for someone with Python basics and some ML exposure targeting A-tier roles within 12 months.
+  </p>
+  <div class="hero-stats">
+    <div class="hstat"><span class="n">163%</span><span class="l">AI Job Posting Growth 24→25</span></div>
+    <div class="hstat"><span class="n">$206K</span><span class="l">Avg AI Engineer Salary 2026</span></div>
+    <div class="hstat"><span class="n">56%</span><span class="l">Wage Premium for AI Skills</span></div>
+    <div class="hstat"><span class="n">88%</span><span class="l">Resumes ATS Auto-Rejected</span></div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="wnav">
+  <div class="inner">
+    <a href="#phase1">Phase 1</a>
+    <a href="#m1">Month 1</a><a href="#m2">Month 2</a>
+    <a href="#phase2">Phase 2</a>
+    <a href="#m3">Month 3</a><a href="#m4">Month 4</a>
+    <a href="#phase3">Phase 3</a>
+    <a href="#m5">Month 5</a><a href="#m6">Month 6</a>
+    <a href="#phase4">Phase 4</a>
+    <a href="#m7">Month 7</a><a href="#m8">Month 8</a>
+    <a href="#phase5">Phase 5</a>
+    <a href="#m9">Month 9</a><a href="#m10">Month 10</a>
+    <a href="#phase6">Phase 6</a>
+    <a href="#m11">Month 11</a><a href="#m12">Month 12</a>
+  </div>
+</nav>
+
+<!-- SUCCESS CRITERIA -->
+<div style="max-width:1440px;margin:0 auto;padding:3rem 5rem 0;">
+  <div class="success-banner">
+    <div class="sb-label">12-Month Success Criteria — What You Will Have Built</div>
+    <h3>After 12 months, you should have ALL of the following. No exceptions.</h3>
+    <ul>
+      <li>3 deployed portfolio projects with live demos, proper READMEs, architecture diagrams, and metrics</li>
+      <li>2 research paper implementations with your own documented extensions</li>
+      <li>1 deep domain specialization (Medical / Quant / Cyber / Defence / Quantum)</li>
+      <li>A GitHub profile that signals engineering maturity — clean commits, real READMEs, no abandoned shells</li>
+      <li>A LinkedIn that generates inbound interest from hiring managers</li>
+      <li>At least 1 published technical article (blog, arXiv, or workshop paper)</li>
+      <li>Confidence to pass the full interview loop at A/B-tier companies</li>
+      <li>An active professional network of 20+ relevant contacts at target companies</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════ PHASE 1 ═══════════════════════ -->
+<div class="phase-banner phase-1" id="phase1">
+  <div class="pb-line"></div>
+  <div class="pb-num">01</div>
+  <div class="pb-content">
+    <div class="pb-tag">Phase 1 · Months 1–2</div>
+    <div class="pb-title">Foundation Hardening</div>
+    <div class="pb-desc">No one cares about your fundamentals until they can see you know them cold. This phase closes every gap in mathematical and programming foundations before moving to specialization. Do NOT skip or rush this. Depth here directly determines your ceiling at every stage after. The candidates who struggle at Month 6 are the ones who skipped Month 1 and 2.</div>
+  </div>
+</div>
+<hr class="divider">
+
+<!-- MONTH 1 -->
+<div class="month-block" id="m1">
+  <div class="month-header">
+    <div class="month-num">01</div>
+    <div class="month-meta">
+      <div class="month-phase" style="color:var(--acid)">Phase 1 · Foundation Hardening</div>
+      <div class="month-title">Mathematical & PyTorch Foundations</div>
+      <div class="month-subtitle">Close every gap in math, ML fundamentals, and Python tooling before touching LLMs</div>
+    </div>
+    <div class="month-tag"><span class="badge badge-acid">Foundation</span></div>
+  </div>
+
+  <div class="intel">
+    <strong>CONTEXT:</strong> The half-life of technical AI skills has dropped to 2.5 years. Skills are changing 66% faster in AI-exposed jobs. Your foundation — math and first-principles coding — is the only thing that doesn't expire. If you can implement a transformer from scratch, you can understand every architecture that follows from it.
+  </div>
+
+  <div class="targets-row">
+    <div class="target-cell"><span class="tc-n">1</span><span class="tc-l">Transformer built from scratch</span></div>
+    <div class="target-cell"><span class="tc-n blue">3</span><span class="tc-l">Math textbook chapters done</span></div>
+    <div class="target-cell"><span class="tc-n orange">1</span><span class="tc-l">Paper fully reproduced</span></div>
+    <div class="target-cell"><span class="tc-n gold">1</span><span class="tc-l">GitHub profile launched</span></div>
+    <div class="target-cell"><span class="tc-n purple">100%</span><span class="tc-l">Dev environment set up</span></div>
+  </div>
+
+  <div class="content-grid">
+    <div class="block">
+      <div class="block-label">Deep Learning Foundations</div>
+      <h4>PyTorch from First Principles</h4>
+      <ul class="task-list">
+        <li><strong>Reproduce Andrej Karpathy's nanoGPT</strong> — do not use HuggingFace, implement every component manually: tokenizer, embedding layer, multi-head self-attention, positional encoding, feedforward blocks, layer norm.<span class="sub-task">Target: understand every line, be able to explain each architectural decision out loud without notes</span></li>
+        <li>Implement backpropagation from scratch (no autograd). Understand the chain rule applied to matrix operations.</li>
+        <li>Master PyTorch's autograd: .grad, .requires_grad, .backward(), .detach(). Know when gradients accumulate and how to prevent it.</li>
+        <li>Implement a mini training loop: DataLoader → model forward → loss → optimizer.step() → scheduler. Know every line.</li>
+        <li>Read the original <strong>"Attention Is All You Need"</strong> paper (Vaswani et al., 2017) and implement it fully.</li>
+      </ul>
+      <div class="tags"><span class="tag">PyTorch</span><span class="tag">Transformers</span><span class="tag">Backprop</span><span class="tag">nanoGPT</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label blue">Linear Algebra Deep Dive</div>
+      <h4>Gilbert Strang MIT 18.06 — Core Concepts</h4>
+      <ul class="task-list">
+        <li>Complete <strong>Gilbert Strang's MIT 18.06 lectures</strong> (free on MIT OCW) — prioritize SVD, eigenvectors, matrix decompositions, four fundamental subspaces.</li>
+        <li>Understand SVD as the foundation of PCA, dimensionality reduction, and attention mechanics.</li>
+        <li>Practice computing matrix decompositions (LU, QR, eigendecomposition) by hand on small matrices — this is what interviewers probe.</li>
+        <li>Work through relevant chapters of "Mathematics for Machine Learning" (Deisenroth et al., free PDF). Chapters 2–4.</li>
+        <li>Be able to explain: why we use softmax in attention, what "scaled dot-product attention" is doing geometrically.</li>
+      </ul>
+      <div class="tags"><span class="tag">Linear Algebra</span><span class="tag">SVD</span><span class="tag">Eigenvectors</span><span class="tag">Matrix Decomposition</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label orange">Probability & Statistics</div>
+      <h4>Bayesian Thinking + Statistical Foundations</h4>
+      <ul class="task-list">
+        <li>Work through <strong>"Probabilistic Machine Learning"</strong> (Kevin Murphy) — Chapters 1–5: probability theory, graphical models, Bayesian inference.</li>
+        <li>Deeply understand MLE (Maximum Likelihood Estimation) and MAP estimation — these appear in every ML interview.</li>
+        <li>Study hypothesis testing, confidence intervals, and p-values. Know how to apply them to model evaluation.</li>
+        <li>Understand the bias-variance tradeoff, cross-validation, and overfitting — be able to explain with concrete examples.</li>
+        <li>Implement a Gaussian Naive Bayes classifier from scratch. Implement Bayesian linear regression with conjugate priors.</li>
+      </ul>
+      <div class="tags"><span class="tag">Bayesian Inference</span><span class="tag">MLE/MAP</span><span class="tag">Statistics</span><span class="tag">Hypothesis Testing</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label purple">Dev Environment & Tooling</div>
+      <h4>Professional Development Setup</h4>
+      <ul class="task-list">
+        <li>Set up <strong>Docker + Docker Compose</strong>: containerize a simple PyTorch training job. Understand bind mounts vs volumes, GPU passthrough with nvidia-docker.</li>
+        <li>Set up <strong>conda</strong> environments — one per project. Never install into base. Know how to export and reproduce environments.</li>
+        <li>Configure <strong>VSCode + Remote Dev</strong>: SSH remote development, Python extension, Jupyter kernel integration, pylint/black formatting.</li>
+        <li>Git discipline: branching strategy, meaningful commit messages, .gitignore for ML (never commit data or model weights), .env for secrets.</li>
+        <li>Create a <strong>polished GitHub profile</strong>: profile README with bio, skills, project highlights. This is your resume before your resume. Pin your best repositories.</li>
+      </ul>
+      <div class="tags"><span class="tag">Docker</span><span class="tag">conda</span><span class="tag">Git</span><span class="tag">VSCode</span><span class="tag">GitHub Profile</span></div>
+    </div>
+  </div>
+
+  <div class="block" style="margin-bottom:1.5rem;">
+    <div class="block-label gold">SQL + Data Foundations</div>
+    <h4>Data Handling Proficiency</h4>
+    <ul class="task-list" style="display:grid;grid-template-columns:1fr 1fr;gap:.3rem .5rem;">
+      <li>Complete the <strong>Mode Analytics SQL tutorial</strong> (free, comprehensive). Cover all levels including window functions.</li>
+      <li>Solve 15+ <strong>LeetCode medium SQL problems</strong>: joins, subqueries, CTEs, window functions, aggregations.</li>
+      <li>Learn pandas for data manipulation: read_csv, merge, groupby, pivot_table, apply. Process a real dataset.</li>
+      <li>Understand data pipeline design: ETL vs ELT, batch vs streaming, idempotency, lineage.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- MONTH 2 -->
+<div class="month-block" id="m2">
+  <div class="month-header">
+    <div class="month-num">02</div>
+    <div class="month-meta">
+      <div class="month-phase" style="color:var(--acid)">Phase 1 · Foundation Hardening</div>
+      <div class="month-title">ML Core + Public Presence Launch</div>
+      <div class="month-subtitle">Complete foundation, implement your first research paper, go public with your work</div>
+    </div>
+    <div class="month-tag"><span class="badge badge-acid">Foundation</span></div>
+  </div>
+
+  <div class="targets-row">
+    <div class="target-cell"><span class="tc-n">2</span><span class="tc-l">Projects on GitHub (live)</span></div>
+    <div class="target-cell"><span class="tc-n blue">1</span><span class="tc-l">Paper fully reproduced</span></div>
+    <div class="target-cell"><span class="tc-n orange">1</span><span class="tc-l">LinkedIn post published</span></div>
+    <div class="target-cell"><span class="tc-n gold">50</span><span class="tc-l">LeetCode mediums done</span></div>
+    <div class="target-cell"><span class="tc-n purple">5</span><span class="tc-l">Target companies identified</span></div>
+  </div>
+
+  <div class="content-grid">
+    <div class="block">
+      <div class="block-label">Classical ML Internalization</div>
+      <h4>Core Algorithms from Scratch</h4>
+      <ul class="task-list">
+        <li>Implement from scratch: <strong>Linear Regression, Logistic Regression, Decision Tree, Random Forest, Gradient Boosting (XGBoost-style)</strong>. No sklearn. Understand every update rule.</li>
+        <li>Implement k-means clustering, PCA (via SVD), and t-SNE from scratch. Know when to use each dimensionality reduction method.</li>
+        <li>Implement an SVM with the kernel trick. Understand dual formulation and why kernels allow infinite-dimensional feature spaces.</li>
+        <li>Master evaluation: confusion matrix, precision/recall/F1, AUC-ROC, calibration curves (ECE), Brier score. Know which metric to optimize in which scenario.</li>
+        <li>Deeply understand train/val/test splits, k-fold cross-validation, stratification, and data leakage — the source of most ML bugs in production.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="block-label blue">Paper Implementation</div>
+      <h4>Reproduce One Research Paper End-to-End</h4>
+      <ul class="task-list">
+        <li>Read <strong>"Attention Is All You Need"</strong> fully — every equation, every design decision. Then implement it without referring to other implementations.</li>
+        <li>Alternative if transformer done in Month 1: implement <strong>BERT</strong> (Devlin et al.) — the pre-training + fine-tuning paradigm that still dominates.</li>
+        <li>Document your implementation: write a README explaining what the paper does, what you implemented, what results you reproduced, and where your version differs.</li>
+        <li>Push to GitHub with clean commit history (no single "initial commit" dumps). Use descriptive commit messages that show progression.</li>
+        <li>Write a LinkedIn post or short blog entry describing what you learned from this implementation. 3–5 paragraphs. Share it.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="block-label orange">Market Intelligence</div>
+      <h4>Job Market Research + Target Company List</h4>
+      <ul class="task-list">
+        <li>Research and understand the <strong>Role Tier System</strong>: S-tier (Hedge Fund AI, FAANG Research Scientist), A-tier (Applied ML Engineer, LLM Engineer, Agentic AI Developer), B-tier (MLOps, AI Governance), C-tier (Data Scientist, Prompt Engineer alone).</li>
+        <li>Identify your <strong>target tier</strong>: be honest with your starting point. A-tier (Applied ML Engineer) is a realistic 12-month target from a solid foundation. S-tier requires exceptional positioning.</li>
+        <li>Build a list of <strong>20 target companies</strong> across 3 categories: stretch (top 5 FAANG-tier), realistic (mid-size AI-first companies), entry (companies actively hiring juniors for AI roles). Research each one.</li>
+        <li>Understand salary ranges: LLM/AI Engineer $180K–$320K, MLOps $130–210K, AI Governance $130–210K, Quant ML $134–259K base. Know the market before you negotiate.</li>
+        <li>Set up <strong>LinkedIn job alerts</strong> for: "LLM Engineer", "ML Engineer", "Applied ML", "Agentic AI". Track what skills appear in job descriptions. This is live market intelligence.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="block-label purple">Coding Foundations</div>
+      <h4>Algorithm Competency</h4>
+      <ul class="task-list">
+        <li>Solve <strong>50 LeetCode medium problems</strong>: focus on arrays, strings, hash maps, two pointers, sliding window, binary search. These are the warm-up category for ML interviews.</li>
+        <li>Understand time and space complexity analysis — Big O notation, common patterns (O(n log n) sorts, O(n) hash map lookups, O(n²) nested loops).</li>
+        <li>Complete a graphs module: BFS, DFS, shortest path (Dijkstra, Bellman-Ford), topological sort. Graph problems appear in ML interview design rounds.</li>
+        <li>Practice dynamic programming: 1D DP (fibonacci, coin change), 2D DP (edit distance, LCS). DP reasoning maps to sequence models.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert">
+    <strong>MONTH 2 CHECKPOINT:</strong> By the end of Month 2, you must be able to: (1) implement a transformer from scratch without looking it up, (2) explain backpropagation through a multi-layer network, (3) write a correct SQL query with window functions from memory, (4) have a GitHub profile with at least 2 real repositories with proper READMEs. If any of these are not solid, spend the start of Month 3 closing those gaps — do NOT proceed to LLM engineering on a cracked foundation.
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════ PHASE 2 ═══════════════════════ -->
+<div class="phase-banner phase-2" id="phase2">
+  <div class="pb-line"></div>
+  <div class="pb-num">02</div>
+  <div class="pb-content">
+    <div class="pb-tag" style="color:#6aabff">Phase 2 · Months 3–4</div>
+    <div class="pb-title">LLM Engineering Core</div>
+    <div class="pb-desc">The highest-ROI investment in the current market. LLM fine-tuning and RAG are the two skills that appear in the most A-tier job descriptions. LLM fine-tuning (LoRA/QLoRA) has a 96% skill rarity index. Go deep, not wide. The candidates who get A-tier offers have shipped production LLM systems — not just run tutorials.</div>
+  </div>
+</div>
+<hr class="divider">
+
+<!-- MONTH 3 -->
+<div class="month-block" id="m3">
+  <div class="month-header">
+    <div class="month-num">03</div>
+    <div class="month-meta">
+      <div class="month-phase" style="color:#6aabff">Phase 2 · LLM Engineering Core</div>
+      <div class="month-title">LLM Fine-Tuning Mastery</div>
+      <div class="month-subtitle">LoRA, QLoRA, Unsloth — fine-tune a 7B model on domain-specific data, document everything</div>
+    </div>
+    <div class="month-tag"><span class="badge badge-blue">LLM Engineering</span></div>
+  </div>
+
+  <div class="intel">
+    <strong>MARKET SIGNAL:</strong> LLM fine-tuning (LoRA/QLoRA) has a 96% skill rarity index — the highest of any individual skill in the current market. The average AI engineer salary crossed $206K in 2025. Fine-tuning expertise + RAG + deployment = the core A-tier package.
+  </div>
+
+  <div class="targets-row">
+    <div class="target-cell"><span class="tc-n">1</span><span class="tc-l">7B model fine-tuned (live demo)</span></div>
+    <div class="target-cell"><span class="tc-n blue">3</span><span class="tc-l">LLM papers read & understood</span></div>
+    <div class="target-cell"><span class="tc-n orange">1</span><span class="tc-l">Technical blog post published</span></div>
+    <div class="target-cell"><span class="tc-n gold">96%</span><span class="tc-l">Skill rarity — own this skill</span></div>
+    <div class="target-cell"><span class="tc-n purple">FastAPI</span><span class="tc-l">Model served via API endpoint</span></div>
+  </div>
+
+  <div class="content-grid">
+    <div class="block">
+      <div class="block-label">Core Fine-Tuning Skills</div>
+      <h4>LoRA / QLoRA + Unsloth Pipeline</h4>
+      <ul class="task-list">
+        <li><strong>Fine-tune Llama 3.1 (7B) or Mistral (7B)</strong> on a domain-specific dataset using LoRA or QLoRA. Use Unsloth for memory efficiency. Document training loss curves, eval metrics, inference latency, memory usage.</li>
+        <li>Understand LoRA theory: low-rank approximation of weight updates, why rank r determines parameter count. Know the math: ΔW = BA where B ∈ R^(d×r), A ∈ R^(r×k).</li>
+        <li>Understand QLoRA: 4-bit NF4 quantization + LoRA, double quantization, paged optimizers for memory. Know the trade-offs vs LoRA.</li>
+        <li>Choose a meaningful fine-tuning dataset — not just Alpaca. Use a real domain task: medical QA, code generation for a specific language, legal document summarization, financial analysis.</li>
+        <li>Run proper evaluation: ROUGE, BLEU, BERTScore for text tasks. Use a held-out test set. Compare base model vs fine-tuned. Document everything in README.</li>
+        <li>Implement <strong>DPO (Direct Preference Optimization)</strong> as an alternative alignment method. Compare to SFT (supervised fine-tuning) on a preference dataset.</li>
+      </ul>
+      <div class="tags"><span class="tag">LoRA</span><span class="tag">QLoRA</span><span class="tag">Unsloth</span><span class="tag">Llama 3.1</span><span class="tag">Mistral</span><span class="tag">DPO</span><span class="tag">PEFT</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label blue">Vector Databases & Embeddings</div>
+      <h4>Internalize the Vector Search Stack</h4>
+      <ul class="task-list">
+        <li>Understand <strong>HNSW indexing</strong> (Hierarchical Navigable Small World): how approximate nearest neighbor search works, the time-accuracy trade-off, ef_construction vs ef parameters.</li>
+        <li>Know the trade-offs between <strong>cosine similarity vs dot product vs L2 distance</strong> — and when to use each. This is a common interview question.</li>
+        <li>Set up and use at least two vector databases: <strong>Pinecone</strong> (managed) and <strong>Weaviate or pgvector</strong> (self-hosted). Understand metadata filtering strategies.</li>
+        <li>Implement several embedding models and benchmark them: OpenAI text-embedding-3-large, Cohere Embed, sentence-transformers (all-mpnet, bge-m3). Know their dimensionality, cost, and performance on benchmarks (MTEB).</li>
+        <li>Understand chunking strategies: fixed-size, sentence-level, recursive, semantic chunking (late chunking). Know the impact of chunk size on retrieval quality.</li>
+      </ul>
+      <div class="tags"><span class="tag">HNSW</span><span class="tag">Pinecone</span><span class="tag">Weaviate</span><span class="tag">pgvector</span><span class="tag">Embeddings</span><span class="tag">MTEB</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label orange">Research Paper Implementation</div>
+      <h4>Read + Implement 3 LLM Research Papers</h4>
+      <ul class="task-list">
+        <li>Read <strong>"Self-RAG"</strong> (Asai et al., 2023) — adaptive retrieval based on reflection tokens. Implement the core reflection mechanism on top of your RAG pipeline.</li>
+        <li>Read <strong>"CRAG" (Corrective RAG)</strong> — retrieval quality assessment and web search fallback. Implement the evaluator component that scores retrieval results.</li>
+        <li>Read <strong>"HyDE" (Hypothetical Document Embeddings)</strong> — generating a hypothetical answer first, then using that for retrieval. Implement and compare to standard RAG.</li>
+        <li>For each paper: 1-page summary of the contribution, your implementation, your evaluation results vs the paper's claims. Add to GitHub.</li>
+      </ul>
+      <div class="tags"><span class="tag">Self-RAG</span><span class="tag">CRAG</span><span class="tag">HyDE</span><span class="tag">Paper Implementations</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label purple">Structured Outputs + API Design</div>
+      <h4>Production LLM Patterns</h4>
+      <ul class="task-list">
+        <li>Implement <strong>structured output extraction</strong> using the instructor library — force LLMs to output valid JSON schemas using Pydantic models. This is used in every production LLM application.</li>
+        <li>Build a <strong>document parsing pipeline</strong>: PDF → text extraction (PyMuPDF, pdfplumber) → chunking → embedding → storage → retrieval → structured output. Real-world use case.</li>
+        <li>Understand OpenAI's function calling / tool use API. Implement a simple tool-use example (calculator, web search, code execution).</li>
+        <li>Deploy your fine-tuned model as a <strong>FastAPI service</strong> with proper endpoints: /health, /generate, /embed. Include API key auth, rate limiting, input validation.</li>
+        <li>Write your first <strong>technical blog post</strong> about what you built: the fine-tuning process, results, what surprised you, what failed. Post on LinkedIn or Medium. Include GitHub link.</li>
+      </ul>
+      <div class="tags"><span class="tag">Instructor</span><span class="tag">Pydantic</span><span class="tag">FastAPI</span><span class="tag">Tool Use</span><span class="tag">Function Calling</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MONTH 4 -->
+<div class="month-block" id="m4">
+  <div class="month-header">
+    <div class="month-num">04</div>
+    <div class="month-meta">
+      <div class="month-phase" style="color:#6aabff">Phase 2 · LLM Engineering Core</div>
+      <div class="month-title">Production RAG System — Build & Deploy</div>
+      <div class="month-subtitle">Multi-tenant RAG with hybrid retrieval, re-ranking, evaluation harness, and live deployment</div>
+    </div>
+    <div class="month-tag"><span class="badge badge-blue">LLM Engineering</span></div>
+  </div>
+
+  <div class="targets-row">
+    <div class="target-cell"><span class="tc-n">1</span><span class="tc-l">Production RAG system deployed</span></div>
+    <div class="target-cell"><span class="tc-n blue">RAGAs</span><span class="tc-l">Evaluation framework running</span></div>
+    <div class="target-cell"><span class="tc-n orange">Hybrid</span><span class="tc-l">Dense + sparse retrieval implemented</span></div>
+    <div class="target-cell"><span class="tc-n gold">3</span><span class="tc-l">Weeks of LinkedIn content posted</span></div>
+    <div class="target-cell"><span class="tc-n purple">5</span><span class="tc-l">HM connections initiated on LinkedIn</span></div>
+  </div>
+
+  <div class="content-grid">
+    <div class="block">
+      <div class="block-label">Portfolio Project 1</div>
+      <h4>Multi-Tenant RAG System with Adaptive Retrieval</h4>
+      <ul class="task-list">
+        <li>Build a production-grade RAG system serving multiple "tenants" (document collections) from a single base model. Implement namespace isolation, per-tenant access controls.</li>
+        <li>Implement <strong>hybrid retrieval</strong>: dense embedding search (semantic) AND sparse BM25 search (keyword). Combine with Reciprocal Rank Fusion (RRF) or a learned combiner.</li>
+        <li>Add a <strong>cross-encoder re-ranker</strong> (e.g., bge-reranker-v2) after initial retrieval. Measure latency impact vs quality improvement.</li>
+        <li>Build a <strong>query router</strong> that decides: direct generation (no retrieval), RAG retrieval, or web search fallback based on query type classification.</li>
+        <li>Deploy as a FastAPI service with proper authentication, rate limiting, structured logging, error handling, and health checks. Use Docker for deployment.</li>
+      </ul>
+      <div class="tags"><span class="tag">LangChain/LlamaIndex</span><span class="tag">Weaviate/Pinecone</span><span class="tag">BM25</span><span class="tag">Cross-encoder</span><span class="tag">FastAPI</span><span class="tag">Docker</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label blue">Evaluation Framework</div>
+      <h4>RAGAs Metrics + Systematic Testing</h4>
+      <ul class="task-list">
+        <li>Set up <strong>RAGAs evaluation harness</strong>: measure context precision, context recall, faithfulness, answer relevancy. Generate a benchmark dataset with ground truth answers.</li>
+        <li>Understand what each metric means and how to improve it: low faithfulness = hallucination, low context recall = retrieval missing relevant docs, low answer relevancy = answer is off-topic.</li>
+        <li>Implement an <strong>A/B testing framework</strong> for your RAG system: compare chunking strategies, embedding models, retrieval parameters, re-ranker configurations.</li>
+        <li>Build a simple <strong>evaluation dashboard</strong>: visualize metric distributions, track regressions when you make changes to the pipeline.</li>
+        <li>Write a technical blog post or LinkedIn thread comparing your RAG configurations and the metric trade-offs you observed.</li>
+      </ul>
+      <div class="tags"><span class="tag">RAGAs</span><span class="tag">ARES</span><span class="tag">TruLens</span><span class="tag">Evaluation</span><span class="tag">Benchmarking</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label orange">Networking — Begin Now</div>
+      <h4>Network Activation Protocol — Start Building</h4>
+      <ul class="task-list">
+        <li>Identify <strong>5 hiring managers per week</strong> at target companies on LinkedIn. Not HR/recruiters — Engineering Managers, Head of ML, VP of AI, Lead ML Engineer.</li>
+        <li>Connect with <strong>genuine engagement</strong>: comment thoughtfully on their recent posts or articles first. Do not cold connect with no context.</li>
+        <li>Send the <strong>3-sentence outreach message</strong> (protocol): problem you solved, link to relevant project, brief ask. Specific + brief + with evidence beats generic "I'm looking for opportunities" every time.</li>
+        <li>Join <strong>MLOps.community Slack, Hugging Face Discord, ML Paper Club</strong>. These are the highest-ROI networking communities for AI/ML roles. Volunteer — answer questions, share implementations, be genuinely useful.</li>
+        <li>Post <strong>1 technical LinkedIn article</strong> per week about what you're building. Even if 10 people read it — consistency matters more than immediate reach.</li>
+      </ul>
+      <div class="tags"><span class="tag">LinkedIn Outreach</span><span class="tag">MLOps.community</span><span class="tag">HuggingFace Discord</span><span class="tag">Build in Public</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label purple">Advanced LLM Patterns</div>
+      <h4>Reasoning Models + Advanced Architectures</h4>
+      <ul class="task-list">
+        <li>Understand <strong>Chain-of-Thought prompting</strong> and why it works: System 2 thinking, scratchpad reasoning, the relationship between CoT and RLVR training.</li>
+        <li>Study <strong>Graph RAG</strong> (Microsoft's approach): using knowledge graphs for multi-hop reasoning. Understand when graph RAG outperforms standard vector RAG.</li>
+        <li>Implement a simple <strong>knowledge graph</strong> using Neo4j. Build a retrieval system that combines graph traversal + vector search (RAG-Anything pattern).</li>
+        <li>Study quantization techniques deeply: GPTQ (post-training quantization), GGUF (llama.cpp format), GGML, AWQ. Know the quality-efficiency trade-offs at 4-bit, 8-bit, and 16-bit.</li>
+        <li>Understand <strong>vLLM basics</strong>: PagedAttention (KV-cache as OS virtual memory), continuous batching, tensor parallelism. This preparation is for Month 7–8 MLOps work.</li>
+      </ul>
+      <div class="tags"><span class="tag">Graph RAG</span><span class="tag">Neo4j</span><span class="tag">GPTQ</span><span class="tag">GGUF</span><span class="tag">vLLM</span><span class="tag">AWQ</span></div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <strong>PHASE 2 CHECKPOINT:</strong> By Month 4 end, you must have: (1) a deployed RAG system with a live demo URL you can send to a hiring manager today, (2) fine-tuned a 7B model with documented metrics, (3) implemented at least one advanced RAG paper (Self-RAG, CRAG, or HyDE), (4) published at least 3 technical content pieces publicly, (5) begun your networking activity. If your GitHub still shows no deployed projects — this is the gap that will cost you interviews.
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════ PHASE 3 ═══════════════════════ -->
+<div class="phase-banner phase-3" id="phase3">
+  <div class="pb-line"></div>
+  <div class="pb-num">03</div>
+  <div class="pb-content">
+    <div class="pb-tag" style="color:var(--orange)">Phase 3 · Months 5–6</div>
+    <div class="pb-title">Domain Specialization — Go All In</div>
+    <div class="pb-desc">This is where most people fail — they stay generalist too long. A generalist ML engineer competes with everyone. A medical AI engineer with MONAI expertise + FDA pathway knowledge competes with almost no one. Pick ONE domain based on genuine interest. Depth in a domain + ML = the combination that gets multiple competing offers. You cannot effectively execute multiple domains simultaneously.</div>
+  </div>
+</div>
+<hr class="divider">
+
+<!-- MONTH 5 -->
+<div class="month-block" id="m5">
+  <div class="month-header">
+    <div class="month-num">05</div>
+    <div class="month-meta">
+      <div class="month-phase" style="color:var(--orange)">Phase 3 · Domain Specialization</div>
+      <div class="month-title">Domain Deep Dive — Foundations</div>
+      <div class="month-subtitle">Execute your chosen domain's full learning curriculum — no switching, no hedging</div>
+    </div>
+    <div class="month-tag"><span class="badge badge-orange">Choose One Domain</span></div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="block">
+      <div class="block-label">Domain Track A: Medical AI</div>
+      <h4>Healthcare AI — Month 5 Tasks</h4>
+      <ul class="task-list">
+        <li>Complete <strong>MONAI framework tutorials</strong> end-to-end: classification, segmentation, detection. Understand the medical imaging data pipeline: DICOM → preprocessing → augmentation → model.</li>
+        <li>Study <strong>nnU-Net</strong>: the self-configuring medical image segmentation framework. Understand its automated hyperparameter selection for different dataset characteristics.</li>
+        <li>Master <strong>DICOM processing</strong>: pydicom, SimpleITK. Windowing, HU values for CT, DICOM tags, multi-slice 3D reconstruction.</li>
+        <li>Read: <strong>"Deep Learning in Medical Imaging"</strong> survey paper. Understand the four main tasks: classification, detection, segmentation, registration.</li>
+        <li>Study <strong>FDA SaMD regulatory pathway</strong>: what is a 510(k), De Novo, PMA? What constitutes a Software as a Medical Device? What are the predicate device requirements?</li>
+        <li>Understand <strong>EU AI Act</strong> requirements for high-risk AI in healthcare — Article 10 (data governance), Article 13 (transparency), Article 17 (quality management).</li>
+        <li>Download <strong>CheXpert or NIH ChestX-ray14</strong> dataset. Perform EDA: class distribution, label co-occurrences, image quality distribution.</li>
+      </ul>
+      <div class="tags"><span class="tag">MONAI</span><span class="tag">nnU-Net</span><span class="tag">DICOM</span><span class="tag">FDA 510(k)</span><span class="tag">EU AI Act</span><span class="tag">CheXpert</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label blue">Domain Track B: Quant Finance</div>
+      <h4>Quantitative Finance AI — Month 5 Tasks</h4>
+      <ul class="task-list">
+        <li>Complete <strong>QuantLib Python tutorials</strong>: pricing bonds, options, fixed income. Understand discount curves, volatility surfaces, Greeks.</li>
+        <li>Study the <strong>Temporal Fusion Transformer (TFT)</strong> paper by Lim et al. — multi-horizon time series forecasting. Implement on financial data (S&P constituents returns).</li>
+        <li>Read and begin reproducing <strong>DeepLOB paper</strong> (Zhang et al.): deep learning for limit order book mid-price prediction. The landmark paper for HFT ML.</li>
+        <li>Study <strong>stochastic calculus fundamentals</strong>: Ito's lemma, Brownian motion, GBM (Geometric Brownian Motion), Black-Scholes derivation. These are tested in quant interviews.</li>
+        <li>Set up data pipelines: <strong>Yahoo Finance API</strong> for daily data, polygon.io for minute data, Alpaca for paper trading. Build a data collection and storage system (DuckDB or TimescaleDB).</li>
+        <li>Study <strong>Alphalens</strong> for factor analysis: mean return, IC (information coefficient), turnover, factor correlation. Understand how to evaluate if a signal has real predictive power.</li>
+      </ul>
+      <div class="tags"><span class="tag">QuantLib</span><span class="tag">TFT</span><span class="tag">DeepLOB</span><span class="tag">Stochastic Calculus</span><span class="tag">Alphalens</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label orange">Domain Track C: AI Cybersecurity</div>
+      <h4>AI Security — Month 5 Tasks</h4>
+      <ul class="task-list">
+        <li>Complete <strong>SANS "Offensive AI"</strong> or equivalent AI security course. Understand the attack surface: prompt injection, jailbreaks, model inversion, membership inference, adversarial examples.</li>
+        <li>Study <strong>CleverHans library</strong>: implement FGSM, PGD, Carlini-Wagner adversarial attacks. Understand the threat model for each. Test on a trained image classifier.</li>
+        <li>Read the <strong>MITRE ATLAS framework</strong> (AI attack taxonomy). Understand ML Attack Lifecycle: Reconnaissance, Resource Development, Initial Access, Execution, Persistence.</li>
+        <li>Study <strong>Post-Quantum Cryptography (PQC)</strong> fundamentals: NIST FIPS 203 (ML-KEM/Kyber), FIPS 204 (ML-DSA/Dilithium), FIPS 205 (SLH-DSA/SPHINCS+). Understand lattice-based cryptography theory. Only ~500 qualified candidates globally.</li>
+        <li>Set up <strong>Garak</strong> (NVIDIA's LLM vulnerability scanner): run vulnerability assessments on an open-source LLM. Document the categories of vulnerabilities found.</li>
+        <li>Study <strong>EU AI Act August 2026 compliance requirements</strong>: technical documentation, risk categorization, incident reporting. This is driving massive hiring.</li>
+      </ul>
+      <div class="tags"><span class="tag">CleverHans</span><span class="tag">MITRE ATLAS</span><span class="tag">PQC/Kyber</span><span class="tag">Garak</span><span class="tag">Adversarial ML</span></div>
+    </div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="block">
+      <div class="block-label purple">Domain Track D: Defence AI</div>
+      <h4>Defence / GeoAI — Month 5 Tasks</h4>
+      <ul class="task-list">
+        <li>Set up <strong>Copernicus Open Access Hub</strong> and download Sentinel-2 multispectral satellite imagery. Build a pipeline: download → atmospheric correction → band composition → object detection.</li>
+        <li>Study <strong>GDAL/Rasterio</strong> for geospatial data: reading GeoTIFFs, coordinate system transformations, raster-to-vector conversion.</li>
+        <li>Implement <strong>object detection on DOTA dataset</strong> (aerial imagery): use Detectron2 or MMDetection. Understand the challenges of small object detection and high resolution imagery.</li>
+        <li>Read <strong>"Geospatial AI"</strong> survey — applications in defence, agriculture, urban planning. Study xView, SpaceNet, and LEVIR-CD datasets.</li>
+        <li>Understand the <strong>clearance pathway</strong>: how companies like Booz Allen Hamilton, MITRE, and Leidos sponsor TS/SCI clearances. Entry through non-classified work is the practical pathway.</li>
+        <li>Study <strong>SAR (Synthetic Aperture Radar)</strong> basics: what it measures, how it differs from optical imagery, SAR image interpretation, relevant datasets (Sentinel-1).</li>
+      </ul>
+      <div class="tags"><span class="tag">Sentinel-2</span><span class="tag">GDAL/Rasterio</span><span class="tag">Detectron2</span><span class="tag">DOTA dataset</span><span class="tag">SAR</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label gold">Domain Track E: Quantum ML</div>
+      <h4>Quantum Computing + ML — Month 5 Tasks</h4>
+      <ul class="task-list">
+        <li>Complete <strong>Qiskit Textbook Chapters 1–4</strong>: quantum gates, circuits, measurement, single and multi-qubit systems. Understand superposition, entanglement, interference.</li>
+        <li>Set up <strong>PennyLane</strong> (Xanadu): the dominant QML framework. Complete introductory tutorials: variational circuits, quantum gradient descent, quantum kernels.</li>
+        <li>Implement <strong>VQE (Variational Quantum Eigensolver)</strong> for the H2 molecule ground state. Understand: ansatz design, classical optimizer (COBYLA, SPSA), shot noise.</li>
+        <li>Read <strong>"Quantum Machine Learning"</strong> (Schuld & Petruccione). Focus on quantum kernels and variational classifiers.</li>
+        <li>Study <strong>Stim</strong> (Google's stabilizer circuit simulator): the tool for quantum error correction research. Set up and run surface code simulations at small code distances (d=3).</li>
+        <li>Note the market: ~500 people globally qualify for quantum error correction roles, 1,200+ vacancies. 8,400+ quantum job postings mid-2024. This is the highest scarcity domain.</li>
+      </ul>
+      <div class="tags"><span class="tag">Qiskit</span><span class="tag">PennyLane</span><span class="tag">VQE</span><span class="tag">Stim</span><span class="tag">Quantum Kernels</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label teal">All Tracks: Public Building</div>
+      <h4>Content Strategy — Month 5</h4>
+      <ul class="task-list">
+        <li>Post <strong>1 LinkedIn article per week</strong> about your domain learning journey. Topics: what surprised you, a technical concept explained clearly, a comparison of tools, a project update.</li>
+        <li>Start an <strong>implementation diary</strong>: short GitHub gists or blog entries documenting specific technical decisions and the reasoning behind them. This becomes the raw material for your portfolio READMEs.</li>
+        <li>Join <strong>domain-specific communities</strong>: medical imaging (MONAI forum, RSNA AI community), quant finance (QuantLib mailing list, QuantResearch subreddit), cybersecurity (MLSec.io, AI Village at DEF CON), defence (geospatial AI Slack), quantum (Qiskit Slack, PennyLane forum).</li>
+        <li>Connect with <strong>10 more professionals</strong> in your target domain on LinkedIn. Read their content before connecting. Comment on their posts with substantive technical engagement.</li>
+      </ul>
+      <div class="tags"><span class="tag">Build in Public</span><span class="tag">LinkedIn</span><span class="tag">Community</span><span class="tag">Implementation Diary</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MONTH 6 -->
+<div class="month-block" id="m6">
+  <div class="month-header">
+    <div class="month-num">06</div>
+    <div class="month-meta">
+      <div class="month-phase" style="color:var(--orange)">Phase 3 · Domain Specialization</div>
+      <div class="month-title">Domain Portfolio Project — Build & Ship</div>
+      <div class="month-subtitle">Complete your domain-specific portfolio project, document trade-offs, deploy a live demo</div>
+    </div>
+    <div class="month-tag"><span class="badge badge-orange">Portfolio Project 2</span></div>
+  </div>
+
+  <div class="targets-row">
+    <div class="target-cell"><span class="tc-n">1</span><span class="tc-l">Domain project deployed with demo</span></div>
+    <div class="target-cell"><span class="tc-n blue">README</span><span class="tc-l">Architecture diagram + metrics</span></div>
+    <div class="target-cell"><span class="tc-n orange">20</span><span class="tc-l">LinkedIn connections at target cos</span></div>
+    <div class="target-cell"><span class="tc-n gold">1</span><span class="tc-l">Technical blog post published</span></div>
+    <div class="target-cell"><span class="tc-n purple">Eval</span><span class="tc-l">Performance metrics documented</span></div>
+  </div>
+
+  <div class="content-grid">
+    <div class="block">
+      <div class="block-label">Domain Project Execution</div>
+      <h4>Build the Domain Portfolio Project from Section 6</h4>
+      <ul class="task-list">
+        <li><strong>MEDICAL:</strong> Chest X-Ray ViT fine-tune on CheXpert/NIH ChestX-ray14. Multi-label classification (14 pathologies). Implement Grad-CAM++ for explainability. Build a DICOM viewer with prediction overlay. Include calibration eval (ECE score) and demographic subgroup performance analysis (bias audit). Document FDA SaMD pathway in README.</li>
+        <li><strong>QUANT:</strong> RL Trading Agent with PPO, Level-2 order book data, transaction cost modeling, Sharpe/Calmar evaluation, Stable Baselines3 + Gymnasium environment. Compare vs TFT baseline on out-of-sample data.</li>
+        <li><strong>CYBER:</strong> LLM Vulnerability Scanner — automated adversarial prompts, Garak-based attack pipeline, reporting dashboard with vulnerability categories and mitigations. Defense module with input/output filtering and constitutional AI guardrails.</li>
+        <li><strong>DEFENCE:</strong> Fine-tuned VLM (LLaVA or PaliGemma) for satellite change detection. LEVIR-CD or SECOND dataset. Interactive demo: upload before/after imagery → natural language change description + binary change mask. Deploy on HuggingFace Spaces.</li>
+        <li><strong>QUANTUM:</strong> Neural Network Decoder for Surface Code Error Correction — Stim for simulation, syndrome datasets at d=3,5,7, transformer-based decoder, benchmark vs MWPM decoder (PyMatching). Show scaling behavior of logical error rate with code distance.</li>
+      </ul>
+      <div class="tags"><span class="tag">Domain Project</span><span class="tag">Live Demo</span><span class="tag">Architecture Diagram</span><span class="tag">Metrics</span><span class="tag">Bias Audit</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label blue">Project Quality Standards</div>
+      <h4>What Makes a Hiring-Manager-Stopping GitHub Repo</h4>
+      <ul class="task-list">
+        <li><strong>README must contain:</strong> (1) Clear problem statement, (2) Architecture diagram, (3) Results with metrics vs baseline, (4) Technical decisions documented — WHY you chose RAG vs fine-tuning, transformer vs LSTM, etc., (5) Failure modes and limitations section, (6) How to reproduce locally in under 5 minutes.</li>
+        <li><strong>Clean commit history:</strong> No single "initial commit" mega-dump. Commits should tell the story of development: "Add HNSW indexing to vector store", "Fix gradient explosion in transformer training", "Add Grad-CAM++ visualization".</li>
+        <li><strong>Live demo or video walkthrough:</strong> HuggingFace Spaces (free), Streamlit Community Cloud (free), or screen recording on YouTube. No demo = the project didn't happen.</li>
+        <li><strong>Evaluation section:</strong> What is the accuracy, latency, cost per query, memory footprint? Numbers matter. "The model performs well" is meaningless. "The model achieves 0.84 AUC-ROC at 230ms P95 latency on a T4 GPU, compared to the baseline of 0.71 AUC-ROC" is a signal of engineering maturity.</li>
+      </ul>
+      <div class="tags"><span class="tag">README Quality</span><span class="tag">Commit History</span><span class="tag">Live Demo</span><span class="tag">Metrics</span><span class="tag">Trade-off Docs</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label orange">Hiring Pipeline — Build</div>
+      <h4>Network Activation Protocol — Week-by-Week</h4>
+      <ul class="task-list">
+        <li><strong>Week 1:</strong> Confirm and finalize the list of 20 target companies. Tier them: 5 stretch, 10 realistic, 5 entry-level AI roles.</li>
+        <li><strong>Week 2:</strong> Find the ML Hiring Manager at each on LinkedIn. Identify the 15–20 individuals by name and role. Do NOT reach out yet — research them first.</li>
+        <li><strong>Week 3:</strong> Send the 3-sentence outreach message to your 10 highest-priority HMs: problem you solved + link to relevant project + brief ask. Track responses in a spreadsheet.</li>
+        <li><strong>Week 4:</strong> Volunteer in relevant communities. Answer technical questions in MLOps.community Slack or Hugging Face Discord. Not self-promotion — genuine help. Volunteering in the space you want to work in is the highest-ROI networking activity.</li>
+        <li>Continue posting 1 LinkedIn technical piece per week. By Month 6 end, you should have 8–12 pieces of public technical content.</li>
+      </ul>
+      <div class="tags"><span class="tag">Network Activation</span><span class="tag">Hiring Manager Outreach</span><span class="tag">MLOps.community</span><span class="tag">Volunteering</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label purple">Research + Publication</div>
+      <h4>First Publication Attempt</h4>
+      <ul class="task-list">
+        <li>Take your domain project implementation and document it as a technical write-up following an academic paper structure: Abstract, Introduction, Related Work, Method, Experiments, Results, Discussion, Conclusion.</li>
+        <li>Consider submitting to <strong>arXiv (cs.LG or cs.AI)</strong> if your work has a novel angle (different dataset, novel architecture comparison, or practical insight not previously published). This is free and the bar for arXiv is low.</li>
+        <li>Research <strong>domain-specific conferences</strong> for workshop paper submission: ML4H (Machine Learning for Health), FinML, NeurIPS workshops, IEEE S&P AI Security workshop. Workshop papers are realistic first publications.</li>
+        <li>At minimum: publish a detailed technical blog post on Medium or Substack with original analysis and code. A well-written blog that shows original thinking gets shared and gets recruiters reaching out.</li>
+      </ul>
+      <div class="tags"><span class="tag">arXiv</span><span class="tag">Workshop Papers</span><span class="tag">ML4H</span><span class="tag">Technical Blog</span><span class="tag">Publication Flywheel</span></div>
+    </div>
+  </div>
+
+  <div class="intel">
+    <strong>PHASE 3 CHECKPOINT:</strong> By Month 6 end, you must have: (1) a deployed domain-specific project with live demo — this is Portfolio Project 2, (2) genuine expertise in at least 4 domain-specific tools/frameworks, (3) at least 1 published technical piece on your domain work, (4) 20+ relevant professional connections initiated on LinkedIn, (5) a network activation tracking spreadsheet with responses logged. You are now halfway through the 12 months. The foundation is laid. The next 6 months are about production systems, advanced AI, and converting your work into offers.
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════ PHASE 4 ═══════════════════════ -->
+<div class="phase-banner phase-4" id="phase4">
+  <div class="pb-line"></div>
+  <div class="pb-num">04</div>
+  <div class="pb-content">
+    <div class="pb-tag" style="color:var(--purple)">Phase 4 · Months 7–8</div>
+    <div class="pb-title">MLOps & Production Systems</div>
+    <div class="pb-desc">The most common reason strong ML candidates don't get hired: they can build models but can't deploy them. In 2026, "deployment experience" is a hard filter. MLOps (full production stack) has an 82% skill rarity index. Every AI company at scale is desperately hiring MLOps engineers. Build the complete pipeline, serve models at production quality, implement monitoring and drift detection.</div>
+  </div>
+</div>
+<hr class="divider">
+
+<!-- MONTH 7 -->
+<div class="month-block" id="m7">
+  <div class="month-header">
+    <div class="month-num">07</div>
+    <div class="month-meta">
+      <div class="month-phase" style="color:var(--purple)">Phase 4 · MLOps & Production Systems</div>
+      <div class="month-title">End-to-End MLOps Pipeline</div>
+      <div class="month-subtitle">Feature store, experiment tracking, model registry, CI/CD, automated retraining, monitoring</div>
+    </div>
+    <div class="month-tag"><span class="badge badge-purple">MLOps</span></div>
+  </div>
+
+  <div class="targets-row">
+    <div class="target-cell"><span class="tc-n">1</span><span class="tc-l">Full MLOps pipeline deployed</span></div>
+    <div class="target-cell"><span class="tc-n blue">MLflow</span><span class="tc-l">Experiment tracking running</span></div>
+    <div class="target-cell"><span class="tc-n orange">K8s</span><span class="tc-l">Kubernetes basics operational</span></div>
+    <div class="target-cell"><span class="tc-n gold">Evidently</span><span class="tc-l">Drift detection alerts active</span></div>
+    <div class="target-cell"><span class="tc-n purple">DVC</span><span class="tc-l">Data versioning in CI/CD</span></div>
+  </div>
+
+  <div class="content-grid">
+    <div class="block">
+      <div class="block-label">Portfolio Project 3</div>
+      <h4>End-to-End MLOps Platform (Section 6 Project)</h4>
+      <ul class="task-list">
+        <li>Build a complete MLOps pipeline for a real-world prediction task: loan default prediction, customer churn, or equipment failure. This must be a <strong>reproducible one docker-compose-up pipeline</strong>.</li>
+        <li><strong>Feature store (Feast):</strong> define feature views, run offline ingestion, set up online serving. Understand point-in-time correctness — the most critical concept in feature engineering for production ML.</li>
+        <li><strong>Experiment tracking (MLflow):</strong> log parameters, metrics, artifacts, and models. Use the model registry with staging/production stages. Compare runs. Build a comparison dashboard.</li>
+        <li><strong>Automated retraining trigger:</strong> configure Evidently AI data drift detection. When PSI (Population Stability Index) exceeds threshold → trigger retraining pipeline via Airflow or GitHub Actions.</li>
+        <li><strong>Model serving:</strong> FastAPI + Docker + model registry integration. Load the champion model from registry at startup. Include versioned endpoints for A/B testing.</li>
+        <li><strong>Monitoring dashboard:</strong> Grafana + Prometheus for infrastructure metrics (latency, throughput, error rate) + ML metrics (prediction distribution, feature distribution).</li>
+      </ul>
+      <div class="tags"><span class="tag">MLflow</span><span class="tag">Feast</span><span class="tag">Evidently AI</span><span class="tag">Docker/K8s</span><span class="tag">Grafana</span><span class="tag">Airflow</span><span class="tag">DVC</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label blue">Containerization & Orchestration</div>
+      <h4>Docker → Kubernetes Progression</h4>
+      <ul class="task-list">
+        <li><strong>Containerize everything:</strong> every project you've built should now run in a Docker container. Multi-stage builds to minimize image size. Non-root user for security. Health checks in Dockerfile.</li>
+        <li><strong>Docker Compose</strong> for local orchestration: ML services + database + monitoring stack. Define dependencies, resource limits, networking.</li>
+        <li><strong>Kubernetes basics (K3s locally):</strong> Pods, Deployments, Services, ConfigMaps, Secrets, Ingress. Deploy your ML service on K3s. Understand the networking model.</li>
+        <li><strong>Helm charts:</strong> package your ML application for reproducible Kubernetes deployments. Write a basic Helm chart for your inference service.</li>
+        <li>Understand <strong>Kubeflow Pipelines</strong>: define ML pipelines as DAGs of containerized steps. This is used at scale at Google, Spotify, and most AI-first companies.</li>
+      </ul>
+      <div class="tags"><span class="tag">Docker</span><span class="tag">Docker Compose</span><span class="tag">Kubernetes</span><span class="tag">K3s</span><span class="tag">Helm</span><span class="tag">Kubeflow</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label orange">Cloud Deployment</div>
+      <h4>AWS SageMaker or GCP Vertex AI — Go Deep on One</h4>
+      <ul class="task-list">
+        <li>Pick <strong>ONE cloud platform</strong> (AWS SageMaker or GCP Vertex AI) and go deep. Do not try both. Shallow knowledge of both is worse than deep knowledge of one in interviews.</li>
+        <li><strong>AWS SageMaker:</strong> Training jobs (SageMaker Training), managed endpoints with auto-scaling, SageMaker Pipelines, Model Registry, SageMaker Clarify for bias detection, SageMaker Model Monitor.</li>
+        <li><strong>GCP Vertex AI:</strong> Custom training jobs, online prediction endpoints, Vertex AI Pipelines (Kubeflow-based), Feature Store, Model Evaluation, Explainability (Integrated Gradients).</li>
+        <li>Deploy your MLOps pipeline project to your chosen cloud. Include auto-scaling based on request volume. Measure cold-start latency vs warm inference latency.</li>
+        <li>Get the <strong>AWS Certified ML Specialty</strong> or <strong>GCP Professional ML Engineer certification</strong>. These are filter-passers in ATS and signal cloud deployment credibility. Prepare using the official study guides + practice exams.</li>
+      </ul>
+      <div class="tags"><span class="tag">AWS SageMaker</span><span class="tag">GCP Vertex AI</span><span class="tag">Auto-scaling</span><span class="tag">ML Certification</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label purple">CI/CD for ML</div>
+      <h4>Automated Testing and Deployment Pipelines</h4>
+      <ul class="task-list">
+        <li>Set up a <strong>GitHub Actions CI/CD pipeline</strong> for your ML project: on every pull request → run unit tests, data validation tests, model performance tests (compare against baseline), build Docker image, push to registry.</li>
+        <li>Implement <strong>DVC (Data Version Control)</strong> for data and model versioning: track experiments, reproduce any historical run, compare model versions across DVC stages.</li>
+        <li>Write <strong>ML-specific tests</strong>: data quality tests (schema validation, distribution checks using Great Expectations), model behavior tests (invariance tests, directional tests, minimum performance thresholds).</li>
+        <li>Implement <strong>canary deployments</strong>: route 5% of traffic to new model, monitor for performance degradation, automatic rollback if metrics degrade.</li>
+      </ul>
+      <div class="tags"><span class="tag">GitHub Actions</span><span class="tag">DVC</span><span class="tag">Great Expectations</span><span class="tag">Canary Deployment</span><span class="tag">Model Testing</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MONTH 8 -->
+<div class="month-block" id="m8">
+  <div class="month-header">
+    <div class="month-num">08</div>
+    <div class="month-meta">
+      <div class="month-phase" style="color:var(--purple)">Phase 4 · MLOps & Production Systems</div>
+      <div class="month-title">LLM Serving at Scale + Model Monitoring</div>
+      <div class="month-subtitle">vLLM serving, model monitoring infrastructure, drift detection, production-grade operations</div>
+    </div>
+    <div class="month-tag"><span class="badge badge-purple">Production AI</span></div>
+  </div>
+
+  <div class="targets-row">
+    <div class="target-cell"><span class="tc-n">vLLM</span><span class="tc-l">LLM served with vLLM, benchmarked</span></div>
+    <div class="target-cell"><span class="tc-n blue">3x</span><span class="tc-l">Projects all production-deployable</span></div>
+    <div class="target-cell"><span class="tc-n orange">1</span><span class="tc-l">Cloud ML cert achieved</span></div>
+    <div class="target-cell"><span class="tc-n gold">Resume</span><span class="tc-l">First draft resume written (X-Y-Z)</span></div>
+    <div class="target-cell"><span class="tc-n purple">30</span><span class="tc-l">LinkedIn connections at target cos</span></div>
+  </div>
+
+  <div class="content-grid">
+    <div class="block">
+      <div class="block-label">LLM Serving Deep Dive</div>
+      <h4>vLLM, TGI, and Triton Inference Server</h4>
+      <ul class="task-list">
+        <li>Learn <strong>vLLM deeply</strong>: PagedAttention (KV-cache management like OS virtual memory), continuous batching, tensor parallelism across multiple GPUs. Deploy your Month-3 fine-tuned model with vLLM.</li>
+        <li>Benchmark your LLM deployment: throughput (tokens/sec), P50/P95/P99 latency, TTFT (time to first token), memory utilization. These metrics are asked in ML systems design interviews.</li>
+        <li>Understand <strong>multi-LoRA serving</strong>: serving hundreds of fine-tuned adapters on a single base model using vLLM's LoRA adapter management. This is the production deployment pattern for fine-tuned models.</li>
+        <li>Study <strong>speculative decoding</strong>: using a smaller draft model to propose tokens, verified by the larger model. Understand when it helps (long outputs) and when it doesn't (short outputs, high rejection rates).</li>
+        <li>Learn <strong>NVIDIA Triton Inference Server</strong>: model repository, concurrent model execution, dynamic batching, backend selection (TensorRT, PyTorch, ONNX). The standard at FAANG.</li>
+      </ul>
+      <div class="tags"><span class="tag">vLLM</span><span class="tag">PagedAttention</span><span class="tag">Continuous Batching</span><span class="tag">Speculative Decoding</span><span class="tag">Triton</span><span class="tag">TGI</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label blue">Model Monitoring</div>
+      <h4>Drift Detection + Production Observability</h4>
+      <ul class="task-list">
+        <li>Implement <strong>data drift detection</strong> using Evidently AI: PSI (Population Stability Index) for categorical features, KS test for continuous features. Set alert thresholds and test them.</li>
+        <li>Implement <strong>prediction drift monitoring</strong>: track how the output distribution changes over time. For LLMs: monitor topic distribution, sentiment distribution, response length distribution.</li>
+        <li>Implement <strong>feature importance drift</strong>: if the most predictive features are changing, the model's logic may be becoming stale even if prediction distribution looks stable.</li>
+        <li>Set up <strong>Grafana dashboards</strong>: at minimum — prediction volume, error rates, latency percentiles, drift metrics, feature statistics. Create alert rules for anomalies.</li>
+        <li>Understand and implement <strong>shadow mode deployment</strong>: run new model in parallel with production model, compare predictions without serving new model results to users. Essential for safe model updates.</li>
+      </ul>
+      <div class="tags"><span class="tag">Evidently AI</span><span class="tag">Data Drift</span><span class="tag">PSI</span><span class="tag">Grafana</span><span class="tag">Prometheus</span><span class="tag">Shadow Mode</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label orange">Interview Preparation — Begin</div>
+      <h4>Resume + System Design — First Pass</h4>
+      <ul class="task-list">
+        <li>Write <strong>first draft of your resume</strong> using the X-Y-Z impact format: "Accomplished [X] as measured by [Y] by doing [Z]." Every bullet must have a number. Example: "Reduced LLM serving latency by 42% (320ms → 185ms P95) by implementing PagedAttention with vLLM and optimizing batch sizes."</li>
+        <li>Apply the <strong>7 rules of 2026 resumes</strong>: (1) Value Proposition summary, (2) X-Y-Z metrics on every bullet, (3) AI-Augmented Skills section, (4) Deep-link portfolio URLs, (5) Semantic keyword alignment with JD language, (6) Skills-first for career changers, (7) No graphics/tables — ATS cannot parse them. Single-column clean format only.</li>
+        <li>Begin <strong>ML system design practice</strong>: design a recommendation system from scratch. Write it down. Time yourself (30–40 minutes). Cover: problem framing, data, features, model choice, training, evaluation, deployment, monitoring, failure modes.</li>
+        <li>Practice 2 ML system design problems this month: recommendation system and fraud detection system. Record yourself explaining them. Review and identify gaps.</li>
+      </ul>
+      <div class="tags"><span class="tag">X-Y-Z Resume</span><span class="tag">ATS Optimization</span><span class="tag">System Design</span><span class="tag">Interview Prep</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label purple">Streaming & Data Infrastructure</div>
+      <h4>Production Data Pipelines</h4>
+      <ul class="task-list">
+        <li>Learn <strong>Apache Kafka</strong> for event streaming: producers, consumers, consumer groups, partitions, replication, compaction. Build a streaming feature pipeline for your MLOps project.</li>
+        <li>Understand <strong>Apache Spark or Flink</strong> for large-scale data processing. Spark for batch, Flink for streaming. Know PySpark: DataFrames, RDDs, MLlib, Structured Streaming.</li>
+        <li>Learn <strong>dbt (data build tool)</strong>: transform data in your warehouse with SQL-based models. Understand the Modern Data Stack: source → Fivetran/Airbyte → warehouse (BigQuery/Snowflake) → dbt → BI/ML.</li>
+        <li>Implement <strong>synthetic data generation</strong> for your MLOps pipeline: SDV (Synthetic Data Vault) or CTGAN for tabular data, stable diffusion fine-tuning for image augmentation. Understand distribution fidelity validation.</li>
+      </ul>
+      <div class="tags"><span class="tag">Kafka</span><span class="tag">Spark/Flink</span><span class="tag">dbt</span><span class="tag">Synthetic Data</span><span class="tag">Data Governance</span></div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <strong>PHASE 4 CHECKPOINT:</strong> By Month 8 end, you must have: (1) a complete, reproducible MLOps pipeline as Portfolio Project 3 with monitoring, drift detection, and automated retraining, (2) demonstrated you can serve an LLM at production quality using vLLM with measured throughput and latency benchmarks, (3) obtained or be studying for a cloud ML certification, (4) a first draft resume with X-Y-Z format and all 3 portfolio projects linked. At this point, your GitHub should show 3 substantial projects with real infrastructure — not tutorial reproductions.
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════ PHASE 5 ═══════════════════════ -->
+<div class="phase-banner phase-5" id="phase5">
+  <div class="pb-line"></div>
+  <div class="pb-num">05</div>
+  <div class="pb-content">
+    <div class="pb-tag" style="color:var(--teal)">Phase 5 · Months 9–10</div>
+    <div class="pb-title">Agentic AI + Advanced Projects</div>
+    <div class="pb-desc">Agentic AI is where the 15–20% salary premium is in 2026. Multi-agent orchestration has a 93% skill rarity index. Build a complex agent system. Tie it to your domain. A medical AI agent, a quant research agent, a cyber threat intelligence agent — this combination (domain expertise + agentic AI) is what gets you looked at by the top firms. This is also the phase for your most ambitious research extension.</div>
+  </div>
+</div>
+<hr class="divider">
+
+<!-- MONTH 9 -->
+<div class="month-block" id="m9">
+  <div class="month-header">
+    <div class="month-num">09</div>
+    <div class="month-meta">
+      <div class="month-phase" style="color:var(--teal)">Phase 5 · Agentic AI</div>
+      <div class="month-title">LangGraph + Autonomous Agent Architecture</div>
+      <div class="month-subtitle">State machines, tool use, human-in-the-loop patterns, persistent memory, evaluation frameworks</div>
+    </div>
+    <div class="month-tag"><span class="badge" style="background:var(--teal-dim);border:1px solid rgba(0,212,255,.2);color:var(--teal);">Agentic AI</span></div>
+  </div>
+
+  <div class="targets-row">
+    <div class="target-cell"><span class="tc-n">LangGraph</span><span class="tc-l">Multi-step agent fully built</span></div>
+    <div class="target-cell"><span class="tc-n blue">Mem0</span><span class="tc-l">Persistent memory implemented</span></div>
+    <div class="target-cell"><span class="tc-n orange">ReAct</span><span class="tc-l">Paper implemented from scratch</span></div>
+    <div class="target-cell"><span class="tc-n gold">20+</span><span class="tc-l">Agent test suite tasks passing</span></div>
+    <div class="target-cell"><span class="tc-n purple">Tools</span><span class="tc-l">5+ external tools integrated</span></div>
+  </div>
+
+  <div class="content-grid">
+    <div class="block">
+      <div class="block-label">Agentic AI Foundations</div>
+      <h4>LangGraph Deep Dive</h4>
+      <ul class="task-list">
+        <li>Complete <strong>LangGraph documentation and tutorials</strong> in full. Understand the state machine paradigm: nodes as functions, edges as transitions, state as the shared data structure that flows through the graph.</li>
+        <li>Implement <strong>conditional edges</strong>: routing logic that determines which node to execute next based on the current state. Master the router pattern — the core of complex agent behavior.</li>
+        <li>Implement <strong>human-in-the-loop (HITL) patterns</strong>: pause execution for human review/approval, resume with human input injected into state. This is required for high-stakes agent deployments.</li>
+        <li>Implement <strong>subgraph composition</strong>: agents that call other agents. Understand state isolation between parent and subgraph, state passing patterns, error propagation.</li>
+        <li>Read and implement <strong>"ReAct: Synergizing Reasoning and Acting in Language Models"</strong> (Yao et al., 2022). Understand the Reasoning → Action → Observation loop deeply. This is the conceptual foundation of every agent framework.</li>
+        <li>Implement a <strong>tool-using agent</strong> with at least 5 tools: web search, code execution (E2B sandboxed), database query, document retrieval (your RAG system from Month 4), and a domain-specific API (PubMed, SEC EDGAR, NIST NVD, or similar).</li>
+      </ul>
+      <div class="tags"><span class="tag">LangGraph</span><span class="tag">ReAct</span><span class="tag">HITL</span><span class="tag">Tool Use</span><span class="tag">State Machines</span><span class="tag">Subgraphs</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label blue">Memory Systems</div>
+      <h4>Persistent Memory for Long-Running Agents</h4>
+      <ul class="task-list">
+        <li>Implement <strong>Mem0</strong> (graph-based memory, trending on HuggingFace 2026): hierarchical memory extraction, consolidation, and retrieval. The agent should "remember" context across sessions.</li>
+        <li>Understand the <strong>three types of agent memory</strong>: (1) Episodic — specific past interactions, (2) Semantic — factual knowledge and concepts, (3) Procedural — how to do things. Each type has different storage and retrieval patterns.</li>
+        <li>Implement <strong>memory consolidation</strong>: when to merge similar memories vs. keep them separate. When to forget old memories. How to prioritize what to retrieve given limited context window.</li>
+        <li>Build a <strong>cross-session personalization system</strong>: the agent learns user preferences and domain-specific knowledge over multiple conversations. Measure improvement on a task over 10 sessions.</li>
+        <li>Study <strong>ARIS (Adversarial Collaboration for Research Agents)</strong> — the May 2026 paper from Shanghai Jiao Tong University. One model proposes, another critiques. Apply this architecture to your domain agent for more reliable outputs.</li>
+      </ul>
+      <div class="tags"><span class="tag">Mem0</span><span class="tag">MemGPT</span><span class="tag">Episodic Memory</span><span class="tag">Semantic Memory</span><span class="tag">ARIS</span><span class="tag">Personalization</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label orange">Portfolio Project 4</div>
+      <h4>Autonomous Research Agent with Domain Integration</h4>
+      <ul class="task-list">
+        <li>Build a <strong>research agent</strong> (from Section 6 projects) that autonomously: searches the web, reads papers (PDF parsing via PyMuPDF), executes Python code in sandboxed environment, queries databases, and synthesizes findings into structured reports.</li>
+        <li>Extend with <strong>domain-specific tools</strong>: Medical → PubMed API + ClinicalTrials.gov + DICOM viewer; Quant → Yahoo Finance + SEC EDGAR + backtesting engine; Cyber → NIST NVD + Shodan API + CVE lookup; Defence → Copernicus satellite data + OSINT APIs; Quantum → arXiv + Qiskit simulator.</li>
+        <li>Deploy with a <strong>chat interface</strong>: Streamlit or Gradio front-end with conversation history, task progress tracking, tool use visualization (users can see what tools the agent is calling).</li>
+        <li>Build an <strong>evaluation framework</strong>: define 20+ benchmark tasks for your agent. Track: task success rate, steps taken, latency, cost per task, quality of final output. This evaluation framework IS the evidence that you're an engineer, not a tutorial-follower.</li>
+      </ul>
+      <div class="tags"><span class="tag">Research Agent</span><span class="tag">PDF RAG</span><span class="tag">Code Execution</span><span class="tag">Domain APIs</span><span class="tag">Evaluation Framework</span><span class="tag">Streamlit</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label purple">Advanced Agent Patterns</div>
+      <h4>Multi-Agent Systems + Evaluation</h4>
+      <ul class="task-list">
+        <li>Study and implement <strong>multi-agent collaboration patterns</strong>: orchestrator-worker, peer-to-peer, competitive (adversarial), consensus-based. Use AutoGen or CrewAI alongside LangGraph.</li>
+        <li>Understand <strong>agent security risks</strong>: prompt injection → tool misuse → privilege escalation → data exfiltration. AI agents outnumber human employees 82-to-1 in some enterprises — a compromised agent can "execute trades, delete backups, or exfiltrate entire customer databases." Implement input/output sandboxing and tool scope limitation.</li>
+        <li>Study <strong>Model Context Protocol (MCP)</strong>: the emerging standard for connecting AI agents to external tools and data sources. Implement an MCP server for your domain-specific tools.</li>
+        <li>Implement <strong>Process Reward Models (PRMs)</strong>: models that evaluate the quality of intermediate reasoning steps, not just final outputs. This is the key technique behind OpenAI o3 and DeepSeek R1.</li>
+      </ul>
+      <div class="tags"><span class="tag">AutoGen</span><span class="tag">CrewAI</span><span class="tag">MCP</span><span class="tag">Agent Security</span><span class="tag">PRM</span><span class="tag">Multi-Agent</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MONTH 10 -->
+<div class="month-block" id="m10">
+  <div class="month-header">
+    <div class="month-num">10</div>
+    <div class="month-meta">
+      <div class="month-phase" style="color:var(--teal)">Phase 5 · Agentic AI + Advanced Projects</div>
+      <div class="month-title">Research Paper, Advanced Skills & Publication</div>
+      <div class="month-subtitle">Write up your agent architecture, push toward arXiv or workshop paper, implement RLVR concepts</div>
+    </div>
+    <div class="month-tag"><span class="badge" style="background:var(--teal-dim);border:1px solid rgba(0,212,255,.2);color:var(--teal);">Research + Advanced</span></div>
+  </div>
+
+  <div class="targets-row">
+    <div class="target-cell"><span class="tc-n">1</span><span class="tc-l">Technical paper/blog published</span></div>
+    <div class="target-cell"><span class="tc-n blue">RLVR</span><span class="tc-l">Reasoning model concepts understood</span></div>
+    <div class="target-cell"><span class="tc-n orange">arXiv</span><span class="tc-l">Paper submitted or in draft</span></div>
+    <div class="target-cell"><span class="tc-n gold">4</span><span class="tc-l">Portfolio projects deployed (total)</span></div>
+    <div class="target-cell"><span class="tc-n purple">40+</span><span class="tc-l">LinkedIn connections built</span></div>
+  </div>
+
+  <div class="content-grid">
+    <div class="block">
+      <div class="block-label">Research Frontier</div>
+      <h4>RLVR + Reasoning Models — The 2026 Frontier</h4>
+      <ul class="task-list">
+        <li>Study the <strong>RLVR (RL for LLM Reasoning) wave</strong> deeply: DeepSeek-R1 (GRPO — Group Relative Policy Optimization), OpenAI o3 technical report, "Scaling LLM Test-Time Compute" (Snell et al.). This is the dominant research direction in 2026.</li>
+        <li>Implement <strong>GRPO</strong> on a small language model for a domain-specific reasoning task: medical diagnosis reasoning, financial analysis, or security vulnerability reasoning. Even a small-scale implementation demonstrates you understand the technique.</li>
+        <li>Understand <strong>inference-time scaling</strong>: Best-of-N sampling, Monte Carlo Tree Search (MCTS)-guided generation, process reward models. The insight: more computation at inference can compensate for smaller model size.</li>
+        <li>Study and implement a <strong>lightweight PRM (Process Reward Model)</strong> for your domain: a model that evaluates whether intermediate reasoning steps are correct. Train it on a small labeled dataset of reasoning chains.</li>
+        <li>Read and implement the <strong>constitutional AI / RLAIF</strong> framework: generating AI feedback instead of human feedback for alignment. Run a small experiment comparing RLAIF vs SFT on a preference task.</li>
+      </ul>
+      <div class="tags"><span class="tag">GRPO</span><span class="tag">RLVR</span><span class="tag">PRM</span><span class="tag">Inference Scaling</span><span class="tag">MCTS</span><span class="tag">Constitutional AI</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label blue">Publication & Public Profile</div>
+      <h4>Write Up, Publish, Share</h4>
+      <ul class="task-list">
+        <li>Write a <strong>technical blog post or full paper</strong> describing your autonomous agent architecture: the design decisions, the evaluation results, what failed and why, what you would do differently.</li>
+        <li>Consider submitting to <strong>arXiv (cs.AI or cs.LG)</strong>: if your agent architecture has a novel component (novel memory consolidation, novel evaluation benchmark, domain-specific tool set), a preprint is a significant differentiator for early-career candidates.</li>
+        <li>Investigate <strong>workshop paper submission</strong> at upcoming conferences: NeurIPS 2026 workshops, ICLR 2027 workshops, EMNLP 2026. Workshop deadlines are typically 3–6 months before the main conference.</li>
+        <li>Post a <strong>LinkedIn thread</strong> (6–10 posts) documenting your agent system: architecture overview, interesting technical challenges, evaluation results. Tag relevant companies and researchers. This is the publication flywheel — a well-shared LinkedIn thread can drive more inbound than a cold application.</li>
+        <li>Update ALL project READMEs to reference your latest work. The narrative arc of your GitHub (Month 1 transformer → Month 3 RAG → Month 6 domain project → Month 9 agent) should be clear and compelling.</li>
+      </ul>
+      <div class="tags"><span class="tag">arXiv</span><span class="tag">Workshop Papers</span><span class="tag">Technical Blog</span><span class="tag">LinkedIn Thread</span><span class="tag">Publication Flywheel</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label orange">Advanced Domain Skills</div>
+      <h4>Deepen Domain Expertise — Final Push</h4>
+      <ul class="task-list">
+        <li><strong>MEDICAL:</strong> Study FDA SaMD pre-submission process. Understand IEC 62304 (medical device software lifecycle), ISO 13485 (QMS). Learn ClinicalBERT for clinical NLP. Study digital twins for patient simulation (Orakl Oncology approach). Review genomics ML: AlphaFold 3, ESM-3, ProtTrans.</li>
+        <li><strong>QUANT:</strong> Implement Deep Hedging (JPMorgan) for option pricing. Study Black-Litterman with ML-derived views. Implement Hierarchical Risk Parity (HRP). Build a complete alpha research pipeline: signal generation → evaluation (Alphalens IC/ICIR) → portfolio construction → backtesting (Zipline/Backtrader) → live paper trading.</li>
+        <li><strong>CYBER:</strong> Implement lattice-based cryptography (Python liboqs library): Kyber key exchange, Dilithium signature. Build a TLS 1.3 + PQC hybrid demo. Study AI-BOM (AI Bill of Materials) and model provenance tracking. Build an adversarial ML defense pipeline using ART (Adversarial Robustness Toolbox).</li>
+        <li><strong>DEFENCE:</strong> Implement sensor fusion (Kalman filter for GPS + IMU). Study SLAM (ORB-SLAM3). Build a counter-drone detection pipeline using RF fingerprinting + ML. Study JADC2 concepts and DoD architecture frameworks (DODAF).</li>
+        <li><strong>QUANTUM:</strong> Implement quantum error correction on real IBM Quantum hardware (free tier available). Run your neural network decoder vs MWPM benchmark at d=3 and d=5. Study the Google Willow chip paper — understand what sub-threshold error correction means and why it's historic.</li>
+      </ul>
+      <div class="tags"><span class="tag">Domain Mastery</span><span class="tag">Advanced Techniques</span><span class="tag">Real Hardware</span><span class="tag">Production Patterns</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label purple">Interview Preparation — Accelerate</div>
+      <h4>System Design + Coding Ramp-Up</h4>
+      <ul class="task-list">
+        <li>Do <strong>3 full ML system design sessions per week</strong>: design a recommendation system, content moderation system, fraud detection system, LLM deployment architecture, real-time anomaly detection. Record yourself. Review. Improve.</li>
+        <li>Solve <strong>30 more LeetCode problems</strong> (bringing total to 80+): focus on graphs, dynamic programming, trees, and two-pointer. ML coding rounds often use graph problems (representing model computation graphs, dependency resolution).</li>
+        <li>Start using <strong>Interview Query</strong> (30K+ real ML interview questions by company). Identify the specific question types your target companies use. Practice the specific interview format, not just random questions.</li>
+        <li>Practice the <strong>"Disagreement Skill"</strong>: in mock interviews, when the interviewer says something slightly wrong — push back with evidence. "I've actually seen the opposite behavior in my project — when I tried X, Y happened, which suggests Z." This separates people who've shipped from people who've only studied.</li>
+      </ul>
+      <div class="tags"><span class="tag">System Design</span><span class="tag">LeetCode</span><span class="tag">Interview Query</span><span class="tag">Mock Interviews</span><span class="tag">Disagreement Skill</span></div>
+    </div>
+  </div>
+
+  <div class="intel">
+    <strong>PHASE 5 CHECKPOINT:</strong> By Month 10 end, you must have: (1) a deployed autonomous agent with domain integration and a formal evaluation framework — this is Portfolio Project 4, (2) at least 1 piece of published research or detailed technical analysis on arXiv, Medium, or Substack, (3) at least 40 relevant LinkedIn connections at target companies with some having responded to your outreach, (4) completed 80+ LeetCode problems and practiced 10+ ML system design scenarios with recorded self-reviews, (5) all 4 portfolio projects deployable and documented. You are in the top 10% of candidates for A-tier roles right now. The final 2 months are about converting that into offers.
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════ PHASE 6 ═══════════════════════ -->
+<div class="phase-banner phase-6" id="phase6">
+  <div class="pb-line"></div>
+  <div class="pb-num">06</div>
+  <div class="pb-content">
+    <div class="pb-tag" style="color:var(--gold)">Phase 6 · Months 11–12</div>
+    <div class="pb-title">Interview Offensive — Execute the Hiring Protocol</div>
+    <div class="pb-desc">Months 11–12 are NOT about learning new things. They are about converting 10 months of work into offers. The candidates who get hired don't just apply — they execute a systematic campaign. Referrals are 4x more likely to result in a hire than cold applications. 88% of qualified candidates are auto-rejected by ATS. The people getting hired in 2026 are not the most skilled — they are the ones who understand the system and execute deliberately.</div>
+  </div>
+</div>
+<hr class="divider">
+
+<!-- MONTH 11 -->
+<div class="month-block" id="m11">
+  <div class="month-header">
+    <div class="month-num">11</div>
+    <div class="month-meta">
+      <div class="month-phase" style="color:var(--gold)">Phase 6 · Interview Offensive</div>
+      <div class="month-title">Application Materials Polish + Interview Circuit Launch</div>
+      <div class="month-subtitle">Final resume, LinkedIn optimization, referral activation, coding & system design practice at peak volume</div>
+    </div>
+    <div class="month-tag"><span class="badge badge-gold">Hiring Offensive</span></div>
+  </div>
+
+  <div class="targets-row">
+    <div class="target-cell"><span class="tc-n gold">Final</span><span class="tc-l">Resume ATS-optimized and ready</span></div>
+    <div class="target-cell"><span class="tc-n blue">5/wk</span><span class="tc-l">Applications sent per week</span></div>
+    <div class="target-cell"><span class="tc-n orange">3+</span><span class="tc-l">Referrals activated at target cos</span></div>
+    <div class="target-cell"><span class="tc-n">50</span><span class="tc-l">More LeetCode (total: 130+)</span></div>
+    <div class="target-cell"><span class="tc-n purple">10+</span><span class="tc-l">Full mock interview sessions done</span></div>
+  </div>
+
+  <div class="content-grid">
+    <div class="block">
+      <div class="block-label gold">Application Materials</div>
+      <h4>Final Portfolio + Resume Polish</h4>
+      <ul class="task-list">
+        <li>Do a final pass on <strong>all portfolio projects</strong>: every README must have architecture diagram, problem statement, results with metrics, technical decisions documented, failure modes section, local reproduction instructions. Every project needs a live demo link.</li>
+        <li>Final resume using the <strong>7 rules of 2026</strong>: (1) Value Proposition summary at the top — 2–3 sentences stating what kind of engineer you are and what you deliver, (2) X-Y-Z impact metrics on EVERY bullet — no metric = cut the bullet, (3) AI-Augmented Skills section showing what tools you use (LangGraph, vLLM, MLflow, MONAI etc.), (4) Deep-link portfolio URLs in experience section, (5) Semantic keyword alignment — read each JD and add their exact language, (6) Skills-first layout for career changers, (7) NO graphics, tables, or columns — single clean format only.</li>
+        <li>Test your resume on <strong>ATS simulation tools</strong> (Jobscan, Resume Worded). Aim for 80%+ keyword match against your target job descriptions. Iterate on language.</li>
+        <li><strong>Optimize LinkedIn profile</strong>: headline should contain the job title you want (e.g., "LLM Engineer | Fine-tuning + RAG + Agentic AI | Medical AI"). About section = 3-paragraph narrative. Featured section = your 3 best projects with demo links. Skills section with endorsements requested from colleagues.</li>
+      </ul>
+      <div class="tags"><span class="tag">ATS Optimization</span><span class="tag">X-Y-Z Format</span><span class="tag">Value Proposition</span><span class="tag">LinkedIn Optimization</span><span class="tag">Jobscan</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label blue">Referral Activation</div>
+      <h4>Protocol: Quality Over Volume — Referrals First</h4>
+      <ul class="task-list">
+        <li><strong>Referrals are 4x more likely</strong> to result in a hire than cold applications. Apply with referrals first. Cold applications only if no referral path exists.</li>
+        <li>Go through your 40+ LinkedIn connections at target companies. Identify everyone who works at your top 10 target companies. Reach out with a specific ask: "I'm applying for the [role] position — would you be willing to refer me internally? Here's a link to my portfolio."</li>
+        <li>Execute <strong>Protocol 02: Target Hiring Managers, Not HR</strong>. Find the Engineering Manager, Head of ML, or VP of AI at each target company. Send the 3-sentence outreach: what you built, why their work is interesting, one concrete way you could contribute. Include a project link.</li>
+        <li>Send <strong>5 targeted, quality applications per week</strong>. Not 50 spray-and-pray. 5 carefully tailored applications with customized resumes (keyword-aligned to each JD), personalized cover notes, and referral requests wherever possible.</li>
+        <li>Track everything in a spreadsheet: company, role, HM contact, referral status, application date, response date, interview stage, follow-up scheduled.</li>
+      </ul>
+      <div class="tags"><span class="tag">Referrals First</span><span class="tag">HM Outreach</span><span class="tag">Quality over Volume</span><span class="tag">Application Tracking</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label orange">Interview Intensive</div>
+      <h4>ML Technical Screen + Coding Preparation</h4>
+      <ul class="task-list">
+        <li><strong>Solve 50 more LeetCode problems</strong> (bringing total to 130+): focus on medium/hard. Priority order: arrays/hashing, graphs (BFS/DFS/Dijkstra), dynamic programming, trees/heaps, two-pointer. ML companies commonly test graph problems in their loop.</li>
+        <li>Drill <strong>ML fundamentals questions</strong> intensively: explain gradient descent variants (SGD, Adam, RMSProp), explain attention mechanism from first principles, explain the transformer architecture, explain regularization techniques (L1 vs L2 vs dropout), explain batch normalization vs layer normalization.</li>
+        <li>Practice <strong>ML coding questions</strong> from Interview Query: implement k-means from scratch, implement a simple neural network backprop, write a cross-entropy loss function, implement precision/recall calculation. These are the warm-up questions at ML interviews.</li>
+        <li>Do <strong>10 full mock interviews</strong> with actual humans — not just AI tools. Find practice partners in MLOps.community or Hugging Face Discord. Do real mock interviews with people who have been through the loops you're targeting.</li>
+        <li>Practice the <strong>Responsibility Bias Signal</strong>: in behavioral interviews, tell stories where you took ownership beyond your scope — "I noticed the evaluation framework was producing misleading results, so I proposed and implemented a more rigorous one even though it wasn't in my scope." This is the single most important quality hiring managers look for in junior candidates.</li>
+      </ul>
+      <div class="tags"><span class="tag">LeetCode</span><span class="tag">ML Fundamentals</span><span class="tag">Interview Query</span><span class="tag">Mock Interviews</span><span class="tag">Responsibility Signal</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label purple">ML System Design Mastery</div>
+      <h4>System Design Interview — The Differentiator</h4>
+      <ul class="task-list">
+        <li>Master these 5 ML system design scenarios (practice each until you can do it fluently in 35 minutes): (1) Recommendation System at Netflix/YouTube scale, (2) Content Moderation for a social media platform, (3) Fraud Detection in real-time payments, (4) LLM deployment architecture for an enterprise with 1M daily users, (5) Autonomous agent for a specific business workflow.</li>
+        <li>For each design, explicitly cover: <strong>problem framing, data collection and labeling, feature engineering, model selection and why, training pipeline, evaluation metrics, deployment strategy, monitoring plan, failure modes, and trade-offs you considered but rejected</strong>.</li>
+        <li>The differentiator at step 4 (system design): <strong>proactively explaining trade-offs and failure modes</strong>. Hiring managers want to see judgment, not just knowledge. "We could use a transformer here, but for this latency constraint, I'd prefer XGBoost because..." is what separates engineers from students.</li>
+        <li>Record every mock system design session. Identify where you go shallow, where you run out of time, where your reasoning has gaps. Fix specifically.</li>
+      </ul>
+      <div class="tags"><span class="tag">System Design</span><span class="tag">Trade-off Analysis</span><span class="tag">Failure Modes</span><span class="tag">Judgment</span><span class="tag">ML Design Patterns</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MONTH 12 -->
+<div class="month-block" id="m12">
+  <div class="month-header">
+    <div class="month-num">12</div>
+    <div class="month-meta">
+      <div class="month-phase" style="color:var(--gold)">Phase 6 · Interview Offensive</div>
+      <div class="month-title">Full Interview Circuit + Offer & Negotiation</div>
+      <div class="month-subtitle">Multiple active interview processes, offer management, negotiation, and the 72-hour rule</div>
+    </div>
+    <div class="month-tag"><span class="badge badge-gold">Offers</span></div>
+  </div>
+
+  <div class="targets-row">
+    <div class="target-cell"><span class="tc-n gold">3+</span><span class="tc-l">Active interview processes</span></div>
+    <div class="target-cell"><span class="tc-n blue">1+</span><span class="tc-l">Offers received and evaluated</span></div>
+    <div class="target-cell"><span class="tc-n orange">$25K+</span><span class="tc-l">Negotiated salary improvement</span></div>
+    <div class="target-cell"><span class="tc-n">A-tier</span><span class="tc-l">Target role secured</span></div>
+    <div class="target-cell"><span class="tc-n purple">72hr</span><span class="tc-l">Response time to offers</span></div>
+  </div>
+
+  <div class="content-grid">
+    <div class="block">
+      <div class="block-label gold">Full Interview Loop</div>
+      <h4>Execute the 2026 ML Interview Structure</h4>
+      <ul class="task-list">
+        <li><strong>Stage 1 — Recruiter Screen:</strong> culture fit, experience alignment, compensation expectations. Never give the first number. "I'm currently evaluating a few opportunities and want to understand the full package before discussing numbers." This is standard and expected.</li>
+        <li><strong>Stage 2 — ML Technical Screen:</strong> concepts (explain attention, gradient descent variants, regularization, model evaluation), quick coding (implement precision/recall, cross-entropy loss). 45–60 minutes. Prepare a crisp 2-minute summary of each of your projects.</li>
+        <li><strong>Stage 3 — ML Coding Challenge:</strong> take-home OR live. Focus is on end-to-end ML pipeline — not just the model. Data exploration, preprocessing, feature engineering, model training, evaluation, inference pipeline. Clean code, documented decisions, reproducible results. DO NOT submit without evaluation metrics and a discussion of what you would do with more time.</li>
+        <li><strong>Stage 4 — System Design for ML:</strong> your strongest opportunity to differentiate. Use the patterns practiced in Months 10–11. Proactively introduce trade-offs. Bring up failure modes before they ask. Show you've thought about the system in production, not just on paper.</li>
+        <li><strong>Stage 5 — Behavioral / Research Deep-Dive:</strong> project deep-dive (know every line of your code), behavioral STAR stories (focus on ownership, disagreement, initiative), technical vision discussion. Use the Responsibility Bias Signal in behavioral answers.</li>
+      </ul>
+      <div class="tags"><span class="tag">5-Stage Loop</span><span class="tag">ML Screen</span><span class="tag">Coding Challenge</span><span class="tag">System Design</span><span class="tag">Behavioral</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label blue">Offer Management</div>
+      <h4>The 72-Hour Rule + Negotiation Protocol</h4>
+      <ul class="task-list">
+        <li><strong>The 72-Hour Rule:</strong> have ALL materials ready BEFORE you start applying — resume, GitHub, portfolio site, LinkedIn, references contacted. When an offer comes, respond thoughtfully within 24 hours. Speed signals seriousness. Slowness signals uncertainty, which the company interprets as lack of interest or competing confusion.</li>
+        <li><strong>Never accept the first offer.</strong> The average AI engineer salary is $206K. Never give the first number. Never accept the first offer. The market is so tight that most AI hiring managers have EXPLICIT room for negotiation and expect it.</li>
+        <li><strong>Negotiate for all four dimensions:</strong> (1) Base salary — anchor 15–20% above your target floor, (2) Signing bonus — often separate budget, always ask, (3) Equity vesting cliff — request 1-year vs 4-year cliff on options/RSUs, (4) Professional development budget — $5K–$20K/yr is common at top firms, conferences, courses, certifications.</li>
+        <li><strong>Use competing offers</strong> (real or in-progress): "I have another process with [Company X] that is moving quickly. I'd like to move forward with you — can we discuss timing?" You don't need to have a final offer — an active process is leverage. Use it.</li>
+        <li>Understand the <strong>25-day average hiring timeline</strong> for AI engineers. Top candidates receive and accept offers within 72 hours. Companies that move slowly lose candidates. You can use timeline pressure to your advantage.</li>
+      </ul>
+      <div class="tags"><span class="tag">72-Hour Rule</span><span class="tag">Negotiation</span><span class="tag">Competing Offers</span><span class="tag">Equity Vesting</span><span class="tag">PD Budget</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label orange">Certification Stack</div>
+      <h4>Which Certifications Actually Matter in 2026</h4>
+      <ul class="task-list">
+        <li><strong>AWS Certified ML Specialty</strong> or <strong>GCP Professional ML Engineer</strong>: for cloud-deployed ML roles. These are recognized by ATS and signal cloud deployment credibility. If not already earned in Month 7–8, complete it now.</li>
+        <li><strong>TensorFlow Developer Certificate</strong>: recognized by some ATS systems. Lower priority but low-effort to add if you've already used TF.</li>
+        <li><strong>CISSP (if targeting AI security roles)</strong>: the gold standard for security certifications. Combined with ML skills, extremely rare. 3.4M global cybersecurity talent gap.</li>
+        <li><strong>CFA Level 1 + ML skills combination (if targeting quant finance)</strong>: this specific combination (financial math depth + ML) is what separates quant ML candidates from pure ML candidates at hedge funds.</li>
+        <li><strong>Rule:</strong> 1–2 relevant certifications maximum. Cert-farming without real projects is a red flag, not a signal. Certs are filter-passers, not hiring signals. Portfolios are hiring signals.</li>
+      </ul>
+      <div class="tags"><span class="tag">AWS ML Specialty</span><span class="tag">GCP Professional ML</span><span class="tag">CISSP</span><span class="tag">CFA + ML</span><span class="tag">1-2 Max</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-label purple">Long-Term Positioning</div>
+      <h4>Continuous Update Protocol — Post-Hire</h4>
+      <ul class="task-list">
+        <li>The <strong>half-life of AI/ML skills is 2.5 years</strong>. Skills change 66% faster in AI-exposed roles. Plan for 6-month skill refresh cycles for the rest of your career. What is hot in 2026 (agentic AI, LoRA fine-tuning) may be table stakes by 2027.</li>
+        <li>Continue <strong>reading arXiv papers</strong> weekly: cs.LG, cs.AI, cs.CR (for security). Focus on papers with code releases. Implement one paper extension per quarter to maintain research connection.</li>
+        <li>Continue <strong>building in public</strong>: post on LinkedIn about what you're building at work (within NDA limits), open-source non-sensitive tooling, contribute to community projects. Inbound is always better than outbound.</li>
+        <li>Track the <strong>Research Frontiers</strong> that will matter in 12–24 months: (1) Disaggregated LLM inference (KV-cache optimization, PD separation), (2) Foundation models for time-series (TimeGPT, Chronos, Moirai), (3) Mechanistic interpretability (TransformerLens, activation steering), (4) Post-quantum cryptography migration (FIPS 203/204/205 full deployment), (5) Multimodal agents (vision + language + audio + action).</li>
+      </ul>
+      <div class="tags"><span class="tag">6-Month Refresh Cycle</span><span class="tag">arXiv Weekly</span><span class="tag">Build in Public</span><span class="tag">Research Tracking</span><span class="tag">Long-Term Career</span></div>
+    </div>
+  </div>
+
+  <div class="alert" style="margin-top:0;">
+    <strong>THE HARD TRUTH (from a hiring manager who interviewed 500+ candidates):</strong> "When I'm reviewing a junior application, the CV tells me what you claim but the portfolio tells me what's actually true. I can tell within 30 seconds of looking at someone's GitHub whether they understand what they're doing — the commit messages, the README quality, the structure of the projects, whether the repos are abandoned shells or actual working things." — Senior Hiring Manager, DareData. Your 12 months of deliberate work have built exactly what this person is looking for. The candidates getting hired are not the most skilled — they are the ones who understand the system and execute deliberately. You now understand both.
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- HIRING EFFECTIVENESS SUMMARY -->
+<div style="max-width:1440px;margin:0 auto;padding:3rem 5rem;">
+  <div style="font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--acid);margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem;"><span style="width:16px;height:1px;background:var(--acid);display:block;"></span>Hiring Effectiveness — What Actually Gets You Interviews</div>
+  <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#fff;letter-spacing:.03em;margin-bottom:1.5rem;">Effectiveness Index — Execute in This Priority Order</div>
+
+  <div style="display:flex;flex-direction:column;gap:.9rem;">
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;min-width:300px;color:var(--text);">Referral from Employee at Target Company</div>
+      <div style="flex:1;height:5px;background:var(--surface3);border-radius:3px;overflow:hidden;"><div style="height:100%;background:var(--acid);border-radius:3px;width:95%;"></div></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;color:var(--acid);min-width:40px;text-align:right;">95%</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;min-width:300px;color:var(--text);">Deployed Project + Clean GitHub Portfolio</div>
+      <div style="flex:1;height:5px;background:var(--surface3);border-radius:3px;overflow:hidden;"><div style="height:100%;background:var(--acid);border-radius:3px;width:90%;"></div></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;color:var(--acid);min-width:40px;text-align:right;">90%</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;min-width:300px;color:var(--text);">Direct Outreach to Hiring Manager (Personalized)</div>
+      <div style="flex:1;height:5px;background:var(--surface3);border-radius:3px;overflow:hidden;"><div style="height:100%;background:var(--orange);border-radius:3px;width:72%;"></div></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;color:var(--orange);min-width:40px;text-align:right;">72%</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;min-width:300px;color:var(--text);">Published Technical Content (Blog / arXiv)</div>
+      <div style="flex:1;height:5px;background:var(--surface3);border-radius:3px;overflow:hidden;"><div style="height:100%;background:var(--orange);border-radius:3px;width:68%;"></div></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;color:var(--orange);min-width:40px;text-align:right;">68%</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;min-width:300px;color:var(--text);">ATS-Optimized Resume with X-Y-Z Metrics</div>
+      <div style="flex:1;height:5px;background:var(--surface3);border-radius:3px;overflow:hidden;"><div style="height:100%;background:var(--blue);border-radius:3px;width:60%;"></div></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;color:#6aabff;min-width:40px;text-align:right;">60%</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;min-width:300px;color:var(--text);">Conference / Meetup Networking (In-Person)</div>
+      <div style="flex:1;height:5px;background:var(--surface3);border-radius:3px;overflow:hidden;"><div style="height:100%;background:var(--blue);border-radius:3px;width:55%;"></div></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;color:#6aabff;min-width:40px;text-align:right;">55%</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;min-width:300px;color:var(--text);">Job Board Cold Application (Optimized Resume)</div>
+      <div style="flex:1;height:5px;background:var(--surface3);border-radius:3px;overflow:hidden;"><div style="height:100%;background:var(--purple);border-radius:3px;width:22%;"></div></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;color:var(--purple);min-width:40px;text-align:right;">22%</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;min-width:300px;color:var(--text);">Job Board Cold Application (Generic Resume)</div>
+      <div style="flex:1;height:5px;background:var(--surface3);border-radius:3px;overflow:hidden;"><div style="height:100%;background:var(--red);border-radius:3px;width:4%;"></div></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;color:var(--red);min-width:40px;text-align:right;">4%</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="brand">WAR/FOOTING</div>
+    <p>Detailed 12-Month AI/ML Execution Roadmap 2026 · Every Month · Every Task · Every Target</p>
+    <p style="margin-top:.3rem;">Derived from AI CAREER INTELLIGENCE strategy layer · Data as of May 2026</p>
+  </div>
+  <div style="text-align:right;">
+    <p>Sources: LinkedIn Jobs on the Rise 2026 · McKinsey Workforce Analysis · NVIDIA State of AI</p>
+    <p>KORE1 Placement Data · ZipRecruiter · arXiv Trending · WEF Future of Jobs</p>
+    <p>PwC AI Salary Report · Harvard Business School ATS Study · Gartner AI Adoption Data</p>
+    <p>NIST PQC Standards · DareData Interview Data · QED-C Quantum Workforce Report</p>
+  </div>
+</footer>
+
+</body>
+</html>

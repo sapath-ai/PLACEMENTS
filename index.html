@@ -726,6 +726,272 @@ a:focus-visible{
    RESPONSIVE
    ========================================================= */
 
+
+/* =========================================================
+   AI CAREER INTELLIGENCE
+   Premium subsystem beneath VECTOR/26
+   ========================================================= */
+
+.career-intelligence-section{
+  position:relative;
+  margin-top:10px;
+  padding:34px;
+  overflow:hidden;
+
+  border:1px solid rgba(255,255,255,.13);
+
+  background:
+    radial-gradient(
+      circle at 92% 8%,
+      rgba(255,255,255,.045),
+      transparent 34%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.035),
+      rgba(255,255,255,.008)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.045),
+    0 18px 50px rgba(0,0,0,.16);
+}
+
+.career-intelligence-section::before{
+  content:"";
+  position:absolute;
+  inset:8px;
+  pointer-events:none;
+  border:1px solid rgba(255,255,255,.035);
+}
+
+.career-intelligence-header{
+  position:relative;
+  z-index:1;
+
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:30px;
+  align-items:start;
+
+  padding-bottom:28px;
+  border-bottom:1px solid var(--line);
+}
+
+.career-intelligence-index{
+  color:var(--orange);
+  font:9px var(--mono);
+  letter-spacing:.16em;
+}
+
+.career-intelligence-title{
+  margin:10px 0 10px;
+
+  color:var(--text);
+  font-family:var(--sans);
+  font-size:29px;
+  font-weight:600;
+  letter-spacing:-.035em;
+}
+
+.career-intelligence-description{
+  max-width:780px;
+  margin:0;
+
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.75;
+}
+
+.career-intelligence-classification{
+  min-width:105px;
+  padding-left:25px;
+  border-left:1px solid var(--line);
+}
+
+.career-intelligence-classification span{
+  display:block;
+
+  color:var(--dim);
+  font:8px var(--mono);
+  letter-spacing:.14em;
+}
+
+.career-intelligence-classification strong{
+  display:block;
+  margin-top:6px;
+
+  color:var(--orange);
+  font:27px var(--mono);
+  font-weight:500;
+}
+
+.career-intelligence-grid{
+  position:relative;
+  z-index:1;
+
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+
+  margin-top:12px;
+}
+
+.career-intelligence-card{
+  position:relative;
+
+  min-height:265px;
+
+  display:flex;
+  flex-direction:column;
+
+  padding:24px;
+  overflow:hidden;
+
+  color:inherit;
+  text-decoration:none;
+
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.018);
+
+  transition:
+    transform .22s ease,
+    border-color .22s ease,
+    background .22s ease,
+    box-shadow .22s ease;
+}
+
+.career-intelligence-card::before{
+  content:"";
+
+  position:absolute;
+  top:0;
+  left:0;
+
+  width:100%;
+  height:1px;
+
+  background:rgba(255,255,255,.14);
+}
+
+.career-intelligence-card::after{
+  content:"";
+
+  position:absolute;
+  right:-70px;
+  bottom:-90px;
+
+  width:180px;
+  height:180px;
+
+  border-radius:50%;
+  background:rgba(255,255,255,.018);
+
+  pointer-events:none;
+}
+
+.career-intelligence-card:hover{
+  transform:translateY(-3px);
+
+  border-color:rgba(255,255,255,.20);
+  background:rgba(255,255,255,.035);
+
+  box-shadow:0 12px 30px rgba(0,0,0,.14);
+}
+
+.career-intelligence-card:hover::before{
+  background:var(--orange);
+}
+
+.career-intelligence-card-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+
+  color:var(--dim);
+
+  font:8px var(--mono);
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+
+.career-intelligence-icon{
+  margin:24px 0 17px;
+
+  color:var(--orange);
+  font:23px var(--mono);
+}
+
+.career-intelligence-kicker{
+  color:var(--blue);
+
+  font:8px var(--mono);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.career-intelligence-card h3{
+  margin:8px 0 10px;
+
+  color:var(--text);
+
+  font-size:20px;
+  font-weight:500;
+  letter-spacing:-.025em;
+}
+
+.career-intelligence-card p{
+  max-width:600px;
+  margin:0;
+
+  color:var(--muted);
+
+  font-size:11px;
+  line-height:1.7;
+}
+
+.career-intelligence-footer{
+  margin-top:auto;
+  padding-top:22px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+
+  color:var(--orange);
+
+  font:8px var(--mono);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+@media(max-width:650px){
+
+  .career-intelligence-section{
+    padding:22px;
+  }
+
+  .career-intelligence-header{
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+
+  .career-intelligence-classification{
+    min-width:0;
+    padding-left:0;
+    padding-top:18px;
+
+    border-left:0;
+    border-top:1px solid var(--line);
+  }
+
+  .career-intelligence-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
 @media(max-width:900px){
 
   .hero{
@@ -1285,6 +1551,156 @@ a:focus-visible{
         </div>
 
       </aside>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       AI CAREER INTELLIGENCE
+  ====================================================== -->
+
+  <section class="career-intelligence-section">
+
+    <div class="career-intelligence-header">
+
+      <div>
+
+        <div class="career-intelligence-index">
+          CAREER INTELLIGENCE / 01
+        </div>
+
+        <h2 class="career-intelligence-title">
+          AI CAREER INTELLIGENCE
+        </h2>
+
+        <p class="career-intelligence-description">
+          Strategic intelligence for understanding the AI/ML hiring
+          market, identifying high-value capabilities, and converting
+          market knowledge into a disciplined execution plan.
+        </p>
+
+      </div>
+
+      <div class="career-intelligence-classification">
+
+        <span>SUBSYSTEM</span>
+
+        <strong>01</strong>
+
+      </div>
+
+    </div>
+
+
+    <div class="career-intelligence-grid">
+
+
+      <!-- STRATEGY -->
+
+      <a
+        href="AI-CAREER-INTELLIGENCE/STRATEGY/"
+        class="career-intelligence-card"
+      >
+
+        <div class="career-intelligence-card-top">
+
+          <span>
+            01 / STRATEGY
+          </span>
+
+          <span>
+            Online
+          </span>
+
+        </div>
+
+        <div class="career-intelligence-icon">
+          ◈
+        </div>
+
+        <div class="career-intelligence-kicker">
+          Market Intelligence
+        </div>
+
+        <h3>
+          Strategy &amp; Market Intelligence
+        </h3>
+
+        <p>
+          Understand the AI/ML hiring landscape, role families,
+          capability requirements, technical demand, research
+          directions, projects, and career positioning.
+        </p>
+
+        <div class="career-intelligence-footer">
+
+          <span>
+            Enter intelligence layer
+          </span>
+
+          <span>
+            →
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <!-- 12-MONTH EXECUTION -->
+
+      <a
+        href="AI-CAREER-INTELLIGENCE/12-MONTH-EXECUTION/"
+        class="career-intelligence-card"
+      >
+
+        <div class="career-intelligence-card-top">
+
+          <span>
+            02 / EXECUTION
+          </span>
+
+          <span>
+            Online
+          </span>
+
+        </div>
+
+        <div class="career-intelligence-icon">
+          ◇
+        </div>
+
+        <div class="career-intelligence-kicker">
+          Career Execution
+        </div>
+
+        <h3>
+          12-Month Execution Plan
+        </h3>
+
+        <p>
+          Convert the strategic intelligence into monthly targets,
+          technical milestones, projects, portfolio outputs,
+          research progress, and hiring preparation.
+        </p>
+
+        <div class="career-intelligence-footer">
+
+          <span>
+            Enter execution layer
+          </span>
+
+          <span>
+            →
+          </span>
+
+        </div>
+
+      </a>
+
 
     </div>
 
