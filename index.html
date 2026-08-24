@@ -840,6 +840,35 @@ a:focus-visible{
   }
 
 }
+
+
+/* =========================================================
+   ADAPTIVE SYSTEM TILE ENGINE
+   ========================================================= */
+
+/*
+   Default architecture remains unchanged:
+
+   LARGE  = 7 / 12
+   MEDIUM = 5 / 12
+   FULL   = 12 / 12
+
+   Sections with multiple medium tiles automatically
+   rebalance them so the available row is filled.
+*/
+
+/* Three or more medium tiles → three-column composition */
+.system-grid:has(> .system-card.medium:nth-of-type(3))
+  .system-card.medium {
+  grid-column: span 4;
+}
+
+/* Four or more medium tiles → four-column composition */
+.system-grid:has(> .system-card.medium:nth-of-type(4))
+  .system-card.medium {
+  grid-column: span 3;
+}
+
 </style>
 </head>
 
