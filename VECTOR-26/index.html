@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VECTOR/26 — AI Career Intelligence Terminal · Phase 3 · 2026–2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06090F;
+  --bg2:#0A0F17;
+  --panel:#0E141F;
+  --panel2:#121A27;
+  --line:rgba(168,190,220,.10);
+  --line2:rgba(168,190,220,.18);
+  --txt:#D6DEEA;
+  --dim:#8A97AB;
+  --faint:#5A6679;
+  --amber:#F2A93B;
+  --amber-soft:rgba(242,169,59,.12);
+  --cyan:#4FD8EB;
+  --cyan-soft:rgba(79,216,235,.10);
+  --green:#52D78F;
+  --green-soft:rgba(82,215,143,.12);
+  --violet:#9D8CFF;
+  --violet-soft:rgba(157,140,255,.12);
+  --red:#F0635C;
+  --red-soft:rgba(240,99,92,.12);
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --disp:'Archivo',sans-serif;
+  --body:'Inter',system-ui,sans-serif;
+  --rad:10px;
+  --max:1240px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:118px}
+body{background:var(--bg);color:var(--txt);font-family:var(--body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(900px 500px at 80% -10%, rgba(242,169,59,.05), transparent 60%),
+    radial-gradient(800px 600px at 0% 110%, rgba(79,216,235,.04), transparent 60%);
+}
+::selection{background:var(--amber);color:#0A0F17}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:4px}
+
+/* ---------- ticker ---------- */
+.ticker-wrap{position:fixed;top:0;left:0;right:0;z-index:60;background:#04070C;border-bottom:1px solid var(--line);height:34px;overflow:hidden}
+.ticker{display:flex;gap:48px;align-items:center;height:34px;white-space:nowrap;width:max-content;animation:tick 80s linear infinite;padding-left:16px}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker span{font-family:var(--mono);font-size:11.5px;color:var(--dim);letter-spacing:.02em}
+.ticker b{color:var(--txt);font-weight:600}
+.tk-up{color:var(--green)!important}
+.tk-dn{color:var(--red)!important}
+.tk-am{color:var(--amber)!important}
+@media (prefers-reduced-motion:reduce){.ticker{animation:none}}
+
+/* ---------- header ---------- */
+header{position:fixed;top:34px;left:0;right:0;z-index:50;background:rgba(8,12,19,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.hd{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:24px;height:58px}
+.logo{font-family:var(--disp);font-weight:900;font-size:17px;letter-spacing:.04em;color:var(--txt);display:flex;align-items:center;gap:10px;white-space:nowrap}
+.logo i{width:10px;height:10px;background:var(--amber);display:inline-block;border-radius:2px;box-shadow:0 0 12px rgba(242,169,59,.7)}
+.logo small{font-family:var(--mono);font-weight:500;font-size:10px;color:var(--faint);letter-spacing:.12em}
+nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1}
+nav::-webkit-scrollbar{display:none}
+nav a{font-family:var(--mono);font-size:11.5px;color:var(--dim);padding:7px 11px;border-radius:6px;letter-spacing:.04em;white-space:nowrap}
+nav a:hover{color:var(--txt);background:var(--panel2);text-decoration:none}
+nav a.act{color:var(--amber);background:var(--amber-soft)}
+
+/* ---------- layout ---------- */
+main{position:relative;z-index:1;max-width:var(--max);margin:0 auto;padding:0 24px}
+section{padding:72px 0 24px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--amber);text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--amber)}
+h2{font-family:var(--disp);font-weight:800;font-size:clamp(26px,3.4vw,38px);letter-spacing:-.02em;line-height:1.12;margin-bottom:12px}
+.lede{color:var(--dim);max-width:760px;font-size:15.5px;margin-bottom:34px}
+.lede b{color:var(--txt);font-weight:600}
+
+/* ---------- hero ---------- */
+.hero{padding:158px 0 64px;border-bottom:1px solid var(--line)}
+.hero h1{font-family:var(--disp);font-weight:900;font-size:clamp(38px,6vw,68px);line-height:1.02;letter-spacing:-.03em;max-width:900px}
+.hero h1 em{font-style:normal;color:var(--amber)}
+.hero p.sub{color:var(--dim);font-size:17px;max-width:680px;margin:22px 0 8px}
+.hero .meta{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.06em;margin-top:18px;display:flex;flex-wrap:wrap;gap:18px}
+.hero .meta b{color:var(--dim)}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:44px}
+.stat{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:var(--rad);padding:18px 18px 16px;position:relative;overflow:hidden}
+.stat::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--amber),transparent)}
+.stat .num{font-family:var(--disp);font-weight:800;font-size:30px;letter-spacing:-.02em}
+.stat .lbl{color:var(--dim);font-size:13px;margin-top:2px}
+.stat .src{font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:10px;letter-spacing:.03em}
+
+/* ---------- badges ---------- */
+.badge{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;padding:2px 7px;border-radius:4px;text-transform:uppercase;display:inline-block;vertical-align:middle}
+.b-ver{background:var(--green-soft);color:var(--green);border:1px solid rgba(82,215,143,.3)}
+.b-est{background:var(--amber-soft);color:var(--amber);border:1px solid rgba(242,169,59,.3)}
+.b-pro{background:var(--violet-soft);color:var(--violet);border:1px solid rgba(157,140,255,.3)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin:0 0 26px;font-size:12.5px;color:var(--dim);align-items:center}
+
+/* ---------- track switcher ---------- */
+.tracks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:8px}
+.track{background:var(--panel);border:1px solid var(--line);border-radius:var(--rad);padding:20px;cursor:pointer;text-align:left;color:var(--txt);transition:border-color .2s,transform .2s;position:relative}
+.track:hover{transform:translateY(-2px)}
+.track.sel{border-color:var(--amber);background:linear-gradient(180deg,rgba(242,169,59,.07),var(--panel))}
+.track .tk{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.16em;text-transform:uppercase}
+.track h3{font-family:var(--disp);font-weight:700;font-size:18px;margin:6px 0 6px}
+.track p{color:var(--dim);font-size:13px;line-height:1.5}
+.track .pill{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:9.5px;color:var(--amber);border:1px solid rgba(242,169,59,.35);padding:2px 7px;border-radius:99px;opacity:0;transition:opacity .2s}
+.track.sel .pill{opacity:1}
+
+/* ---------- months ---------- */
+.month{border:1px solid var(--line);border-radius:var(--rad);background:var(--panel);margin-bottom:10px;overflow:hidden}
+.mh{width:100%;display:flex;align-items:center;gap:16px;padding:16px 18px;background:none;border:0;color:var(--txt);text-align:left}
+.mh:hover{background:var(--panel2)}
+.mh .mno{font-family:var(--mono);font-size:11px;color:var(--amber);letter-spacing:.1em;min-width:64px}
+.mh .mt{font-family:var(--disp);font-weight:700;font-size:16px;flex:1;letter-spacing:-.01em}
+.mh .esc{display:flex;align-items:center;gap:10px;min-width:170px}
+.bar{flex:1;height:5px;background:var(--bg2);border-radius:99px;overflow:hidden;min-width:70px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--amber));border-radius:99px;width:0;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.mh .esc span{font-family:var(--mono);font-size:11px;color:var(--dim);min-width:54px;text-align:right}
+.mh .chev{color:var(--faint);transition:transform .25s;font-size:12px}
+.month.open .chev{transform:rotate(90deg)}
+.mb{display:none;border-top:1px solid var(--line);padding:20px 18px;background:var(--bg2)}
+.month.open .mb{display:block;animation:fadein .3s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.mcol h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--cyan);text-transform:uppercase;margin-bottom:9px}
+.mcol ul{list-style:none}
+.mcol li{font-size:13.5px;color:var(--dim);padding:3px 0 3px 14px;position:relative;line-height:1.45}
+.mcol li::before{content:"▸";position:absolute;left:0;color:var(--faint);font-size:10px;top:6px}
+.mcol li b{color:var(--txt);font-weight:600}
+.unlock{margin-top:18px;padding:13px 15px;border:1px solid rgba(82,215,143,.25);background:var(--green-soft);border-radius:8px;font-size:13px;color:var(--txt)}
+.unlock b{color:var(--green);font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:4px}
+.mtrack{margin-top:16px;padding:13px 15px;border:1px solid rgba(242,169,59,.22);background:var(--amber-soft);border-radius:8px;font-size:13px;color:var(--txt)}
+.mtrack b{color:var(--amber);font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:4px}
+
+/* ---------- tables ---------- */
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--rad);background:var(--panel)}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:760px}
+th{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);text-align:left;padding:11px 14px;border-bottom:1px solid var(--line2);background:var(--bg2);position:sticky;top:0;cursor:pointer;user-select:none;white-space:nowrap}
+th:hover{color:var(--amber)}
+td{padding:10px 14px;border-bottom:1px solid var(--line);color:var(--dim);vertical-align:top}
+td:first-child{color:var(--txt);font-weight:500}
+tr:hover td{background:rgba(168,190,220,.03)}
+.meter{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px}
+.meter i{width:54px;height:4px;background:var(--bg);border-radius:99px;overflow:hidden;display:inline-block}
+.meter i b{display:block;height:100%;border-radius:99px}
+.searchrow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.searchrow input{flex:1;min-width:220px;background:var(--panel);border:1px solid var(--line2);border-radius:8px;color:var(--txt);font-family:var(--mono);font-size:13px;padding:10px 14px}
+.searchrow input::placeholder{color:var(--faint)}
+.chip{font-family:var(--mono);font-size:11px;border:1px solid var(--line2);background:var(--panel);color:var(--dim);padding:7px 13px;border-radius:99px;letter-spacing:.03em}
+.chip:hover{color:var(--txt);border-color:var(--dim)}
+.chip.on{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
+
+/* ---------- cards ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--rad);padding:18px
+.systems-2027-validation{border-left:3px solid var(--text)}
+.systems-2027-validation .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:14px}
+.systems-2027-validation .grid>div{border:1px solid var(--line);padding:14px;border-radius:var(--rad)}
+.systems-2027-validation-rule{margin-bottom:0;font-family:var(--mono);font-weight:700;letter-spacing:.03em}
+@media(max-width:980px){.systems-2027-validation .grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.systems-2027-validation .grid{grid-template-columns:1fr}}
+;transition:border-color .2s,transform .2s}
+
+
+
+
+}
+
+.card:hover{border-color:var(--line2);transform:translateY(-2px)}
+.card h3{font-family:var(--disp);font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.card .sub{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.08em;margin:3px 0 10px;text-transform:uppercase}
+.card p{font-size:13px;color:var(--dim);line-height:1.55}
+.card .kv{margin-top:12px;display:grid;gap:6px}
+.card .kv div{display:flex;gap:8px;font-size:12.5px}
+.card .kv span{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.08em;text-transform:uppercase;min-width:92px;padding-top:2px}
+.card .kv p{flex:1;color:var(--dim);font-size:12.5px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tags span{font-family:var(--mono);font-size:10px;color:var(--cyan);background:var(--cyan-soft);border:1px solid rgba(79,216,235,.22);padding:2px 8px;border-radius:4px}
+.scorebar{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.scorebar div{font-family:var(--mono);font-size:10px;color:var(--dim);background:var(--bg2);border:1px solid var(--line);padding:3px 8px;border-radius:4px}
+.scorebar div b{color:var(--amber);font-weight:600}
+
+/* ---------- timeline ---------- */
+.tl{position:relative;margin-left:8px;padding-left:26px;border-left:1px solid var(--line2)}
+.tl-item{position:relative;padding:0 0 26px}
+.tl-item::before{content:"";position:absolute;left:-31px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:2px solid var(--amber)}
+.tl-item .when{font-family:var(--mono);font-size:11px;color:var(--amber);letter-spacing:.1em;text-transform:uppercase}
+.tl-item h3{font-family:var(--disp);font-weight:700;font-size:16px;margin:4px 0 5px}
+.tl-item p{color:var(--dim);font-size:13.5px;max-width:720px}
+.tl-item .req{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:7px;line-height:1.7}
+.tl-item .req b{color:var(--cyan);font-weight:500}
+
+/* ---------- clusters ---------- */
+.cluster{border:1px solid var(--line);border-radius:var(--rad);background:var(--panel);padding:18px;margin-bottom:12px}
+.cluster h3{font-family:var(--disp);font-weight:700;font-size:16px;display:flex;flex-wrap:wrap;gap:10px;align-items:baseline}
+.cluster h3 small{font-family:var(--mono);font-size:10.5px;color:var(--faint);font-weight:400;letter-spacing:.06em}
+.cluster .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:12px}
+.cluster .row h4{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--cyan);text-transform:uppercase;margin-bottom:5px}
+.cluster .row p{font-size:12.5px;color:var(--dim);line-height:1.55}
+
+/* ---------- radar / canvas ---------- */
+.radarwrap{display:grid;grid-template-columns:minmax(280px,420px) 1fr;gap:28px;align-items:start}
+@media (max-width:860px){.radarwrap{grid-template-columns:1fr}}
+canvas{max-width:100%}
+.defrank{counter-reset:dr}
+.defrank li{list-style:none;counter-increment:dr;padding:12px 0;border-bottom:1px solid var(--line);display:flex;gap:14px;align-items:baseline}
+.defrank li::before{content:counter(dr,decimal-leading-zero);font-family:var(--mono);font-size:11px;color:var(--amber);min-width:26px}
+.defrank b{color:var(--txt);font-weight:600;font-size:14px}
+.defrank p{color:var(--dim);font-size:13px;margin-top:2px}
+.defrank .ds{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--green);white-space:nowrap}
+
+/* ---------- salary ---------- */
+.salgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+
+/* ---------- misc ---------- */
+.note{border-left:2px solid var(--cyan);background:var(--cyan-soft);padding:13px 16px;border-radius:0 8px 8px 0;font-size:13.5px;color:var(--dim);margin:22px 0}
+.note b{color:var(--txt)}
+footer{padding:50px 0 70px;color:var(--faint);font-size:12.5px;max-width:var(--max);margin:0 auto;padding-left:24px;padding-right:24px}
+footer p{max-width:780px;margin-bottom:10px}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+@media (max-width:640px){
+  .hd{gap:12px;padding:0 14px}
+  main{padding:0 14px}
+  .mh .esc{display:none}
+  .hero{padding-top:140px}
+}
+</style>
+</head>
+<body>
+<div class="ticker-wrap" aria-hidden="true"><div class="ticker" id="ticker"></div></div>
+
+<header>
+  <div class="hd">
+    <div class="logo"><i></i>VECTOR/26 <small>AI CAREER TERMINAL · v1.3</small></div>
+    <nav id="nav">
+      <a href="#market" class="act">MARKET</a>
+      <a href="#tracks">TRACKS</a>
+      <a href="#roadmap">12-MONTH OS</a>
+      <a href="#skillshift">2027 SKILL SHIFT</a>
+      <a href="#systems">SYSTEMS / GPU</a>
+      <a href="#readiness">READINESS</a>
+      <a href="#applications">APPLY WINDOWS</a>
+      <a href="#orgs">ORGS</a>
+      <a href="#clusters">EMPLOYERS</a>
+      <a href="#projects">PROJECTS</a>
+      <a href="#skills">SKILLS DB</a>
+      <a href="#salary">COMP</a>
+      <a href="#moat">MOAT</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<div class="hero">
+  <div class="eyebrow">STRATEGIC OPERATING SYSTEM · PHASE 3 · JUN 2026 → MAY 2027</div>
+  <h1>Twelve months to become <em>structurally hard to replace</em> in the AI labor market.</h1>
+  <p class="sub">Not a learning roadmap. A career operating system: month-by-month execution, hiring thresholds, application windows, employer intelligence, and a defensibility model — across three simultaneous tracks.</p>
+  <div class="meta">
+    <span><b>OPERATOR:</b> SAPATH CHAKRABORTY</span>
+    <span><b>BASE:</b> KOLKATA, IN · REMOTE-GLOBAL</span>
+    <span><b>ASSETS:</b> M.TECH AI · 2 PAPERS IN FLIGHT · IIT-KGP FL INTERNSHIP · SUPERMIND LABS</span>
+    <span><b>COMPILED:</b> 24 AUG 2026 · PHASE 3 SYSTEMS UPGRADE</span>
+  </div>
+
+  <div class="statgrid" id="statgrid">
+    <div class="stat reveal"><div class="num" data-count="63" data-suffix="%">0</div><div class="lbl">LLM requirement across live AI-engineer postings <span class="badge b-ver">Verified</span></div><div class="src">Dexity · July 2026 ATS-board scan · 390 postings</div></div>
+    <div class="stat reveal"><div class="num" data-count="56" data-suffix="%">0</div><div class="lbl">Eval requirement across live AI-engineer postings <span class="badge b-ver">Verified</span></div><div class="src">Dexity · July 2026 ATS-board scan · 390 postings</div></div>
+    <div class="stat reveal"><div class="num" data-count="50" data-suffix="%">0</div><div class="lbl">Agent requirement across live AI-engineer postings <span class="badge b-ver">Verified</span></div><div class="src">Dexity · July 2026 ATS-board scan · 390 postings</div></div>
+    <div class="stat reveal"><div class="num" data-count="4" data-prefix="~" data-suffix="%">0</div><div class="lbl">Entry-level share of AI-engineer postings in the May 2026 LinkedIn scan <span class="badge b-ver">Verified</span></div><div class="src">Dexity · May 2026 LinkedIn pull · 425 AI-engineer postings</div></div>
+  </div>
+</div>
+
+<!-- ================= MARKET ================= -->
+<section id="market">
+  <div class="eyebrow">SECTION 01</div>
+  <h2>Market Intelligence — August 2026 refresh</h2>
+  <p class="lede">The market is now clearly rewarding <b>production AI ownership over demo-level model usage</b>. Current live-posting data puts LLMs, evaluation, agents, and Python at the center of AI-engineer hiring, while entry-level supply remains brutally constrained. The strategic opportunity is not "learn GenAI"; it is to demonstrate that you can build, evaluate, deploy, operate, and improve AI systems.</p>
+
+  <div class="legend">
+    <span class="badge b-ver">Verified</span> sourced &amp; dated
+    <span class="badge b-est">Estimated</span> derived from sourced data
+    <span class="badge b-pro">Projected</span> forecast, treat as directional
+  </div>
+
+  <div class="cards">
+    <div class="card reveal"><h3>Demand structure <span class="badge b-ver">Verified</span></h3><div class="sub">Where hiring concentrates</div><p>Current AI-engineer hiring is <b style="color:var(--txt)">experience-weighted, not credential-weighted</b>. Dexity's July 2026 scan shows 44% mid-level, 30% senior, 21% staff and only ~1% junior postings; its May LinkedIn pull found only ~4% entry-level. The implication is structural: early-career candidates need to manufacture evidence of experience through deployed systems, evals, OSS, research, and referrals.</p></div>
+    <div class="card reveal"><h3>The production shift <span class="badge b-ver">Verified</span></h3><div class="sub">August 2026 hiring focus</div><p>Live AI-engineer postings now show <b>LLMs 63%, evals 56%, agents 50%, Python 59%, and RAG 26%</b> in Dexity's July 2026 scan. Evals now outrank RAG, reinforcing the move from "can build a demo" to "can prove the system works."</p></div>
+    <div class="card reveal"><h3>India signal <span class="badge b-ver">Verified</span></h3><div class="sub">GCC expansion + selective hiring</div><p>India's GCC market is shifting toward strategic product ownership, platform management, and advanced technology work. Current reporting puts India at <b>2,100+ GCCs</b>, while Charles Schwab plans to scale its Hyderabad engineering centre to about <b>2,000 employees by end-2027</b>. The opportunity is real, but current hiring is increasingly selective and experience-weighted.</p></div>
+    <div class="card reveal"><h3>The bifurcation <span class="badge b-ver">Verified</span></h3><div class="sub">One title, very different bars</div><p>Current hiring data is heavily senior-tilted: Dexity's July scan found <b>44% mid, 30% senior, 21% staff</b> and only about <b>1% junior</b>. Enterprise AI engineering rewards production evidence; frontier/research tracks demand research artifacts and systems depth. This terminal therefore treats public proof-of-work as the entry ticket, not credential completion.</p></div>
+    <div class="card reveal"><h3>Agent reliability is the new filter <span class="badge b-ver">Verified</span></h3><div class="sub">August 2026</div><p>Agentic hiring has moved beyond framework familiarity. Current agent-hiring analysis identifies <b>evaluation</b> and <b>reliability engineering</b> as differentiators, while production surveys report quality as a leading barrier and observability as table stakes. Your roadmap is directionally correct: build fewer agents, operate them much better.</p></div>
+    <div class="card reveal"><h3>Inference is becoming a systems problem <span class="badge b-ver">Verified</span></h3><div class="sub">August 2026 research signal</div><p>Current inference research is moving beyond simple serving benchmarks toward <b>KV-cache pressure, prefill/decode disaggregation, selective KV transfer, heterogeneous serving and memory-aware scheduling</b>. Recent 2026 work shows these are active systems problems rather than theoretical footnotes. That makes inference engineering a legitimate 2027 specialization.</p><p><b>Implication:</b> measure time-to-first-token, inter-token latency, throughput, GPU utilization, memory pressure and cost together — never optimize one metric in isolation.</p></div>
+    <div class="card reveal"><h3>Risk register <span class="badge b-est">Estimated</span></h3><div class="sub">What could break this plan</div><p>The largest near-term risk is not disappearance of AI work; it is <b>entry-level compression</b>. AI-engineer postings are heavily mid/senior weighted, so a fresh graduate must manufacture evidence of experience through deployed systems, measurable evaluations, OSS contributions, research, and referrals. Treat the credential as baseline; treat proof-of-work as the differentiator.</p></div>
+  </div>
+</section>
+
+<!-- ================= TRACKS ================= -->
+<section id="tracks">
+  <div class="eyebrow">SECTION 02</div>
+  <h2>Three tracks, one engine</h2>
+  <p class="lede">Select a track to recalibrate the 12-month roadmap below. <b>~70% of the work is shared</b> (the engine); ~30% diverges (the edge). You are running Research as primary (papers + IIT-KGP) with Engineer as employability floor and Consultant compounding through SuperMind Labs.</p>
+  <div class="tracks" id="trackSel"></div>
+</section>
+
+<!-- ================= ROADMAP ================= -->
+<section id="roadmap">
+  <div class="eyebrow">SECTION 03</div>
+  <h2>The 12-Month Operating System</h2>
+  <p class="lede">Each month: core skills, tooling, math, deliverables, the <b>employability score</b> (estimated readiness vs. a hireable junior-to-mid AI engineer benchmark), and exactly which doors unlock. Scores are <span class="badge b-est">Estimated</span> calibrations, not measurements. Click any month to expand.</p>
+  <div id="months"></div>
+</section>
+
+<!-- ================= 2027 SKILL SHIFT ================= -->
+<section id="skillshift">
+  <div class="eyebrow">PHASE 2 · 2027 SKILL ARCHITECTURE</div>
+  <h2>The 2027 Skill Shift — build systems, not demos</h2>
+  <p class="lede">Phase 2 upgrades the terminal from a strong 2026 AI-engineering roadmap into a 2027-ready capability model. The shift is explicit: <b>AI-assisted engineering, reliable agents, multimodal systems, AI security, inference economics, model routing, and verification</b> become first-class engineering disciplines.</p>
+  <div class="cards">
+    <div class="card reveal"><h3>AI-Augmented Engineering</h3><div class="sub">The engineer still owns correctness</div><p>Use coding agents for repository navigation, implementation, testing, refactoring, debugging and review — then verify their work. Core study: repository context, agentic coding loops, test generation, static analysis, dependency/security review, CI agents, patch validation, benchmark-driven coding, human approval boundaries, and productivity measurement.</p><p><b>2027 rule:</b> AI-generated code is an input to engineering, not evidence that engineering happened.</p></div>
+    <div class="card reveal"><h3>Reliable Agent Systems</h3><div class="sub">From agent demos to production behavior</div><p>Study state machines, tool contracts, retries, idempotency, timeouts, sandboxing, permission boundaries, memory design, trajectory tracing, evaluator design, failure taxonomies, recovery policies, human escalation and cost controls.</p><p><b>Market signal:</b> current agent deployments are increasingly constrained by quality and reliability, not by the ability to make a tool call.</p></div>
+    <div class="card reveal"><h3>AI Security</h3><div class="sub">Security becomes part of AI engineering</div><p>Study prompt injection, indirect injection, tool abuse, data exfiltration, secret leakage, insecure output handling, excessive agency, supply-chain risk, model/data poisoning, sandbox boundaries, identity and least privilege, audit logs and incident response.</p><p><b>2027 rule:</b> every serious agent project needs a threat model and an abuse-case test suite.</p></div>
+    <div class="card reveal"><h3>Multimodal & Model Systems</h3><div class="sub">Beyond text-only LLM applications</div><p>Study VLM architecture, image/document ingestion, OCR failure modes, video/audio pipelines, multimodal retrieval, cross-modal embeddings, grounding, structured extraction, modality routing, latency/cost tradeoffs and evaluation by modality.</p><p>Current production AI roles are already asking for LLM, multimodal, monitoring, reliability, security and low-latency performance together. citeturn0search6</p></div>
+    <div class="card reveal"><h3>Inference & Economics</h3><div class="sub">Performance is a product requirement</div><p>Study continuous batching, prefill/decode behavior, KV-cache management, prefix caching, speculative decoding, quantization, concurrency, tail latency, GPU utilization, throughput/latency Pareto curves, model routing and cost per successful task.</p><p><b>Deliverable:</b> benchmark the same workload across multiple serving strategies and explain why the winner changes under different traffic conditions.</p></div>
+    <div class="card reveal"><h3>Verification & Validation</h3><div class="sub">The new software-engineering bottleneck</div><p>Study unit/property tests, regression suites, static analysis, behavioral evals, benchmark contamination, adversarial tests, reproducibility, statistical confidence, human review and release gates. Coding-agent research increasingly emphasizes verification as implementation becomes more automated. citeturn0academia27</p><p><b>Standard:</b> no AI-generated change ships without an independently checkable acceptance criterion.</p></div>
+  </div>
+</section>
+
+<!-- ================= SYSTEMS / GPU ================= -->
+<section id="systems">
+  <div class="eyebrow">PHASE 3 · AI SYSTEMS + GPU ENGINEERING</div>
+  <h2>The Systems Layer — inference, GPUs, distributed compute & economics</h2>
+  <p class="lede">Phase 3 turns GPU/inference from a supporting skill into a serious engineering specialization. The target is not "know CUDA"; it is the ability to explain <b>where latency, memory, communication and cost go</b>, then prove an optimization with measurements.</p>
+
+  <div class="note" style="margin-bottom:22px">
+    <b>PHASE 3 STANDARD</b>
+    <p style="margin:8px 0 12px">Measure before you optimize.</p>
+    <p style="margin:0 0 14px">Every systems claim must name the workload, hardware, baseline, metric, percentile, measurement method and reproducible command/script. “Faster” without evidence does not count.</p>
+    <div class="badge b-ver">Core outputs</div>
+    <span style="margin-left:8px">Latency · throughput · memory · utilization · communication · cost</span>
+  </div>
+
+  <div class="cards">
+    <div class="card reveal">
+      <h3>01 · CUDA execution model</h3>
+      <div class="sub">Understand what the GPU is actually doing.</div>
+      <ul>
+        <li>Host/device execution model</li><li>Kernel launches and launch overhead</li><li>Grids, blocks, threads and indexing</li><li>Warps and SIMT execution</li><li>Warp divergence and branch efficiency</li><li>Registers, local memory and spills</li><li>Shared memory and bank conflicts</li><li>Global-memory coalescing</li><li>Streams, events and synchronization</li><li>Asynchronous copies and overlap</li><li>Occupancy vs achieved utilization</li><li>Roofline-style compute vs bandwidth reasoning</li>
+      </ul>
+      <p><b>Artifact:</b> Profile two kernels, identify the limiting resource, then produce a before/after benchmark with profiler evidence.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>02 · CUDA + Triton kernel engineering</h3>
+      <div class="sub">Move below framework abstractions.</div>
+      <ul>
+        <li>Memory-bound vs compute-bound kernels</li><li>Kernel fusion and launch reduction</li><li>Tiling and blocking strategies</li><li>Reduction and scan patterns</li><li>Register-pressure tradeoffs</li><li>Mixed precision and numerical stability</li><li>Tensor Core execution concepts</li><li>Triton program IDs and blocked layouts</li><li>Block pointers and masking</li><li>Triton autotuning</li><li>Benchmark design for kernels</li><li>Correctness testing against PyTorch references</li>
+      </ul>
+      <p><b>Artifact:</b> Optimize an attention/GEMM-adjacent kernel in CUDA or Triton and publish correctness tests plus profiler traces.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>03 · GPU profiling & performance diagnosis</h3>
+      <div class="sub">Learn to explain a profile instead of staring at one.</div>
+      <ul>
+        <li>Nsight Systems timeline analysis</li><li>Nsight Compute kernel analysis</li><li>SM occupancy metrics</li><li>Memory-throughput metrics</li><li>Warp stall reasons</li><li>Kernel launch gaps</li><li>CPU↔GPU synchronization gaps</li><li>CUDA memory allocation behavior</li><li>End-to-end vs kernel-level attribution</li><li>Profiling representative workloads</li><li>Variance and warm-up handling</li><li>Regression detection in benchmarks</li>
+      </ul>
+      <p><b>Artifact:</b> A profiler-backed performance report that traces an end-to-end latency regression to a specific subsystem.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>04 · LLM inference internals</h3>
+      <div class="sub">Treat serving as a systems problem.</div>
+      <ul>
+        <li>Prefill vs decode phases</li><li>TTFT and inter-token latency (ITL)</li><li>Prompt-length effects</li><li>Decode-step scheduling</li><li>Continuous batching</li><li>Dynamic batching trade-offs</li><li>Paged KV-cache concepts</li><li>KV-cache memory growth</li><li>GQA/MQA implications for KV memory</li><li>Tensor parallelism</li><li>Pipeline parallelism</li><li>Request scheduling and admission control</li>
+      </ul>
+      <p><b>Artifact:</b> Build an inference harness reporting p50/p95/p99 TTFT, ITL, throughput, GPU utilization, memory and cost across controlled traffic levels.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>05 · KV-cache engineering</h3>
+      <div class="sub">Memory becomes the scheduling constraint.</div>
+      <ul>
+        <li>Per-token KV memory calculation</li><li>Layer/head/head-dimension effects</li><li>Context-length scaling</li><li>Paged KV allocation</li><li>Block tables and fragmentation</li><li>Prefix caching</li><li>Cache hit-rate measurement</li><li>Eviction and reuse policies</li><li>KV-cache pressure under concurrency</li><li>KV transfer between serving components</li><li>Memory-aware request admission</li><li>Quality/latency implications of cache reuse</li>
+      </ul>
+      <p><b>Artifact:</b> Plot KV memory, hit rate and latency as context length and concurrency increase; explain the knee point.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>06 · Advanced serving architecture</h3>
+      <div class="sub">Beyond “deploy vLLM.”</div>
+      <ul>
+        <li>Chunked prefill</li><li>Speculative decoding</li><li>Prefix caching strategies</li><li>Prefill/decode disaggregation</li><li>KV-cache transfer</li><li>Cache locality</li><li>Model routing</li><li>Model cascading</li><li>Autoscaling signals</li><li>Load shedding and backpressure</li><li>Heterogeneous accelerator placement</li><li>Failure recovery and graceful degradation</li>
+      </ul>
+      <p><b>Artifact:</b> Prototype a disaggregated serving design and compare it with monolithic serving under long-context and high-concurrency workloads.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>07 · Distributed training</h3>
+      <div class="sub">Know where scale stops paying off.</div>
+      <ul>
+        <li>DDP process topology</li><li>FSDP sharding</li><li>ZeRO stages</li><li>Parameter/gradient/optimizer memory</li><li>Gradient accumulation</li><li>Activation checkpointing</li><li>Mixed precision at scale</li><li>Checkpoint I/O</li><li>Data vs tensor vs pipeline parallelism</li><li>Scaling efficiency</li><li>Strong vs weak scaling</li><li>Failure recovery in multi-GPU jobs</li>
+      </ul>
+      <p><b>Artifact:</b> 1→2→4 GPU scaling study with throughput, memory, efficiency and a written explanation of where scaling losses originate.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>08 · NCCL & GPU communication</h3>
+      <div class="sub">Communication can dominate compute.</div>
+      <ul>
+        <li>All-reduce</li><li>All-gather</li><li>Reduce-scatter</li><li>Broadcast and point-to-point communication</li><li>Ring vs tree-style collective concepts</li><li>NVLink vs PCIe implications</li><li>Topology awareness</li><li>NCCL communicator concepts</li><li>Gradient bucketing</li><li>Communication/computation overlap</li><li>Collective contention</li><li>Diagnosing scaling bottlenecks</li>
+      </ul>
+      <p><b>Artifact:</b> NCCL topology/scaling report that identifies whether the workload is compute-, memory- or communication-bound.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>09 · Distributed inference</h3>
+      <div class="sub">Scale serving without pretending one GPU is enough.</div>
+      <ul>
+        <li>Tensor parallel inference</li><li>Pipeline parallel inference</li><li>Data-parallel replicas</li><li>Request routing</li><li>Replica load balancing</li><li>Cross-GPU communication cost</li><li>Batch-size effects</li><li>Long-context serving</li><li>Disaggregated serving topology</li><li>Fault domains</li><li>Capacity planning</li><li>SLO-aware replica scaling</li>
+      </ul>
+      <p><b>Artifact:</b> Compare single-GPU, replicated and tensor-parallel serving using the same workload and publish the latency/cost Pareto frontier.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>10 · Inference optimization & quantization</h3>
+      <div class="sub">Accuracy is one axis; economics is the other.</div>
+      <ul>
+        <li>FP32/FP16/BF16/FP8 concepts</li><li>Weight-only quantization</li><li>Activation-aware quantization</li><li>GPTQ/AWQ-style approaches</li><li>Quantization error measurement</li><li>Throughput effects</li><li>Memory-footprint reduction</li><li>Kernel availability constraints</li><li>Batch-size interactions</li><li>Quality-latency trade-offs</li><li>Model-size vs hardware-fit decisions</li><li>Benchmarking quantized vs baseline models</li>
+      </ul>
+      <p><b>Artifact:</b> Quantization study with accuracy, memory, throughput, TTFT and cost tables—not a single “speedup” number.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>11 · Inference SLO & capacity engineering</h3>
+      <div class="sub">Production systems are constrained by tails.</div>
+      <ul>
+        <li>Latency SLOs</li><li>p50/p95/p99 interpretation</li><li>TTFT vs ITL budgets</li><li>Throughput targets</li><li>Concurrency limits</li><li>Queueing and admission control</li><li>Backpressure</li><li>Autoscaling thresholds</li><li>GPU utilization targets</li><li>Capacity headroom</li><li>Error budgets</li><li>Load-test design</li>
+      </ul>
+      <p><b>Artifact:</b> SLO benchmark harness that recommends capacity and serving configuration from observed traffic rather than guesswork.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>12 · Performance economics</h3>
+      <div class="sub">Turn systems engineering into business decisions.</div>
+      <ul>
+        <li>Tokens/sec</li><li>Requests/sec</li><li>GPU-hours</li><li>GPU utilization</li><li>Cost/request</li><li>Cost/million tokens</li><li>Cost/successful task</li><li>Amortized model cost</li><li>Batching economics</li><li>Quantization economics</li><li>Model-routing economics</li><li>Latency vs cost Pareto frontiers</li>
+      </ul>
+      <p><b>Artifact:</b> Inference Cost/SLO Optimizer: input workload + SLO → output recommended model, hardware, batching, routing and serving architecture.</p>
+    </div>
+  
+<div class="card reveal">
+      <h3>13 · AI Platform Engineering</h3>
+      <div class="sub">Build the platform underneath AI applications.</div>
+      <ul>
+        <li>Kubernetes fundamentals for AI workloads</li>
+        <li>GPU scheduling</li>
+        <li>NVIDIA GPU Operator</li>
+        <li>Device plugins</li>
+        <li>Node pools</li>
+        <li>GPU partitioning</li>
+        <li>Model serving infrastructure</li>
+        <li>Inference gateways</li>
+        <li>Model registries</li>
+        <li>Artifact registries</li>
+        <li>Secrets management</li>
+        <li>Workload identity</li>
+        <li>Multi-tenancy</li>
+        <li>Autoscaling</li>
+        <li>Rollout strategies</li>
+        <li>Canary deployments</li>
+        <li>Shadow traffic</li>
+        <li>Rollback</li>
+        <li>GitOps</li>
+        <li>Infrastructure-as-code</li>
+        <li>Policy-as-code</li>
+        <li>Resource quotas</li>
+        <li>SLOs</li>
+        <li>Platform observability</li>
+        <li>Debugging failed deployments</li>
+      </ul>
+      <p><b>Artifact:</b> Deploy a multi-model AI platform with GPU scheduling, inference gateway, observability, autoscaling, canary release and rollback.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>14 · AI Observability &amp; Reliability Engineering</h3>
+      <div class="sub">Make AI systems measurable, diagnosable and dependable in production.</div>
+      <ul>
+        <li>Distributed traces, spans and correlation IDs</li>
+        <li>Agent trajectory tracing</li>
+        <li>Model-call, tool-call and retrieval instrumentation</li>
+        <li>Latency, throughput and error-rate telemetry</li>
+        <li>Token usage and cost telemetry</li>
+        <li>Queue depth, saturation and backpressure signals</li>
+        <li>GPU utilization, memory and serving metrics</li>
+        <li>Structured logging and event schemas</li>
+        <li>OpenTelemetry concepts and instrumentation</li>
+        <li>Request-level failure attribution</li>
+        <li>Retry, timeout, fallback and circuit-breaker behavior</li>
+        <li>Agent success, tool correctness and recovery metrics</li>
+        <li>Model-quality regression detection</li>
+        <li>Hallucination and groundedness monitoring</li>
+        <li>Safety-policy violation monitoring</li>
+        <li>Drift and distribution-shift signals</li>
+        <li>SLOs, SLIs and error budgets for AI services</li>
+        <li>Alert design and actionable thresholds</li>
+        <li>Incident response and postmortem practice</li>
+        <li>Failure injection and resilience testing</li>
+        <li>Canary and shadow observability</li>
+        <li>End-to-end request-to-outcome attribution</li>
+        <li>Production dashboards for engineering and business metrics</li>
+        <li>Observability cost and telemetry-cardinality control</li>
+      </ul>
+      <p><b>Artifact:</b> Build an AI observability stack that traces one agent request from user input → model → retrieval → tool → database → response and exposes latency, cost, quality and failure attribution.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>15 · AI Data &amp; Context Engineering</h3>
+      <div class="sub">Engineer the information layer that makes AI systems useful, reliable and auditable.</div>
+      <ul>
+        <li>Data contracts and schema evolution</li>
+        <li>Data lineage and provenance</li>
+        <li>Dataset versioning and reproducibility</li>
+        <li>Data-quality checks and validation gates</li>
+        <li>Deduplication, filtering and contamination control</li>
+        <li>Batch and streaming data pipelines</li>
+        <li>Document ingestion and normalization</li>
+        <li>Semantic chunking and metadata design</li>
+        <li>Embedding generation and embedding lifecycle management</li>
+        <li>Hybrid retrieval and reranking</li>
+        <li>Query rewriting and retrieval planning</li>
+        <li>Retrieval precision/recall and groundedness evaluation</li>
+        <li>Context compression and long-context failure modes</li>
+        <li>Context caching and reuse</li>
+        <li>Working, episodic and semantic memory concepts</li>
+        <li>Memory retrieval, compaction and lifecycle management</li>
+        <li>Memory poisoning and context contamination risks</li>
+        <li>Source attribution and evidence provenance</li>
+        <li>Synthetic-data generation and quality controls</li>
+        <li>Privacy-aware data pipelines and access boundaries</li>
+        <li>Dataset drift and distribution-shift monitoring</li>
+        <li>Context-quality regression testing</li>
+        <li>Data observability and pipeline failure diagnosis</li>
+        <li>Cost/latency trade-offs across retrieval and context pipelines</li>
+        <li>Versioned knowledge assets tied to model and application releases</li>
+      </ul>
+      <p><b>Artifact:</b> Build a versioned AI knowledge pipeline with provenance, retrieval evaluation, context-quality metrics and automated regression tests.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>16 · Agent Runtime Governance &amp; Security</h3>
+      <div class="sub">Control autonomous systems continuously: identity, permissions, policy, isolation, evidence and intervention.</div>
+      <ul>
+        <li>Agent identity and workload identity</li>
+        <li>Tool authentication and authorization</li>
+        <li>Least-privilege tool permissions</li>
+        <li>Policy enforcement at runtime</li>
+        <li>Human-in-the-loop approval gates</li>
+        <li>Action budgets and spend limits</li>
+        <li>Rate limits and resource quotas</li>
+        <li>Sandboxing and execution isolation</li>
+        <li>Network and filesystem boundaries</li>
+        <li>Secrets isolation and credential handling</li>
+        <li>Agent interrupt and kill-switch mechanisms</li>
+        <li>Audit trails and immutable event records</li>
+        <li>Tool-call and policy-decision logging</li>
+        <li>Behavioral monitoring and anomaly detection</li>
+        <li>Prompt-injection and indirect-injection defenses</li>
+        <li>Data exfiltration and excessive-agency controls</li>
+        <li>Supply-chain and tool integrity checks</li>
+        <li>Continuous red-teaming and adversarial testing</li>
+        <li>Policy regression testing</li>
+        <li>Failure containment and graceful degradation</li>
+        <li>Incident response and forensic reconstruction</li>
+        <li>Governance evidence for regulated deployments</li>
+        <li>Agent lifecycle, versioning and policy compatibility</li>
+        <li>Runtime risk scoring and escalation paths</li>
+        <li>Human override, shutdown and recovery procedures</li>
+      </ul>
+      <p><b>Artifact:</b> Build a governed agent runtime where every tool action is authenticated, authorized, policy-checked, logged and interruptible, with a red-team suite and incident-reconstruction report.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>17 · Distributed Systems Engineering</h3>
+      <div class="sub">Understand the distributed substrate beneath reliable AI platforms and autonomous services.</div>
+      <ul>
+        <li>RPC and gRPC communication models</li>
+        <li>Request/response and asynchronous execution</li>
+        <li>Message queues and event-driven architecture</li>
+        <li>Pub/sub systems and consumer groups</li>
+        <li>Service discovery and endpoint management</li>
+        <li>Replication and redundancy</li>
+        <li>Partitioning and sharding</li>
+        <li>Consistency models and trade-offs</li>
+        <li>Strong vs eventual consistency</li>
+        <li>Leader election and coordination concepts</li>
+        <li>Distributed caching and cache invalidation</li>
+        <li>Idempotency and duplicate-request handling</li>
+        <li>Retries, timeouts and exponential backoff</li>
+        <li>Circuit breakers and failure isolation</li>
+        <li>Rate limiting and admission control</li>
+        <li>Backpressure and load shedding</li>
+        <li>Failure detection and partial-failure reasoning</li>
+        <li>Distributed transactions and workflow coordination</li>
+        <li>Dead-letter queues and poison-message handling</li>
+        <li>Distributed tracing and correlation</li>
+        <li>Service-level objectives across dependencies</li>
+        <li>Chaos and fault-injection testing</li>
+        <li>Capacity planning and horizontal scaling</li>
+        <li>Graceful degradation and recovery</li>
+        <li>Debugging race conditions and distributed failure modes</li>
+      </ul>
+      <p><b>Artifact:</b> Design and implement a fault-tolerant AI service with asynchronous workers, queues, retries, idempotency, distributed tracing and deliberate failure injection; publish the failure matrix and recovery report.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>18 · AI FinOps &amp; Infrastructure Economics</h3>
+      <div class="sub">Turn AI infrastructure usage into measurable capacity, cost and business decisions.</div>
+      <ul>
+        <li>GPU-hour economics</li>
+        <li>Training vs inference cost models</li>
+        <li>Cloud vs local infrastructure trade-offs</li>
+        <li>Reserved, on-demand and burst capacity</li>
+        <li>GPU utilization and idle-capacity analysis</li>
+        <li>Compute, storage and network cost attribution</li>
+        <li>Model-serving cost per request</li>
+        <li>Cost per million tokens</li>
+        <li>Cost per successful task</li>
+        <li>Training run cost estimation</li>
+        <li>Checkpoint and artifact storage economics</li>
+        <li>Network egress and data-transfer costs</li>
+        <li>Observability and telemetry cost</li>
+        <li>Vector database and retrieval infrastructure cost</li>
+        <li>Capacity planning and utilization targets</li>
+        <li>Workload placement and hardware-fit decisions</li>
+        <li>Autoscaling economics</li>
+        <li>Batching and utilization economics</li>
+        <li>Quantization and model-size economics</li>
+        <li>Model-routing and cascading economics</li>
+        <li>Cost attribution by team, model, workload and customer</li>
+        <li>Chargeback and showback concepts</li>
+        <li>Budget controls and spending alerts</li>
+        <li>Cost-performance Pareto analysis</li>
+        <li>Infrastructure ROI and total-cost-of-ownership reasoning</li>
+      </ul>
+      <p><b>Artifact:</b> Build an AI FinOps dashboard and optimizer that takes workload, SLO and capacity inputs and outputs recommended hardware, model placement, scaling policy and expected cost per successful task.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>19 · AI Product Engineering</h3>
+      <div class="sub">Turn capable AI systems into products people can adopt, trust, measure and pay for.</div>
+      <ul>
+        <li>Problem discovery and workflow decomposition</li>
+        <li>AI suitability and automation-boundary analysis</li>
+        <li>User research for AI-assisted workflows</li>
+        <li>Human-in-the-loop interaction design</li>
+        <li>Agent UX and controllability</li>
+        <li>Failure-aware product and fallback UX</li>
+        <li>Evaluation-driven product requirements</li>
+        <li>AI quality metrics and acceptance criteria</li>
+        <li>Offline vs online evaluation design</li>
+        <li>Experimentation and A/B testing</li>
+        <li>Adoption, activation and retention metrics</li>
+        <li>Task success and human-effort measurement</li>
+        <li>Latency, reliability and quality trade-offs</li>
+        <li>Model and feature cost constraints</li>
+        <li>AI product feedback loops</li>
+        <li>Model/version change management</li>
+        <li>Human override and escalation design</li>
+        <li>Trust, transparency and explainability UX</li>
+        <li>AI-specific abuse and misuse considerations</li>
+        <li>ROI and value-realization measurement</li>
+        <li>Prioritization using impact, confidence and effort</li>
+        <li>Build-vs-buy-vs-model decision making</li>
+        <li>Product analytics and instrumentation</li>
+        <li>Launch readiness and rollout criteria</li>
+        <li>Post-launch iteration and product lifecycle management</li>
+      </ul>
+      <p><b>Artifact:</b> Take an AI capability from problem definition to production launch: define the workflow and success metrics, prototype the human/AI interaction, instrument product analytics, run a controlled evaluation, and publish a product decision memo with adoption, quality, latency, cost and ROI evidence.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>20 · Physical AI &amp; VLA Engineering</h3>
+      <div class="sub">Bridge perception, language, action and control into measurable embodied systems.</div>
+      <ul>
+        <li>Vision-language-action model architecture</li>
+        <li>Multimodal perception and sensor fusion</li>
+        <li>Visual representation learning</li>
+        <li>Language-conditioned action generation</li>
+        <li>Imitation learning and behavior cloning</li>
+        <li>Offline and online reinforcement learning</li>
+        <li>Reward design and reward-model failure modes</li>
+        <li>World models and predictive environment representations</li>
+        <li>Planning, control and action horizons</li>
+        <li>Robot kinematics and dynamics fundamentals</li>
+        <li>Trajectory generation and motion planning</li>
+        <li>Closed-loop control and feedback</li>
+        <li>ROS 2 communication and node architecture</li>
+        <li>Simulation environments and synthetic data</li>
+        <li>MuJoCo and physics-based simulation concepts</li>
+        <li>NVIDIA Isaac / Isaac Sim concepts</li>
+        <li>Sim-to-real transfer</li>
+        <li>Domain randomization and robustness</li>
+        <li>Data collection and demonstration pipelines</li>
+        <li>Embodied evaluation and task-success metrics</li>
+        <li>Safety constraints and action-space boundaries</li>
+        <li>Latency and real-time inference constraints</li>
+        <li>Hardware/software co-design for embodied workloads</li>
+        <li>Failure recovery and intervention policies</li>
+        <li>Real-world deployment, monitoring and regression testing</li>
+      </ul>
+      <p><b>Artifact:</b> Build a simulated VLA task pipeline that maps multimodal observations and language instructions to closed-loop actions; evaluate task success, intervention rate, latency and robustness across controlled sim-to-real-style perturbations.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>21 · Evidence Graph &amp; Opportunity Scoring</h3>
+      <div class="sub">Convert learning activity into defensible evidence, employer signal and better career decisions.</div>
+      <ul>
+        <li>Skill-to-requirement mapping</li>
+        <li>Exercise-to-skill evidence linking</li>
+        <li>Artifact provenance and versioning</li>
+        <li>Benchmark and metric evidence capture</li>
+        <li>Reproducibility and verification status</li>
+        <li>GitHub/code/research evidence linking</li>
+        <li>Project-to-job requirement mapping</li>
+        <li>Employer-signal strength assessment</li>
+        <li>Evidence freshness and decay</li>
+        <li>Skill coverage and evidence gaps</li>
+        <li>Portfolio completeness analysis</li>
+        <li>Role-specific evidence weighting</li>
+        <li>Job-description requirement extraction</li>
+        <li>Opportunity fit scoring</li>
+        <li>Application expected-value modeling</li>
+        <li>Compensation, probability and effort factors</li>
+        <li>Application priority ranking</li>
+        <li>Interview-signal and conversion tracking</li>
+        <li>Feedback-loop updates from real outcomes</li>
+        <li>Evidence quality vs quantity trade-offs</li>
+        <li>Public proof vs private capability distinction</li>
+        <li>Research, engineering and systems signal differentiation</li>
+        <li>Decision logs and recommendation provenance</li>
+        <li>Confidence intervals and uncertainty in scoring</li>
+        <li>Continuous career-system recalibration</li>
+      </ul>
+      <p><b>Artifact:</b> Build an Evidence Graph that links skill → exercise → artifact → metric → public evidence → employer signal, then score opportunities by fit, evidence strength, expected value and effort to produce an application priority queue.</p>
+    </div>
+</div>
+
+
+    <div class="note" style="margin-top:22px">
+    <b>PHASE 3 CAPSTONE</b>
+    <h3 style="margin:8px 0 6px">AI Inference Systems Lab</h3>
+    <p>Build one reproducible benchmark suite that exercises CUDA/Triton kernels, GPU profiling, KV-cache pressure, batching, quantization, distributed serving and SLO economics. The final report must include hardware, workload, baseline, methodology, raw measurements, p50/p95/p99 results, bottleneck diagnosis, optimization attempts, failed experiments and the final architecture decision.</p>
+    <p style="font-family:var(--mono);font-weight:700;letter-spacing:.06em">PROFILE <span style="color:var(--dim)">→</span> DIAGNOSE <span style="color:var(--dim)">→</span> OPTIMIZE <span style="color:var(--dim)">→</span> BENCHMARK <span style="color:var(--dim)">→</span> PRICE <span style="color:var(--dim)">→</span> DEFEND</p>
+    <p style="margin-bottom:0"><b>Systems rule:</b> no performance claim without a workload, hardware specification, baseline, measurement method, percentile latency, variance discussion and reproducible benchmark script.</p>
+  </div>
+    <div class="note systems-2027-validation" style="margin-top:22px">
+      <b>2027 UPGRADE VALIDATION GATE</b>
+      <h3 style="margin:8px 0 6px">Systems Readiness Audit</h3>
+      <p>Do not mark Phase 3 complete because the topics are listed. Mark it complete only when the evidence survives this gate.</p>
+      <div class="grid">
+        <div>
+          <b>01 · Technical currency</b>
+          <p>Verify every major systems tool, architecture pattern and deployment practice against current 2026–2027 industry documentation before relying on it as a career signal.</p>
+        </div>
+        <div>
+          <b>02 · Reproducibility</b>
+          <p>Every benchmark must record workload, hardware, software versions, baseline, command/script, measurement method, warm-up policy, repetitions and variance.</p>
+        </div>
+        <div>
+          <b>03 · Performance evidence</b>
+          <p>Report latency percentiles, throughput, memory, utilization, communication and cost where applicable. Never publish an unsupported “X× faster” claim.</p>
+        </div>
+        <div>
+          <b>04 · Failure evidence</b>
+          <p>Document failed experiments, bottlenecks, regressions, recovery behavior and the conditions under which an optimization stops being beneficial.</p>
+        </div>
+        <div>
+          <b>05 · Production evidence</b>
+          <p>Demonstrate observability, SLOs, capacity limits, rollback, security boundaries, cost controls and graceful degradation—not just a successful demo.</p>
+        </div>
+        <div>
+          <b>06 · Career evidence</b>
+          <p>Map each major artifact to a concrete employer signal: code, benchmark, profiler trace, architecture decision, research result, deployment evidence or public technical write-up.</p>
+        </div>
+      </div>
+      <p class="systems-2027-validation-rule"><b>PASS CONDITION:</b> the system is considered 2027-ready only when its claims are current, reproducible, measurable, failure-tested and externally defensible.</p>
+    </div>
+</section>
+
+<!-- ================= READINESS ================= -->
+<section id="readiness">
+  <div class="eyebrow">SECTION 04</div>
+  <h2>Job Readiness Engine</h2>
+  <p class="lede">Minimum thresholds before applying to each employer class. Applying below threshold isn't fatal — but conversion rates collapse, and rejections cost calendar time. <span class="badge b-est">Estimated</span> from 2026 hiring-bar reporting and posting requirements.</p>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>Employer class</th><th>Earliest month</th><th>Skill floor</th><th>Project floor</th><th>Portfolio floor</th></tr></thead>
+      <tbody id="readyBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= APPLICATIONS ================= -->
+<section id="applications">
+  <div class="eyebrow">SECTION 05</div>
+  <h2>Application Timeline — windows open and close on calendars, not on your readiness</h2>
+  <p class="lede">Deadlines are seasonal and unforgiving. This maps program windows onto your Month 1–12 clock (Month 1 = June 2026). Verify exact dates on program pages each cycle — they shift annually. <span class="badge b-est">Estimated</span> windows based on historical cycles.</p>
+  <div class="tl" id="appTl"></div>
+</section>
+
+<!-- ================= ORGS ================= -->
+<section id="orgs">
+  <div class="eyebrow">SECTION 06</div>
+  <h2>Top Organizations Engine — 20 targets, decoded</h2>
+  <p class="lede">What each organization actually hires for, the bar they hire at, and the realistic month on your clock to engage. "Engage" ≠ "get hired" — it means applications, referrals-building, open-source contributions, or fellowship pipelines aimed at that org.</p>
+  <div class="searchrow"><input id="orgSearch" type="search" placeholder="/ filter organizations… (e.g. anthropic, robotics, india)"></div>
+  <div class="cards" id="orgCards"></div>
+</section>
+
+<!-- ================= CLUSTERS ================= -->
+<section id="clusters">
+  <div class="eyebrow">SECTION 07</div>
+  <h2>Top-50 Employer Map — ten clusters</h2>
+  <p class="lede">The 50 organizations most likely to hire serious AI talent in 2026–27, clustered by what they optimize for. Use clusters to decide <b>which projects to build</b> — every cluster reads a portfolio differently.</p>
+  <div id="clusterList"></div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section id="projects">
+  <div class="eyebrow">SECTION 08</div>
+  <h2>Project Engine — only work that converts to interviews</h2>
+  <p class="lede">Every project here maps to a hiring signal a real employer screens for. Progression: Beginner → Intermediate → Advanced → Production → Research-Grade. Scores (1–10) are <span class="badge b-est">Estimated</span> hiring-relevance calibrations against 2026 posting requirements.</p>
+  <div class="searchrow" id="projChips"></div>
+  <div class="cards" id="projCards"></div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section id="skills">
+  <div class="eyebrow">SECTION 09</div>
+  <h2>Skills Database — the full graph, scored</h2>
+  <p class="lede">Sortable and searchable. <b>Demand</b> = 2026 posting frequency; <b>Salary Δ</b> = comp impact; <b>AR</b> = automation resistance; <b>FR</b> = future relevance through 2030. All scores 1–10, <span class="badge b-est">Estimated</span> from the 2026 demand reports cited in the footer. Click headers to sort.</p>
+  <div class="searchrow"><input id="skillSearch" type="search" placeholder="/ search 58 skills… (e.g. cuda, rag, governance)"></div>
+  <div class="tblwrap" style="max-height:560px;overflow:auto">
+    <table id="skillTbl">
+      <thead><tr>
+        <th data-k="name">Skill</th><th data-k="cat">Category</th><th data-k="demand">Demand</th><th data-k="sal">Salary Δ</th><th data-k="diff">Difficulty</th><th data-k="time">Time</th><th data-k="ar">AR</th><th data-k="fr">FR</th>
+      </tr></thead>
+      <tbody id="skillBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= SALARY ================= -->
+<section id="salary">
+  <div class="eyebrow">SECTION 10</div>
+  <h2>Compensation Intelligence</h2>
+  <p class="lede">Three markets you can sell into from Kolkata, ranked by expected value per unit of effort. Base vs. total comp matters: postings show base; senior comp swings on equity.</p>
+  <div class="salgrid">
+    <div class="card reveal"><h3>India domestic <span class="badge b-est">Benchmark</span></h3><div class="sub">Product cos · GCCs · startups</div>
+      <div class="kv">
+        <div><span>Fresher AI/ML</span><p>₹6–10 LPA full-time; product companies and GCCs pay 60–150% above IT services at equal experience</p></div>
+        <div><span>Mid (3–7y)</span><p>₹10–18 LPA classical ML; GenAI/LLM roles ₹20–70 LPA — the premium exists because supply is scarce</p></div>
+        <div><span>Senior MLOps</span><p>₹45–60 LPA at product cos/GCCs — uptime maps directly to revenue</p></div>
+        <div><span>Sources</span><p>Taggd, BuildFast, Scaler/ShiftToTech, Savanna HR · Q1–Q2 2026</p></div>
+      </div></div>
+    <div class="card reveal"><h3>India-remote for US/EU <span class="badge b-est">Benchmark</span></h3><div class="sub">The arbitrage play</div>
+      <div class="kv">
+        <div><span>Range</span><p>₹30–65 LPA typical; senior ICs clear ₹70L+ working remote-first for US-headquartered teams</p></div>
+        <div><span>Entry path</span><p>Open-source visibility + production GenAI portfolio + async-English communication; contract-to-hire is the common on-ramp</p></div>
+        <div><span>Why it works</span><p>US teams pay below-US, above-India rates; your cost-of-living delta is pure margin — fundable runway for research + SuperMind Labs</p></div>
+        <div><span>Sources</span><p>Taggd, ClarUP, BuildFast · 2026</p></div>
+      </div></div>
+    <div class="card reveal"><h3>US / frontier ceiling <span class="badge b-est">Benchmark</span></h3><div class="sub">The long game (PhD/relocation/remote-rare)</div>
+      <div class="kv">
+        <div><span>Mainstream US</span><p>AI/ML engineers: $134K start, $170K midpoint, $193K high (Robert Half 2026); total comp $200K+ mid-career</p></div>
+        <div><span>Frontier labs</span><p>Current disclosed-band data in Dexity centers around $213–305K; exceptional frontier offers can reach ~$850K. Treat frontier compensation as a selective ceiling, not a typical outcome.</p></div>
+        <div><span>Your route</span><p>Publications + interpretability/safety angle + international PhD or MATS-class fellowship — exactly the trajectory already in motion</p></div>
+        <div><span>Sources</span><p>Dexity live-posting compensation analysis · Aug 2026; Robert Half 2026; Levels.fyi May 2026</p></div>
+      </div></div>
+  </div>
+  <div class="note"><b>Compensation interpretation (Phase 1):</b> LLM/foundation-model engineering &gt; RLHF/post-training &gt; agentic systems &gt; classical NLP/CV. Do not treat salary aggregators as guarantees. The strongest current signal is scarcity pricing around LLM/evals/agents/infrastructure, while entry-level AI roles remain scarce. <span class="badge b-est">Estimated</span> — synthesized from current posting data and retained 2026 compensation benchmarks.</div>
+</section>
+
+<!-- ================= MOAT ================= -->
+<section id="moat">
+  <div class="eyebrow">SECTION 11</div>
+  <h2>Irreplaceability Engine — what AI cannot easily replace</h2>
+  <p class="lede">Defensibility score = (automation resistance × market demand × scarcity). The pattern across WEF, McKinsey, and PwC data is consistent: <b>execution is being commoditized; judgment, integration, and accountability are being repriced upward.</b></p>
+  <div class="radarwrap">
+    <div>
+      <canvas id="radar" width="420" height="420" role="img" aria-label="Radar chart of defensibility across eight capability axes"></canvas>
+      <p style="font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:8px">AMBER — your projected Month-12 profile · CYAN — median 2026 AI-bootcamp graduate <span class="badge b-est">Estimated</span></p>
+    </div>
+    <ol class="defrank">
+      <li><div><b>Research taste &amp; problem selection</b><p>Knowing which problem matters before the field does. Cannot be scraped from the internet; built only by doing research. Your two papers are this asset under construction.</p></div><div class="ds">9.4 / 10</div></li>
+      <li><div><b>Cross-disciplinary depth (medical imaging × DL × privacy)</b><p>Single-domain experts are replaceable by single-domain models. The neuro-imaging + federated-learning + safety intersection you occupy has nearly zero direct competitors.</p></div><div class="ds">9.2</div></li>
+      <li><div><b>Systems judgment under ambiguity</b><p>Deciding what to build, what to cut, and what "good enough" means in production. The forward-deployed engineer premium exists because of this.</p></div><div class="ds">8.9</div></li>
+      <li><div><b>Accountability &amp; trust roles</b><p>Governance, audit, safety sign-off. Regulation makes a human signature legally required — structurally automation-proof.</p></div><div class="ds">8.7</div></li>
+      <li><div><b>GPU / infra systems depth</b><p>CUDA, distributed training, inference economics. Scarce, slow to learn, and demand grows with every datacenter built.</p></div><div class="ds">8.4</div></li>
+      <li><div><b>Evaluation science</b><p>Anyone can call an API; very few can prove a system works. Eval engineering is the fastest-growing under-supplied technical niche.</p></div><div class="ds">8.2</div></li>
+      <li><div><b>Client translation &amp; leadership</b><p>Turning business ambiguity into technical specs and back. The consulting track monetizes this directly via SuperMind Labs.</p></div><div class="ds">7.8</div></li>
+      <li><div><b>Raw implementation speed</b><p>Honest entry: this is the most automatable thing you have. Keep it sharp as a multiplier, never as the moat.</p></div><div class="ds">4.1</div></li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p><b style="color:var(--dim)">METHODOLOGY.</b> Phase 1 market refresh · 24 August 2026. Verified figures cite: LinkedIn/Dexity live-posting scans 2026; Recruits Lab Agentic AI Hiring Report Aug 2026; LangChain State of Agent Engineering Jun 2026; Economic Times/Zinnov GCC reporting Aug 2026; Reuters Charles Schwab India expansion Aug 2026; prior sources retained where still relevant:  LinkedIn Jobs on the Rise 2026; McKinsey workforce research 2025; PwC Global AI Jobs Barometer 2025; WEF Future of Jobs Report 2025 &amp; Four Futures 2026; Robert Half 2026 Salary Guide; Levels.fyi (May 2026); KORE1, Acceler8, Pin.com compensation guides 2026; Savanna HR GCC Report Q1 2026; Taggd/Scaler/BuildFast India salary reports 2026; HeroHunt AI roles ranking (Mar 2026, drawing on LinkedIn, Upwork, Deloitte, IEEE Spectrum, Ravio). Estimated scores are this document's calibrations from those sources. Projected figures are scenario forecasts — treat as directional, re-verify quarterly.</p>
+  <p><b style="color:var(--dim)">OPERATING RULE.</b> This terminal is a map, not the territory. Phase 1 refresh completed 24 Aug 2026. Re-run market checks at Months 3, 6, and 9; deprecate anything the data no longer supports. No metric on this page substitutes for shipped work.</p>
+  <p style="font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;margin-top:18px">VECTOR/26 · BUILT FOR S. CHAKRABORTY · KOLKATA → GLOBAL · v1.3 · PHASE 3 SYSTEMS UPGRADE</p>
+</footer>
+<script>
+/* ============================== DATA ============================== */
+const TICKER = [
+  ['AI ENGINEER — LLM REQUIREMENT','63%','up','Dexity · Jul 26'],
+  ['AI ENGINEER — EVALS','56%','up','Dexity · Jul 26'],
+  ['AI ENGINEER — AGENTS','50%','up','Dexity · Jul 26'],
+  ['FRONTIER COMP — EXCEPTIONAL CEILING','~$850K','am','Dexity · Aug 26'],
+  ['AI ENGINEER — ENTRY LEVEL','~4%','down','Dexity · May 26'],
+  ['AGENTS IN PRODUCTION','57%','up','LangChain · Jun 26'],
+  ['AGENT OBSERVABILITY','~89%','up','LangChain · Jun 26'],
+  ['AGENTIC ROLES TRACKED','2,072','up','Agentic Ready · Jun 26'],
+  ['INDIA GCC FOOTPRINT','2,100+ GCCs','up','ET / Zinnov · Aug 26'],
+  ['AI ENGINEER — MEDIAN REQUEST','5 YRS','am','Dexity · Jul 26'],
+  ['ENTRY HIRING, TOP-15 TECH','−25% (23→24)','dn','SignalFire'],
+];
+
+const TRACKS = [
+  {id:'eng', tag:'TRACK A · HIGHEST EMPLOYABILITY', name:'AI Engineer', desc:'Production LLM systems, agents, RAG, MLOps. Fastest path to income and the widest job surface — your employability floor and the funding engine for everything else.'},
+  {id:'res', tag:'TRACK B · FRONTIER / PHD', name:'AI Research Engineer', desc:'Papers, reproductions, evals, interpretability. Feeds your Elsevier deadline, IIT-KGP work, MATS-class fellowships, and the international PhD pipeline.'},
+  {id:'con', tag:'TRACK C · SUPERMIND LABS', name:'AI Consultant / Solutions Architect', desc:'Discovery → architecture → delivery → retainers. Monetizes Tracks A+B immediately and builds the leadership evidence nothing else provides.'},
+];
+
+/* Month data. esc = employability score per track {eng,res,con} */
+const MONTHS = [
+{n:1,t:'Foundations Hardening & Public Infrastructure',esc:{eng:22,res:25,con:18},
+ core:['<b>Python at engineer grade</b>: typing, packaging, pytest, profiling','Git discipline: branches, PRs, CI (GitHub Actions)','Linear algebra + probability refresh (matrix calc, distributions, MLE)','PyTorch fluency: autograd, Dataset/DataLoader, training loops from scratch'],
+ tools:['PyTorch 2.x','uv/poetry','pytest + ruff','GitHub Actions','Linux/tmux','Weights & Biases'],
+ deliv:['Repo 1: clean reusable training template (tests + CI badge)','Technical blog live (first post: your BraTS pipeline setup)','GitHub profile rebuilt: pinned repos, READMEs with results tables','LinkedIn repositioned: "ML researcher · medical imaging · LLM systems"'],
+ math:'Linear algebra (SVD, eigen), probability, gradients — 45 min/day, no more.',
+ unlock:'Nothing external yet — and that is correct. Month 1 buys credibility infrastructure every later month compounds on.',
+ trk:{eng:'Add FastAPI fundamentals — every later deliverable ships behind an API.',res:'Stand up a paper-notes system; begin weekly arXiv triage (cs.LG, eess.IV). Your BraTS work counts as Month-1 output already.',con:'Register the SuperMind Labs service catalog draft: 3 offers, fixed scopes, prices in writing.'}},
+{n:2,t:'Deep Learning Core — Transformers From Scratch',esc:{eng:32,res:36,con:24},
+ core:['Backprop, optimization (AdamW, schedules), regularization — implemented, not recited','<b>Attention & transformers from zero</b>: tokenization → embeddings → KV cache','Training dynamics: loss curves, overfitting diagnosis, mixed precision','Reading code: study nanoGPT-class repos line by line'],
+ tools:['PyTorch','tiktoken/sentencepiece','einops','W&B sweeps','Kaggle P100 (you have it)'],
+ deliv:['Repo 2: GPT-from-scratch trained on a small corpus, with a write-up','Attention visualizer (interactive HTML — plays to your design strength)','Blog post: "What building a transformer from scratch actually teaches you"'],
+ math:'Matrix calculus for backprop; softmax/cross-entropy derivations; information theory basics.',
+ unlock:'Open-source contribution readiness — first "good first issues" on ML tooling repos.',
+ trk:{eng:'Benchmark your scratch model: tokens/sec, memory. Performance literacy starts now.',res:'Reproduce one figure from a published segmentation paper — reproduction is the research-engineer entry ticket.',con:'Turn the visualizer into a SuperMind teaching asset; one student today, curriculum leverage tomorrow.'}},
+{n:3,t:'LLM Engineering I — RAG, Embeddings, Evals',esc:{eng:45,res:44,con:35},
+ core:['Embeddings, chunking strategy, hybrid search (BM25 + dense), reranking','<b>RAG done properly</b>: ingestion → retrieval → generation → citation','Evaluation harnesses: golden sets, LLM-as-judge with calibration, regression evals','Prompt engineering as engineering: versioned, tested, measured'],
+ tools:['Claude/OpenAI APIs','pgvector / Qdrant','LangChain or raw SDK (know both)','Ragas/promptfoo-class eval tooling','FastAPI','Docker basics'],
+ deliv:['Repo 3 (flagship begins): production RAG over a real corpus — e.g. radiology guidelines or Indian-law/finance docs — with eval dashboard','Eval report: retrieval precision/recall, faithfulness scores, cost per query','Blog: "Evals are the product" post'],
+ math:'Cosine/IR metrics (nDCG, MRR), statistical significance for A/B eval runs.',
+ unlock:'<b>AI engineer internships & early-stage startups.</b> A RAG system with a real eval harness already beats most applicants.',
+ trk:{eng:'Ship it live (HF Spaces / Vercel + API). "Deployed" is a different word than "works on my machine".',res:'Build the eval harness for your segmentation models too — Dice/HD95 regression suites strengthen both papers.',con:'This exact build is SuperMind Offer #1: "internal-docs assistant, fixed scope". Pitch 5 local businesses.'}},
+{n:4,t:'Agentic Systems & Tool Orchestration',esc:{eng:56,res:52,con:46},
+ core:['Function calling, structured outputs, schema design','<b>Agent loops</b>: planning, tool use, memory, termination; failure modes & guards','MCP (Model Context Protocol) servers — protocol semantics, tool schemas, capability boundaries, auth and lifecycle','<b>Agent reliability</b>: retries, timeouts, idempotency, state machines, sandboxing, permission boundaries, human escalation','Multi-agent orchestration vs. single-agent + good tools (know when each wins)','Tool-use evaluation: trajectory scoring, success criteria, cost budgets, regression cases'],
+ tools:['MCP SDK','Claude Code / Codex-class coding agents','Claude Agent SDK / LangGraph-class frameworks','Playwright (browser tools)','OpenTelemetry tracing','SQLite/Postgres'],
+ deliv:['Repo 4: agentic system with ≥4 tools, full tracing, cost dashboard, and a documented failure-mode analysis','One MCP server published (npm/PyPI) — small but real adoption signal','Demo video ≤3 min — recruiters watch, they don\'t clone'],
+ math:'Light month — state machines, basic decision theory. Bank the time into shipping.',
+ unlock:'<b>Winter-internship applications open this month (see Apply Windows).</b> Agent + RAG + evals = top-decile early-career portfolio.',
+ trk:{eng:'Agent reliability is the #1 interview topic of 2026 — write the retry/guardrail layer yourself once.',res:'Build an agent that automates part of your own research workflow (lit triage, experiment logging) — meta-research is a paper-adjacent artifact.',con:'Offer #2: workflow-automation agent for one real client process. Charge for discovery separately.'}},
+{n:5,t:'MLOps / LLMOps — Ship, Monitor, Survive',esc:{eng:66,res:58,con:54},
+ core:['Docker properly; container hygiene; multi-stage builds','CI/CD for models: versioning (DVC/registries), reproducible training','<b>Monitoring</b>: drift, latency, token-cost, eval-in-prod; alerting','AI security in the deployment loop: secrets, IAM, least privilege, dependency scanning, prompt-injection defenses, audit logs','Cloud fundamentals: one provider deep (your Azure/DO credits) — compute, storage, networking, IAM'],
+ tools:['Docker','GitHub Actions → deploy','MLflow / W&B registry','Prometheus + Grafana','Azure (credits)','Terraform basics'],
+ deliv:['Flagship upgraded: full pipeline — data → train → eval → deploy → monitor, one-command reproducible','Incident write-up: break it on purpose, document detection→fix','Architecture diagram + cost model (consulting gold)'],
+ math:'Queueing intuition (latency/throughput), percentiles, capacity estimation.',
+ unlock:'<b>Mid-sized companies & GCC roles.</b> India GCC demand is exactly this stack; senior MLOps clears ₹45–60L — you are now on that ladder.',
+ trk:{eng:'Add a load test (locust/k6). Numbers under load are interview ammunition.',res:'Containerize the BraTS training stack — reviewers and PhD admissions both reward reproducibility.',con:'Productize: "LLMOps healthcheck" audit offer — fixed price, 1-week delivery, report template reused forever.'}},
+{n:6,t:'Specialization Fork & Mid-Point Audit',esc:{eng:72,res:66,con:62},
+ core:['<b>Audit</b>: 4–5 repos, blog, deployed systems — kill weak assets, polish 3 best','Inference optimization: quantization (GPTQ/AWQ), KV-cache sizing, paged KV, continuous batching, prefix caching, chunked prefill, prefill/decode behavior, vLLM','Fine-tuning fundamentals: LoRA/QLoRA, dataset curation, when NOT to fine-tune','System design for AI: capacity, caching, fallbacks, multi-model routing','<b>AI cost/performance engineering</b>: TTFT, ITL, throughput, p50/p95/p99 latency, GPU utilization, memory utilization, tokens/sec/$, cost per successful task, SLOs','Coding-agent workflow: repository context, test generation, patch verification, code review, CI gates'],
+ tools:['vLLM','llama.cpp','PEFT/TRL','bitsandbytes','Modal/RunPod for burst GPU'],
+ deliv:['Fine-tuned domain model with before/after eval table','"Inference economics" benchmark post: tokens/sec/$ across 3 serving stacks','CV + portfolio site v2 — results-first, numbers everywhere'],
+ math:'Quantization error, perplexity, throughput math. GATE-overlap month: algorithms revision does double duty.',
+ unlock:'<b>FAANG-adjacent applications become non-delusional</b> (Microsoft/Google India, Nvidia partner ecosystem) for new-grad/early roles.',
+ trk:{eng:'Pick your spike: inference/perf engineering is the scarcest, best-paid pure-eng niche.',res:'Paper 1 sprint support: your Mamba-CNN-Transformer work IS the specialization artifact. Protect the December deadline above all else this quarter.',con:'Publish 2 case studies from Months 3–5 client work. Case studies are the consultant\'s peer-reviewed papers.'}},
+{n:7,t:'Scale — Distributed Training & GPU Systems',esc:{eng:78,res:74,con:66},
+ core:['<b>Distributed training</b>: DDP, FSDP, ZeRO; when each applies','GPU mental model: memory hierarchy, warps, coalescing, shared-memory bank conflicts, registers, occupancy, asynchronous copies; CUDA + Triton basics','NCCL and collective communication: all-reduce, all-gather, reduce-scatter, topology effects, overlap and communication/computation ratio','Inference systems: continuous batching, KV-cache pressure, prefix caching, speculative decoding, chunked prefill, prefill/decode disaggregation and model parallelism','Post-training: SFT → DPO/RLHF-lite pipelines end to end','Data engineering for ML: streaming datasets, dedup, filtering'],
+ tools:['torch.distributed / FSDP','DeepSpeed','Triton (intro)','Ray (light)','HF Accelerate'],
+ deliv:['Multi-GPU fine-tune (cloud credits): scaling report — 1→2→4 GPU efficiency curves + NCCL/communication analysis','DPO pipeline repo on an open preference dataset, with eval deltas','Blog: "FSDP on a student budget" — rare, searchable, memorable'],
+ math:'Communication costs (all-reduce), parallelism math, optimizer state memory accounting.',
+ unlock:'<b>Research-lab engineering internships & AI-infra startups.</b> Distributed-training evidence is the single rarest early-career signal.',
+ trk:{eng:'This is the moat month. Infra people are paid like infra is scarce, because it is.',res:'Apply scaling skills to Paper 2 (Swin UNETR) experiments; submission window for Paper 1 approaches — December 15 is immovable.',con:'New offer: "fine-tune your private model" for data-sensitive clients — pairs perfectly with your federated-learning credential.'}},
+{n:8,t:'Evaluation, Safety & Red-Teaming',esc:{eng:83,res:82,con:72},
+ core:['<b>Eval science</b>: benchmark design, contamination, statistical rigor','Tool-use and agent trajectory evaluation: task success, tool correctness, recovery, cost and latency','Red-teaming: jailbreak taxonomies, prompt injection, indirect injection, automated adversarial testing','AI threat modeling: data exfiltration, excessive agency, insecure tool use, secret leakage, supply-chain risk','Guardrails: input/output filtering, policy models, permission boundaries, sandboxing','Interpretability literacy: probing, attribution, SAE basics — your Hassabis-lineage bridge'],
+ tools:['Inspect / lm-eval-harness','Garak-class red-team tooling','Guardrails frameworks','TransformerLens (intro)'],
+ deliv:['Open eval suite for a niche you own (e.g. medical-imaging report generation) — publish it','Red-team report on your own Month-4 agent: findings + fixes','Safety-case one-pager: how you\'d argue a clinical AI system is safe to deploy'],
+ math:'Hypothesis testing, confidence intervals, multiple-comparison corrections — eval credibility lives here.',
+ unlock:'<b>Safety/eval roles + fellowship pipelines (MATS, Anthropic Fellows-class).</b> Eval+safety is 2026\'s most under-supplied technical niche.',
+ trk:{eng:'Eval engineering is the highest-conversion differentiator on AI-engineer applications this year.',res:'Submit Paper 1. Then: MATS application materials draw directly from this month\'s artifacts. Your medical-AI safety angle is genuinely distinctive.',con:'"AI risk & governance readiness audit" offer — EU AI Act and India\'s DPDP create real budget for this in 2026–27.'}},
+{n:9,t:'Capstone I — Production-Scale Build + Open Source',esc:{eng:87,res:85,con:78},
+ core:['<b>Capstone start</b>: one system that fuses everything — agentic, evaluated, monitored, scaled','Serious open-source: 3–5 substantive PRs to a known ML tool (vLLM, MONAI, eval harnesses)','System-design interview prep begins: 2 mock designs/week','DSA maintenance: 4–5 problems/week (GATE prep overlaps)'],
+ tools:['Your full stack','MONAI (you know it — contribute back)','Excalidraw for design docs'],
+ deliv:['Capstone design doc (RFC style) published before code — engineers are judged on docs','First merged PRs to a recognized repo','Referral map: 30 target humans (not companies) listed with contact strategy'],
+ math:'Interview math: complexity analysis, estimation drills ("how many GPUs to serve 1M users?").',
+ unlock:'<b>All employer classes now in range for early-career roles.</b> Conversion becomes a pipeline problem, not a readiness problem.',
+ trk:{eng:'Capstone suggestion: clinical-document agent platform — domain moat + full stack in one artifact.',res:'Capstone = Paper 2 experiments + an open reproducibility repo. PhD applications (US Dec deadlines) — shortlist 12 programs, contact 6 PIs.',con:'Hire your first SuperMind subcontractor for delivery overflow. Leverage starts at n=2.'}},
+{n:10,t:'Capstone II — Ship + Research Artifact + Interview Grind',esc:{eng:91,res:90,con:83},
+ core:['<b>Ship the capstone</b> publicly: demo, write-up, benchmark numbers','Tech report (arXiv-style) on capstone — engineering rigor presented as research','Interview circuit: ML system design, ML theory, coding, behavioral — 6+ mocks','Negotiation prep: comp bands memorized per cluster (see Section 10)'],
+ tools:['arXiv/Zenodo','Interview prep: your own flashcard pipeline','Pramp/peer mocks'],
+ deliv:['Capstone v1.0 live + 5-min technical video','Tech report published','25 tailored applications out (quality > volume) + 10 warm referral asks'],
+ math:'None new. Consolidate.',
+ unlock:'<b>Active interviews across startups, GCCs, mid-size, remote-US.</b> Paper 2 submission this month strengthens every research-track application.',
+ trk:{eng:'Target stack-matched roles only: agents/RAG/LLMOps keywords ≥70% match or skip.',res:'Submit Paper 2 (Dec 15 deadline). File PhD applications. Fellowship interviews likely land here.',con:'Raise SuperMind prices 30%. Two case studies + capstone justify it; underpricing now anchors you for years.'}},
+{n:11,t:'Application Blitz & Compounding Loops',esc:{eng:94,res:92,con:88},
+ core:['<b>Pipeline management</b>: 40+ applications tracked, follow-up cadence, interview scheduling','Take-home excellence: treat each as a portfolio piece (timebox 8h, document tradeoffs)','Public momentum: 2 posts/week recapping the 10-month build — visibility compounds late','Salary research per offer: Levels.fyi, 6figr, Glassdoor triangulation'],
+ tools:['ATS-proof CV variants per cluster','Notion/sheet CRM for pipeline'],
+ deliv:['≥8 first-round interviews in motion (estimated from 40+ tailored apps at 2026 conversion rates)','One conference/meetup talk delivered (Kolkata/Bangalore PyData-class) — speaking is a hiring channel','Reference letters secured: Dr. Uma Shankar + IIT-KGP supervisor'],
+ math:'—',
+ unlock:'<b>Offer generation phase.</b> Multiple parallel processes are the only real negotiation leverage.',
+ trk:{eng:'Prioritize India-remote-for-US and GCC product roles — highest comp-per-effort from Kolkata.',res:'PhD interviews (Jan–Feb) + fellowship decisions. Keep one engineer offer alive as BATNA — it raises every other outcome.',con:'Convert one client to monthly retainer. Recurring revenue changes every career decision after it.'}},
+{n:12,t:'Convert — Offers, Negotiation, Double-Down',esc:{eng:96,res:95,con:91},
+ core:['<b>Negotiate</b>: competing offers raise comp 15–30% (verified pattern); never accept first numbers','Decision matrix: comp × learning-rate × optionality × research-compatibility','Choose the spike for Year 2: infra, safety/evals, or domain-AI — based on 12 months of evidence','Write the retrospective: what the data said vs. what happened (publish it)'],
+ tools:['—'],
+ deliv:['Signed offer / funded PhD / fellowship — or SuperMind at sustainable revenue (any one = success; two = exceptional)','Public 12-month retrospective post','Year-2 operating plan, one page'],
+ math:'—',
+ unlock:'<b>You are now the candidate this dashboard was reverse-engineered from.</b> The next 12 months compound from a categorically higher base.',
+ trk:{eng:'If offers cluster low, the data says: 6 more months of infra/eval depth beats accepting a weak seat.',res:'PhD admits arrive Feb–Apr. Deciding between funded PhD vs. frontier-adjacent role is the good problem.',con:'Decision point: SuperMind as primary (if MRR supports it) or as permanent parallel asset alongside employment.'}},
+];
+
+const READINESS = [
+ ['Open-source programs (GSoC-class)','M3','Python + one framework deeply; clean PR etiquette','2 polished repos','Green GitHub, real READMEs, 1 merged PR'],
+ ['Internships — startups (India/remote)','M3–4','RAG + APIs + deployment basics','1 deployed LLM system with evals','Live demo + blog + tailored CV'],
+ ['Research internships (labs/academia)','M4–6','DL theory + reproduction ability + your domain','1 paper reproduction or your BraTS pipeline','Preprint/report + advisor reference'],
+ ['Mid-size companies & GCCs','M5–6','Full LLMOps loop: build→deploy→monitor','2 production-grade systems, one with monitoring','Architecture docs + incident write-up'],
+ ['FAANG-adjacent (MS/Google/Nvidia ecosystem India)','M6–8','DSA + system design + ML depth','3 strong systems incl. perf/scale evidence','Numbers-first portfolio + referrals'],
+ ['AI consulting firms / your own clients','M5+','Discovery, scoping, architecture communication','2 client-shaped builds with cost models','Case studies with business outcomes'],
+ ['Frontier-lab engineering & fellowships (MATS-class)','M8–10','Evals/safety or infra depth + research artifacts','Eval suite or distributed-training evidence + publications','Papers + open-source + technical writing trail'],
+];
+
+const APPS = [
+ ['M2–4 · JUL–SEP 2026','Winter internships (India corporate + research)','Indian corporate winter cycles and research-internship calls open early. IIT/IISc-adjacent research internships often run on professor-contact timing, not portals — email PIs directly.','Skill floor: <b>M3 stack</b> · Projects: <b>1 deployed RAG</b> · Portfolio: <b>blog + clean GitHub</b>'],
+ ['M3–5 · AUG–OCT 2026','Summer 2027 internships — Big Tech & US-affiliated','Microsoft, Google, Nvidia, Amazon India summer-intern pipelines open Aug–Oct and close fast. Apply at M4 readiness even if interviews land at M6 readiness — you interview at future-you.','Skill floor: <b>DSA + M4 stack</b> · Projects: <b>2 systems</b> · Portfolio: <b>referral ≥1</b>'],
+ ['M5–7 · OCT–DEC 2026','PhD applications (US/EU/SG, Fall-27 intake) + fellowships','US deadlines cluster Dec 1–15; EU/Singapore rolling into spring. Your papers land exactly on time if submitted M8–10. Contact PIs at M5–6, apply M7.','Skill floor: <b>research artifacts</b> · Projects: <b>papers in flight</b> · Portfolio: <b>SOP + 3 recs (Uma Shankar, IIT-KGP, +1)</b>'],
+ ['M6–8 · NOV 26–JAN 27','MATS-class safety fellowships + lab residencies','MATS and similar safety/alignment fellowships typically run multiple cohorts/year; winter applications target spring–summer cohorts. Your M8 eval/safety artifacts are the application.','Skill floor: <b>evals + interpretability literacy</b> · Projects: <b>open eval suite</b> · Portfolio: <b>safety-relevant writing</b>'],
+ ['M8–9 · JAN–FEB 2027','GSoC 2027 + open-source programs','GSoC org lists publish ~Feb, applications ~Mar–Apr. Contribute to target orgs (MONAI is the obvious one for you) from M9 so your name precedes your proposal.','Skill floor: <b>M5 stack</b> · Projects: <b>merged PRs in target org</b> · Portfolio: <b>contribution history</b>'],
+ ['M9–11 · FEB–APR 2027','Remote-US contract & full-time blitz','Remote-first US hiring is rolling, not seasonal — pipeline volume is the variable. 40+ tailored applications, 10 warm referrals, public capstone as the spearhead.','Skill floor: <b>full M9 stack</b> · Projects: <b>capstone live</b> · Portfolio: <b>tech report + talk</b>'],
+ ['M10–12 · MAR–MAY 2027','Summer research internships + residencies (2027)','Lab residencies and research-engineer internships for summer 2027 close in this window. Two submitted papers + federated-learning internship makes you a serious applicant, not a hopeful one.','Skill floor: <b>M10 research track</b> · Projects: <b>2 submitted papers</b> · Portfolio: <b>arXiv trail + advisor network</b>'],
+];
+
+const ORGS = [
+ ['Anthropic','Frontier Lab','Research engineers, infra/perf engineers, safety researchers, agent/product engineers','Exceptional engineering + research taste; safety motivation that survives scrutiny','Open-source depth, evals/interpretability artifacts, distributed systems','Fellows/MATS pipeline from M8; direct roles M12+ (senior bar — build toward Year 2–3)','anthropic safety interpretability'],
+ ['OpenAI','Frontier Lab','Research engineers, applied/product engineers, infra at extreme scale','Top-tier coding + systems; shipped products at scale','Production systems with hard numbers; perf engineering','M12+ via exceptional portfolio or Residency-class programs','openai frontier'],
+ ['Google DeepMind','Frontier Lab','Research scientists (PhD-heavy), research engineers, applied teams','Publications or elite engineering; strong fundamentals interviews','Paper trail + reproductions; JAX familiarity helps','Internships M7–9 cycle; RS roles post-PhD — your Hassabis-lineage framing literally targets here','deepmind neuroscience phd'],
+ ['Microsoft Research / MSR India','Frontier Lab','Research interns, RSDEs; MSR India (Bengaluru) is a realistic elite target from India','Strong publications or standout systems work; faculty references matter','Papers + open implementations','Research internship applications M5–7 for summer; your advisor network is the channel','msr india research bengaluru'],
+ ['Meta AI / FAIR','Frontier Lab','Research engineers, PyTorch ecosystem, llama post-training','PyTorch internals depth; open-source visibility','PyTorch/ecosystem PRs, post-training pipelines','M9+ via open-source reputation; internships seasonal','meta pytorch llama'],
+ ['NVIDIA','Big Tech / Infra','CUDA/perf engineers, inference (TensorRT-LLM), healthcare AI (MONAI/Clara!)','GPU systems depth; C++/CUDA for core roles','Triton/CUDA kernels, inference benchmarks, MONAI contributions','MONAI contributions from M9 = direct line; roles M10+ — highest-leverage big-tech target for you','nvidia cuda monai healthcare india'],
+ ['Mistral AI','Frontier Lab (EU)','Inference/serving engineers, fine-tuning, deployment','Efficient-inference obsession; European hiring openness','vLLM-class serving expertise, quantization studies','M10+ with inference-economics portfolio','mistral europe inference'],
+ ['Cohere','AI Product Lab','RAG/enterprise AI engineers, post-training, evals','Enterprise GenAI shipping experience','RAG at production grade + eval rigor','M9+; remote-friendlier than most labs','cohere rag enterprise'],
+ ['Hugging Face','Ecosystem','Open-source ML engineers, developer advocates, research','Public open-source track record IS the interview','Popular repos/models/datasets; ecosystem PRs','Contributions from M6; roles M10+ — fully remote culture','huggingface open source remote'],
+ ['Databricks','Data/AI Platform','ML platform engineers, GenAI solutions architects, MLOps','Spark/data-eng + ML serving; SA roles need client polish','Lakehouse + LLM pipelines, cost-optimized serving','M8+ engineering; SA track matches your consulting muscle','databricks platform mlops'],
+ ['Scale AI','Data/Eval','Eval engineers, data quality, GenAI solutions, red-teaming','Eval design + operational rigor','Eval suites, adversarial testing reports','M8+ — your Month-8 artifacts are literally their job description','scale evals red team'],
+ ['Snowflake','Data/AI Platform','AI/ML platform, Cortex LLM features, solutions engineers','SQL+data engineering + LLM app layer','Data-grounded GenAI apps','M8+','snowflake data cloud'],
+ ['Palantir','Forward-Deployed','Forward-deployed engineers (the role they invented), AIP engineers','Full-stack speed + client-facing judgment under ambiguity','End-to-end deployed systems with real users','M9+; FDE interviews reward your consultant track directly','palantir forward deployed fde'],
+ ['Perplexity','AI Product','Search/RAG engineers, inference optimization','Retrieval quality obsession + latency engineering','Hybrid-search systems with quality metrics','M9+','perplexity search rag'],
+ ['Together / Fireworks-class','Inference Infra','Inference engineers, kernels, serving platforms','GPU perf + distributed serving','vLLM/TensorRT benchmarks, kernel work','M10+ — small teams, sharp bars, infra moat pays here','inference infra gpu serving'],
+ ['Sarvam AI','India Frontier','LLM training/post-training for Indic languages, applied teams','Strong PyTorch + post-training; India-based advantage','Fine-tuning pipelines, Indic evals','M7+ — flagship Indian lab; your location is an asset not a discount','sarvam india indic llm'],
+ ['Krutrim / Ola AI','India Frontier','Model training, inference, applied AI at consumer scale','Production ML at scale; infra under cost pressure','Serving economics, multilingual systems','M8+','krutrim ola india'],
+ ['Qure.ai / HealthifyMe-class med-AI','Healthcare AI (India)','Imaging ML engineers, clinical AI validation, regulatory-grade evals','Medical imaging DL — your exact thesis domain','Segmentation pipelines, clinical eval rigor, DICOM fluency','M6+ — nearest-term high-fit employer class; Qure.ai is the canonical target','qure healthcare medical imaging india'],
+ ['McKinsey QuantumBlack / BCG X / Deloitte AI','Consulting','AI engineers + architects who can face clients','Tech depth + structured communication + business framing','Case-study-shaped portfolio, architecture docs, cost models','M8+ — and everything learned here feeds SuperMind directly','consulting quantumblack bcg deloitte'],
+ ['EleutherAI / open research collectives','Open Research','Volunteer→collaborator researchers; interpretability & evals','Show up, contribute, persist — no credential gate','Reproductions, eval contributions, paper co-authorship','From M6 — zero-permission research network; on-ramp to everything above','eleuther open research interpretability'],
+];
+
+const CLUSTERS = [
+ ['Frontier Labs','Anthropic · OpenAI · DeepMind · Meta AI · Mistral · xAI','Distributed training, evals/safety, interpretability, GPU perf, research engineering','Paper reproductions, open eval suites, post-training pipelines, kernel/perf benchmarks','PyTorch/JAX, Triton, FSDP, RL post-training stacks'],
+ ['Big Tech & Hyperscalers','Microsoft · Google · Amazon · NVIDIA · Apple · IBM','Production ML at scale, DSA+system design, cloud-native MLOps, domain platform depth','End-to-end deployed systems, perf/scale evidence, cloud-certified pipelines','Azure/GCP/AWS ML stacks, Kubernetes, TensorRT, Spark'],
+ ['AI-Native Startups','Perplexity · Cursor/Anysphere · Sierra · Glean · Harvey · ElevenLabs','Agents, RAG quality, latency engineering, full-stack speed, eval-driven iteration','Live products with users, agent reliability work, demo videos that convert','TypeScript+Python, vector DBs, MCP, vLLM, observability'],
+ ['AI/Data Platforms','Databricks · Snowflake · Hugging Face · Weights&Biases · Scale AI','ML platform engineering, data eng + LLM layer, eval infrastructure, DevRel-grade communication','Pipeline frameworks, eval tooling, open-source contributions with adoption','Spark, Ray, MLflow, eval harnesses, SDK design'],
+ ['Healthcare AI','Qure.ai · Tempus · PathAI · Viz.ai · NVIDIA Clara ecosystem','Medical imaging DL, clinical validation, regulatory-grade evals, privacy (FL!), DICOM/PACS','Segmentation with clinical metrics, FDA/CE-style validation docs, federated pipelines','MONAI, nnU-Net-class baselines, DICOM tooling, FL frameworks'],
+ ['FinTech & Quant AI','Two Sigma · Citadel · Jane Street · Stripe · Razorpay/Paytm GCC-side','ML on time series, low-latency systems, risk modeling, LLMs for documents/compliance','Backtested models with honest baselines, latency-optimized serving, doc-AI with audit trails','C++/Rust edges, kdb-class data systems, XGBoost-to-LLM range'],
+ ['Defense & Gov AI','Anduril · Palantir · Helsing · Indian DPSUs/DRDO ecosystem','Autonomy, sensor fusion, secure deployment, FDE-style delivery, clearance-friendly profiles','Edge-deployed models, robust CV under constraints, simulation pipelines','ROS2, edge runtimes (ONNX/TensorRT), secure MLOps'],
+ ['Autonomous Systems & Robotics','Waymo · Tesla · Figure · Skild · Physical Intelligence · Nuro','Perception, imitation/RL, sim-to-real, multimodal foundation models for action','CV pipelines with real-time constraints, sim benchmarks, VLA fine-tunes','PyTorch, Isaac/MuJoCo, CUDA, ROS2'],
+ ['Cloud AI & GCC India','Microsoft IDC · Google India · Amazon India · LinkedIn India · Walmart Global Tech · Goldman GCC','GenAI app engineering, LLMOps, platform reliability, cost optimization — current GCC growth is increasingly selective and strategic (Aug 2026)','Production RAG/agents with monitoring, cloud cost models, migration case studies','Azure OpenAI/Vertex/Bedrock, Kubernetes, Terraform'],
+ ['Consulting & SI','McKinsey QB · BCG X · Bain · Accenture · Deloitte · EY · Big-4 AI practices','Solution architecture, AI governance/audit (EU AI Act, DPDP), client translation, rapid prototyping','Case studies with business KPIs, governance frameworks, executive-readable architecture docs','Everything above, plus slides that don\'t embarrass you'],
+];
+
+const PROJECTS = [
+ ['Training-loop template w/ CI & tests','M1','Beginner',['foundation'],5,4,6,3,'Proves engineering hygiene — the #1 silent filter on junior candidates.'],
+ ['GPT from scratch + attention visualizer','M2','Beginner',['foundation','research'],6,7,7,6,'Depth signal: separates implementers from API callers in every ML interview.'],
+ ['Production RAG with eval dashboard','M3','Intermediate',['rag','evals','agentic'],10,9,9,5,'The single highest-demand portfolio artifact of 2026. Non-negotiable.'],
+ ['Golden-set + LLM-judge eval harness','M3','Intermediate',['evals'],9,8,9,7,'Eval engineering is the most under-supplied skill in postings — instant differentiation.'],
+ ['Multi-tool agent with tracing & cost telemetry','M4','Intermediate',['agentic','observability'],10,9,9,6,'Agent reliability is the defining interview topic of 2026.'],
+ ['Published MCP server (PyPI/npm)','M4','Intermediate',['agentic','oss'],8,7,7,5,'Adoption metrics > stars. Tiny surface, real signal.'],
+ ['Agent red-team & failure-mode report','M4','Intermediate',['safety','evals'],8,7,8,8,'Almost nobody documents failures. Hiring managers remember the one who does.'],
+ ['End-to-end LLMOps pipeline (train→deploy→monitor)','M5','Production',['mlops','infra'],10,9,9,5,'GCC and mid-market job descriptions are literally this bullet list.'],
+ ['Drift + cost monitoring with alerting','M5','Production',['mlops','observability'],9,8,8,5,'"Who watches the model" is the question demos never answer. You do.'],
+ ['Synthetic incident post-mortem','M5','Production',['mlops'],7,7,8,4,'SRE-grade thinking applied to ML — rare and memorable.'],
+ ['LoRA fine-tune with before/after eval table','M6','Advanced',['training','evals'],9,8,8,7,'Fine-tuning with PROOF of improvement, not vibes.'],
+ ['Inference economics benchmark (vLLM vs llama.cpp vs TGI)','M6','Advanced',['infra','perf'],9,8,9,7,'Tokens/sec/$ tables get shared, cited, and remembered.'],
+ ['Quantization study (GPTQ/AWQ accuracy-latency tradeoffs)','M6','Advanced',['infra','perf'],8,7,8,7,'Perf engineering scarcity premium, in one weekend-scale artifact.'],
+ ['Multi-GPU FSDP scaling report','M7','Advanced',['training','infra'],9,7,9,8,'Distributed-training evidence is the rarest early-career signal that exists.'],
+ ['DPO post-training pipeline on open preference data','M7','Advanced',['training','research'],8,7,8,9,'Post-training is where frontier-lab work actually happens.'],
+ ['Domain eval suite — medical report generation (yours to own)','M8','Research-Grade',['evals','safety','medical'],9,8,9,10,'Owning a niche benchmark makes you citable. Citable people get emailed by labs.'],
+ ['Automated red-team harness vs. your own agent','M8','Research-Grade',['safety'],8,7,8,9,'Direct MATS/fellowship application material.'],
+ ['Clinical AI safety case (one-pager + threat model)','M8','Research-Grade',['safety','medical','governance'],7,7,8,9,'Bridges your thesis to governance budgets — EU AI Act made this billable.'],
+ ['GPU kernel optimization study','M7','Advanced',['infra','cuda','perf'],10,9,10,9,'A profiler-backed kernel optimization is stronger than a generic CUDA tutorial.'],
+ ['LLM serving SLO benchmark harness','M7','Advanced',['infra','evals','perf'],10,9,9,8,'Measures TTFT, ITL, throughput, memory and cost across controlled workloads.'],
+ ['Prefill/decode disaggregated serving prototype','M8','Research-Grade',['infra','research'],9,9,10,10,'Direct evidence of 2027-level inference-systems thinking.'],
+ ['NCCL topology & scaling report','M8','Advanced',['infra','distributed'],9,8,10,9,'Shows whether communication, not compute, is limiting scale.'],
+ ['Inference cost/SLO optimizer','M9','Production',['infra','perf','agentic'],10,9,9,9,'Turns benchmark data into an architecture decision engine.'],
+ ['MONAI / vLLM substantive merged PRs','M9','Production',['oss','infra','medical'],9,8,8,8,'Open-source in a tool employers already use = pre-verified competence.'],
+ ['Capstone: clinical-document agent platform','M9–10','Research-Grade',['agentic','rag','mlops','medical'],10,10,10,9,'One artifact that answers every interview question for every cluster.'],
+ ['Capstone tech report (arXiv-style)','M10','Research-Grade',['research'],8,8,8,10,'Engineering presented with research rigor — the bilingual credential.'],
+ ['Federated-learning benchmark suite (EC-ElGamal vs xMK-CKKS vs FedAvg)','M7–10','Research-Grade',['research','medical','safety'],8,8,9,10,'Your IIT-KGP work, weaponized as a public artifact. Nobody else has this.'],
+ ['BraTS incomplete-modality pipeline (Paper 1 codebase, public)','M6–8','Research-Grade',['research','medical'],8,8,9,10,'Reproducible paper code is a PhD-application multiplier.'],
+ ['SuperMind case study ×2 (with business KPIs)','M6+','Production',['consulting'],8,8,7,6,'Consultants are hired on outcomes; case studies are the proof format.'],
+];
+
+const SKILLS = [
+ ['Python (engineer-grade)','Programming',10,6,4,'2–3 mo',5,9],
+ ['SQL & data modeling','Programming',9,5,3,'1–2 mo',6,9],
+ ['TypeScript (AI product layer)','Programming',7,5,4,'2 mo',5,8],
+ ['C++ / CUDA','Programming',7,9,9,'6–12 mo',9,9],
+ ['Rust (infra niche)','Programming',5,7,8,'6 mo',8,8],
+ ['Linear algebra & calculus','Mathematics',8,5,6,'2–3 mo',8,9],
+ ['Probability & statistics','Mathematics',9,6,6,'2–3 mo',9,10],
+ ['Optimization theory','Mathematics',6,6,7,'2 mo',8,8],
+ ['Classical ML (trees, SVMs, ensembles)','ML',7,4,5,'2 mo',5,7],
+ ['Deep learning fundamentals','ML',9,7,6,'3 mo',7,9],
+ ['Transformers & attention internals','ML',10,8,7,'2–3 mo',8,10],
+ ['PyTorch (deep)','ML',10,8,6,'3 mo',7,9],
+ ['JAX','ML',5,7,7,'2 mo',8,8],
+ ['LLM fine-tuning (LoRA/QLoRA/SFT)','LLM',9,8,6,'2 mo',7,9],
+ ['Post-training (DPO/RLHF)','LLM',8,9,8,'3 mo',9,10],
+ ['Prompt & context engineering','LLM',9,5,3,'1 mo',4,7],
+ ['RAG architecture','LLM',10,8,5,'2 mo',6,8],
+ ['Embeddings & retrieval (hybrid search)','LLM',9,7,5,'1–2 mo',6,8],
+ ['Agentic systems & tool use','Agents',10,9,6,'2–3 mo',8,10],
+ ['MCP / tool-protocol engineering','Agents',8,8,5,'1 mo',7,9],
+ ['Multi-agent orchestration','Agents',7,8,7,'2 mo',8,9],
+ ['Agent reliability & guardrails','Agents',9,9,7,'2 mo',9,10],
+ ['Evaluation science & benchmark design','Evals',9,9,7,'2–3 mo',9,10],
+ ['Red-teaming & adversarial testing','Safety',8,8,7,'2 mo',9,10],
+ ['Interpretability (probing, SAEs)','Safety',6,9,9,'4–6 mo',10,10],
+ ['AI governance & audit (EU AI Act, DPDP)','Governance',8,8,5,'2 mo',9,9],
+ ['Responsible AI frameworks','Governance',7,6,4,'1 mo',8,8],
+ ['Docker & containerization','MLOps',10,6,4,'1 mo',5,8],
+ ['Kubernetes','MLOps',8,8,7,'3 mo',6,8],
+ ['CI/CD for ML','MLOps',9,7,5,'1–2 mo',6,8],
+ ['Model monitoring & observability','MLOps',9,8,5,'1–2 mo',8,9],
+ ['Cloud ML (Azure/AWS/GCP, one deep)','Cloud',10,8,6,'3 mo',6,9],
+ ['Terraform / IaC','Cloud',7,7,5,'1–2 mo',6,8],
+ ['Distributed training (DDP/FSDP/ZeRO)','Infra',7,10,9,'4–6 mo',9,10],
+ ['Inference optimization (vLLM, quantization)','Infra',9,10,8,'3 mo',9,10],
+ ['GPU systems & Triton kernels','Infra',6,10,9,'6 mo',10,10],
+ ['Vector databases','Data',8,6,4,'2 wk',5,7],
+ ['Data engineering for ML (pipelines, dedup)','Data',9,8,6,'3 mo',7,9],
+ ['Knowledge graphs','Data',5,6,6,'2 mo',7,7],
+ ['Computer vision / medical imaging','Domain',7,8,7,'4 mo',8,9],
+ ['NLP (classical→modern)','Domain',7,6,6,'3 mo',6,8],
+ ['Speech & audio AI','Domain',6,7,7,'3 mo',7,8],
+ ['Multimodal systems (VLMs)','Domain',8,9,7,'3 mo',8,10],
+ ['Federated learning & privacy ML','Domain',6,9,8,'4 mo',9,10],
+ ['System design (AI-flavored)','Engineering',10,9,7,'ongoing',9,10],
+ ['Backend engineering (APIs, queues, DBs)','Engineering',9,7,5,'3 mo',6,9],
+ ['Security for AI systems','Security',7,8,7,'3 mo',9,10],
+ ['Technical writing & communication','Human',9,8,5,'ongoing',10,10],
+ ['AI-assisted software engineering','Engineering',10,9,5,'2–3 mo',8,10],
+ ['Coding-agent orchestration','Engineering',8,9,7,'2 mo',8,10],
+ ['Agent verification & validation','Engineering',9,9,6,'2–3 mo',9,10],
+    ['CUDA performance engineering','Infra',7,10,9,'4–6 mo',10,10],
+    ['Triton kernel optimization','Infra',7,10,9,'3–5 mo',10,10],
+    ['NCCL & GPU communication','Infra',6,10,9,'3–4 mo',10,10],
+    ['LLM serving internals','Infra',9,10,8,'3–4 mo',9,10],
+    ['KV-cache engineering','Infra',8,10,8,'2–3 mo',9,10],
+    ['Prefill/decode disaggregation','Infra',7,10,9,'3 mo',10,10],
+    ['Speculative decoding','Infra',7,9,8,'2 mo',9,10],
+    ['Inference SLO & capacity engineering','Engineering',9,9,7,'2–3 mo',9,10],
+    ['GPU profiling (Nsight)','Infra',7,10,9,'2–3 mo',10,10],
+    ['Performance benchmarking methodology','Engineering',9,9,6,'1–2 mo','9','10'],
+    ['AI cost engineering','Engineering',9,9,6,'1–2 mo',9,10],
+    ['Model routing & cascading','LLM',8,9,6,'2 mo',8,10],
+    ['Quantization systems','Infra',8,10,8,'2–3 mo',9,10],
+ ['AI application security','Security',9,9,7,'3 mo',9,10],
+ ['Prompt-injection defense','Security',8,8,6,'1–2 mo',9,10],
+ ['AI threat modeling','Security',8,9,7,'2 mo',10,10],
+ ['Multimodal AI engineering','Domain',9,9,7,'3 mo',8,10],
+ ['Model routing & cascading','Infra',8,9,7,'2 mo',8,10],
+ ['KV-cache & serving internals','Infra',9,10,8,'2–3 mo',9,10],
+ ['Speculative decoding & serving','Infra',7,10,9,'2 mo',9,10],
+ ['AI cost/performance engineering','Infra',9,10,7,'2 mo',9,10],
+ ['Synthetic data & trajectory generation','Data',8,9,7,'2–3 mo',8,10],
+ ['Tool-use evaluation & benchmark design','Evals',9,10,7,'2 mo',9,10],
+ ['Client discovery & solution architecture','Human',8,9,6,'ongoing',10,10],
+];
+
+/* ============================== RENDER ============================== */
+const $ = s => document.querySelector(s);
+const esc = s => s; // trusted local data
+
+/* ticker */
+$('#ticker').innerHTML = [...TICKER,...TICKER].map(t=>{
+  const cls = t[2]==='up'?'tk-up':t[2]==='dn'?'tk-dn':'tk-am';
+  return `<span><b>${t[0]}</b> <span class="${cls}">${t[1]}</span> · ${t[3]}</span>`;
+}).join('');
+
+/* tracks */
+let curTrack = 'res';
+function renderTracks(){
+  $('#trackSel').innerHTML = TRACKS.map(t=>`
+    <button class="track ${t.id===curTrack?'sel':''}" data-id="${t.id}">
+      <span class="pill">ACTIVE</span>
+      <div class="tk">${t.tag}</div><h3>${t.name}</h3><p>${t.desc}</p>
+    </button>`).join('');
+  document.querySelectorAll('.track').forEach(b=>b.onclick=()=>{curTrack=b.dataset.id;renderTracks();renderMonths(true);});
+}
+
+/* months */
+function renderMonths(keepOpen){
+  const openSet = keepOpen ? new Set([...document.querySelectorAll('.month.open')].map(m=>m.dataset.n)) : new Set(['1']);
+  $('#months').innerHTML = MONTHS.map(m=>{
+    const score = m.esc[curTrack];
+    return `
+    <div class="month ${openSet.has(String(m.n))?'open':''}" data-n="${m.n}">
+      <button class="mh" aria-expanded="${openSet.has(String(m.n))}">
+        <span class="mno">M${String(m.n).padStart(2,'0')}</span>
+        <span class="mt">${m.t}</span>
+        <span class="esc"><span class="bar"><i data-w="${score}"></i></span><span>${score}/100</span></span>
+        <span class="chev">▶</span>
+      </button>
+      <div class="mb">
+        <div class="mgrid">
+          <div class="mcol"><h4>Core skills</h4><ul>${m.core.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+          <div class="mcol"><h4>Tools &amp; frameworks</h4><ul>${m.tools.map(x=>`<li>${x}</li>`).join('')}</ul>
+            <h4 style="margin-top:14px">Math requirement</h4><ul><li>${m.math}</li></ul></div>
+          <div class="mcol"><h4>Deliverables (public proof-of-work)</h4><ul>${m.deliv.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        </div>
+        <div class="unlock"><b>Unlocks</b>${m.unlock}</div>
+        <div class="mtrack"><b>${TRACKS.find(t=>t.id===curTrack).name} focus — M${m.n}</b>${m.trk[curTrack]}</div>
+      </div>
+    </div>`;
+  }).join('');
+  document.querySelectorAll('.mh').forEach(h=>h.onclick=()=>{
+    const mo=h.parentElement; mo.classList.toggle('open');
+    h.setAttribute('aria-expanded', mo.classList.contains('open'));
+    animateBars();
+  });
+  animateBars();
+}
+function animateBars(){
+  requestAnimationFrame(()=>document.querySelectorAll('.bar i').forEach(i=>i.style.width=i.dataset.w+'%'));
+}
+
+/* readiness */
+$('#readyBody').innerHTML = READINESS.map(r=>
+ `<tr><td>${r[0]}</td><td style="font-family:var(--mono);color:var(--amber)">${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join('');
+
+/* application timeline */
+$('#appTl').innerHTML = APPS.map(a=>`
+  <div class="tl-item reveal"><div class="when">${a[0]}</div><h3>${a[1]}</h3><p>${a[2]}</p><div class="req">${a[3]}</div></div>`).join('');
+
+/* orgs */
+function renderOrgs(q=''){
+  q=q.toLowerCase();
+  $('#orgCards').innerHTML = ORGS.filter(o=>!q||(o[0]+' '+o[1]+' '+o[6]).toLowerCase().includes(q)).map(o=>`
+    <div class="card">
+      <h3>${o[0]}</h3><div class="sub">${o[1]}</div>
+      <div class="kv">
+        <div><span>Hires</span><p>${o[2]}</p></div>
+        <div><span>Bar</span><p>${o[3]}</p></div>
+        <div><span>Expected work</span><p>${o[4]}</p></div>
+        <div><span>Engage</span><p>${o[5]}</p></div>
+      </div>
+    </div>`).join('') || '<p style="color:var(--faint);font-family:var(--mono);font-size:12px">NO MATCH — try a broader term.</p>';
+}
+$('#orgSearch').oninput = e=>renderOrgs(e.target.value);
+
+/* clusters */
+$('#clusterList').innerHTML = CLUSTERS.map(c=>`
+  <div class="cluster reveal">
+    <h3>${c[0]} <small>${c[1]}</small></h3>
+    <div class="row">
+      <div><h4>Most demanded skills</h4><p>${c[2]}</p></div>
+      <div><h4>Most demanded projects</h4><p>${c[3]}</p></div>
+      <div><h4>Most demanded technologies</h4><p>${c[4]}</p></div>
+    </div>
+  </div>`).join('');
+
+/* projects */
+const PTAGS = ['all','rag','agentic','evals','safety','mlops','infra','training','research','medical','oss','consulting','perf','observability','foundation','governance'];
+let curTag='all';
+$('#projChips').innerHTML = PTAGS.map(t=>`<button class="chip ${t==='all'?'on':''}" data-t="${t}">${t.toUpperCase()}</button>`).join('');
+document.querySelectorAll('#projChips .chip').forEach(c=>c.onclick=()=>{
+  curTag=c.dataset.t;
+  document.querySelectorAll('#projChips .chip').forEach(x=>x.classList.toggle('on',x===c));
+  renderProjects();
+});
+const tierColor = t => t==='Research-Grade'?'var(--violet)':t==='Production'?'var(--green)':t==='Advanced'?'var(--amber)':t==='Intermediate'?'var(--cyan)':'var(--dim)';
+function renderProjects(){
+  $('#projCards').innerHTML = PROJECTS.filter(p=>curTag==='all'||p[3].includes(curTag)).map(p=>`
+    <div class="card">
+      <h3 style="font-size:14.5px">${p[0]}</h3>
+      <div class="sub"><span style="color:${tierColor(p[2])}">${p[2].toUpperCase()}</span> · ${p[1]}</div>
+      <p>${p[8]}</p>
+      <div class="scorebar">
+        <div>DEMAND <b>${p[4]}</b></div><div>RESUME <b>${p[5]}</b></div><div>INTERVIEW <b>${p[6]}</b></div><div>RESEARCH <b>${p[7]}</b></div>
+      </div>
+      <div class="tags">${p[3].map(t=>`<span>${t}</span>`).join('')}</div>
+    </div>`).join('');
+}
+
+/* skills table */
+let skillSort={k:'demand',dir:-1};
+const SK_KEYS={name:0,cat:1,demand:2,sal:3,diff:4,time:5,ar:6,fr:7};
+const meterColor=v=>v>=8?'var(--green)':v>=6?'var(--amber)':'var(--red)';
+function meter(v){return `<span class="meter"><i><b style="width:${v*10}%;background:${meterColor(v)}"></b></i>${v}</span>`;}
+function renderSkills(){
+  const q=($('#skillSearch').value||'').toLowerCase();
+  let rows=SKILLS.filter(s=>!q||(s[0]+' '+s[1]).toLowerCase().includes(q));
+  const i=SK_KEYS[skillSort.k];
+  rows=[...rows].sort((a,b)=>{
+    const x=a[i],y=b[i];
+    return (typeof x==='number' ? x-y : String(x).localeCompare(String(y)))*skillSort.dir;
+  });
+  $('#skillBody').innerHTML=rows.map(s=>`
+    <tr><td>${s[0]}</td><td style="font-family:var(--mono);font-size:11px;color:var(--faint)">${s[1].toUpperCase()}</td>
+    <td>${meter(s[2])}</td><td>${meter(s[3])}</td><td>${meter(s[4])}</td>
+    <td style="font-family:var(--mono);font-size:11.5px">${s[5]}</td><td>${meter(s[6])}</td><td>${meter(s[7])}</td></tr>`).join('');
+}
+$('#skillSearch').oninput=renderSkills;
+document.querySelectorAll('#skillTbl th').forEach(th=>th.onclick=()=>{
+  const k=th.dataset.k;
+  skillSort = skillSort.k===k ? {k,dir:-skillSort.dir} : {k,dir: k==='name'||k==='cat'||k==='time' ? 1 : -1};
+  renderSkills();
+});
+
+/* radar */
+(function(){try{
+  const c=$('#radar'),ctx=c.getContext('2d');
+  if(!ctx)return;
+  const dpr=window.devicePixelRatio||1; const S=420;
+  c.width=S*dpr;c.height=S*dpr;c.style.width=c.style.height=S+'px';ctx.scale(dpr,dpr);
+  const cx=S/2,cy=S/2,R=150;
+  const axes=['Research taste','Cross-domain','Systems judgment','Accountability','GPU/Infra','Eval science','Client translation','Implementation'];
+  const you=[9.4,9.2,8.9,8.7,8.4,8.2,7.8,7.5];
+  const median=[2,2.5,3.5,2,2.5,3,3,6.5];
+  ctx.clearRect(0,0,S,S);
+  ctx.strokeStyle='rgba(168,190,220,.12)';ctx.fillStyle='rgba(138,151,171,.9)';
+  ctx.font='10px IBM Plex Mono, monospace';ctx.textAlign='center';
+  for(let r=1;r<=5;r++){ctx.beginPath();
+    for(let i=0;i<8;i++){const a=Math.PI*2*i/8-Math.PI/2,x=cx+Math.cos(a)*R*r/5,y=cy+Math.sin(a)*R*r/5;i?ctx.lineTo(x,y):ctx.moveTo(x,y);}
+    ctx.closePath();ctx.stroke();}
+  for(let i=0;i<8;i++){const a=Math.PI*2*i/8-Math.PI/2;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R);ctx.stroke();
+    const lx=cx+Math.cos(a)*(R+30),ly=cy+Math.sin(a)*(R+24);
+    ctx.fillText(axes[i],lx,ly);}
+  function poly(data,stroke,fill){ctx.beginPath();
+    for(let i=0;i<8;i++){const a=Math.PI*2*i/8-Math.PI/2,r=R*data[i]/10;const x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?ctx.lineTo(x,y):ctx.moveTo(x,y);}
+    ctx.closePath();ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=stroke;ctx.lineWidth=1.6;ctx.stroke();}
+  poly(median,'rgba(79,216,235,.8)','rgba(79,216,235,.08)');
+  poly(you,'rgba(242,169,59,.95)','rgba(242,169,59,.12)');
+}catch(e){console.warn('radar skipped',e)}})();
+
+/* counters */
+if('IntersectionObserver' in window){
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  e.target.classList.add('in');
+  const n=e.target.querySelector('.num');
+  if(n&&!n.dataset.done){n.dataset.done=1;
+    const end=+n.dataset.count,pre=n.dataset.prefix||'',suf=n.dataset.suffix||'';
+    const t0=performance.now(),dur=1400;
+    (function step(t){const p=Math.min(1,(t-t0)/dur),v=Math.round(end*(1-Math.pow(1-p,3)));
+      n.textContent=pre+v+suf; if(p<1)requestAnimationFrame(step);})(t0);
+  }
+  io.unobserve(e.target);
+}),{threshold:.25});
+document.querySelectorAll('.reveal,.stat').forEach(el=>io.observe(el));
+
+/* nav active state */
+const navLinks=[...document.querySelectorAll('nav a')];
+const navIO=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){
+    navLinks.forEach(a=>a.classList.toggle('act',a.getAttribute('href')==='#'+e.target.id));
+  }});
+},{rootMargin:'-30% 0px -60% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>navIO.observe(s));
+}else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));}
+
+/* "/" focuses search */
+addEventListener('keydown',e=>{
+  if(e.key==='/'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();$('#skillSearch').focus();}
+});
+
+renderTracks();renderMonths();renderOrgs();renderProjects();renderSkills();
+</script>
+</body>
+</html>
