@@ -239,6 +239,173 @@ h1{
   margin:0;
 }
 
+/* =========================================================
+   SPECIALIST TRACK VISUAL IDENTITIES
+   ========================================================= */
+
+/* QUANT ML — computational intelligence */
+
+.quant-ml-card{
+  position:relative;
+  overflow:hidden;
+
+  border-color:rgba(82,210,255,.18);
+
+  background:
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(82,210,255,.075),
+      transparent 34%
+    ),
+    var(--surface);
+}
+
+.quant-ml-card::before{
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(82,210,255,.72) 50%,
+      transparent 100%
+    );
+}
+
+.quant-ml-card::after{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  right:-90px;
+  bottom:-95px;
+
+  border:1px solid rgba(82,210,255,.10);
+  border-radius:50%;
+
+  box-shadow:
+    0 0 0 24px rgba(82,210,255,.025),
+    0 0 0 48px rgba(82,210,255,.018);
+
+  pointer-events:none;
+}
+
+.quant-ml-card .card-icon{
+  color:#52d2ff;
+
+  text-shadow:
+    0 0 18px rgba(82,210,255,.25);
+}
+
+.quant-ml-card .card-kicker{
+  color:#52d2ff;
+}
+
+.quant-ml-card .status{
+  color:#52d2ff;
+}
+
+.quant-ml-card .arrow{
+  color:#52d2ff;
+}
+
+.quant-ml-card:hover{
+  border-color:rgba(82,210,255,.42);
+
+  background:
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(82,210,255,.11),
+      transparent 38%
+    ),
+    var(--surface-2);
+
+  box-shadow:
+    0 16px 45px rgba(0,0,0,.18),
+    0 0 32px rgba(82,210,255,.055);
+}
+
+
+/* QUANT RESEARCH — alpha / research */
+
+.quant-research-card{
+  position:relative;
+  overflow:hidden;
+
+  border-color:rgba(151,125,255,.18);
+
+  background:
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(151,125,255,.075),
+      transparent 34%
+    ),
+    var(--surface);
+}
+
+.quant-research-card::before{
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(151,125,255,.72) 50%,
+      transparent 100%
+    );
+}
+
+.quant-research-card::after{
+  content:"";
+  position:absolute;
+  width:170px;
+  height:170px;
+  right:-85px;
+  bottom:-90px;
+
+  border:1px solid rgba(151,125,255,.10);
+  border-radius:50%;
+
+  box-shadow:
+    0 0 0 22px rgba(151,125,255,.025),
+    0 0 0 44px rgba(151,125,255,.018);
+
+  pointer-events:none;
+}
+
+.quant-research-card .card-icon{
+  color:#977dff;
+
+  text-shadow:
+    0 0 18px rgba(151,125,255,.25);
+}
+
+.quant-research-card .card-kicker{
+  color:#977dff;
+}
+
+.quant-research-card .status{
+  color:#977dff;
+}
+
+.quant-research-card .arrow{
+  color:#977dff;
+}
+
+.quant-research-card:hover{
+  border-color:rgba(151,125,255,.42);
+
+  background:
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(151,125,255,.11),
+      transparent 38%
+    ),
+    var(--surface-2);
+
+  box-shadow:
+    0 16px 45px rgba(0,0,0,.18),
+    0 0 32px rgba(151,125,255,.055);
+}
+
+
+
 .card-bottom{
   margin-top:auto;
   padding-top:24px;
@@ -508,7 +675,7 @@ h1{
 
     <a class="card quant-ml-card" href="QUANT-ML/">
 
-      <div class="card-icon">◈</div>
+      <div class="card-icon" aria-hidden="true">◈</div>
 
       <div class="card-kicker">
         MACHINE INTELLIGENCE · QUANT RESEARCH
@@ -542,7 +709,7 @@ h1{
 
     <a class="card quant-research-card" href="QUANT-RESEARCH/">
 
-      <div class="card-icon">◇</div>
+      <div class="card-icon" aria-hidden="true">◇</div>
 
       <div class="card-kicker">
         ALPHA RESEARCH · SYSTEMATIC STRATEGIES
