@@ -388,7 +388,333 @@ code { font-family: var(--mono); font-size: 12px; background: var(--bg3); paddin
 @media (max-width:900px){.phase7-pipeline{gap:8px}.phase7-pipeline .pipeline-node{min-width:180px}}
 @media (max-width:700px){.phase7-standard-table,.phase7-gates-table,.phase7-endurance-table,.phase7-exam-table,.phase7-score-table,.phase7-remediation-table{min-width:900px}.phase7-pipeline{min-width:1400px}}
 
-</style></head><body><div class="shell"><!-- SIDEBAR --><nav class="sidebar"><div class="logo"><div class="logo-title">Zero → Quant/HFT</div><div class="logo-sub">Mar 2026 – Mar 2027</div></div><div class="nav-section">Overview</div><a class="nav-item active" onclick="show('overview')"><span class="nav-dot" style="background:var(--accent)"></span>Master overview </a><a class="nav-item" onclick="show('daily')"><span class="nav-dot" style="background:var(--accent)"></span>Daily system </a><div class="nav-section">Architecture</div>
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESPONSIVE NAVIGATION — ARCHITECTURE-PRESERVING MOBILE DRAWER
+   Desktop navigation remains intact. Mobile receives a dedicated
+   drawer populated from the same existing nav items.
+   ═══════════════════════════════════════════════════════════════════ */
+.mobile-nav-toggle,
+.mobile-nav-drawer,
+.mobile-nav-overlay { display:none; }
+
+@media (max-width:768px) {
+  /* Hide only the desktop navigation surface; do not rewrite its layout. */
+  aside, nav.sidebar, .sidebar, .sidenav, .side-nav {
+    /* Only the existing desktop navigation should be hidden by its own
+       selector; the mobile drawer is separately named below. */
+  }
+
+  .mobile-nav-toggle {
+    position:sticky;
+    top:0;
+    z-index:1200;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    min-height:50px;
+    padding:10px 14px;
+    border:0;
+    border-bottom:1px solid var(--border,rgba(255,255,255,.12));
+    background:var(--bg,#0b0b0d);
+    color:inherit;
+    font:inherit;
+    text-align:left;
+    cursor:pointer;
+  }
+
+  .mobile-nav-toggle-icon { font-size:21px; line-height:1; }
+  .mobile-nav-toggle-label { font-weight:750; }
+
+  .mobile-nav-overlay {
+    position:fixed;
+    inset:0;
+    z-index:1290;
+    background:rgba(0,0,0,.58);
+    backdrop-filter:blur(3px);
+    -webkit-backdrop-filter:blur(3px);
+  }
+  .mobile-nav-overlay.is-open { display:block; }
+
+  .mobile-nav-drawer {
+    position:fixed;
+    inset:0 auto 0 0;
+    z-index:1300;
+    display:flex;
+    flex-direction:column;
+    width:min(88vw,360px);
+    max-width:360px;
+    height:100dvh;
+    overflow:hidden;
+    border-right:1px solid var(--border,rgba(255,255,255,.12));
+    background:var(--bg,#0b0b0d);
+    color:inherit;
+    box-shadow:18px 0 50px rgba(0,0,0,.32);
+    transform:translateX(-105%);
+    transition:transform .22s ease;
+  }
+  .mobile-nav-drawer.is-open { transform:translateX(0); }
+
+  .mobile-nav-header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    min-height:58px;
+    padding:10px 14px;
+    border-bottom:1px solid var(--border,rgba(255,255,255,.12));
+    font-weight:800;
+  }
+  .mobile-nav-close {
+    width:40px;
+    height:40px;
+    border:0;
+    border-radius:10px;
+    background:transparent;
+    color:inherit;
+    font-size:28px;
+    cursor:pointer;
+  }
+
+  .mobile-nav-items {
+    flex:1 1 auto;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    padding:10px 10px 24px;
+  }
+  .mobile-nav-items .nav-item {
+    display:flex;
+    align-items:center;
+    width:100%;
+    min-height:48px;
+    margin:3px 0;
+    padding:10px 12px;
+    border-radius:11px;
+    white-space:normal;
+    overflow-wrap:anywhere;
+    cursor:pointer;
+    touch-action:manipulation;
+  }
+
+  /* Prevent desktop content offsets from surviving on narrow screens. */
+  main, .main, .content, .main-content, .app-main {
+    width:100% !important;
+    max-width:100% !important;
+    margin-left:0 !important;
+    padding-left:12px !important;
+    padding-right:12px !important;
+  }
+  body { overflow-x:hidden; }
+  body.mobile-nav-lock { overflow:hidden; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .mobile-nav-drawer { transition:none; }
+}
+
+
+/* ================================================================
+   MOBILE NAVIGATION — FINAL ISOLATED IMPLEMENTATION
+   Desktop sidebar is untouched. Mobile navigation is a fixed drawer.
+   ================================================================ */
+#mobileRoadmapMenu,
+#mobileRoadmapBackdrop,
+#mobileRoadmapDrawer {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  /* Hide only the original desktop sidebar. */
+  #roadmapDesktopSidebar {
+    display: none !important;
+  }
+
+  #mobileRoadmapMenu {
+    position: fixed !important;
+    top: max(10px, env(safe-area-inset-top)) !important;
+    left: 12px !important;
+    z-index: 2147483000 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    min-height: 46px !important;
+    padding: 9px 13px !important;
+    border: 1px solid rgba(255,255,255,.16) !important;
+    border-radius: 12px !important;
+    background: rgba(12,12,15,.94) !important;
+    color: inherit !important;
+    box-shadow: 0 8px 28px rgba(0,0,0,.28) !important;
+    font: inherit !important;
+    font-weight: 750 !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+  }
+
+  #mobileRoadmapMenu .mobile-roadmap-menu-icon {
+    font-size: 20px !important;
+    line-height: 1 !important;
+  }
+
+  #mobileRoadmapBackdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 2147483100 !important;
+    background: rgba(0,0,0,.62) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity .18s ease !important;
+  }
+
+  #mobileRoadmapBackdrop.is-open {
+    display: block !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  #mobileRoadmapDrawer {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    z-index: 2147483200 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: min(88vw, 360px) !important;
+    max-width: 360px !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-right: 1px solid rgba(255,255,255,.14) !important;
+    background: var(--bg, #0b0b0d) !important;
+    color: inherit !important;
+    box-shadow: 18px 0 55px rgba(0,0,0,.42) !important;
+    transform: translate3d(-110%,0,0) !important;
+    transition: transform .2s ease !important;
+    visibility: hidden !important;
+  }
+
+  #mobileRoadmapDrawer.is-open {
+    visibility: visible !important;
+    transform: translate3d(0,0,0) !important;
+  }
+
+  .mobile-roadmap-drawer-head {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    min-height: 60px !important;
+    padding: 10px 14px !important;
+    border-bottom: 1px solid rgba(255,255,255,.12) !important;
+  }
+
+  #mobileRoadmapClose {
+    width: 42px !important;
+    height: 42px !important;
+    border: 0 !important;
+    border-radius: 10px !important;
+    background: transparent !important;
+    color: inherit !important;
+    font-size: 30px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+  }
+
+  #mobileRoadmapLinks {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: 10px !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+  }
+
+  #mobileRoadmapLinks .nav-item {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    min-height: 50px !important;
+    margin: 3px 0 !important;
+    padding: 11px 12px !important;
+    border-radius: 11px !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+  }
+
+  body.mobile-roadmap-open {
+    overflow: hidden !important;
+    touch-action: none !important;
+  }
+
+  /* Do not let desktop sidebar offsets squeeze the content. */
+  main,
+  .main,
+  .main-content,
+  .content,
+  .app-main {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+  }
+
+  html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  #mobileRoadmapMenu,
+  #mobileRoadmapBackdrop,
+  #mobileRoadmapDrawer {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #mobileRoadmapDrawer,
+  #mobileRoadmapBackdrop {
+    transition: none !important;
+  }
+}
+
+</style></head><body>
+<button id="mobileRoadmapMenu"
+        class="mobile-roadmap-menu"
+        type="button"
+        aria-label="Open roadmap navigation"
+        aria-controls="mobileRoadmapDrawer"
+        aria-expanded="false">
+  <span aria-hidden="true" class="mobile-roadmap-menu-icon">☰</span>
+  <span>Roadmap</span>
+</button>
+
+<div id="mobileRoadmapBackdrop"
+     class="mobile-roadmap-backdrop"
+     aria-hidden="true"></div>
+
+<aside id="mobileRoadmapDrawer"
+       class="mobile-roadmap-drawer"
+       aria-label="Roadmap navigation"
+       aria-hidden="true">
+  <div class="mobile-roadmap-drawer-head">
+    <strong>Roadmap Navigation</strong>
+    <button id="mobileRoadmapClose"
+            type="button"
+            aria-label="Close roadmap navigation">×</button>
+  </div>
+  <div id="mobileRoadmapLinks" class="mobile-roadmap-links"></div>
+</aside>
+
+<div class="shell"><!-- SIDEBAR --><nav id="roadmapDesktopSidebar" class="sidebar"><div class="logo"><div class="logo-title">Zero → Quant/HFT</div><div class="logo-sub">Mar 2026 – Mar 2027</div></div><div class="nav-section">Overview</div><a class="nav-item active" onclick="show('overview')"><span class="nav-dot" style="background:var(--accent)"></span>Master overview </a><a class="nav-item" onclick="show('daily')"><span class="nav-dot" style="background:var(--accent)"></span>Daily system </a><div class="nav-section">Architecture</div>
 <a class="nav-item" onclick="show('phase0')"><span class="nav-dot" style="background:var(--accent)"></span> Phase 0 · Architecture & Integrity</a>
 
 <a class="nav-item" onclick="show('phase1cpp')"><span class="nav-dot" style="background:var(--accent)"></span> Phase 1 · C++ + Performance</a>
@@ -398,7 +724,8 @@ code { font-family: var(--mono); font-size: 12px; background: var(--bg3); paddin
 <a class="nav-item" onclick="show('phase5systems')"><span class="nav-dot" style="background:var(--accent)"></span> Phase 5 · Advanced HFT Systems</a>
 <a class="nav-item" onclick="show('phase6interview')"><span class="nav-dot" style="background:var(--accent)"></span> Phase 6 · Interview Engineering</a>
 <a class="nav-item" onclick="show('phase7certification')"><span class="nav-dot" style="background:var(--accent)"></span> Phase 7 · Final CRACKED Certification</a>
-<div class="nav-section">Phase 1 · Foundation</div><a class="nav-item" onclick="show('m1')"><span class="nav-dot" style="background:var(--accent2)"></span>Mar · Calculus + Python</a><a class="nav-item" onclick="show('m2')"><span class="nav-dot" style="background:var(--accent2)"></span>Apr · Linear Algebra</a><a class="nav-item" onclick="show('m3')"><span class="nav-dot" style="background:var(--accent2)"></span>May · Probability + NSE</a><a class="nav-item" onclick="show('m4')"><span class="nav-dot" style="background:var(--accent2)"></span>Jun · Statistics + ML</a><a class="nav-item" onclick="show('m5')"><span class="nav-dot" style="background:var(--accent2)"></span>Jul · Stoch. Calc I</a><a class="nav-item" onclick="show('m6')"><span class="nav-dot" style="background:var(--accent2)"></span>Aug · AI + Transformer</a><div class="nav-section">Phase 2 · HFT Systems</div><a class="nav-item" onclick="show('m7')"><span class="nav-dot" style="background:var(--accent3)"></span>Sep · Microstructure</a><a class="nav-item" onclick="show('m8')"><span class="nav-dot" style="background:var(--accent3)"></span>Oct · C++ Perf + OCaml</a><a class="nav-item" onclick="show('m9')"><span class="nav-dot" style="background:var(--accent3)"></span>Nov · Protocols + RL</a><a class="nav-item" onclick="show('m10')"><span class="nav-dot" style="background:var(--accent3)"></span>Dec · HFT Strategies</a><div class="nav-section">Phase 3 · Research</div><a class="nav-item" onclick="show('m11')"><span class="nav-dot" style="background:var(--accent5)"></span>Jan · Stoch. Calc II</a><a class="nav-item" onclick="show('m12')"><span class="nav-dot" style="background:var(--accent5)"></span>Feb · Stat Arb + GenAI</a><a class="nav-item" onclick="show('m13')"><span class="nav-dot" style="background:var(--accent5)"></span>Mar · Integration</a><div class="nav-section">Reference</div><a class="nav-item" onclick="show('dsa')"><span class="nav-dot" style="background:var(--accent4)"></span>DSA tracker</a><a class="nav-item" onclick="show('cp')"><span class="nav-dot" style="background:var(--red)"></span>Competitive Programming</a><a class="nav-item" onclick="show('cracked')"><span class="nav-dot" style="background:var(--accent)"></span>CRACKED standard</a><a class="nav-item" onclick="show('gauntlet')"><span class="nav-dot" style="background:var(--red)"></span>Qualification Gauntlet</a><a class="nav-item" onclick="show('math')"><span class="nav-dot" style="background:var(--accent4)"></span>Math tracker</a><a class="nav-item" onclick="show('ai')"><span class="nav-dot" style="background:var(--accent4)"></span>AI edge</a><a class="nav-item" onclick="show('hiring')"><span class="nav-dot" style="background:var(--accent4)"></span>Hiring calendar</a><a class="nav-item" onclick="show('firms')"><span class="nav-dot" style="background:var(--accent4)"></span>Target firms</a><a class="nav-item" onclick="show('books')"><span class="nav-dot" style="background:var(--accent4)"></span>Books + papers</a><a class="nav-item" onclick="show('social')"><span class="nav-dot" style="background:var(--accent4)"></span>Social + GitHub</a><a class="nav-item" onclick="show('portfolio')"><span class="nav-dot" style="background:var(--accent4)"></span>Portfolio blueprint</a><div class="sidebar-footer"><div class="sf-text">Rebase: Aug 23, 2026<br>Target: Mar 2027<br>v3.1 · CP + CRACKED + GAUNTLET</div></div></nav><!-- MAIN --><main class="main"><!-- ════════════════════════════════════════ OVERVIEW
+<div class="nav-section">Phase 1 · Foundation</div><a class="nav-item" onclick="show('m1')"><span class="nav-dot" style="background:var(--accent2)"></span>Mar · Calculus + Python</a><a class="nav-item" onclick="show('m2')"><span class="nav-dot" style="background:var(--accent2)"></span>Apr · Linear Algebra</a><a class="nav-item" onclick="show('m3')"><span class="nav-dot" style="background:var(--accent2)"></span>May · Probability + NSE</a><a class="nav-item" onclick="show('m4')"><span class="nav-dot" style="background:var(--accent2)"></span>Jun · Statistics + ML</a><a class="nav-item" onclick="show('m5')"><span class="nav-dot" style="background:var(--accent2)"></span>Jul · Stoch. Calc I</a><a class="nav-item" onclick="show('m6')"><span class="nav-dot" style="background:var(--accent2)"></span>Aug · AI + Transformer</a><div class="nav-section">Phase 2 · HFT Systems</div><a class="nav-item" onclick="show('m7')"><span class="nav-dot" style="background:var(--accent3)"></span>Sep · Microstructure</a><a class="nav-item" onclick="show('m8')"><span class="nav-dot" style="background:var(--accent3)"></span>Oct · C++ Perf + OCaml</a><a class="nav-item" onclick="show('m9')"><span class="nav-dot" style="background:var(--accent3)"></span>Nov · Protocols + RL</a><a class="nav-item" onclick="show('m10')"><span class="nav-dot" style="background:var(--accent3)"></span>Dec · HFT Strategies</a><div class="nav-section">Phase 3 · Research</div><a class="nav-item" onclick="show('m11')"><span class="nav-dot" style="background:var(--accent5)"></span>Jan · Stoch. Calc II</a><a class="nav-item" onclick="show('m12')"><span class="nav-dot" style="background:var(--accent5)"></span>Feb · Stat Arb + GenAI</a><a class="nav-item" onclick="show('m13')"><span class="nav-dot" style="background:var(--accent5)"></span>Mar · Integration</a><div class="nav-section">Reference</div><a class="nav-item" onclick="show('dsa')"><span class="nav-dot" style="background:var(--accent4)"></span>DSA tracker</a><a class="nav-item" onclick="show('cp')"><span class="nav-dot" style="background:var(--red)"></span>Competitive Programming</a><a class="nav-item" onclick="show('cracked')"><span class="nav-dot" style="background:var(--accent)"></span>CRACKED standard</a><a class="nav-item" onclick="show('gauntlet')"><span class="nav-dot" style="background:var(--red)"></span>Qualification Gauntlet</a><a class="nav-item" onclick="show('math')"><span class="nav-dot" style="background:var(--accent4)"></span>Math tracker</a><a class="nav-item" onclick="show('ai')"><span class="nav-dot" style="background:var(--accent4)"></span>AI edge</a><a class="nav-item" onclick="show('hiring')"><span class="nav-dot" style="background:var(--accent4)"></span>Hiring calendar</a><a class="nav-item" onclick="show('firms')"><span class="nav-dot" style="background:var(--accent4)"></span>Target firms</a><a class="nav-item" onclick="show('books')"><span class="nav-dot" style="background:var(--accent4)"></span>Books + papers</a><a class="nav-item" onclick="show('social')"><span class="nav-dot" style="background:var(--accent4)"></span>Social + GitHub</a><a class="nav-item" onclick="show('portfolio')"><span class="nav-dot" style="background:var(--accent4)"></span>Portfolio blueprint</a><div class="sidebar-footer"><div class="sf-text">Rebase: Aug 23, 2026<br>Target: Mar 2027<br>v3.1 · CP + CRACKED + GAUNTLET</div></div></nav><!-- MAIN -->
+<main class="main"><!-- ════════════════════════════════════════ OVERVIEW
 ════════════════════════════════════════ --><section id="page-overview" class="page active"><div class="hero"><div class="hero-eyebrow">The master roadmap · v3.0 · final</div><h1 class="hero-title">From Tier-5 university<br>to <span>undeniable</span></h1><p class="hero-sub">12 months. Mathematics, systems, AI, and finance fused into a portfolio that makes Ivy League pedigree irrelevant. Starting March 15, 2026.</p><div class="hero-stats"><div class="hs"><div class="hs-num">3,100+</div><div class="hs-label">math problems</div></div><div class="hs"><div class="hs-num">600+</div><div class="hs-label">DSA problems</div></div><div class="hs"><div class="hs-num">12</div><div class="hs-label">AI papers built</div></div><div class="hs"><div class="hs-num">18</div><div class="hs-label">GitHub repos</div></div></div></div><div class="callout warn"><strong>Your unfair advantage:</strong>You are an AI expert entering quant. Every IIT candidate knows stochastic calculus. Almost none have fine-tuned FinBERT on NSE earnings data, built a Deep Hedging RL agent, or implemented Mamba SSM on financial time series. That intersection is your weapon.</div><div class="callout danger"><strong>NEW APPLICATION GATE — self-imposed, not a firm requirement:</strong>This roadmap now treats Competitive Programming, role-specific technical mastery, research validation, and the Qualification Gauntlet as a readiness gate. You do <em>not</em>earn the right to call yourself “interview ready” because you finished a chapter or collected GitHub repositories. You earn it by producing evidence under timed, adversarial conditions.</div><div class="sec-title">The 2026–2027 architecture</div><div class="phase-strip phase0-mini-strip"><div class="phase-block phase0-block"><div class="pb-num">PHASE 0</div><div class="pb-title">Architecture Lock</div><div class="pb-period">Control layer</div><div class="pb-desc">Role separation, priorities, dependencies, evidence standards, exit gates, and UI integrity.</div></div></div>
 <div class="phase-strip"><div class="phase-block"><div class="pb-num">PHASE 1</div><div class="pb-title">Foundation</div><div class="pb-period">Mar – Aug 2026</div><div class="pb-desc">Math fluency. First AI projects. NSE data. Internship applications. 2 competitions.</div></div><div class="phase-block"><div class="pb-num">PHASE 2</div><div class="pb-title">HFT Systems</div><div class="pb-period">Sep – Dec 2026</div><div class="pb-desc">Low-latency C++. OCaml. Market microstructure. RL trading. arXiv prep.</div></div><div class="phase-block"><div class="pb-num">PHASE 3</div><div class="pb-title">Research</div><div class="pb-period">Jan – Mar 2027</div><div class="pb-desc">Stochastic Calc II. arXiv preprint live. Advanced stat arb. Generative models. Interview sprint.</div></div><div class="phase-block"><div class="pb-num">ONGOING</div><div class="pb-title">Daily habits</div><div class="pb-period">Every day, no exceptions</div><div class="pb-desc">20 min mental math. 5 Green Book problems. 2 LeetCode. GitHub commit. Always.</div></div><div class="phase-block"><div class="pb-num">RESULT</div><div class="pb-title">Application</div><div class="pb-period">Aug – Dec 2027</div><div class="pb-desc">35+ applications. arXiv paper. IMC top 50. Kaggle medal. Offers from Tier-1 firms.</div></div></div><div class="divider"></div><div class="sec-title">The 12-month focus map</div><div class="timeline"><div class="tl-row"><div class="tl-month">Mar 2026</div><div class="tl-chips"><span class="chip chip-math">Spivak calculus</span><span class="chip chip-dsa">Arrays · strings</span><span class="chip chip-fin">Flash Boys · Hull basics</span><span class="chip chip-app">Apply: IMC, Optiver NOW</span><span class="chip chip-soc">GitHub day 1</span></div></div><div class="tl-row"><div class="tl-month">Apr 2026</div><div class="tl-chips"><span class="chip chip-math">Axler linear algebra</span><span class="chip chip-dsa">Trees · stacks · binary search</span><span class="chip chip-fin">Trading &amp; Exchanges</span><span class="chip chip-comp">CryptoQuant 2026</span><span class="chip chip-soc">First Twitter thread</span></div></div><div class="tl-row"><div class="tl-month">May 2026</div><div class="tl-chips"><span class="chip chip-math">Bertsekas probability</span><span class="chip chip-dsa">Heaps · graphs intro</span><span class="chip chip-ai">NSE tick data EDA</span><span class="chip chip-fin">Options basics (Hull)</span><span class="chip chip-comp">IMC Prosperity begins</span></div></div><div class="tl-row"><div class="tl-month">Jun 2026</div><div class="tl-chips"><span class="chip chip-math">Wasserman statistics</span><span class="chip chip-dsa">DP intro · segment trees</span><span class="chip chip-ai">sklearn · PyTorch foundations</span><span class="chip chip-fin">ARIMA · GARCH from scratch</span><span class="chip chip-comp">Kaggle Optiver opens</span></div></div><div class="tl-row"><div class="tl-month">Jul 2026</div><div class="tl-chips"><span class="chip chip-math">Shreve I stochastic calc</span><span class="chip chip-dsa">DP hard · tries</span><span class="chip chip-ai">Transformer on NSE data</span><span class="chip chip-fin">Options pricing library</span><span class="chip chip-soc">YouTube video 1</span></div></div><div class="tl-row"><div class="tl-month">Aug 2026</div><div class="tl-chips"><span class="chip chip-math">Optimisation + ML math</span><span class="chip chip-dsa">Bit manip · advanced patterns</span><span class="chip chip-ai">Gu-Kelly-Xiu replication</span><span class="chip chip-app">Apply: Two Sigma, Jane St intern</span><span class="chip chip-soc">CV v1 ready</span></div></div><div class="tl-row"><div class="tl-month">Sep 2026</div><div class="tl-chips"><span class="chip chip-fin">Market microstructure</span><span class="chip chip-dsa">Hard DP · concurrency C++</span><span class="chip chip-ai">FinBERT fine-tune NSE</span><span class="chip chip-app">Apply: Citadel, HRT, Jane St</span><span class="chip chip-comp">Jane Street ETC</span></div></div><div class="tl-row"><div class="tl-month">Oct 2026</div><div class="tl-chips"><span class="chip chip-fin">C++ perf engineering</span><span class="chip chip-ai">OCaml block (Jane Street)</span><span class="chip chip-ai">Deep Hedging RL agent</span><span class="chip chip-app">Apply: Tower, G-Research, Virtu</span><span class="chip chip-soc">Blog: C++ perf series</span></div></div><div class="tl-row"><div class="tl-month">Nov 2026</div><div class="tl-chips"><span class="chip chip-fin">Exchange protocols</span><span class="chip chip-dsa">Full DSA revisit sprint</span><span class="chip chip-ai">RL market maker PPO/SAC</span><span class="chip chip-app">India: Quadeye, Graviton</span><span class="chip chip-soc">Research note writing</span></div></div><div class="tl-row"><div class="tl-month">Dec 2026</div><div class="tl-chips"><span class="chip chip-fin">HFT strategies complete</span><span class="chip chip-math">Shreve II begins</span><span class="chip chip-ai">TimeGAN · HMM regime</span><span class="chip chip-app">IMC Prosperity final push</span><span class="chip chip-soc">arXiv note final polish</span></div></div><div class="tl-row"><div class="tl-month">Jan 2027</div><div class="tl-chips"><span class="chip chip-math">Shreve II martingales</span><span class="chip chip-ai">Mamba SSM · conformal pred</span><span class="chip chip-soc">arXiv submission</span><span class="chip chip-comp">Kaggle top 5% push</span><span class="chip chip-fin">Heston + jump diffusion</span></div></div><div class="tl-row"><div class="tl-month">Feb 2027</div><div class="tl-chips"><span class="chip chip-fin">Advanced stat arb + Kalman</span><span class="chip chip-ai">Almgren-Chriss + RL execution</span><span class="chip chip-app">Mock interviews 3×/week</span><span class="chip chip-comp">IMC Prosperity 2027</span></div></div><div class="tl-row"><div class="tl-month">Mar 2027</div><div class="tl-chips"><span class="chip chip-fin">ML for asset pricing</span><span class="chip chip-ai">Original research paper draft</span><span class="chip chip-app">Interview sprint · full prep</span><span class="chip chip-soc">Portfolio website live</span></div></div></div></section><!-- ════════════════════════════════════════ DAILY SYSTEM
 ════════════════════════════════════════ --><section id="page-daily" class="page"><div class="hero-eyebrow">Non-negotiable</div><h2 class="sec-title">The daily system</h2><p class="sec-sub">These habits run every single day for 12 months. No exceptions. This is what separates you from every IIT candidate who studies in bursts.</p><div class="callout danger"><strong>Rule 1:</strong>Mental math and Green Book problems happen BEFORE you open any code editor or textbook. Every day. Even competition days. Even sick days (do 3 problems minimum).</div><div class="sec-title" style="margin-top:28px;font-size:18px">Weekday schedule</div><div class="sched-grid"><div class="sched-row"><span class="sched-time">5:00 – 5:20</span><span class="sched-act">Zetamac mental math drills — never skip</span><span class="sched-type">MENTAL MATH</span></div><div class="sched-row"><span class="sched-time">5:20 – 5:55</span><span class="sched-act">5 Green Book / Heard on the Street problems. Log wrong answers in Notion.</span><span class="sched-type">PROBABILITY</span></div><div class="sched-row"><span class="sched-time">6:00 – 7:00</span><span class="sched-act">Textbook chapter + worked problems (follow monthly schedule)</span><span class="sched-type">MATH</span></div><div class="sched-row"><span class="sched-time">7:00 – 7:30</span><span class="sched-act">2 LeetCode problems — timed, written explanation after each</span><span class="sched-type">DSA</span></div><div class="sched-row"><span class="sched-time">9:00 – 12:00</span><span class="sched-act">Primary project work / programming (follow monthly schedule)</span><span class="sched-type">BUILD</span></div><div class="sched-row"><span class="sched-time">13:00 – 15:00</span><span class="sched-act">Finance reading / paper study / implementation</span><span class="sched-type">FINANCE</span></div><div class="sched-row"><span class="sched-time">15:00 – 17:00</span><span class="sched-act">AI/ML project work (months 6+) or extended programming</span><span class="sched-type">AI</span></div><div class="sched-row"><span class="sched-time">20:00 – 21:00</span><span class="sched-act">Social content — write one thread draft or edit one video (alternating days)</span><span class="sched-type">SOCIAL</span></div><div class="sched-row"><span class="sched-time">21:00 – 21:30</span><span class="sched-act">GitHub commit (even 1 line). Review day's wrong answers. Plan tomorrow.</span><span class="sched-type">REVIEW</span></div></div><div class="sec-title" style="margin-top:28px;font-size:18px">Weekly commitments</div><div class="tbl-wrap"><table><thead><tr><th>Day</th><th>Special commitment</th><th>Starts</th></tr></thead><tbody><tr><td>Monday</td><td>Publish one Twitter/LinkedIn thread (written Sunday)</td><td>Week 1</td></tr><tr><td>Wednesday</td><td>YouTube video script draft OR record (alternate weeks)</td><td>Month 2</td></tr><tr><td>Friday</td><td>1 system design problem — write 2-page solution (order book, matching engine, risk engine)</td><td>Sep 2026</td></tr><tr><td>Saturday</td><td>Mock interview — record, review harshly, fix one thing</td><td>Oct 2026</td></tr><tr><td>Sunday</td><td>Weekly review: problems wrong this week → add to revisit list. Plan next week.</td><td>Week 1</td></tr></tbody></table></div><div class="sec-title" style="margin-top:28px;font-size:18px">Mental math targets by month</div><div class="tbl-wrap"><table><thead><tr><th>Month</th><th>Target</th><th>Tool</th></tr></thead><tbody><tr><td>Mar 2026</td><td>2-digit × 2-digit under 8 sec. All multiplication tables instant.</td><td>Zetamac default settings</td></tr><tr><td>May 2026</td><td>3-digit × 2-digit under 12 sec. % changes under 5 sec.</td><td>Zetamac + Sticker exercises</td></tr><tr><td>Aug 2026</td><td>3-digit × 3-digit under 20 sec. Square roots to 1 decimal.</td><td>Custom drills</td></tr><tr><td>Nov 2026</td><td>Compound interest calcs. Option payoffs. Expected values. All in head.</td><td>Interview simulations</td></tr><tr><td>Mar 2027</td><td>Any two-step finance calculation in under 15 sec. Ready for Optiver screen.</td><td>Full mock interviews</td></tr></tbody></table></div></section>
@@ -1780,4 +2107,75 @@ function toggleMonth(id) { const b = document.getElementById('b-' + id); const c
 }
 document.querySelectorAll('.month-hdr').forEach(hdr =>{ hdr.addEventListener('click', () =>{ const body = hdr.nextElementSibling; if (body && body.classList.contains('month-body')) { body.classList.toggle('open'); } });
 });
-</script></body></html>
+</script>
+
+<script>
+(function () {
+  "use strict";
+
+  function initMobileRoadmapNavigation() {
+    const menu = document.getElementById("mobileRoadmapMenu");
+    const drawer = document.getElementById("mobileRoadmapDrawer");
+    const backdrop = document.getElementById("mobileRoadmapBackdrop");
+    const close = document.getElementById("mobileRoadmapClose");
+    const links = document.getElementById("mobileRoadmapLinks");
+    const desktop = document.getElementById("roadmapDesktopSidebar");
+
+    if (!menu || !drawer || !backdrop || !close || !links || !desktop) return;
+
+    /* Build mobile navigation from the real sidebar exactly once. */
+    if (!links.dataset.ready) {
+      desktop.querySelectorAll(".nav-item").forEach(function (item) {
+        const clone = item.cloneNode(true);
+        clone.removeAttribute("id");
+        links.appendChild(clone);
+      });
+      links.dataset.ready = "true";
+    }
+
+    function openMenu() {
+      drawer.classList.add("is-open");
+      backdrop.classList.add("is-open");
+      drawer.setAttribute("aria-hidden", "false");
+      backdrop.setAttribute("aria-hidden", "false");
+      menu.setAttribute("aria-expanded", "true");
+      document.body.classList.add("mobile-roadmap-open");
+    }
+
+    function closeMenu() {
+      drawer.classList.remove("is-open");
+      backdrop.classList.remove("is-open");
+      drawer.setAttribute("aria-hidden", "true");
+      backdrop.setAttribute("aria-hidden", "true");
+      menu.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("mobile-roadmap-open");
+    }
+
+    menu.addEventListener("click", openMenu);
+    close.addEventListener("click", closeMenu);
+    backdrop.addEventListener("click", closeMenu);
+
+    links.addEventListener("click", function (event) {
+      const item = event.target.closest(".nav-item");
+      if (!item) return;
+      closeMenu();
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth >= 769) closeMenu();
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMobileRoadmapNavigation);
+  } else {
+    initMobileRoadmapNavigation();
+  }
+})();
+</script>
+
+</body></html>
