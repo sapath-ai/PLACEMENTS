@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12-Month Elite AI Build — Skill Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0a0a;--surface:#111111;--surface2:#181818;
+    --border:rgba(255,255,255,0.08);--border-bright:rgba(255,255,255,0.15);
+    --text:#f0ede8;--muted:#888580;--faint:#444240;
+    --g1:#4ade80;--g1-bg:rgba(74,222,128,0.08);--g1-border:rgba(74,222,128,0.2);
+    --g2:#60a5fa;--g2-bg:rgba(96,165,250,0.08);--g2-border:rgba(96,165,250,0.2);
+    --g3:#f59e0b;--g3-bg:rgba(245,158,11,0.08);--g3-border:rgba(245,158,11,0.2);
+    --g4:#a78bfa;--g4-bg:rgba(167,139,250,0.08);--g4-border:rgba(167,139,250,0.2);
+    --g5:#f87171;--g5-bg:rgba(248,113,113,0.08);--g5-border:rgba(248,113,113,0.2);
+    --g6:#34d399;--g6-bg:rgba(52,211,153,0.08);--g6-border:rgba(52,211,153,0.2);
+    --g7:#fb923c;--g7-bg:rgba(251,146,60,0.08);--g7-border:rgba(251,146,60,0.2);
+    --g8:#e879f9;--g8-bg:rgba(232,121,249,0.08);--g8-border:rgba(232,121,249,0.2);
+    --g9:#38bdf8;--g9-bg:rgba(56,189,248,0.08);--g9-border:rgba(56,189,248,0.2);
+    --g10:#facc15;--g10-bg:rgba(250,204,21,0.08);--g10-border:rgba(250,204,21,0.2);
+    --g11:#f472b6;--g11-bg:rgba(244,114,182,0.08);--g11-border:rgba(244,114,182,0.2);
+    --g12:#c084fc;--g12-bg:rgba(192,132,252,0.08);--g12-border:rgba(192,132,252,0.2);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:14px;line-height:1.6;min-height:100vh}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
+  .page{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:60px 24px 100px}
+  .header{margin-bottom:64px}
+  .header-eyebrow{font-size:11px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+  .header-eyebrow::before{content:'';display:inline-block;width:24px;height:1px;background:var(--muted)}
+  .header h1{font-family:'Syne',sans-serif;font-size:clamp(38px,6vw,72px);font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--text);margin-bottom:16px}
+  .header h1 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--g3)}
+  .header-sub{font-size:13px;color:var(--muted);margin-top:20px;max-width:520px;line-height:1.7}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:48px}
+  .stat{background:var(--surface);padding:20px 24px;text-align:center}
+  .stat-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;color:var(--text);display:block}
+  .stat-label{font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.05em}
+  .notice{border:1px solid var(--border-bright);background:var(--surface);border-radius:10px;padding:14px 18px;margin-bottom:48px;font-size:12px;color:var(--muted);display:flex;gap:10px;align-items:flex-start}
+  .notice-icon{font-size:14px;flex-shrink:0;margin-top:1px;color:var(--g3)}
+  .gate{border-radius:14px;border:1px solid var(--border);margin-bottom:16px;overflow:hidden;transition:border-color .2s}
+  .gate:hover{border-color:var(--border-bright)}
+  .gate-header{padding:0;cursor:pointer;display:flex;align-items:stretch;user-select:none;background:var(--surface);transition:background .15s}
+  .gate-header:hover{background:var(--surface2)}
+  .gate-accent{width:4px;flex-shrink:0}
+  .gate-header-inner{flex:1;padding:20px 22px;display:flex;align-items:center;gap:16px}
+  .gate-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;flex-shrink:0;border:1px solid}
+  .gate-info{flex:1}
+  .gate-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:600;color:var(--text);line-height:1.3}
+  .gate-subtitle{font-size:11px;color:var(--muted);margin-top:3px}
+  .gate-meta{display:flex;align-items:center;gap:10px;flex-shrink:0;padding-right:4px}
+  .gate-count{font-size:11px;padding:4px 12px;border-radius:20px;font-weight:500;border:1px solid}
+  .chevron{font-size:10px;color:var(--muted);transition:transform .25s ease;flex-shrink:0}
+  .chevron.open{transform:rotate(90deg)}
+  .gate-body{display:none;border-top:1px solid var(--border);background:var(--bg)}
+  .gate-body.open{display:block;animation:slideDown .2s ease}
+  @keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+  .section{padding:22px 26px;border-bottom:1px solid var(--border)}
+  .section:last-child{border-bottom:none}
+  .sec-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:500;margin-bottom:14px}
+  .skill-list{display:flex;flex-direction:column;gap:20px}
+  .skill-item{display:flex;flex-direction:column;gap:6px}
+  .skill-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .skill-tier{font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid;font-weight:400;font-family:'DM Mono',monospace}
+  .tier-beg{color:#4ecb8d;border-color:rgba(78,203,141,.3);background:rgba(78,203,141,.06)}
+  .tier-int{color:#5aa9e6;border-color:rgba(90,169,230,.3);background:rgba(90,169,230,.06)}
+  .tier-adv{color:#e6c34a;border-color:rgba(230,195,74,.3);background:rgba(230,195,74,.06)}
+  .tier-sen{color:#f2a64b;border-color:rgba(242,166,75,.3);background:rgba(242,166,75,.06)}
+  .tier-staff{color:#ff6a5d;border-color:rgba(255,106,93,.3);background:rgba(255,106,93,.06)}
+  .tier-res{color:#b39cff;border-color:rgba(179,156,255,.3);background:rgba(179,156,255,.06)}
+  .skill-move{font-size:12.5px;color:#c5c0bb;line-height:1.65;padding-left:16px;border-left:2px solid var(--border)}
+  .skill-move b{color:var(--text);font-weight:500}
+  .skill-edge{font-size:11.5px;color:var(--muted);line-height:1.6;padding-left:16px;font-style:italic}
+  .unlock-wrap{display:flex;flex-wrap:wrap;gap:8px}
+  .unlock-tag{font-size:11px;padding:4px 11px;border-radius:6px;font-weight:400;border:1px solid;white-space:nowrap;cursor:default;transition:opacity .15s}
+  .unlock-tag:hover{opacity:.7}
+  .unlock-entry{display:flex;flex-direction:column;gap:2px}
+  .unlock-sub{font-size:10px;color:var(--muted)}
+  .note-box{font-size:12px;color:var(--muted);line-height:1.7;padding:14px 18px;background:var(--surface);border-radius:8px;border:1px solid var(--border)}
+  .note-box b{color:var(--text)}
+  .reality-item{display:flex;gap:12px;font-size:12px;color:var(--muted);line-height:1.6;padding:8px 0;border-bottom:1px solid var(--border)}
+  .reality-item:last-child{border-bottom:none}
+  .reality-arrow{color:var(--faint);flex-shrink:0}
+  .capability-map{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:8px}
+  .capability-map>div{display:flex;gap:9px;align-items:center;padding:8px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);font-size:10.5px}
+  .capability-map b{color:var(--text);min-width:42px;font-weight:600}
+  .capability-map span{color:var(--muted);line-height:1.4}
+  @media(max-width:600px){.capability-map{grid-template-columns:1fr}}
+  .ai-build-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:10px}
+  .ai-build-chip{font-size:10.5px;color:var(--muted);padding:7px 9px;border:1px solid var(--border);border-radius:6px;background:var(--surface);line-height:1.45}
+  .ai-build-chip b{color:var(--text);font-weight:500}
+  @media(max-width:600px){.ai-build-grid{grid-template-columns:1fr}}
+  .c1{color:var(--g1);border-color:var(--g1-border);background:var(--g1-bg)}.c1-num{color:var(--g1);border-color:var(--g1-border)}.c1-accent{background:var(--g1)}
+  .c2{color:var(--g2);border-color:var(--g2-border);background:var(--g2-bg)}.c2-num{color:var(--g2);border-color:var(--g2-border)}.c2-accent{background:var(--g2)}
+  .c3{color:var(--g3);border-color:var(--g3-border);background:var(--g3-bg)}.c3-num{color:var(--g3);border-color:var(--g3-border)}.c3-accent{background:var(--g3)}
+  .c4{color:var(--g4);border-color:var(--g4-border);background:var(--g4-bg)}.c4-num{color:var(--g4);border-color:var(--g4-border)}.c4-accent{background:var(--g4)}
+  .c5{color:var(--g5);border-color:var(--g5-border);background:var(--g5-bg)}.c5-num{color:var(--g5);border-color:var(--g5-border)}.c5-accent{background:var(--g5)}
+  .c6{color:var(--g6);border-color:var(--g6-border);background:var(--g6-bg)}.c6-num{color:var(--g6);border-color:var(--g6-border)}.c6-accent{background:var(--g6)}
+  .c7{color:var(--g7);border-color:var(--g7-border);background:var(--g7-bg)}.c7-num{color:var(--g7);border-color:var(--g7-border)}.c7-accent{background:var(--g7)}
+  .c8{color:var(--g8);border-color:var(--g8-border);background:var(--g8-bg)}.c8-num{color:var(--g8);border-color:var(--g8-border)}.c8-accent{background:var(--g8)}
+  .c9{color:var(--g9);border-color:var(--g9-border);background:var(--g9-bg)}.c9-num{color:var(--g9);border-color:var(--g9-border)}.c9-accent{background:var(--g9)}
+  .c10{color:var(--g10);border-color:var(--g10-border);background:var(--g10-bg)}.c10-num{color:var(--g10);border-color:var(--g10-border)}.c10-accent{background:var(--g10)}
+  .c11{color:var(--g11);border-color:var(--g11-border);background:var(--g11-bg)}.c11-num{color:var(--g11);border-color:var(--g11-border)}.c11-accent{background:var(--g11)}
+  .c12{color:var(--g12);border-color:var(--g12-border);background:var(--g12-bg)}.c12-num{color:var(--g12);border-color:var(--g12-border)}.c12-accent{background:var(--g12)}
+  .footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--border);font-size:11px;color:var(--faint);text-align:center;line-height:1.8}
+  @media(max-width:600px){.stats{grid-template-columns:1fr}.gate-meta{display:none}.header h1{font-size:36px}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div class="header-eyebrow">Elite AI Engineer Build &middot; 12-Month Skill Calendar</div>
+  <h1>Your skill<br><em>build</em> roadmap</h1>
+  <p class="header-sub">A month-by-month system. Each month stacks on the last — do not skip ahead. Every skill includes the crowd move, the elite move, and the edge it buys you. Unlocks open when the <strong>artifact</strong> exists, not just the knowledge.</p>
+</div>
+
+<div class="stats">
+  <div class="stat"><span class="stat-num">12</span><div class="stat-label">months</div></div>
+  <div class="stat"><span class="stat-num">36</span><div class="stat-label">skills</div></div>
+  <div class="stat"><span class="stat-num">50+</span><div class="stat-label">companies unlocked</div></div>
+</div>
+
+<div class="notice">
+  <span class="notice-icon">&#8599;</span>
+  <span>Unlocks are directional hiring signals — they open when you have the artifact, not just the knowledge. Each month's note explains the logic. Never apply before the artifact exists.</span>
+</div>
+
+<div class="section"><div class="sec-label">CAPABILITY BUILD MODEL</div><div class="note-box"><b>These are not 36 disconnected skills.</b> They are capability builds. Each capability combines <b>knowledge → implementation → measurement → failure testing → optimization → deployment → evidence</b>. A capability is not considered built because you studied the topic; it is built when the artifact proves you can operate it under realistic constraints.</div></div>
+<div class="section"><div class="sec-label">CAPABILITY GATE</div><div class="note-box"><b>Gate every capability through the same loop:</b> <span class="tag">LEARN</span> → <span class="tag">BUILD</span> → <span class="tag">MEASURE</span> → <span class="tag">BREAK</span> → <span class="tag">OPTIMIZE</span> → <span class="tag">DEPLOY</span> → <span class="tag">DOCUMENT</span>. If you cannot produce evidence from the loop, the capability remains <b>in progress</b>.</div></div>
+<div class="section"><div class="sec-label">CAPABILITY TAXONOMY</div><div class="capability-map">
+      <div><b>01–03</b><span>Engineering Foundations &amp; ML Systems</span></div>
+      <div><b>04–05</b><span>Deep Learning, LLMs &amp; Inference</span></div>
+      <div><b>06–07</b><span>Agents, Tools, Protocols &amp; Memory</span></div>
+      <div><b>08</b><span>Observability, Evaluation &amp; Security</span></div>
+      <div><b>09–10</b><span>Reasoning, Multimodal &amp; Production Systems</span></div>
+      <div><b>11–12</b><span>Infrastructure, Research &amp; Forward Deployment</span></div>
+    </div></div>
+<!-- M1 -->
+<div class="gate"><div class="gate-header" onclick="tog(1)"><div class="gate-accent c1-accent"></div><div class="gate-header-inner"><div class="gate-num c1-num">01</div><div class="gate-info"><div class="gate-title">Foundations That Compound</div><div class="gate-subtitle">Programming &middot; Algorithms &middot; System Design &middot; AI-Native Software Engineering</div></div><div class="gate-meta"><span class="gate-count c1">No unlock yet</span><span class="chevron" id="ch1">&#9658;</span></div></div></div>
+<div class="gate-body" id="bd1">
+  <div class="section"><div class="sec-label">Skills this month</div><div class="skill-list">
+    <div class="skill-item"><div class="skill-name">Programming &amp; LeetCode <span class="skill-tier tier-beg">Beginner</span></div><div class="skill-move"><b>Elite move:</b> Build your own property-based test harness (Hypothesis) that auto-generates adversarial inputs against your own solutions. Write each of the 14 core patterns <b>once in Python and once in Rust/C++</b> and measure the real constant-factor gap. Ship it as a <b>"patterns, profiled"</b> repo.</div><div class="skill-edge">Proves you understand that asymptotic complexity hides the constant that decides production speed. Almost no candidate brings a profiled, self-adversarial pattern library.</div></div>
+    <div class="skill-item"><div class="skill-name">Algorithms <span class="skill-tier tier-beg">Beginner</span></div><div class="skill-move"><b>Elite move:</b> Implement <b>HNSW from scratch</b> — the graph-based ANN index inside every vector database — then benchmark its recall-vs-latency against brute-force and write up why the graph trades memory for speed.</div><div class="skill-edge">When you later discuss RAG retrieval, you know exactly what happens beneath pgvector/Qdrant. The black box is glass to you.</div></div>
+    <div class="skill-item"><div class="skill-name">System Design (AI-flavoured) <span class="skill-tier tier-int">Intermediate</span></div><div class="skill-move"><b>Elite move:</b> Take a <b>real published LLM-serving outage post-mortem</b>, reconstruct the failure, and redesign the system to prevent it. Then build a <b>GPU + cost simulator</b>: feed it QPS, model size, and context length — get back GPU count and monthly dollar cost, validated against live cloud pricing.</div><div class="skill-edge">You attach failure modes and dollar figures to your designs. A working cost simulator reframes you from "can code" to "can own a budget."</div></div>
+    <div class="skill-item"><div class="skill-name">AI-Native Software Engineering <span class="skill-tier tier-int">Intermediate</span></div><div class="skill-move"><b>Elite move:</b> Build a <b>repository-level AI engineering benchmark</b> that compares your baseline workflow with an agent-assisted workflow. Give the agent real issues, require a written specification and acceptance criteria, let it inspect the repository, implement the change, generate tests, run checks, and produce a reviewable diff. Then <b>independently verify every accepted patch</b> and measure time-to-correct-change, regression rate, test quality, review effort, and intervention rate. Repeat across unfamiliar repositories and progressively harder tasks.</div><div class="skill-edge">The durable capability is <b>AI-augmented engineering with verification</b>, not memorising a coding-agent product. You learn when to delegate, how to constrain the agent, how to detect plausible-but-wrong patches, and how to preserve engineering ownership.</div><div class="ai-build-grid">
+      <div class="ai-build-chip"><b>01</b> Repository navigation &amp; codebase mapping</div>
+      <div class="ai-build-chip"><b>02</b> Specification-driven task decomposition</div>
+      <div class="ai-build-chip"><b>03</b> Agent selection &amp; delegation strategy</div>
+      <div class="ai-build-chip"><b>04</b> Acceptance criteria &amp; executable tests</div>
+      <div class="ai-build-chip"><b>05</b> AI-generated unit / integration tests</div>
+      <div class="ai-build-chip"><b>06</b> Agentic debugging &amp; root-cause analysis</div>
+      <div class="ai-build-chip"><b>07</b> Diff review &amp; architectural verification</div>
+      <div class="ai-build-chip"><b>08</b> Dependency / security / license checks</div>
+      <div class="ai-build-chip"><b>09</b> Sandboxing, permissions &amp; human checkpoints</div>
+      <div class="ai-build-chip"><b>10</b> SWE-style benchmark &amp; regression measurement</div>
+    </div></div>  </div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Companies you can apply to</div><p style="font-size:12px;color:var(--muted)">No external unlock yet — this month buys the screening-clearance and architecture instincts every later unlock compounds on. Spending it chasing applications optimises the wrong month.</p></div>
+<div class="section"><div class="sec-label">2026→27 execution standard</div><div class="note-box">AI-assisted development is now part of the engineering loop, but <b>verification remains yours.</b> Do not measure success by how much code an agent writes. Measure whether it can understand an unfamiliar repository, make the requested change, preserve existing behavior, satisfy executable acceptance criteria, and leave behind evidence a human reviewer can trust.</div></div>
+</div></div>
+
+<!-- M2 -->
+<div class="gate"><div class="gate-header" onclick="tog(2)"><div class="gate-accent c2-accent"></div><div class="gate-header-inner"><div class="gate-num c2-num">02</div><div class="gate-info"><div class="gate-title">Data, Models, and the Cloud They Run On</div><div class="gate-subtitle">Data Engineering &middot; Machine Learning &middot; Cloud</div></div><div class="gate-meta"><span class="gate-count c2">2 unlocks</span><span class="chevron" id="ch2">&#9658;</span></div></div></div>
+<div class="gate-body" id="bd2">
+  <div class="section"><div class="sec-label">Skills this month</div><div class="skill-list">
+    <div class="skill-item"><div class="skill-name">Data Engineering <span class="skill-tier tier-int">Intermediate</span></div><div class="skill-move"><b>Elite move:</b> Implement <b>MinHash + LSH semantic deduplication</b> — the exact technique used to dedup pretraining corpora for Llama-class models — and run it on a real text corpus to show how much near-duplicate contamination you removed. Pair it with a <b>drift "canary"</b> that flags distribution shift with a statistical test (KS / PSI) before it poisons a model.</div><div class="skill-edge">Corpus-grade dedup and automated drift detection are pretraining-team skills. Most "data engineers" have touched neither — this puts you in the conversation for teams that build models, not just move data.</div></div>
+    <div class="skill-item"><div class="skill-name">Machine Learning <span class="skill-tier tier-int">Intermediate</span></div><div class="skill-move"><b>Elite move:</b> Publish an <b>honest negative result</b>: take a popular claimed-SOTA trick, and show with proper cross-validation and a significance test that it does <b>not</b> beat your baseline on a real dataset. Build a reusable <b>data-leakage detector</b> as the supporting tool.</div><div class="skill-edge">Publishing a rigorous negative result is rare and is the loudest possible signal of scientific integrity. It separates a scientist from a leaderboard-chaser.</div></div>
+    <div class="skill-item"><div class="skill-name">Cloud <span class="skill-tier tier-int">Intermediate</span></div><div class="skill-move"><b>Elite move:</b> Build a <b>spot-instance training orchestrator</b> that checkpoints, gets preempted on purpose, and resumes on a cheaper instance — provisioned entirely through infrastructure-as-code, with a dashboard showing the dollar savings vs on-demand.</div><div class="skill-edge">You prove you can train on a student budget by exploiting exactly the parts cloud certifications never teach: preemption, spot markets, and the real bill.</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Companies unlocked</div><div class="unlock-wrap">
+    <div class="unlock-entry"><span class="unlock-tag c2">EleutherAI</span><div class="unlock-sub">open research, no credential gate</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c2">Hugging Face</span><div class="unlock-sub">on first ecosystem contribution</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Unlock logic</div><div class="note-box">Open-research and open-source communities are the first doors — they gate on <b>contribution, not credentials.</b> Start showing up in issues and PRs now; by the time you apply formally, your name precedes you.</div></div>
+</div></div>
+
+<!-- M3 -->
+<div class="gate"><div class="gate-header" onclick="tog(3)"><div class="gate-accent c3-accent"></div><div class="gate-header-inner"><div class="gate-num c3-num">03</div><div class="gate-info"><div class="gate-title">Depth, Operations, and Scale</div><div class="gate-subtitle">Deep Learning &middot; MLOps &middot; Distributed Systems</div></div><div class="gate-meta"><span class="gate-count c3">2 unlocks</span><span class="chevron" id="ch3">&#9658;</span></div></div></div>
+<div class="gate-body" id="bd3">
+  <div class="section"><div class="sec-label">Skills this month</div><div class="skill-list">
+    <div class="skill-item"><div class="skill-name">Deep Learning <span class="skill-tier tier-adv">Advanced</span></div><div class="skill-move"><b>Elite move:</b> Build a <b>"Training Pathology Museum"</b> — a repo that deliberately reproduces every classic failure (vanishing/exploding gradients, dead ReLU, NaN cascade), each captured with its <b>exact telemetry fingerprint</b> (gradient norm, activation histogram) and a one-line diagnosis.</div><div class="skill-edge">You can name any training failure from its loss curve in seconds. Diagnosing instability from telemetry is the precise line between a strong and a staff engineer.</div></div>
+    <div class="skill-item"><div class="skill-name">MLOps <span class="skill-tier tier-adv">Advanced</span></div><div class="skill-move"><b>Elite move:</b> Run a public <b>"chaos day"</b> on your own deployed model: inject drift, a bad checkpoint, a latency spike, and a silent quality regression — show your monitoring catching each one within a target detection time, with post-mortems written up.</div><div class="skill-edge">SRE-grade chaos engineering applied to ML. "Who watches the model, and how fast do they notice it broke?" — you answer it with measured detection times.</div></div>
+    <div class="skill-item"><div class="skill-name">Distributed Systems <span class="skill-tier tier-adv">Advanced</span></div><div class="skill-move"><b>Elite move:</b> Implement a <b>minimal Raft (or gossip) protocol</b> yourself, kill nodes mid-consensus and watch it recover. Apply the same failure-injection discipline to a multi-worker job that resumes after a worker is killed <b>mid-epoch.</b></div><div class="skill-edge">You have felt a partition cost you correctness, so you design for expected failure instead of hoping. At real training scale, hardware failure mid-run is the normal case.</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Companies unlocked</div><div class="unlock-wrap">
+    <div class="unlock-entry"><span class="unlock-tag c3">Snowflake</span><div class="unlock-sub">data+AI platform, app layer</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c3">Databricks</span><div class="unlock-sub">ML platform / MLOps roles</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Unlock logic</div><div class="note-box">A reproducible pipeline plus real data-engineering depth makes you <b>application-credible at data/AI platform companies.</b> These read a portfolio for operational maturity — which you now demonstrate in a repo, not a bullet point.</div></div>
+</div></div>
+
+<!-- M4 -->
+<div class="gate"><div class="gate-header" onclick="tog(4)"><div class="gate-accent c4-accent"></div><div class="gate-header-inner"><div class="gate-num c4-num">04</div><div class="gate-info"><div class="gate-title">The Architecture That Ate The Field</div><div class="gate-subtitle">Transformers &middot; LLMs &middot; GPU Systems</div></div><div class="gate-meta"><span class="gate-count c4">2 unlocks</span><span class="chevron" id="ch4">&#9658;</span></div></div></div>
+<div class="gate-body" id="bd4">
+  <div class="section"><div class="sec-label">Skills this month</div><div class="skill-list">
+    <div class="skill-item"><div class="skill-name">Transformers <span class="skill-tier tier-adv">Advanced</span></div><div class="skill-move"><b>Elite move:</b> Implement <b>three attention variants on the same model</b> — vanilla, FlashAttention-style tiled, and sliding-window — then <b>plot the real memory-vs-sequence-length and speed curves</b> on your own GPU, and ship a live KV-cache memory visualizer that grows per generated token.</div><div class="skill-edge">The comparative benchmark with your own measured curves proves you understand why long context is a memory war. You can point at the exact sequence length where vanilla attention falls off your GPU.</div></div>
+    <div class="skill-item"><div class="skill-name">LLMs <span class="skill-tier tier-adv">Advanced</span></div><div class="skill-move"><b>Elite move:</b> <b>Re-derive Chinchilla at toy scale</b>: train tiny models at four sizes, fit your own loss-vs-compute scaling curve, <b>predict the next size's loss, then train it and verify your prediction.</b></div><div class="skill-edge">You have personally reproduced the most important economic result in the field. You reason about LLMs as a cost curve because you have drawn your own.</div></div>
+    <div class="skill-item"><div class="skill-name">GPU Systems <span class="skill-tier tier-int">Intermediate</span></div><div class="skill-move"><b>Elite move:</b> Build a <b>"GPU autopsy"</b>: profile one model and produce a <b>roofline plot</b> showing exactly where it is memory-bandwidth-bound vs compute-bound — then make one change that moves the workload along the roofline and measure the gain.</div><div class="skill-edge">Almost no application engineer can place their own workload on the roofline — doing so is the on-ramp to every inference and CUDA role.</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Companies unlocked</div><div class="unlock-wrap">
+    <div class="unlock-entry"><span class="unlock-tag c4">Cohere</span><div class="unlock-sub">enterprise GenAI / RAG eng</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c4">Perplexity AI</span><div class="unlock-sub">retrieval + serving (with M5)</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Unlock logic</div><div class="note-box">Retrieval + context engineering plus real inference depth makes you <b>credible for production-LLM product roles.</b> You can reason about what information reaches the model, how much it costs, how retrieval fails, and how serving constraints shape the final system.</div></div>
+</div></div>
+
+<!-- M5 -->
+<div class="gate"><div class="gate-header" onclick="tog(5)"><div class="gate-accent c5-accent"></div><div class="gate-header-inner"><div class="gate-num c5-num">05</div><div class="gate-info"><div class="gate-title">Retrieval, Speed, and the Metal</div><div class="gate-subtitle">Retrieval &amp; Context Engineering &middot; Modern LLM Inference &amp; Serving &middot; CUDA</div></div><div class="gate-meta"><span class="gate-count c5">4 unlocks</span><span class="chevron" id="ch5">&#9658;</span></div></div></div>
+<div class="gate-body" id="bd5">
+  <div class="section"><div class="sec-label">Skills this month</div><div class="skill-list">
+    <div class="skill-item"><div class="skill-name">Retrieval &amp; Context Engineering <span class="skill-tier tier-sen">Senior</span></div><div class="skill-move"><b>Elite move:</b> Build a <b>context-engineering benchmark</b> that treats the model's information environment as an engineered subsystem. Start with hybrid retrieval + reranking, then add <b>query planning, structured memory, tool results, context compression, relevance filtering, provenance, permissions, and explicit token budgets.</b> Construct adversarial workloads that expose lexical gaps, lost-in-the-middle effects, stale evidence, irrelevant context, conflicting sources, permission leaks, and context-window saturation. Measure <b>retrieval recall, evidence precision, answer faithfulness, context utilization, latency, token cost, and end-to-end task success</b> — then compare fixed RAG, adaptive retrieval, and agentic retrieval.</div><div class="skill-edge">The market is moving beyond "vector database + top-k + prompt." Current AI hiring increasingly emphasizes RAG and context engineering, while production agent systems treat retrieval, memory, tools, permissions, and context assembly as one engineering surface. citeturn0search0turn0search8turn0search10</div><div class="ai-build-grid">
+      <div class="ai-build-chip"><b>01</b> Hybrid dense + lexical retrieval</div>
+      <div class="ai-build-chip"><b>02</b> Query rewriting &amp; decomposition</div>
+      <div class="ai-build-chip"><b>03</b> Reranking &amp; evidence selection</div>
+      <div class="ai-build-chip"><b>04</b> Context assembly &amp; ordering</div>
+      <div class="ai-build-chip"><b>05</b> Context compression &amp; summarization</div>
+      <div class="ai-build-chip"><b>06</b> Working / episodic / semantic memory</div>
+      <div class="ai-build-chip"><b>07</b> Tool-result integration &amp; provenance</div>
+      <div class="ai-build-chip"><b>08</b> Permission-aware retrieval &amp; data isolation</div>
+      <div class="ai-build-chip"><b>09</b> Token budgets, caching &amp; eviction policies</div>
+      <div class="ai-build-chip"><b>10</b> Retrieval, context &amp; end-to-end evaluation</div>
+    </div></div>
+    <div class="skill-item"><div class="skill-name">Modern LLM Inference &amp; Serving <span class="skill-tier tier-sen">Senior</span></div><div class="skill-move"><b>Elite move:</b> Take one open model and serve it under three production constraints: <b>lowest latency, highest throughput, and lowest cost.</b> Benchmark the Pareto frontier while systematically changing <b>continuous batching, KV-cache policy, prefix caching, quantization, speculative decoding, tensor/pipeline parallelism, request routing, and model size.</b> Run the same workload through <b>vLLM, SGLang or TensorRT-LLM</b>, explain the performance differences from traces and GPU counters, and publish the <b>latency/throughput/cost trade-off report.</b></div><div class="skill-edge">Inference engineering is now a first-class AI systems discipline. The valuable skill is not knowing a serving framework; it is proving why a configuration wins under a real workload and understanding the GPU, memory, scheduler, and model-level causes.</div><div class="ai-build-grid">
+      <div class="ai-build-chip"><b>01</b> Continuous batching &amp; scheduler behavior</div>
+      <div class="ai-build-chip"><b>02</b> KV-cache sizing, paging &amp; reuse</div>
+      <div class="ai-build-chip"><b>03</b> Prefix / prompt caching</div>
+      <div class="ai-build-chip"><b>04</b> Speculative decoding</div>
+      <div class="ai-build-chip"><b>05</b> FP8 / INT8 / INT4 quantization</div>
+      <div class="ai-build-chip"><b>06</b> Tensor &amp; pipeline parallelism</div>
+      <div class="ai-build-chip"><b>07</b> Disaggregated / distributed serving</div>
+      <div class="ai-build-chip"><b>08</b> vLLM / SGLang / TensorRT-LLM comparison</div>
+      <div class="ai-build-chip"><b>09</b> Dynamic model routing &amp; fallback</div>
+      <div class="ai-build-chip"><b>10</b> Latency / throughput / cost Pareto analysis</div>
+    </div></div><div class="skill-item"><div class="skill-name">CUDA <span class="skill-tier tier-int">Intermediate</span></div><div class="skill-move"><b>Elite move:</b> Write <b>one fused Triton kernel</b> (fused softmax or LayerNorm) that beats the framework default on a real op, write up the <b>warp-divergence / occupancy</b> lesson you learned making it fast, and get it reviewed — ideally merged into a real project.</div><div class="skill-edge">One merged kernel outweighs a hundred tutorials. You operate at the framework boundary where the memory hierarchy stops being theory.</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Companies unlocked</div><div class="unlock-wrap">
+    <div class="unlock-entry"><span class="unlock-tag c5">Mistral AI</span><div class="unlock-sub">EU lab — inference / serving</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c5">Together AI</span><div class="unlock-sub">inference-infra startups</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c5">Fireworks AI</span><div class="unlock-sub">inference-infra startups</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c5">Qure.ai</span><div class="unlock-sub">medical-imaging ML — your domain</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Unlock logic</div><div class="note-box">Inference + RAG + your medical-imaging thesis converge: <b>Qure.ai-class healthcare-AI roles are your nearest-term high-fit unlock</b>, and inference-infra startups read your speculative-decoding benchmark as a hiring signal directly.</div></div>
+</div></div>
+
+<!-- M6 -->
+<div class="gate"><div class="gate-header" onclick="tog(6)"><div class="gate-accent c6-accent"></div><div class="gate-header-inner"><div class="gate-num c6-num">06</div><div class="gate-info"><div class="gate-title">Autonomy and Its Operations</div><div class="gate-subtitle">Production Agent Engineering &middot; Tool Use Systems &middot; LLMOps</div></div><div class="gate-meta"><span class="gate-count c6">2 unlocks</span><span class="chevron" id="ch6">&#9658;</span></div></div></div>
+<div class="gate-body" id="bd6">
+  <div class="section"><div class="sec-label">Skills this month</div><div class="skill-list">
+    <div class="skill-item"><div class="skill-name">Production Agent Engineering <span class="skill-tier tier-sen">Senior</span></div><div class="skill-move"><b>Elite move:</b> Build a <b>durable, stateful production agent</b> around a real workflow. Instrument every step and measure <b>task success, failure-compounding, recovery rate, latency, token cost, tool-error rate, and human-escalation rate.</b> Deliberately kill workers, corrupt intermediate state, timeout tools, duplicate requests, exhaust budgets, and force model fallbacks. Engineer <b>checkpointing, idempotency, retries, compensation, verification gates, escalation, and resumability</b> until the system can recover without silently corrupting state. Publish the <b>before/after reliability curve and failure-injection report.</b></div><div class="skill-edge">The production unit is no longer "an agent that answers." It is a system that can <b>act, recover, remain observable, and stay within cost and authority boundaries.</b> That is the difference between an agent demo and an engineering artifact.</div><div class="ai-build-grid">
+      <div class="ai-build-chip"><b>01</b> Stateful agent graphs &amp; explicit control flow</div>
+      <div class="ai-build-chip"><b>02</b> Durable execution &amp; checkpointing</div>
+      <div class="ai-build-chip"><b>03</b> Idempotency &amp; duplicate-request handling</div>
+      <div class="ai-build-chip"><b>04</b> Retries, backoff &amp; compensation</div>
+      <div class="ai-build-chip"><b>05</b> Timeouts, cancellation &amp; partial failure</div>
+      <div class="ai-build-chip"><b>06</b> Model fallback &amp; routing policies</div>
+      <div class="ai-build-chip"><b>07</b> Human-in-the-loop escalation gates</div>
+      <div class="ai-build-chip"><b>08</b> Action / token / cost budgets</div>
+      <div class="ai-build-chip"><b>09</b> Failure injection &amp; recovery testing</div>
+      <div class="ai-build-chip"><b>10</b> End-to-end trajectory reliability evaluation</div>
+    </div></div><div class="skill-item"><div class="skill-name">Tool Use Systems <span class="skill-tier tier-adv">Advanced</span></div><div class="skill-move"><b>Elite move:</b> Build a <b>schema-validation and authorization layer</b> with constrained outputs, typed tool contracts, per-tool permissions, rate limits, and auditable execution. Make malformed calls structurally impossible where possible, then red-team the interface for invalid arguments, unauthorized actions, replayed requests, tool failures, and malicious tool results. Publish it as an <b>MCP-compatible server</b> with measured failure and recovery rates.</div><div class="skill-edge">Production agents need tools that are not merely callable but <b>bounded, typed, observable, and recoverable.</b> The artifact proves you can engineer the action boundary instead of trusting the model to police itself.</div></div><div class="skill-item"><div class="skill-name">LLMOps <span class="skill-tier tier-adv">Advanced</span></div><div class="skill-move"><b>Elite move:</b> Build <b>eval-gated CI/CD for an agentic workflow</b> where a quality, safety, reliability, latency, or cost regression blocks a release exactly like a failing unit test. Capture <b>full execution traces</b> across model calls, retrieval, tools, state transitions, retries, and human escalations. Demonstrate a real regression caught and blocked automatically before merge and reconstruct a production incident from its trace.</div><div class="skill-edge">The production eval is no longer just a benchmark score. It is a <b>release gate plus an observable execution trace</b> that lets you explain why a stochastic system succeeded, failed, or became too expensive.</div></div>  </div></div>
+  <div class="section"><div class="sec-label">Companies unlocked</div><div class="unlock-wrap">
+    <div class="unlock-entry"><span class="unlock-tag c6">Sarvam AI</span><div class="unlock-sub">India frontier — post-training/applied</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c6">Krutrim / Ola</span><div class="unlock-sub">India frontier — applied at scale</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Unlock logic</div><div class="note-box">Production agent reliability + LLMOps makes you credible for <b>frontier and production-GenAI teams</b>. Your evidence now demonstrates durable execution, failure recovery, bounded tool use, traceability, and measurable operating economics rather than an agent demo alone.</div></div>
+</div></div>
+
+<!-- M7 -->
+<div class="gate"><div class="gate-header" onclick="tog(7)"><div class="gate-accent c7-accent"></div><div class="gate-header-inner"><div class="gate-num c7-num">07</div><div class="gate-info"><div class="gate-title">Coordination, Memory, and Thought</div><div class="gate-subtitle">Tool / MCP / Protocol Engineering &middot; Multi-Agent Systems &middot; Memory Architectures</div></div><div class="gate-meta"><span class="gate-count c7">1 unlock</span><span class="chevron" id="ch7">&#9658;</span></div></div></div>
+<div class="gate-body" id="bd7">
+  <div class="section"><div class="sec-label">Skills this month</div><div class="skill-list">
+    <div class="skill-item"><div class="skill-name">Tool / MCP / Protocol Engineering <span class="skill-tier tier-sen">Senior</span></div><div class="skill-move"><b>Elite move:</b> Build a <b>production-grade MCP-compatible tool service</b> rather than a toy server. Define typed tool contracts, capability discovery, authentication, authorization scopes, structured errors, rate limits, timeouts, audit events, versioning, compatibility tests, and deterministic fallbacks. Connect it to an agent and deliberately attack the protocol boundary with malformed arguments, stale schemas, replayed requests, unauthorized actions, oversized payloads, tool poisoning, and partial outages. Publish the <b>protocol specification, conformance suite, threat model, and measured reliability report.</b></div><div class="skill-edge">The durable capability is not knowing one protocol name. It is engineering a safe <b>model-to-tool boundary</b> that survives schema drift, adversarial inputs, version changes, and unreliable downstream systems.</div><div class="ai-build-grid">
+      <div class="ai-build-chip"><b>01</b> Typed tool schemas &amp; contracts</div>
+      <div class="ai-build-chip"><b>02</b> Capability discovery &amp; negotiation</div>
+      <div class="ai-build-chip"><b>03</b> Authentication &amp; authorization scopes</div>
+      <div class="ai-build-chip"><b>04</b> Structured errors &amp; deterministic fallbacks</div>
+      <div class="ai-build-chip"><b>05</b> Rate limits, quotas &amp; action budgets</div>
+      <div class="ai-build-chip"><b>06</b> Versioning &amp; backward compatibility</div>
+      <div class="ai-build-chip"><b>07</b> Conformance &amp; contract testing</div>
+      <div class="ai-build-chip"><b>08</b> Audit trails &amp; tool provenance</div>
+      <div class="ai-build-chip"><b>09</b> Protocol abuse &amp; tool-poisoning tests</div>
+      <div class="ai-build-chip"><b>10</b> Partial-outage &amp; recovery behavior</div>
+    </div></div><div class="skill-item"><div class="skill-name">Multi-Agent Systems <span class="skill-tier tier-sen">Senior</span></div><div class="skill-move"><b>Elite move:</b> Build the <b>same workflow three ways</b>: single agent, bounded multi-agent, and deterministic workflow with model calls. Benchmark task success, coordination overhead, tool-call count, latency, cost, and failure recovery. Require every agent boundary to use an explicit protocol/tool contract and publish the <b>architecture decision record</b> explaining why coordination is or is not justified.</div><div class="skill-edge">The senior skill is not multiplying agents. It is knowing when an explicit protocol boundary creates enough value to justify the coordination and failure surface.</div></div>
+    <div class="skill-item"><div class="skill-name">Memory Architectures <span class="skill-tier tier-adv">Advanced</span></div><div class="skill-move"><b>Elite move:</b> Build a <b>tiered memory system</b> (working / episodic / semantic), then deliberately <b>stress it past the context wall</b> — measuring retrieval relevance and the exact point where naive context-stuffing collapses while your architecture holds.</div><div class="skill-edge">You engineer memory as a measured subsystem with a failure point you can name. The collapse-point graph is the proof that you understand the bottleneck others only feel.</div></div>
+    <div class="skill-item"><div class="skill-name">Reasoning Systems <span class="skill-tier tier-adv">Advanced</span></div><div class="skill-move"><b>Elite move:</b> Build an eval that <b>distinguishes genuine multi-step reasoning from pattern-matching</b> — perturb the problem and check whether the answer tracks the change — then show where chain-of-thought and verification add measurable accuracy vs where they are theater.</div><div class="skill-edge">Being able to <b>prove</b> your reasoning step earns its tokens is a level of rigor almost no applied engineer reaches.</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Companies unlocked</div><div class="unlock-wrap">
+    <div class="unlock-entry"><span class="unlock-tag c7">Palantir</span><div class="unlock-sub">forward-deployed / AIP engineering</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Unlock logic</div><div class="note-box">Protocol-aware agents + measured coordination and memory make you credible for <b>agent-platform, applied-AI, and forward-deployment engineering</b>. The artifact demonstrates that you can own the interface between models, tools, state, and external systems.</div></div>
+</div></div>
+
+<!-- M8 -->
+<div class="gate"><div class="gate-header" onclick="tog(8)"><div class="gate-accent c8-accent"></div><div class="gate-header-inner"><div class="gate-num c8-num">08</div><div class="gate-info"><div class="gate-title">Proof, Safety, and Alignment</div><div class="gate-subtitle">AI Observability &amp; AgentOps &middot; Evaluation Systems &middot; Agent Security &amp; Identity</div></div><div class="gate-meta"><span class="gate-count c8">2 unlocks</span><span class="chevron" id="ch8">&#9658;</span></div></div></div>
+<div class="gate-body" id="bd8">
+  <div class="section"><div class="sec-label">Skills this month</div><div class="skill-list">
+    <div class="skill-item"><div class="skill-name">AI Observability &amp; AgentOps <span class="skill-tier tier-staff">Staff</span></div><div class="skill-move"><b>Elite move:</b> Instrument a production agent end-to-end so one trace can explain <b>what the model saw, what it retrieved, which tools it called, which state transitions occurred, how many retries happened, what it cost, and why the final outcome succeeded or failed.</b> Build dashboards and alerts for <b>TTFT, latency, token usage, cost/request, retrieval quality, tool failures, retry storms, model fallbacks, safety events, task success, and human escalations.</b> Then run an incident, reconstruct it entirely from telemetry, identify the failure stage, and ship a regression detector that catches the same class of failure automatically.</div><div class="skill-edge">Production AI needs <b>observability across the whole execution graph</b>, not a log of the final response. Trace-level evidence turns stochastic behavior into something an engineering team can debug, operate, and improve.</div><div class="ai-build-grid">
+      <div class="ai-build-chip"><b>01</b> End-to-end agent traces</div>
+      <div class="ai-build-chip"><b>02</b> Model / retrieval / tool span instrumentation</div>
+      <div class="ai-build-chip"><b>03</b> Token, latency &amp; cost telemetry</div>
+      <div class="ai-build-chip"><b>04</b> TTFT / throughput / tail-latency monitoring</div>
+      <div class="ai-build-chip"><b>05</b> Tool-error &amp; retry-storm detection</div>
+      <div class="ai-build-chip"><b>06</b> Model fallback &amp; routing telemetry</div>
+      <div class="ai-build-chip"><b>07</b> Retrieval / context quality signals</div>
+      <div class="ai-build-chip"><b>08</b> Safety and policy-event telemetry</div>
+      <div class="ai-build-chip"><b>09</b> SLOs, alerts &amp; incident response</div>
+      <div class="ai-build-chip"><b>10</b> Trace-based regression detection</div>
+    </div></div><div class="skill-item"><div class="skill-name">Agent Security &amp; Identity <span class="skill-tier tier-staff">Staff</span></div><div class="skill-move"><b>Elite move:</b> Build and red-team an <b>agent security boundary</b> for a system that can access tools or sensitive data. Model the agent, tools, identities, data, and trust boundaries; then attack it with <b>direct and indirect prompt injection, tool poisoning, data exfiltration, confused-deputy behavior, excessive agency, privilege escalation, replay, credential leakage, malicious tool output, and cross-tenant access attempts.</b> Implement <b>least-privilege authorization, scoped credentials, secret isolation, sandboxing, approval gates, audit logs, and policy enforcement</b>. Publish a <b>threat model, attack corpus, mitigations, residual-risk analysis, and measured attack success rate.</b></div><div class="skill-edge">The critical shift is from "the model should behave safely" to <b>"the system must remain safe even when the model, tool, user, or retrieved content is adversarial."</b> Identity and authorization become system architecture, not prompt instructions.</div><div class="ai-build-grid">
+      <div class="ai-build-chip"><b>01</b> Direct &amp; indirect prompt injection</div>
+      <div class="ai-build-chip"><b>02</b> Tool poisoning &amp; malicious tool output</div>
+      <div class="ai-build-chip"><b>03</b> Data exfiltration &amp; sensitive-context leakage</div>
+      <div class="ai-build-chip"><b>04</b> Confused-deputy &amp; excessive-agency attacks</div>
+      <div class="ai-build-chip"><b>05</b> Identity, authentication &amp; authorization</div>
+      <div class="ai-build-chip"><b>06</b> Least privilege &amp; scoped credentials</div>
+      <div class="ai-build-chip"><b>07</b> Secret isolation &amp; credential lifecycle</div>
+      <div class="ai-build-chip"><b>08</b> Sandboxing &amp; execution isolation</div>
+      <div class="ai-build-chip"><b>09</b> Human approval &amp; policy enforcement</div>
+      <div class="ai-build-chip"><b>10</b> Attack corpus, telemetry &amp; residual-risk measurement</div>
+    </div></div><div class="skill-item"><div class="skill-name">Alignment <span class="skill-tier tier-res">Research</span></div><div class="skill-move"><b>Elite move:</b> Implement the full <b>SFT &rarr; DPO lineage yourself</b> on an open preference set, with before/after evals proving a <b>measurable behavior shift</b>, and reproduce one figure from the InstructGPT or Constitutional-AI paper.</div><div class="skill-edge">"Alignment" becomes concrete techniques with measured effects in your hands, not a debate topic. A reproduced post-training pipeline with a real delta is direct MATS-class fellowship material.</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Companies unlocked</div><div class="unlock-wrap">
+    <div class="unlock-entry"><span class="unlock-tag c8">Anthropic</span><div class="unlock-sub">fellows/safety pipeline (research artifacts)</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c8">Scale AI</span><div class="unlock-sub">eval / red-team engineering</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Unlock logic</div><div class="note-box">Observability + evaluation + safety artifacts are <b>production-grade evidence, not coursework.</b> You can show not only that a system failed, but where it failed, how often, what it cost, whether the guardrail caught it, and whether the fix survives regression testing.</div></div>
+</div></div>
+
+<!-- M9 -->
+<div class="gate"><div class="gate-header" onclick="tog(9)"><div class="gate-accent c9-accent"></div><div class="gate-header-inner"><div class="gate-num c9-num">09</div><div class="gate-info"><div class="gate-title">Adversaries, Security, and Rules</div><div class="gate-subtitle">AI Red Teaming &middot; AI Security &middot; AI Governance</div></div><div class="gate-meta"><span class="gate-count c9">2 unlocks</span><span class="chevron" id="ch9">&#9658;</span></div></div></div>
+<div class="gate-body" id="bd9">
+  <div class="section"><div class="sec-label">Skills this month</div><div class="skill-list">
+    <div class="skill-item"><div class="skill-name">AI Red Teaming <span class="skill-tier tier-staff">Staff</span></div><div class="skill-move"><b>Elite move:</b> Build an <b>automated red-team harness</b> that generates and tests adversarial inputs at scale against your own Month-6 agent, produces a <b>failure taxonomy</b>, ships the fixes, and measures the <b>attack-success-rate drop.</b></div><div class="skill-edge">Hand-crafted jailbreaks are a party trick; an automated harness with a measured before/after is an engineering capability. Documented adversarial testing is exactly what safety teams screen for.</div></div>
+    <div class="skill-item"><div class="skill-name">AI Security <span class="skill-tier tier-adv">Advanced</span></div><div class="skill-move"><b>Elite move:</b> Build a <b>deliberately-vulnerable LLM app</b>, exploit it yourself in a sandbox (injection, data poisoning, model extraction), then <b>harden it and measure each defense's effect</b> — a documented attack &rarr; defense lab.</div><div class="skill-edge">You learned the defense by running the attack. A documented threat model with measured mitigations is the compliance-grade artifact that real deployment demands.</div></div>
+    <div class="skill-item"><div class="skill-name">AI Governance <span class="skill-tier tier-adv">Advanced</span></div><div class="skill-move"><b>Elite move:</b> Read the <b>actual EU AI Act and India's DPDP</b>, then translate them into a concrete <b>engineering-controls checklist</b> and a reusable <b>readiness-audit template</b> — turning legal text into something a team can ship against.</div><div class="skill-edge">Turning regulation into engineering checklists is billable the day you finish. A human signature on compliance is legally required — structurally automation-proof.</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Companies unlocked</div><div class="unlock-wrap">
+    <div class="unlock-entry"><span class="unlock-tag c9">McKinsey QuantumBlack</span><div class="unlock-sub">AI eng + governance + client</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c9">Microsoft Research India</span><div class="unlock-sub">research internship (artifacts)</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Unlock logic</div><div class="note-box">Governance + security + your research artifacts open <b>consulting AI practices and research-internship pipelines.</b> QuantumBlack wants tech depth plus client-readable communication; MSR India wants the publications you have in flight.</div></div>
+</div></div>
+
+<!-- M10 -->
+<div class="gate"><div class="gate-header" onclick="tog(10)"><div class="gate-accent c10-accent"></div><div class="gate-header-inner"><div class="gate-num c10-num">10</div><div class="gate-info"><div class="gate-title">Seeing, Hearing, and Many Modalities</div><div class="gate-subtitle">Computer Vision &middot; Multimodal AI &middot; Speech AI</div></div><div class="gate-meta"><span class="gate-count c10">1 unlock</span><span class="chevron" id="ch10">&#9658;</span></div></div></div>
+<div class="gate-body" id="bd10">
+  <div class="section"><div class="sec-label">Skills this month</div><div class="skill-list">
+    <div class="skill-item"><div class="skill-name">Computer Vision <span class="skill-tier tier-sen">Senior</span></div><div class="skill-move"><b>Elite move:</b> Take your existing <b>BraTS segmentation work to a public reproducible repo</b> with clinical-grade metrics (Dice, HD95), a regression suite, and an <b>incomplete-modality robustness study</b> — depth in one constrained domain over breadth across toy datasets.</div><div class="skill-edge">Domain CV at research grade gets you emailed by Qure.ai-class teams. CV/medical talent carries a 30&ndash;50% premium because few engineers go this deep in one domain.</div></div>
+    <div class="skill-item"><div class="skill-name">Multimodal AI <span class="skill-tier tier-adv">Advanced</span></div><div class="skill-move"><b>Elite move:</b> <b>Probe where modality fusion breaks</b>: construct image-text pairs engineered to create cross-modal conflict, measure how the VLM resolves (or fails) them, then fine-tune on your <b>imaging + report</b> domain with evals on both modalities.</div><div class="skill-edge">You understand VLMs as an alignment-of-representations problem with a measured failure surface — grounded in your domain, not a generic captioning demo.</div></div>
+    <div class="skill-item"><div class="skill-name">Speech AI <span class="skill-tier tier-int">Intermediate</span></div><div class="skill-move"><b>Elite move:</b> Build a <b>streaming ASR/TTS pipeline measured under the conditions that actually break it</b> — background noise, accents, and a real-time latency budget — and publish <b>WER-under-noise curves</b> plus a latency breakdown.</div><div class="skill-edge">Building for the conditions benchmarks hide is the difference between a clip that works and a system that ships.</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Companies unlocked</div><div class="unlock-wrap">
+    <div class="unlock-entry"><span class="unlock-tag c10">Google DeepMind</span><div class="unlock-sub">research internship cycle (reproductions)</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Unlock logic</div><div class="note-box">Domain-CV depth plus reproductions and papers makes you credible for <b>DeepMind-class research internships.</b> Your neuroscience-imaging angle is the Hassabis-lineage pattern — research orgs read that intersection as rare, not generic.</div></div>
+</div></div>
+
+<!-- M11 -->
+<div class="gate"><div class="gate-header" onclick="tog(11)"><div class="gate-accent c11-accent"></div><div class="gate-header-inner"><div class="gate-num c11-num">11</div><div class="gate-info"><div class="gate-title">The Edge and the Embodied</div><div class="gate-subtitle">Edge AI &middot; Robotics AI &middot; AI Infrastructure</div></div><div class="gate-meta"><span class="gate-count c11">2 unlocks</span><span class="chevron" id="ch11">&#9658;</span></div></div></div>
+<div class="gate-body" id="bd11">
+  <div class="section"><div class="sec-label">Skills this month</div><div class="skill-list">
+    <div class="skill-item"><div class="skill-name">Edge AI <span class="skill-tier tier-adv">Advanced</span></div><div class="skill-move"><b>Elite move:</b> Deploy a <b>quantized model to a real power/memory/latency-bounded target</b> (phone or Jetson) hitting a hard budget, document the full <b>accuracy-vs-latency Pareto curve</b>, then push one technique (distillation, INT4) along the curve and measure where it lands.</div><div class="skill-edge">The constraint is the curriculum. You strip away every datacenter assumption and meet a budget with teeth — exactly where your inference and quantization skills get their hardest proof.</div></div>
+    <div class="skill-item"><div class="skill-name">Robotics AI <span class="skill-tier tier-int">Intermediate</span></div><div class="skill-move"><b>Elite move:</b> Train a policy in <b>simulation (Isaac/MuJoCo), deploy it, and measure the sim-to-real gap</b> — then close part of it with domain randomization and publish the <b>gap-closing study.</b></div><div class="skill-edge">You respect how cruelly reality breaks clean policies, and you have a measured gap to show for it. Sim-to-real is the crossover skill that opens autonomous-systems and physical-AI paths.</div></div>
+    <div class="skill-item"><div class="skill-name">AI Infrastructure <span class="skill-tier tier-staff">Staff</span></div><div class="skill-move"><b>Elite move:</b> Land a <b>substantive merged PR in a real infra tool</b> (vLLM, PyTorch, MONAI) — a kernel, an op, a serving optimization — and write up the <b>bottleneck you removed and the multiplier it gave a team.</b></div><div class="skill-edge">A merged PR in a tool these companies already use is <b>pre-verified competence</b> — the review process has already vouched for you.</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Companies unlocked</div><div class="unlock-wrap">
+    <div class="unlock-entry"><span class="unlock-tag c11">NVIDIA</span><div class="unlock-sub">perf / inference / MONAI ecosystem</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c11">Meta AI / FAIR</span><div class="unlock-sub">open-source-gated engineering</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Unlock logic</div><div class="note-box">Infra contributions to tools these companies own is the <b>direct line into NVIDIA and Meta/FAIR</b> — they hire on open-source evidence. MONAI is your obvious NVIDIA-ecosystem on-ramp and ties back to your medical-imaging domain.</div></div>
+</div></div>
+
+<!-- M12 -->
+<div class="gate"><div class="gate-header" onclick="tog(12)"><div class="gate-accent c12-accent"></div><div class="gate-header-inner"><div class="gate-num c12-num">12</div><div class="gate-info"><div class="gate-title">The Frontier and The Translation Layer</div><div class="gate-subtitle">Research Engineering &middot; AI Consulting &middot; Forward Deployment Engineering</div></div><div class="gate-meta"><span class="gate-count c12">Frontier unlocked</span><span class="chevron" id="ch12">&#9658;</span></div></div></div>
+<div class="gate-body" id="bd12">
+  <div class="section"><div class="sec-label">Skills this month</div><div class="skill-list">
+    <div class="skill-item"><div class="skill-name">Research Engineering <span class="skill-tier tier-staff">Staff</span></div><div class="skill-move"><b>Elite move:</b> Follow the full evidence chain: <b>Research → Reproduce → Extend → Open Source → Deploy.</b> Select a recent paper relevant to your target domain, reproduce its core result from primary sources, document every deviation, identify a concrete limitation, design an extension around a falsifiable hypothesis, and publish the implementation with <b>reproducible configs, seeds, data-generation procedures, environment capture, evaluation scripts, ablations, and failure cases.</b> Then carry the strongest result into a deployable system and measure whether the research insight survives real-world constraints.</div><div class="skill-edge">The signal is <b>independent scientific and engineering ownership</b>: verify a claim, discover where it breaks, produce a defensible new result, make the work reproducible, and carry the insight into production.</div><div class="ai-build-grid">
+      <div class="ai-build-chip"><b>01</b> Paper selection &amp; hypothesis extraction</div>
+      <div class="ai-build-chip"><b>02</b> Baseline reproduction from primary sources</div>
+      <div class="ai-build-chip"><b>03</b> Environment / dependency capture</div>
+      <div class="ai-build-chip"><b>04</b> Seeds, configs &amp; deterministic evaluation</div>
+      <div class="ai-build-chip"><b>05</b> Ablations &amp; statistical uncertainty</div>
+      <div class="ai-build-chip"><b>06</b> Failure analysis &amp; limitation discovery</div>
+      <div class="ai-build-chip"><b>07</b> Falsifiable extension experiment</div>
+      <div class="ai-build-chip"><b>08</b> Reproducible repository &amp; documentation</div>
+      <div class="ai-build-chip"><b>09</b> Open-source release &amp; contribution hygiene</div>
+      <div class="ai-build-chip"><b>10</b> Research-to-production validation</div>
+    </div></div><div class="skill-item"><div class="skill-name">AI Consulting / FDE <span class="skill-tier tier-sen">Senior</span></div><div class="skill-move"><b>Elite move:</b> Take a real business problem with a stakeholder (a professor, a small company, a clinic), build the AI system, write the <b>ROI case</b> (before/after metrics), and present it as a case study. The case study is the portfolio piece — not the code.</div><div class="skill-edge">FDE roles and consulting practices buy the ability to translate between "model performance" and "business outcome." Most engineers never practice the translation; you have a measured case study that proves it.</div></div>
+    <div class="skill-item"><div class="skill-name">Production Evidence &amp; FDE <span class="skill-tier tier-staff">Staff</span></div><div class="skill-move"><b>Elite move:</b> Take one research or platform artifact and deploy it against a <b>real operational workflow</b>. Define the problem in measurable user or business terms, establish a baseline, instrument the system, ship a constrained pilot, collect outcomes, document failures and operating cost, and produce a <b>deployment decision memo</b>: scale, iterate, or kill. Include architecture, runbook, SLOs, cost model, rollback plan, security assumptions, user feedback, and the evidence behind the decision.</div><div class="skill-edge">This closes the gap between an excellent technical project and <b>production ownership</b>. You can explain not only how the system works, but whether it should exist, what it costs, what breaks, and what the evidence says to do next.</div><div class="ai-build-grid">
+      <div class="ai-build-chip"><b>01</b> Operational problem framing</div>
+      <div class="ai-build-chip"><b>02</b> Baseline &amp; success metrics</div>
+      <div class="ai-build-chip"><b>03</b> Constrained pilot deployment</div>
+      <div class="ai-build-chip"><b>04</b> User / stakeholder feedback loop</div>
+      <div class="ai-build-chip"><b>05</b> SLOs, reliability &amp; rollback</div>
+      <div class="ai-build-chip"><b>06</b> Cost / unit economics measurement</div>
+      <div class="ai-build-chip"><b>07</b> Security &amp; operational assumptions</div>
+      <div class="ai-build-chip"><b>08</b> Runbook &amp; incident procedures</div>
+      <div class="ai-build-chip"><b>09</b> Deployment decision memo</div>
+      <div class="ai-build-chip"><b>10</b> Evidence-backed scale / iterate / kill decision</div>
+    </div></div>  </div></div>
+  <div class="section"><div class="sec-label">Full portfolio — companies now in range</div><div class="unlock-wrap">
+    <div class="unlock-entry"><span class="unlock-tag c12">Anthropic RE</span><div class="unlock-sub">Aug–Sep cycle; safety artifacts required</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c12">OpenAI Applied</span><div class="unlock-sub">rolling; peaks Mar–May &amp; Sep–Oct</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c12">Google DeepMind RE</span><div class="unlock-sub">Sep–Oct; JAX depth + referral</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c12">xAI Research Eng</span><div class="unlock-sub">rolling; systems depth + fast shipping</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c12">Sierra</span><div class="unlock-sub">FDE; agent reliability portfolio</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c12">Cursor</span><div class="unlock-sub">Applied / Customer Eng</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c12">Harvey AI</span><div class="unlock-sub">FDE; full-stack + reliability</div></div>
+    <div class="unlock-entry"><span class="unlock-tag c12">Glean</span><div class="unlock-sub">Solutions Eng / Applied</div></div>
+  </div></div>
+  <div class="section"><div class="sec-label">Reality check</div>
+    <div class="reality-item"><span class="reality-arrow">&rarr;</span><span>The 36 capability builds build a compounding portfolio, not a checklist. Frontier labs do not look for someone who "did all 36" — they look for someone whose 3&ndash;5 depth areas are <strong>undeniable.</strong></span></div>
+    <div class="reality-item"><span class="reality-arrow">&rarr;</span><span>Cold application rates at Anthropic and OpenAI are below 1%. The correct path: contribute in public &rarr; get known &rarr; apply with a referral. The calendar is the work that makes a referral make sense.</span></div>
+    <div class="reality-item"><span class="reality-arrow">&rarr;</span><span>Your medical-imaging &times; federated-learning &times; India base is a near-zero-competition niche at Month 12. You are not a generic applicant — the calendar is designed to make that niche undeniable.</span></div>
+  </div>
+</div></div>
+
+<div class="section"><div class="sec-label">THE DISTINCTION</div><div class="note-box"><b>A roadmap tells you what to learn. This playbook tells you how to turn it into capability.</b> The unit of progress is therefore not a completed topic; it is a demonstrated capability with an artifact, measurements, failure evidence, and a deployable result.</div></div>
+<div class="section"><div class="sec-label">FINAL EVIDENCE STANDARD</div><div class="section"><div class="sec-label">EVIDENCE LADDER</div><div class="capability-map">
+      <div><b>L1</b><span>Can explain the concept and reproduce a known result.</span></div>
+      <div><b>L2</b><span>Can implement it, benchmark it, and diagnose failure.</span></div>
+      <div><b>L3</b><span>Can deploy it with observability, security and operating constraints.</span></div>
+      <div><b>L4</b><span>Can extend it, publish the evidence, and defend the engineering trade-offs.</span></div>
+    </div></div>
+<div class="note-box"><b>Every major capability should leave evidence another engineer can inspect.</b> At minimum: <b>working artifact, repository, evaluation method, measured result, failure analysis, documentation, and a clear statement of what you would change next.</b> For research, add reproducibility and experimental provenance. For production, add observability, SLOs, cost, security assumptions, and rollback. For open source, add tests, contribution hygiene, and a usable README. Your final portfolio is therefore a <b>body of evidence</b>, not a list of technologies.</div></div>
+<div class="footer">
+  Capability calendar calibrated to the 2026→2027 AI engineering market &mdash; verify all application windows on official careers pages.<br>
+  12-Month Elite AI Engineer Build &middot; 36 capability builds &middot; 12 months &middot; Jun 2026 start
+</div>
+
+</div>
+<script>
+  function tog(n){
+    var bd=document.getElementById('bd'+n);
+    var ch=document.getElementById('ch'+n);
+    var open=bd.classList.contains('open');
+    bd.classList.toggle('open',!open);
+    ch.classList.toggle('open',!open);
+  }
+</script>
+</body>
+</html>
