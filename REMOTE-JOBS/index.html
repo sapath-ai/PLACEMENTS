@@ -1,0 +1,2788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Career War Room — 12-Month Roadmap to $200K+ Remote</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080c10;
+  --surface: #0e141b;
+  --surface2: #141c26;
+  --border: #1e2d40;
+  --accent: #00e5ff;
+  --accent2: #ff3d71;
+  --accent3: #a8ff3e;
+  --accent4: #ffb700;
+  --text: #e2eaf4;
+  --muted: #5e7a96;
+  --gold: #d4a853;
+  --tier1: #ff3d71;
+  --tier2: #ff8c00;
+  --tier3: #ffb700;
+  --tier4: #a8ff3e;
+  --tier5: #00e5ff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: grid-drift 20s linear infinite;
+}
+
+@keyframes grid-drift {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(40px); }
+}
+
+.hero-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,229,255,0.08) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(0,229,255,0.08);
+  border: 1px solid rgba(0,229,255,0.3);
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  border-radius: 2px;
+  margin-bottom: 32px;
+  animation: pulse-border 2s ease-in-out infinite;
+}
+
+@keyframes pulse-border {
+  0%, 100% { border-color: rgba(0,229,255,0.3); box-shadow: 0 0 0 rgba(0,229,255,0); }
+  50% { border-color: rgba(0,229,255,0.8); box-shadow: 0 0 20px rgba(0,229,255,0.15); }
+}
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 6vw, 80px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.hero h1 .line1 { display: block; color: var(--text); }
+.hero h1 .line2 { display: block; color: var(--accent); }
+.hero h1 .line3 { display: block; color: var(--text); opacity: 0.4; font-style: italic; font-family: 'Instrument Serif', serif; font-size: 0.65em; }
+
+.hero-sub {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--muted);
+  font-size: 13px;
+  max-width: 620px;
+  margin-bottom: 48px;
+  line-height: 1.8;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
+.stat-pill {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 16px 28px;
+  border-radius: 2px;
+  text-align: center;
+}
+
+.stat-pill .num {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent);
+  display: block;
+}
+
+.stat-pill .label {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fade-bob 2s ease-in-out infinite;
+}
+
+.scroll-hint::after {
+  content: '↓';
+  font-size: 18px;
+  color: var(--accent);
+}
+
+@keyframes fade-bob {
+  0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(6px); }
+}
+
+/* ── NAV ── */
+.toc-nav {
+  position: sticky;
+  top: 0;
+  background: rgba(8,12,16,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.toc-nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 16px 20px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.toc-nav a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ── SECTIONS ── */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.section-header {
+  margin-bottom: 56px;
+}
+
+.section-tag {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-tag::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.section-desc {
+  color: var(--muted);
+  max-width: 680px;
+  line-height: 1.8;
+  font-size: 13px;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* ── JOB CARDS (Roles Table) ── */
+.roles-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.role-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  padding: 24px 28px;
+  display: grid;
+  grid-template-columns: 280px 1fr 180px;
+  gap: 24px;
+  align-items: start;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.role-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,229,255,0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.role-card:hover {
+  border-left-color: var(--accent);
+  background: var(--surface2);
+  transform: translateX(2px);
+}
+
+.role-card.t1 { border-left-color: var(--tier1); }
+.role-card.t1::before { background: linear-gradient(90deg, rgba(255,61,113,0.04) 0%, transparent 60%); }
+.role-card.t2 { border-left-color: var(--tier2); }
+.role-card.t2::before { background: linear-gradient(90deg, rgba(255,140,0,0.04) 0%, transparent 60%); }
+.role-card.t3 { border-left-color: var(--tier3); }
+.role-card.t3::before { background: linear-gradient(90deg, rgba(255,183,0,0.04) 0%, transparent 60%); }
+.role-card.t4 { border-left-color: var(--tier4); }
+.role-card.t4::before { background: linear-gradient(90deg, rgba(168,255,62,0.04) 0%, transparent 60%); }
+.role-card.t5 { border-left-color: var(--tier5); }
+
+.role-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.role-type {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+.role-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.role-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.skill-tag {
+  font-size: 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.04em;
+}
+
+.role-salary {
+  text-align: right;
+}
+
+.salary-range {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--accent3);
+  display: block;
+  line-height: 1.2;
+}
+
+.salary-label {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.remote-badge {
+  display: inline-block;
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 2px;
+  letter-spacing: 0.06em;
+  margin-top: 8px;
+}
+
+.remote-badge.full { background: rgba(168,255,62,0.1); color: var(--accent3); border: 1px solid rgba(168,255,62,0.3); }
+.remote-badge.high { background: rgba(0,229,255,0.1); color: var(--accent); border: 1px solid rgba(0,229,255,0.3); }
+.remote-badge.mid { background: rgba(255,183,0,0.1); color: var(--accent4); border: 1px solid rgba(255,183,0,0.3); }
+
+.tier-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 10px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.tier-label.t1 { background: rgba(255,61,113,0.15); color: var(--tier1); border: 1px solid rgba(255,61,113,0.3); }
+.tier-label.t2 { background: rgba(255,140,0,0.15); color: var(--tier2); border: 1px solid rgba(255,140,0,0.3); }
+.tier-label.t3 { background: rgba(255,183,0,0.15); color: var(--tier3); border: 1px solid rgba(255,183,0,0.3); }
+.tier-label.t4 { background: rgba(168,255,62,0.15); color: var(--tier4); border: 1px solid rgba(168,255,62,0.3); }
+.tier-label.t5 { background: rgba(0,229,255,0.15); color: var(--tier5); border: 1px solid rgba(0,229,255,0.3); }
+
+/* ── MONTH CARDS ── */
+.months-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 16px;
+}
+
+.month-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.month-card:hover { border-color: var(--accent); }
+
+.month-card::after {
+  content: attr(data-month);
+  position: absolute;
+  right: -10px;
+  bottom: -20px;
+  font-family: 'Syne', sans-serif;
+  font-size: 100px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.02);
+  pointer-events: none;
+  line-height: 1;
+}
+
+.month-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.month-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.month-phase {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.month-section-label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
+
+.month-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.month-items li {
+  font-size: 12px;
+  color: var(--text);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.month-items li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.tech-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.tech-chip {
+  font-size: 10px;
+  background: rgba(0,229,255,0.07);
+  border: 1px solid rgba(0,229,255,0.2);
+  color: var(--accent);
+  padding: 2px 10px;
+  border-radius: 2px;
+}
+
+.deliverable-box {
+  background: rgba(168,255,62,0.05);
+  border: 1px solid rgba(168,255,62,0.2);
+  padding: 12px 14px;
+  margin-top: 16px;
+  border-radius: 2px;
+}
+
+.deliverable-box .d-label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent3);
+  margin-bottom: 6px;
+}
+
+.deliverable-box .d-items {
+  font-size: 11px;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+/* ── SIGNAL SECTION ── */
+.signal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.signal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 28px;
+}
+
+.signal-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.signal-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.signal-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.signal-list li {
+  font-size: 12px;
+  color: var(--muted);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.signal-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent2);
+  font-size: 10px;
+  top: 2px;
+}
+
+/* ── RESUME SECTION ── */
+.resume-template {
+  background: #f8f7f2;
+  color: #1a1a1a;
+  padding: 48px;
+  border-radius: 2px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  position: relative;
+  border: 1px solid var(--border);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.resume-template .r-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: #0a0a0a;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.resume-template .r-title {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.resume-template .r-contact {
+  font-size: 11px;
+  color: #777;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #0a0a0a;
+}
+
+.resume-template .r-section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #0a0a0a;
+  margin: 20px 0 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #ddd;
+}
+
+.resume-template .r-job-title {
+  font-weight: 600;
+  color: #1a1a1a;
+  font-size: 13px;
+}
+
+.resume-template .r-job-meta {
+  color: #777;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+
+.resume-template .r-bullet {
+  color: #333;
+  padding-left: 14px;
+  position: relative;
+  margin-bottom: 4px;
+  line-height: 1.6;
+}
+
+.resume-template .r-bullet::before {
+  content: '•';
+  position: absolute;
+  left: 4px;
+}
+
+.resume-template .r-skills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.resume-template .r-skill {
+  background: #f0efe9;
+  padding: 2px 10px;
+  font-size: 11px;
+  border-radius: 2px;
+  color: #333;
+}
+
+/* ── JOBSITES TABLE ── */
+.sites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.site-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 20px;
+}
+
+.site-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.site-type {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.site-desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── CALLOUT ── */
+.callout {
+  background: rgba(0,229,255,0.05);
+  border: 1px solid rgba(0,229,255,0.2);
+  border-left: 3px solid var(--accent);
+  padding: 20px 24px;
+  margin: 24px 0;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.8;
+}
+
+.callout.warn {
+  background: rgba(255,61,113,0.05);
+  border-color: rgba(255,61,113,0.2);
+  border-left-color: var(--accent2);
+}
+
+.callout.win {
+  background: rgba(168,255,62,0.05);
+  border-color: rgba(168,255,62,0.2);
+  border-left-color: var(--accent3);
+}
+
+.callout strong { color: var(--accent); }
+.callout.warn strong { color: var(--accent2); }
+.callout.win strong { color: var(--accent3); }
+
+/* ── TIMELINE ── */
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+}
+
+.tl-item {
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -34px;
+  top: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.tl-time {
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.tl-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.tl-body {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── STACK COMPARISON ── */
+.stack-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.stack-table th {
+  background: var(--surface2);
+  padding: 12px 16px;
+  text-align: left;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.stack-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(30,45,64,0.5);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.stack-table tr:hover td { background: var(--surface); }
+
+.stack-table .cat {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.stack-table .tools { color: var(--accent); }
+.stack-table .why { color: var(--muted); font-size: 11px; }
+.stack-table .priority { text-align: center; }
+
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; }
+.dot.must { background: var(--tier1); }
+.dot.should { background: var(--tier3); }
+.dot.nice { background: var(--muted); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.footer-quote {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  font-style: italic;
+  color: var(--text);
+  max-width: 600px;
+  margin: 0 auto 16px;
+  line-height: 1.5;
+}
+
+.footer-sub {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .role-card {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .role-salary { text-align: left; }
+  .months-grid { grid-template-columns: 1fr; }
+  .toc-nav { display: none; }
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section { animation: fade-in-up 0.6s ease both; }
+
+/* progress bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  z-index: 9998;
+  width: 0%;
+  transition: width 0.1s;
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 24px;
+  padding: 0;
+}
+
+.section-divider span {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.section-divider::before, .section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-badge">// CLASSIFIED · AI CAREER INTELLIGENCE 2026–2035 //</div>
+  <h1>
+    <span class="line1">Your 12-Month War Room</span>
+    <span class="line2">to Remote AI Riches</span>
+    <span class="line3">from zero signal to $200K+ USD — fully remote</span>
+  </h1>
+  <p class="hero-sub">
+    A deep-research field manual covering every AI role that pays in USD,<br>
+    ranked by salary · the exact skills + tech stacks per month · how to become<br>
+    the candidate YC founders, FAANG recruiters, and MNC HR scouts find <em>first</em>.
+  </p>
+  <div class="hero-stats">
+    <div class="stat-pill">
+      <span class="num">$206K</span>
+      <span class="label">Avg. AI Eng. Salary 2025</span>
+    </div>
+    <div class="stat-pill">
+      <span class="num">3.2:1</span>
+      <span class="label">Demand:Supply Ratio</span>
+    </div>
+    <div class="stat-pill">
+      <span class="num">+56%</span>
+      <span class="label">Wage Premium (AI Skills)</span>
+    </div>
+    <div class="stat-pill">
+      <span class="num">12mo</span>
+      <span class="label">Your Transformation Window</span>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll to begin</div>
+</section>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="toc-nav">
+  <a href="#roles">Roles & Pay</a>
+  <a href="#techstack">Full Tech Stack</a>
+  <a href="#roadmap">12-Month Roadmap</a>
+  <a href="#signal">Become the Signal</a>
+  <a href="#resume">Resume Blueprint</a>
+  <a href="#jobhunt">Where to Hunt</a>
+  <a href="#interview">Interview Playbook</a>
+  <a href="#strategy">Final Strategy</a>
+</nav>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 1: ROLES & SALARIES           -->
+<!-- UPDATE 1 — 2026/27 ROLE TAXONOMY OVERHAUL -->
+<div id="roles">
+<div class="section-divider"><span>01 — 2026/27 AI Role Architecture</span></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">Updated August 2026</div>
+    <h2 class="section-title">The AI Engineering Roles That Actually Matter Now</h2>
+    <p class="section-desc">The market has moved beyond a single generic “AI Engineer” title. Modern AI roles increasingly converge around agent systems, AI platforms, inference, evaluation, security, multimodal systems, and production software engineering. This taxonomy is organized by the capability you own—not by hype or a job-title keyword.</p>
+  </div>
+
+  <div class="callout win">
+    <strong>2026 Market Signal:</strong> Current roles are increasingly asking engineers to connect AI models to production systems: agent orchestration, MCP/tool integration, retrieval, evaluation, observability, security, Kubernetes/cloud infrastructure, inference and cost control. Recent 2026 postings from Arm, Accenture, Teradyne, SingleStore, AWS and others reflect this convergence. This roadmap therefore treats <em>AI Systems Engineering</em> as the core career family and specialization as the differentiator.
+  </div>
+
+  <div class="callout warn">
+    <strong>Important taxonomy change:</strong> “Prompt Engineer” is no longer treated as a primary destination. Prompting is a capability inside AI application, agent, evaluation and product engineering. Likewise, “MLOps” is increasingly merging into the broader <strong>AI Platform Engineering</strong> discipline. Salary ranges below are directional US-market reference bands only—not guarantees—and remote eligibility varies by country, employment model and company.
+  </div>
+
+  <div class="roles-grid">
+
+    <!-- CORE FAMILY -->
+    <div style="padding:16px 0 8px; font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--tier1); letter-spacing:0.1em; text-transform:uppercase;">
+      ⬤ CORE AI ENGINEERING — THE 2026 BASELINE
+    </div>
+
+    <div class="role-card t1">
+      <div>
+        <div class="tier-label t1">Core</div>
+        <div class="role-name">AI Systems / Applied AI Engineer</div>
+        <div class="role-type">AI Product Companies / Enterprise / Startups</div>
+        <div class="role-skills">
+          <span class="skill-tag">Python</span><span class="skill-tag">LLM APIs</span><span class="skill-tag">RAG</span><span class="skill-tag">Agents</span><span class="skill-tag">APIs</span><span class="skill-tag">Evals</span><span class="skill-tag">Cloud</span>
+        </div>
+      </div>
+      <div class="role-desc">The broadest and most useful modern AI engineering identity. Designs, builds and operates AI features end-to-end: model integration, retrieval, tools, agents, APIs, evaluation, observability and production deployment. This is the default target role before specializing.</div>
+      <div class="role-salary"><span class="salary-label">Indicative US Base</span><span class="salary-range">$120K–$220K+</span><div class="remote-badge high">Remote varies</div></div>
+    </div>
+
+    <div class="role-card t1">
+      <div>
+        <div class="tier-label t1">Core</div>
+        <div class="role-name">Agentic AI Engineer</div>
+        <div class="role-type">AI-Native Startups / Enterprise Automation / Platforms</div>
+        <div class="role-skills">
+          <span class="skill-tag">Agent Runtime</span><span class="skill-tag">LangGraph</span><span class="skill-tag">MCP</span><span class="skill-tag">A2A</span><span class="skill-tag">Tool Use</span><span class="skill-tag">Memory</span><span class="skill-tag">Evals</span>
+        </div>
+      </div>
+      <div class="role-desc">Builds multi-step and long-running AI systems that plan, call tools, maintain state, recover from failures and complete real workflows. Modern expectations increasingly include MCP/tool integration, evaluation, reliability, security and cost-aware execution—not merely prompt design.</div>
+      <div class="role-salary"><span class="salary-label">Indicative US Base</span><span class="salary-range">$130K–$240K+</span><div class="remote-badge high">Remote varies</div></div>
+    </div>
+
+    <div class="role-card t1">
+      <div>
+        <div class="tier-label t1">Core</div>
+        <div class="role-name">AI Platform Engineer</div>
+        <div class="role-type">Enterprise AI / Cloud / AI Infrastructure</div>
+        <div class="role-skills">
+          <span class="skill-tag">Kubernetes</span><span class="skill-tag">Docker</span><span class="skill-tag">Cloud</span><span class="skill-tag">MCP Infrastructure</span><span class="skill-tag">Identity</span><span class="skill-tag">Observability</span><span class="skill-tag">CI/CD</span>
+        </div>
+      </div>
+      <div class="role-desc">Owns the platform on which AI systems run: model gateways, agent runtimes, MCP infrastructure, secrets, identity, networking, telemetry, deployment, reliability and cost controls. This role is increasingly distinct from traditional MLOps because the platform must support agents and tool-using systems as well as models.</div>
+      <div class="role-salary"><span class="salary-label">Indicative US Base</span><span class="salary-range">$140K–$250K+</span><div class="remote-badge mid">Remote varies</div></div>
+    </div>
+
+    <!-- SPECIALIST SYSTEMS ROLES -->
+    <div style="padding:16px 0 8px; font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--tier2); letter-spacing:0.1em; text-transform:uppercase;">
+      ⬤ SPECIALIST SYSTEMS — HIGH-VALUE 2026/27 TRACKS
+    </div>
+
+    <div class="role-card t2">
+      <div>
+        <div class="tier-label t2">Specialist</div>
+        <div class="role-name">AI Inference Engineer</div>
+        <div class="role-type">Model Serving / AI Infrastructure / GPU Systems</div>
+        <div class="role-skills">
+          <span class="skill-tag">vLLM</span><span class="skill-tag">SGLang</span><span class="skill-tag">TensorRT-LLM</span><span class="skill-tag">Quantization</span><span class="skill-tag">KV Cache</span><span class="skill-tag">CUDA</span><span class="skill-tag">Profiling</span>
+        </div>
+      </div>
+      <div class="role-desc">Optimizes the economics and performance of model serving. Owns throughput, latency, batching, KV-cache behavior, quantization, GPU utilization, routing and serving reliability. This is the bridge between ML models and high-performance production infrastructure.</div>
+      <div class="role-salary"><span class="salary-label">Indicative US Base</span><span class="salary-range">$150K–$280K+</span><div class="remote-badge mid">Remote varies</div></div>
+    </div>
+
+    <div class="role-card t2">
+      <div>
+        <div class="tier-label t2">Specialist</div>
+        <div class="role-name">AI Security Engineer</div>
+        <div class="role-type">Enterprise AI / Cloud Security / AI Platforms</div>
+        <div class="role-skills">
+          <span class="skill-tag">Prompt Injection</span><span class="skill-tag">Tool Security</span><span class="skill-tag">MCP Security</span><span class="skill-tag">IAM</span><span class="skill-tag">Sandboxing</span><span class="skill-tag">Secrets</span><span class="skill-tag">Policy-as-Code</span>
+        </div>
+      </div>
+      <div class="role-desc">Secures models, agents, tools, data and runtime environments. Covers prompt injection, malicious tools, excessive agency, identity, authorization, data boundaries, sandboxing, secrets, auditability and secure AI-SDLC practices. This is becoming a production requirement as agents gain real-world permissions.</div>
+      <div class="role-salary"><span class="salary-label">Indicative US Base</span><span class="salary-range">$140K–$260K+</span><div class="remote-badge mid">Remote varies</div></div>
+    </div>
+
+    <div class="role-card t2">
+      <div>
+        <div class="tier-label t2">Specialist</div>
+        <div class="role-name">AI Evaluation / Reliability Engineer</div>
+        <div class="role-type">AI Platforms / Model Behavior / Quality Engineering</div>
+        <div class="role-skills">
+          <span class="skill-tag">Offline Evals</span><span class="skill-tag">Online Evals</span><span class="skill-tag">Agent Traces</span><span class="skill-tag">Regression Testing</span><span class="skill-tag">LLM Judges</span><span class="skill-tag">OpenTelemetry</span><span class="skill-tag">Quality Gates</span>
+        </div>
+      </div>
+      <div class="role-desc">Owns the question “does this AI system actually work?” Builds evaluation datasets, regression suites, agent trajectory evaluation, quality signals, trace analysis and production feedback loops. Converts failures into measurable tests so model and agent quality compounds over time.</div>
+      <div class="role-salary"><span class="salary-label">Indicative US Base</span><span class="salary-range">$130K–$240K+</span><div class="remote-badge high">Remote varies</div></div>
+    </div>
+
+    <div class="role-card t2">
+      <div>
+        <div class="tier-label t2">Specialist</div>
+        <div class="role-name">AI / ML Systems Engineer</div>
+        <div class="role-type">ML Infrastructure / Distributed Training / GPU</div>
+        <div class="role-skills">
+          <span class="skill-tag">PyTorch</span><span class="skill-tag">FSDP</span><span class="skill-tag">DeepSpeed</span><span class="skill-tag">NCCL</span><span class="skill-tag">Triton</span><span class="skill-tag">CUDA</span><span class="skill-tag">Distributed Systems</span>
+        </div>
+      </div>
+      <div class="role-desc">Builds the low-level systems that make training and inference efficient at scale. Focuses on distributed execution, GPU utilization, memory, communication, kernels, scheduling and performance engineering. This is the strongest path for engineers who want deep systems rather than application-layer AI.</div>
+      <div class="role-salary"><span class="salary-label">Indicative US Base</span><span class="salary-range">$150K–$300K+</span><div class="remote-badge mid">Remote varies</div></div>
+    </div>
+
+    <!-- APPLIED / FRONTIER ROLES -->
+    <div style="padding:16px 0 8px; font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--tier3); letter-spacing:0.1em; text-transform:uppercase;">
+      ⬤ APPLIED &amp; FRONTIER — DOMAIN DEPTH + AI
+    </div>
+
+    <div class="role-card t3">
+      <div>
+        <div class="tier-label t3">Applied</div>
+        <div class="role-name">Forward-Deployed AI Engineer</div>
+        <div class="role-type">Enterprise AI / Consulting / AI-Native B2B</div>
+        <div class="role-skills">
+          <span class="skill-tag">Customer Discovery</span><span class="skill-tag">APIs</span><span class="skill-tag">Agents</span><span class="skill-tag">RAG</span><span class="skill-tag">Integrations</span><span class="skill-tag">Deployment</span><span class="skill-tag">Product Sense</span>
+        </div>
+      </div>
+      <div class="role-desc">Sits directly between customer problems and production engineering. Discovers the workflow, prototypes the AI solution, integrates enterprise systems and gets the system into production. Strongly aligned with the 2026 shift toward applied AI and measurable business outcomes.</div>
+      <div class="role-salary"><span class="salary-label">Indicative US Base</span><span class="salary-range">$120K–$230K+</span><div class="remote-badge high">Remote varies</div></div>
+    </div>
+
+    <div class="role-card t3">
+      <div>
+        <div class="tier-label t3">Applied</div>
+        <div class="role-name">Multimodal / Vision-Language Engineer</div>
+        <div class="role-type">Healthcare / Robotics / Product AI / Research Engineering</div>
+        <div class="role-skills">
+          <span class="skill-tag">Vision-Language Models</span><span class="skill-tag">Audio</span><span class="skill-tag">Video</span><span class="skill-tag">Document AI</span><span class="skill-tag">Multimodal RAG</span><span class="skill-tag">PyTorch</span>
+        </div>
+      </div>
+      <div class="role-desc">Builds systems that reason across text, images, audio and video rather than treating language as the only modality. Relevant to document intelligence, healthcare, robotics, industrial AI, realtime assistants and multimodal agents.</div>
+      <div class="role-salary"><span class="salary-label">Indicative US Base</span><span class="salary-range">$130K–$250K+</span><div class="remote-badge mid">Remote varies</div></div>
+    </div>
+
+    <div class="role-card t3">
+      <div>
+        <div class="tier-label t3">Research</div>
+        <div class="role-name">AI Research Engineer</div>
+        <div class="role-type">Frontier Labs / Applied Research / Research Engineering</div>
+        <div class="role-skills">
+          <span class="skill-tag">PyTorch</span><span class="skill-tag">Transformers</span><span class="skill-tag">Distributed Training</span><span class="skill-tag">Experiment Design</span><span class="skill-tag">CUDA</span><span class="skill-tag">Papers</span>
+        </div>
+      </div>
+      <div class="role-desc">The engineering-heavy research track: implements new methods, builds experiments, develops training/evaluation infrastructure and turns research ideas into reproducible systems. Distinct from pure research scientist roles, where publication record and advanced research credentials are usually more dominant.</div>
+      <div class="role-salary"><span class="salary-label">Indicative US Base</span><span class="salary-range">$150K–$300K+</span><div class="remote-badge mid">Remote varies</div></div>
+    </div>
+
+    <div class="role-card t3">
+      <div>
+        <div class="tier-label t3">Research</div>
+        <div class="role-name">AI Research Scientist</div>
+        <div class="role-type">Frontier Labs / Universities / Research Organizations</div>
+        <div class="role-skills">
+          <span class="skill-tag">Deep Learning Theory</span><span class="skill-tag">Math</span><span class="skill-tag">PyTorch/JAX</span><span class="skill-tag">Novel Methods</span><span class="skill-tag">Experiments</span><span class="skill-tag">Publications</span>
+        </div>
+      </div>
+      <div class="role-desc">Pushes the research frontier through new algorithms, architectures, training methods or scientific understanding. Extremely competitive and generally differentiated by research output, mathematical depth and evidence of original work rather than tool familiarity.</div>
+      <div class="role-salary"><span class="salary-label">Indicative US Base</span><span class="salary-range">$180K–$350K+</span><div class="remote-badge mid">Remote varies</div></div>
+    </div>
+
+    <!-- ADJACENT ROLES -->
+    <div style="padding:16px 0 8px; font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--tier4); letter-spacing:0.1em; text-transform:uppercase;">
+      ⬤ ADJACENT SPECIALIZATIONS — IMPORTANT BUT NOT THE CORE ENGINEERING PATH
+    </div>
+
+    <div class="role-card t4">
+      <div>
+        <div class="tier-label t4">Adjacent</div>
+        <div class="role-name">AI Governance / Responsible AI Engineer</div>
+        <div class="role-type">Enterprise / Regulated Industries / AI Platforms</div>
+        <div class="role-skills">
+          <span class="skill-tag">AI Risk</span><span class="skill-tag">Policy-as-Code</span><span class="skill-tag">Model Governance</span><span class="skill-tag">Privacy</span><span class="skill-tag">Auditability</span><span class="skill-tag">Security</span>
+        </div>
+      </div>
+      <div class="role-desc">Increasingly technical governance work: converts organizational AI policy into enforceable platform controls, risk processes, audit trails, privacy boundaries and deployment standards. The strongest engineering version of this path sits close to AI platform and security teams.</div>
+      <div class="role-salary"><span class="salary-label">Indicative US Base</span><span class="salary-range">$110K–$220K+</span><div class="remote-badge high">Remote varies</div></div>
+    </div>
+
+    <div class="role-card t4">
+      <div>
+        <div class="tier-label t4">Adjacent</div>
+        <div class="role-name">AI Product Engineer / Technical AI Product Manager</div>
+        <div class="role-type">AI-Native Products / Big Tech / Startups</div>
+        <div class="role-skills">
+          <span class="skill-tag">Product Strategy</span><span class="skill-tag">AI Systems</span><span class="skill-tag">Experimentation</span><span class="skill-tag">UX</span><span class="skill-tag">Metrics</span><span class="skill-tag">Go-to-Market</span>
+        </div>
+      </div>
+      <div class="role-desc">Bridges engineering and product ownership. This remains valuable, but it is not the primary engineering target of this roadmap. Engineers should treat product sense as a force multiplier rather than replacing deep technical capability with a PM title.</div>
+      <div class="role-salary"><span class="salary-label">Indicative US Base</span><span class="salary-range">$130K–$250K+</span><div class="remote-badge high">Remote varies</div></div>
+    </div>
+
+  </div><!-- /.roles-grid -->
+
+  <div class="callout" style="margin-top:28px">
+    <strong>The 2026/27 hierarchy:</strong> Build a foundation as an <strong>AI Systems / Applied AI Engineer</strong>, then specialize into <strong>Agentic AI</strong>, <strong>AI Platform</strong>, <strong>Inference/GPU Systems</strong>, <strong>AI Security</strong>, <strong>Evaluation/Reliability</strong>, <strong>Multimodal AI</strong> or <strong>Research Engineering</strong>. Forward-deployed engineering is the applied/customer-facing branch. Governance and AI product roles are adjacent branches. “Prompt Engineer” is a skillset, not the destination.
+  </div>
+
+  <div class="callout win" style="margin-top:18px">
+    <strong>Evidence from the live 2026 market:</strong> Arm's August 2026 AI infrastructure role explicitly combines Kubernetes, cloud, identity, secrets, networking, telemetry, MCP server infrastructure, model gateways, isolation, scalability and cost-aware operation. Accenture's current agentic role combines MCP, A2A, RAG, orchestration and evaluation. Teradyne's August 2026 India role combines AI agent/MCP infrastructure, platform integration, governance and risk. SingleStore's AI Platform role combines agent orchestration, MCP-style tool discovery, retrieval, evaluation/observability and secure multi-tenancy. The role taxonomy above reflects that convergence rather than older isolated job categories.
+  </div>
+</div><!-- /.section -->
+</div><!-- /#roles -->
+
+
+<!-- SECTION 2: FULL TECH STACK            -->
+<!-- ═══════════════════════════════════════ -->
+<div id="techstack">
+<div class="section-divider"><span>02 — Modern AI Engineering Stack · UPDATES 2–5</span></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">Updates 2–5 · August 2026</div>
+    <h2 class="section-title">The Modern AI Engineering Stack (2026–2027)</h2>
+    <p class="section-desc">The durable capabilities and representative tools you need across model interaction, context engineering, retrieval, agents, evaluation, infrastructure, deployment and frontier systems. Learn the capability first; treat frameworks as implementations.</p>
+  </div>
+
+  <div class="callout">
+    <strong>Priority Legend:</strong> &nbsp;<span class="dot must"></span>MUST HAVE (blocks jobs without it) &nbsp; <span class="dot should"></span>SHOULD HAVE (differentiates strongly) &nbsp; <span class="dot nice"></span>NICE TO HAVE (future-proofing)
+  </div>
+
+  <div class="callout win" style="margin-bottom:28px">
+    <strong>UPDATE 2 — MODERN AI FOUNDATIONS:</strong> The 2026 baseline is no longer “call an LLM + write a prompt.” Engineers are increasingly expected to control <strong>context, structured outputs, tool calls, reasoning effort, model routing, caching, latency and cost</strong>. Current 2026 roadmap research consistently places context engineering between prompting and retrieval, while production-oriented paths emphasize evaluation, cost/routing and reliable deployment.
+  </div>
+
+  <table class="stack-table">
+    <thead>
+      <tr>
+        <th style="width:200px">Category</th>
+        <th>Tools / Frameworks / Platforms</th>
+        <th>Why It Matters</th>
+        <th class="priority" style="width:100px">Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr><td colspan="4" style="background:rgba(255,61,113,0.06); padding:10px 16px; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--tier1);">── CORE LANGUAGES ──</td></tr>
+      <tr>
+        <td class="cat">Python</td>
+        <td class="tools">Python 3.11+, asyncio, type hints, Pydantic v2, uv/rye package mgmt</td>
+        <td class="why">In 95%+ of all AI job postings. Non-negotiable. Know it deeply: async patterns, decorators, generators, profiling.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Systems Languages</td>
+        <td class="tools">Rust (for tooling), C++ (for CUDA kernels), Go (for infra services)</td>
+        <td class="why">Rust growing rapidly in AI tooling (Candle, Polars). C++ essential for low-level GPU work. Go for MLOps microservices.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+
+      <tr><td colspan="4" style="background:rgba(255,140,0,0.06); padding:10px 16px; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--tier2);">── DEEP LEARNING FRAMEWORKS ──</td></tr>
+      <tr>
+        <td class="cat">PyTorch Ecosystem</td>
+        <td class="tools">PyTorch 2.x, torch.compile, TorchScript, TorchServe, PyTorch Lightning, Torchvision, torchaudio</td>
+        <td class="why">The industry standard for model R&D. 85%+ of new AI research uses PyTorch. Mastery is the entry ticket to any serious AI role.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">HuggingFace Stack</td>
+        <td class="tools">Transformers, Datasets, PEFT, TRL, Accelerate, Tokenizers, Hub, Inference API</td>
+        <td class="why">The GitHub of AI models. PEFT (LoRA, QLoRA) is the practical fine-tuning standard. TRL for RLHF. Appears in ~60% of LLM job postings.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">JAX / Flax</td>
+        <td class="tools">JAX, Flax, Optax, Google TPU ecosystem</td>
+        <td class="why">Google DeepMind, Anthropic, and research labs use JAX. Required for frontier research roles. Growing adoption in production systems.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+
+      <tr><td colspan="4" style="background:rgba(0,229,255,0.06); padding:10px 16px; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent);">── MODERN MODEL INTERACTION & CONTEXT ENGINEERING ──</td></tr>
+      <tr>
+        <td class="cat">Context Engineering</td>
+        <td class="tools">Context windows, context selection, compaction, summaries, state, prompt caching, retrieval injection, tool-result management</td>
+        <td class="why">Modern AI systems are increasingly designed around managing the right information at the right time—not merely writing better prompts. Context engineering sits between prompting, retrieval and agent runtime design.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Structured Model Interfaces</td>
+        <td class="tools">JSON Schema, Pydantic, structured outputs, function/tool calling, typed events, streaming, validation and retries</td>
+        <td class="why">Production systems need machine-checkable model outputs. Typed contracts make agent tools, APIs and downstream services reliable instead of parsing free-form text.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Reasoning & Test-Time Compute</td>
+        <td class="tools">Reasoning models, adaptive reasoning effort, self-consistency, verification, decomposition, tool-assisted reasoning, search and reranking</td>
+        <td class="why">Reasoning is increasingly a runtime decision: spend more inference compute when the task justifies it, verify difficult outputs, and avoid paying frontier-model costs for simple work.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Model Routing & Cost Control</td>
+        <td class="tools">Model routers, complexity classifiers, fallback models, semantic/prompt caching, token budgets, latency budgets, cost-per-task tracking</td>
+        <td class="why">Multi-model systems are becoming the practical architecture: route easy work to cheaper/faster models, escalate difficult work, cache repeated context and measure cost per successful task.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+
+      <tr><td colspan="4" style="background:rgba(0,229,255,0.06); padding:10px 16px; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent);">── ADVANCED RAG & KNOWLEDGE SYSTEMS · UPDATE 4 ──</td></tr>
+      <tr>
+        <td class="cat">Advanced Retrieval</td>
+        <td class="tools">Hybrid BM25 + dense retrieval, metadata filtering, query rewriting, multi-query retrieval, parent-child retrieval, contextual retrieval, rerankers, late interaction</td>
+        <td class="why">Production RAG is no longer “embed chunks and search.” Retrieval quality must be deliberately engineered, measured and debugged across query types, filters and ranking stages.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Ingestion & Corpus Engineering</td>
+        <td class="tools">Document parsing, OCR-aware ingestion, deduplication, normalization, metadata schemas, document versioning, freshness policies, ACL/permission metadata, lineage, incremental re-indexing</td>
+        <td class="why">Retrieval quality is bounded by corpus quality. Learn to build governed, refreshable indexes instead of treating ingestion as a one-time PDF upload step.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Chunking & Representation</td>
+        <td class="tools">Fixed/token chunking, semantic chunking, sentence windows, parent-child chunks, overlap tuning, section-aware splitting, table/code handling, embedding model selection, dimensionality trade-offs, vector normalization</td>
+        <td class="why">Chunk boundaries and representations directly affect recall, context quality and cost. You should be able to compare strategies experimentally rather than choosing defaults blindly.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Query Transformation</td>
+        <td class="tools">Query rewriting, multi-query retrieval, HyDE, query decomposition, intent classification, metadata-aware filters, entity expansion, temporal constraints, multi-hop query planning, query routing</td>
+        <td class="why">Different question types need different retrieval behavior. Learn to transform ambiguous, underspecified and multi-hop queries before retrieval.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+      <tr>
+        <td class="cat">Reranking & Context Control</td>
+        <td class="tools">Cross-encoder reranking, late-interaction retrieval, score fusion, reciprocal-rank fusion, top-k tuning, contextual compression, redundancy removal, evidence packing, context budgets, lost-in-the-middle mitigation</td>
+        <td class="why">Retrieval candidates are not automatically good generation context. Learn the post-retrieval stage that converts recall into precise, bounded evidence.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Adaptive & Agentic Retrieval</td>
+        <td class="tools">Retrieve-or-not routing, iterative search, corrective retrieval, confidence thresholds, evidence verification, multi-hop retrieval, search budgets, retrieval stopping rules, fallback retrieval, cost-aware policies</td>
+        <td class="why">Recent research shows that adaptive retrieval must be evaluated against accuracy, retrieval usage, harm and cost—not simply turned on because it sounds more autonomous.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+      <tr>
+        <td class="cat">Access-Aware Knowledge Systems</td>
+        <td class="tools">Document ACLs, row-level permissions, tenant isolation, permission-filtered retrieval, provenance, source citations, freshness indicators, deletion propagation, audit trails, secure indexing</td>
+        <td class="why">Enterprise RAG must not retrieve information a user is not allowed to see. Authorization belongs in the retrieval layer, not as a UI afterthought.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Failure Analysis & Benchmarking</td>
+        <td class="tools">Golden datasets, adversarial queries, hard negatives, retrieval recall, precision, MRR, NDCG, answer faithfulness, citation correctness, latency/cost curves</td>
+        <td class="why">RAG improvements must be evidence-driven. Build a benchmark, classify failures and measure whether each retrieval change actually improves the target workload.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+
+      <tr>
+        <td class="cat">Agentic RAG</td>
+        <td class="tools">Query planning, iterative retrieval, retrieval verification, adaptive search depth, evidence synthesis, citation grounding, tool-mediated search</td>
+        <td class="why">Complex tasks often require multiple retrieval steps rather than one fixed top-k search. Learn when agentic retrieval improves accuracy and when deterministic retrieval is safer and cheaper.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+      <tr>
+        <td class="cat">Knowledge Graphs & GraphRAG</td>
+        <td class="tools">Entity extraction, relation extraction, graph construction, Neo4j, graph traversal, community summaries, GraphRAG patterns</td>
+        <td class="why">Graphs add explicit relationships and multi-hop structure that flat vector retrieval can miss. Especially valuable for enterprise knowledge, research and regulated domains.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+      <tr>
+        <td class="cat">RAG Evaluation & Debugging</td>
+        <td class="tools">Recall@k, Precision@k, MRR, NDCG, reranker lift, faithfulness, groundedness, citation accuracy, retrieval traces, failure taxonomy</td>
+        <td class="why">A production RAG system needs retrieval-level and answer-level evidence. Evaluate each stage independently instead of hiding retrieval failures behind a single LLM-judge score.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+
+      <tr><td colspan="4" style="background:rgba(255,183,0,0.06); padding:10px 16px; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--tier3);">── AGENT SECURITY & TRUST · UPDATE 6 ──</td></tr>
+      <tr><td class="cat">Agent Threat Modeling</td><td class="tools">Prompt injection, indirect injection, tool poisoning, confused-deputy attacks, excessive agency, data exfiltration, SSRF, supply-chain risk</td><td class="why">Agents combine probabilistic models with tools, credentials and side effects. Security must model the complete action path rather than treating the prompt as the only attack surface.</td><td class="priority"><span class="dot must"></span>MUST</td></tr>
+      <tr><td class="cat">Identity & Authorization</td><td class="tools">OAuth/OIDC, workload identity, short-lived credentials, least privilege, capability-based permissions, per-tool scopes, tenant isolation, approval policies</td><td class="why">A production agent should receive only the authority required for the current task, with explicit identity, scope and approval boundaries.</td><td class="priority"><span class="dot must"></span>MUST</td></tr>
+      <tr><td class="cat">Sandboxing & Containment</td><td class="tools">Isolated runtimes, filesystem/network controls, command allowlists, egress restrictions, secret isolation, resource quotas, kill switches, human escalation</td><td class="why">Long-running and coding agents can execute real actions. Containment, not trust in the model, is the primary safety boundary.</td><td class="priority"><span class="dot must"></span>MUST</td></tr>
+      <tr><td class="cat">Agent Security Testing</td><td class="tools">Adversarial tool tests, injection suites, malicious tool outputs, permission-boundary tests, red teaming, regression tests, provenance checks, security telemetry</td><td class="why">Security claims need repeatable tests and evidence. Build adversarial cases into CI and verify functional success and security containment together.</td><td class="priority"><span class="dot must"></span>MUST</td></tr>
+      <tr><td class="cat">Governance & Auditability</td><td class="tools">Action logs, approval records, provenance, policy engines, retention, incident response, rollback, audit trails, risk classification</td><td class="why">Enterprise agents need evidence of who authorized an action, what the agent accessed, what it changed and how to recover from failure.</td><td class="priority"><span class="dot should"></span>SHOULD</td></tr>
+
+      <tr><td colspan="4" style="background:rgba(0,229,255,0.06); padding:10px 16px; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent);">── AI CODING & AGENTIC SOFTWARE ENGINEERING · UPDATE 7 ──</td></tr>
+      <tr><td class="cat">AI-Native Software Engineering</td><td class="tools">Coding agents, repository context, AGENTS.md, task decomposition, subagents, patch generation, automated tests, code review, issue-to-PR workflows</td><td class="why">AI coding has moved beyond autocomplete toward repository-scale agents that inspect code, edit files, run tools and iterate through failures. Engineers must supervise and verify agent-produced changes.</td><td class="priority"><span class="dot must"></span>MUST</td></tr>
+      <tr><td class="cat">Coding-Agent Harnesses</td><td class="tools">Sandboxed shell execution, permission modes, hooks, context compaction, subagent orchestration, checkpoints, resumability, time/token budgets</td><td class="why">The durable skill is understanding the harness that makes repository-scale automation safe, repeatable and maintainable rather than memorizing one coding-agent product.</td><td class="priority"><span class="dot must"></span>MUST</td></tr>
+      <tr><td class="cat">Verification & Secure Code Generation</td><td class="tools">Unit/integration tests, static analysis, type checking, dependency scanning, secret detection, vulnerability testing, diff review, provenance and rollback</td><td class="why">Agent-generated code is only useful when independently verified. Tests, security checks and human review are mandatory gates.</td><td class="priority"><span class="dot must"></span>MUST</td></tr>
+      <tr><td class="cat">Agentic Developer Workflow</td><td class="tools">Issue → plan → implementation → test → review → PR, CI agents, debugging agents, documentation agents, migration agents, human approval checkpoints</td><td class="why">Modern engineering teams can compose agents into software-delivery workflows. Learn to design the workflow and its control points, not merely chat with a coding assistant.</td><td class="priority"><span class="dot should"></span>SHOULD</td></tr>
+
+      <tr><td colspan="4" style="background:rgba(255,183,0,0.06); padding:10px 16px; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--tier3);">
+      <tr>
+        <td class="cat">Fine-tuning Methods</td>
+        <td class="tools">LoRA, QLoRA, DoRA, GaLore, Adapter layers, Full fine-tuning, Unsloth, LLaMA-Factory</td>
+        <td class="why">Highest-paid skill in 2025–26. LoRA/QLoRA = practical fine-tuning on consumer GPUs. Unsloth speeds training 2–5x. Non-negotiable for LLM roles.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Alignment & RLHF</td>
+        <td class="tools">PPO, DPO, GRPO, Constitutional AI, TRL library, reward modeling, preference datasets</td>
+        <td class="why">AI safety + alignment is a $280K+ role category. DPO is replacing PPO as simpler alignment method. Required at Anthropic/OpenAI/DeepMind.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+      <tr>
+        <td class="cat">Inference Optimization</td>
+        <td class="tools">vLLM, TensorRT-LLM, GGUF/llama.cpp, Ollama, AWQ, GPTQ quantization, Speculative Decoding</td>
+        <td class="why">Production AI requires fast inference. vLLM is the standard serving framework. Quantization reduces GPU costs 4–8x. Critical for any deployment role.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+
+      <tr><td colspan="4" style="background:rgba(168,255,62,0.06); padding:10px 16px; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--tier4);">── LLM APPLICATION LAYER ──</td></tr>
+      <tr>
+        <td class="cat">Orchestration Frameworks</td>
+        <td class="tools">LangChain, LangGraph, LlamaIndex, Haystack, DSPy, Instructor</td>
+        <td class="why">Standard for building RAG systems and AI apps. LangGraph for stateful agents. DSPy for programmatic prompt optimization. In majority of AI app job postings.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Vector Databases</td>
+        <td class="tools">Pinecone, Weaviate, Qdrant, Chroma, pgvector (Postgres), Milvus, Redis Vector</td>
+        <td class="why">Foundation of every RAG system. pgvector is the enterprise-friendly choice (Postgres). Qdrant/Weaviate for pure vector workloads. Essential for AI app roles.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Agent Frameworks</td>
+        <td class="tools">LangGraph, AutoGen, CrewAI, Swarm, OpenAI Assistants API, MCP (Model Context Protocol), A2A Protocol</td>
+        <td class="why">Agentic AI is THE growth category (46% CAGR to $52B by 2030). MCP is the emerging standard for tool connectivity. Multi-agent systems: 1,445% inquiry surge (Gartner).</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Agent Harness & Reliability</td>
+        <td class="tools">Tool registries, typed contracts, state machines, step budgets, timeouts, retries/backoff, idempotency, checkpoints, human approval, sandboxing</td>
+        <td class="why">A production agent is more than an LLM loop. Reliability comes from explicit boundaries: bounded execution, recoverable failures, permission-scoped tools, durable state and human escalation for consequential actions.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">MCP 2026 Protocol & Interoperability</td>
+        <td class="tools">MCP 2026-07-28, stateless core, Streamable HTTP, server/discover, Mcp-Method/Mcp-Name routing, Multi Round-Trip Requests (MRTR), Tasks extension, MCP Apps, cache hints, trace context, OAuth/OIDC authorization, Client ID Metadata Documents (CIMD), Enterprise Managed Authorization (EMA)</td>
+        <td class="why">MCP has moved beyond a simple tool-connection tutorial. The July 2026 specification makes the protocol stateless, routable and cacheable, adds MRTR and Tasks, hardens authorization, formalizes extensions and deprecates older session/SSE patterns. Production engineers need to understand deployment, interoperability, authorization and migration—not just write an MCP server.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Agent Security</td>
+        <td class="tools">Prompt-injection defense, tool authorization, least privilege, sandboxing, secret isolation, data exfiltration controls, audit logs, approval gates</td>
+        <td class="why">Agents can act on external systems, so security moves from prompt filtering to capability control. Treat tools as privileged interfaces and assume retrieved content and tool outputs can be hostile.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">LLM APIs & Models</td>
+        <td class="tools">OpenAI API, Anthropic API, Google Gemini API, Mistral API, Groq, Together AI, Replicate, Bedrock, Vertex AI</td>
+        <td class="why">Must know multiple APIs — companies switch providers. Bedrock/Vertex for enterprise. Groq for ultra-fast inference. Multi-provider patterns are now standard architecture.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Evaluation & Evals</td>
+        <td class="tools">RAGAS, DeepEval, LangSmith, PromptLayer, Weights & Biases, Humanloop, Braintrust</td>
+        <td class="why">Production AI without evals is amateur. LangSmith for LangChain tracing. RAGAS for RAG evaluation. W&B is the gold standard experiment tracker. Recruiters ask about this.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Evaluation Engineering · UPDATE 8</td>
+        <td class="tools">Offline/online evals, golden datasets, hard negatives, LLM-as-judge calibration, pairwise preference tests, human evaluation, statistical confidence, regression suites, experiment tracking</td>
+        <td class="why">Evaluation is becoming a first-class engineering discipline. Strong AI teams measure capability, reliability and regressions with reproducible datasets and calibrated graders instead of trusting a single benchmark or model-judge score.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Agent & Trajectory Evaluation</td>
+        <td class="tools">Task success, trajectory grading, tool-call correctness, state-transition checks, recovery rate, intervention rate, failure taxonomy, evaluator-safe traces, cost per successful task</td>
+        <td class="why">Agent quality cannot be reduced to final-answer accuracy. Evaluate the complete trajectory: what the agent attempted, which tools it used, whether it recovered, how much authority it consumed and whether the task actually succeeded.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">EvalOps & Continuous Regression</td>
+        <td class="tools">CI evaluation gates, dataset versioning, prompt/model regression tests, canary evaluation, shadow traffic, judge drift monitoring, benchmark contamination checks</td>
+        <td class="why">Production AI changes constantly. Evaluation must run continuously as models, prompts, retrieval systems and tools change. Treat eval suites like software tests and block regressions before deployment.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+
+      <tr><td colspan="4" style="background:rgba(0,229,255,0.06); padding:10px 16px; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--tier5);">── MLOPS & PRODUCTION INFRASTRUCTURE ──</td></tr>
+      <tr>
+        <td class="cat">Model Serving & Deployment</td>
+        <td class="tools">FastAPI, BentoML, Triton Inference Server, Ray Serve, Modal, Replicate, Hugging Face Inference Endpoints</td>
+        <td class="why">FastAPI is the de facto API standard. Ray Serve for distributed serving. Modal is the new darling for serverless GPU. Triton for NVIDIA enterprise. Must know at least 2.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">MLOps Platforms</td>
+        <td class="tools">MLflow, Weights & Biases, DVC, ClearML, Metaflow, ZenML, Kubeflow Pipelines, Vertex AI Pipelines</td>
+        <td class="why">MLOps appears in 17.6% of all AI job postings. MLflow is the open-source standard. W&B is the startup favorite. Kubeflow for Kubernetes-native pipelines. Know MLflow deeply.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Container & Orchestration</td>
+        <td class="tools">Docker, Kubernetes (K8s), Helm, Kustomize, k3s, K8s GPU operator, NVIDIA container toolkit</td>
+        <td class="why">Kubernetes appears in 17.6% of AI job postings. Docker is universal. GPU-aware K8s is essential for production ML. Not optional at any senior level.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Cloud AI Platforms</td>
+        <td class="tools">AWS (SageMaker, Bedrock, EC2 GPU), GCP (Vertex AI, TPUs), Azure (Azure OpenAI, ML Studio), Lambda Labs, CoreWeave</td>
+        <td class="why">Cloud certifications add $20–40K to salaries. AWS most widely used. GCP for research (TPUs). Azure for enterprise Microsoft shops. Pick one deeply, know all three surfaces.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">CI/CD for ML</td>
+        <td class="tools">GitHub Actions, GitLab CI, ArgoCD, Tekton, Jenkins X, automated model retraining pipelines</td>
+        <td class="why">Continuous training and deployment is table stakes at any mature AI org. GitHub Actions + MLflow + Docker + K8s is the standard CI/CD pattern for ML systems.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+
+      <tr><td colspan="4" style="background:rgba(212,168,83,0.06); padding:10px 16px; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold);">── DATA ENGINEERING & STORAGE ──</td></tr>
+      <tr>
+        <td class="cat">Data Processing</td>
+        <td class="tools">Pandas, Polars (faster), PySpark, DuckDB, Apache Arrow, Great Expectations, Dask</td>
+        <td class="why">Polars is replacing Pandas in performance-critical contexts. DuckDB for analytical queries. Arrow for columnar in-memory. Data quality with Great Expectations is increasingly standard.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Data Pipelines</td>
+        <td class="tools">Apache Kafka, Airflow, Prefect, Dagster, dbt, Fivetran, Airbyte</td>
+        <td class="why">Real-time inference needs real-time data. Kafka for streaming. Prefect/Dagster for modern orchestration (better than Airflow). dbt for SQL transform layer. Know at least one.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+      <tr>
+        <td class="cat">Databases</td>
+        <td class="tools">PostgreSQL + pgvector, Redis, MongoDB, Cassandra, ClickHouse, Snowflake, BigQuery</td>
+        <td class="why">pgvector makes Postgres your vector DB — one less service to manage. ClickHouse for analytics at scale. Snowflake/BigQuery for data warehousing at enterprise scale.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+
+      <tr><td colspan="4" style="background:rgba(94,122,150,0.1); padding:10px 16px; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);">── EMERGING / 2026–2030 FRONTIER ──</td></tr>
+      <tr>
+        <td class="cat">Multimodal AI · UPDATE 10</td>
+        <td class="tools">Vision-language models, audio-language models, video understanding, speech-to-speech, document AI, multimodal embeddings, multimodal RAG, cross-modal grounding</td>
+        <td class="why">Multimodal engineering is now a systems discipline: understand modality-specific preprocessing, shared representations, grounding, latency, context management and cross-modal evaluation rather than memorizing model names.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Computer-Use & Digital Agents · UPDATE 10</td>
+        <td class="tools">Computer-use models, browser automation, Playwright, screenshots, mouse/keyboard action spaces, GUI grounding, confirmation policies, isolated desktops, task recovery</td>
+        <td class="why">Computer-use agents turn multimodal perception into real actions across software. Current frontier systems combine vision, reasoning and action, so engineers need to understand both the execution loop and its safety/evaluation boundary.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+      <tr>
+        <td class="cat">Multimodal Evaluation · UPDATE 10</td>
+        <td class="tools">OCR accuracy, visual grounding, chart/document understanding, speech WER, audio quality, video temporal grounding, cross-modal consistency, OSWorld/WebArena-style task success</td>
+        <td class="why">Multimodal systems fail differently from text-only systems. Evaluate perception, grounding and action separately, then measure end-to-end task success, latency and intervention rate.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Reasoning & Search</td>
+        <td class="tools">Reasoning models, adaptive reasoning effort, verification, self-consistency, search, process supervision, tool-assisted reasoning</td>
+        <td class="why">Reasoning should be treated as a model/runtime capability rather than a single vendor feature. Learn how to allocate inference compute, verify difficult outputs and measure quality versus latency and cost.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+      <tr>
+        <td class="cat">AI Observability</td>
+        <td class="tools">Datadog AI, Arize AI, Evidently AI, Phoenix (Arize), Grafana + Prometheus for ML</td>
+        <td class="why">Production AI needs monitoring for drift, hallucination, cost, and latency. Evidently is the open-source leader. Arize for enterprise. This skill is what separates deployment-competent engineers.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+      <tr>
+        <td class="cat">GPU / Hardware Layer</td>
+        <td class="tools">CUDA basics, Triton (OpenAI's GPU kernel language), FlashAttention, xFormers, DeepSpeed, FSDP</td>
+        <td class="why">FSDP and DeepSpeed are essential for training large models across multiple GPUs. FlashAttention is now standard in all serious transformer implementations. CUDA basics for optimization debugging.</td>
+        <td class="priority"><span class="dot nice"></span>NICE</td>
+      </tr>
+      <tr>
+        <td class="cat">Inference Engineering · UPDATE 9</td>
+        <td class="tools">vLLM, SGLang, TensorRT-LLM, continuous batching, KV-cache management, prefix caching, speculative decoding, quantization, FP8/INT8/INT4, model routing</td>
+        <td class="why">Inference has become a core production workload. Engineers need to optimize throughput, time-to-first-token, inter-token latency, memory usage and cost per successful task—not merely deploy an endpoint.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Distributed Training & Communication</td>
+        <td class="tools">PyTorch FSDP/FSDP2, DeepSpeed ZeRO, tensor parallelism, pipeline parallelism, sequence/context parallelism, NCCL collectives, checkpointing and fault tolerance</td>
+        <td class="why">Large-model training is a systems problem. Understand memory sharding, communication overhead, collective operations, checkpoint recovery and the tradeoff between scaling efficiency and engineering complexity.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">GPU Kernel & Performance Engineering</td>
+        <td class="tools">CUDA memory hierarchy, occupancy, register pressure, shared memory, coalescing, kernel fusion, CUDA Graphs, Triton kernels, Nsight Systems, Nsight Compute</td>
+        <td class="why">GPU-aware AI engineering requires understanding why workloads are slow. Profile first, identify memory or compute bottlenecks, then optimize kernels and runtime behavior with evidence.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+      <tr>
+        <td class="cat">Inference SLOs & Economics</td>
+        <td class="tools">TTFT, TPOT, P50/P95/P99 latency, tokens/sec, GPU utilization, batching efficiency, cost/token, cost/task, autoscaling and capacity planning</td>
+        <td class="why">Inference performance directly affects product economics. Learn to connect model/runtime choices to latency SLOs, GPU utilization and unit cost so optimization decisions can be defended quantitatively.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">Production AI Reliability · UPDATE 11</td>
+        <td class="tools">OpenTelemetry, Prometheus, Grafana, distributed tracing, SLOs/SLIs, error budgets, retries, circuit breakers, rate limits, canary releases, rollback, incident response, chaos testing</td>
+        <td class="why">Production AI is a distributed system with probabilistic components. Reliability requires measurable service objectives, correlated model/tool traces, graceful degradation, safe releases and an explicit incident-response loop.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">AI Unit Economics · UPDATE 11</td>
+        <td class="tools">Cost/request, cost/task, cost/successful outcome, token budgets, GPU-hour economics, utilization, cache hit rate, model routing, workload placement, capacity forecasting</td>
+        <td class="why">Token price alone is not the production bill. Current 2026 FinOps practice is expanding toward AI ownership, inference economics, infrastructure, observability and value attribution. Optimize the full system, not one API line item.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">AI FinOps & Capacity · UPDATE 11</td>
+        <td class="tools">Budget alerts, spend attribution, anomaly detection, reserved/spot capacity, GPU right-sizing, autoscaling, bin packing, commitment planning, chargeback/showback</td>
+        <td class="why">AI spend is volatile and increasingly material. Engineers need to connect workload owners to infrastructure bills, detect runaway agents and choose between API, self-hosted and hybrid serving using total-cost evidence.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+      <tr>
+        <td class="cat">AI Governance & Operational Control · UPDATE 11</td>
+        <td class="tools">Model inventory, data lineage, audit trails, policy enforcement, approval gates, risk registers, incident records, model/version provenance, retention and access controls</td>
+        <td class="why">Enterprise AI is moving from pilot to governed production. Governance must be operational: know what models and agents exist, who owns them, what they can access, what changed, what happened and how to stop or roll back unsafe behavior.</td>
+        <td class="priority"><span class="dot must"></span>MUST</td>
+      </tr>
+      <tr>
+        <td class="cat">AI Production TCO</td>
+        <td class="tools">Inference + backend + vector DB + storage + networking + observability + human review + maintenance + failure/rework + engineering cost</td>
+        <td class="why">A production AI application's economics extend beyond model calls. Build bottom-up TCO models and compare architectures using unit economics, reliability and business outcome—not headline $/million-token pricing alone.</td>
+        <td class="priority"><span class="dot should"></span>SHOULD</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 3: 12-MONTH ROADMAP           -->
+<!-- ═══════════════════════════════════════ -->
+<div id="roadmap">
+<div class="section-divider"><span>03 — The 12-Month Battle Plan</span></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">Month by Month</div>
+    <h2 class="section-title">Your 12-Month Transformation Roadmap</h2>
+    <p class="section-desc">Three distinct phases. Start applying at month 3. Land your first offer by month 5–6. Be a senior candidate by month 12. Every month has a non-negotiable deliverable — the project that proves you're real.</p>
+  </div>
+
+  <div class="callout win">
+    <strong>The Core Strategy:</strong> Don't try to learn everything. Pick the <em>AI Application Engineer → Agent Engineer → Senior ML Engineer</em> track. Build real projects. Deploy them publicly. Write about what you learn. Let recruiters come to you by month 4–5.
+  </div>
+
+  <!-- PHASE 1 -->
+  <div style="margin: 40px 0 20px; font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--accent); letter-spacing:0.12em; text-transform:uppercase;">
+    ▸ PHASE 1: FOUNDATION (Months 1–3) — Build the Core, Ship Something Real
+  </div>
+
+  <div class="months-grid">
+
+    <div class="month-card" data-month="01">
+      <div class="month-num">Month 01</div>
+      <div class="month-title">Python Mastery + ML Foundations</div>
+      <div class="month-phase">Phase 1 · Week 1–4 · No job applications yet</div>
+
+      <div class="month-section-label">Learn</div>
+      <ul class="month-items">
+        <li>Python deep dive: async/await, type hints, Pydantic, decorators, generators, profiling with cProfile</li>
+        <li>NumPy, Pandas fundamentals — vectorized operations, groupby, merge, time-series</li>
+        <li>Linear Algebra, Probability, Statistics refresh (3Blue1Brown + fast.ai)</li>
+        <li>Git + GitHub: branching strategy, PRs, conventional commits, GitHub Actions basics</li>
+        <li>Docker: write Dockerfiles, compose files, push to Docker Hub</li>
+      </ul>
+
+      <div class="month-section-label">Tech Stack This Month</div>
+      <div class="tech-chips">
+        <span class="tech-chip">Python 3.11+</span>
+        <span class="tech-chip">NumPy</span>
+        <span class="tech-chip">Pandas</span>
+        <span class="tech-chip">Pydantic v2</span>
+        <span class="tech-chip">Docker</span>
+        <span class="tech-chip">Git/GitHub</span>
+      </div>
+
+      <div class="month-section-label">Courses / Resources</div>
+      <ul class="month-items">
+        <li>fast.ai — Practical Deep Learning for Coders (Part 1, free)</li>
+        <li>3Blue1Brown — Essence of Linear Algebra + Neural Networks series (YouTube, free)</li>
+        <li>Andrej Karpathy — Neural Networks: Zero to Hero (YouTube, free)</li>
+        <li>Real Python for advanced Python patterns</li>
+      </ul>
+
+      <div class="deliverable-box">
+        <div class="d-label">🎯 Month 1 Deliverable</div>
+        <div class="d-items">
+          Build & deploy a <strong>live ML model API</strong>: Train a scikit-learn or XGBoost model on a public dataset (e.g., Kaggle housing prices). Wrap it in FastAPI. Dockerize it. Deploy to Railway or Render (free tier). Write a 500-word blog post explaining what you built and why. This is GitHub repo #1.
+        </div>
+      </div>
+    </div>
+
+    <div class="month-card" data-month="02">
+      <div class="month-num">Month 02</div>
+      <div class="month-title">PyTorch + Deep Learning + HuggingFace</div>
+      <div class="month-phase">Phase 1 · Week 5–8 · Building depth</div>
+
+      <div class="month-section-label">Learn</div>
+      <ul class="month-items">
+        <li>PyTorch from scratch: tensors, autograd, nn.Module, DataLoader, training loops</li>
+        <li>CNNs, RNNs, Transformer architecture — implement each from scratch</li>
+        <li>HuggingFace Transformers: load pre-trained models, tokenizers, pipelines</li>
+        <li>HuggingFace Datasets: download, preprocess, push your own dataset to Hub</li>
+        <li>Weights & Biases: experiment tracking, sweep hyperparameters, visualize training</li>
+        <li>FastAPI: authentication, background tasks, async endpoints, Swagger docs</li>
+      </ul>
+
+      <div class="month-section-label">Tech Stack This Month</div>
+      <div class="tech-chips">
+        <span class="tech-chip">PyTorch 2.x</span>
+        <span class="tech-chip">HuggingFace Transformers</span>
+        <span class="tech-chip">Weights & Biases</span>
+        <span class="tech-chip">FastAPI</span>
+        <span class="tech-chip">Scikit-learn</span>
+      </div>
+
+      <div class="month-section-label">Courses / Resources</div>
+      <ul class="month-items">
+        <li>Andrej Karpathy — "Let's build GPT from scratch" (YouTube)</li>
+        <li>HuggingFace NLP Course (free, huggingface.co/course)</li>
+        <li>PyTorch official tutorials + Lightning AI intro</li>
+        <li>fast.ai Part 2 — Deep Learning Foundations</li>
+      </ul>
+
+      <div class="deliverable-box">
+        <div class="d-label">🎯 Month 2 Deliverable</div>
+        <div class="d-items">
+          <strong>Fine-tuned NLP model</strong>: Take a BERT or DistilBERT model from HuggingFace, fine-tune it on a classification task (sentiment analysis of Indian stock news, or Bengali/Hindi tweet sentiment — make it contextual to you). Deploy via FastAPI + Docker. Track experiments on W&B. Write a detailed write-up. Push everything to GitHub with a beautiful README.
+        </div>
+      </div>
+    </div>
+
+    <div class="month-card" data-month="03">
+      <div class="month-num">Month 03</div>
+      <div class="month-title">LLM APIs + RAG Systems + First Agent</div>
+      <div class="month-phase">Phase 1 → 2 · Week 9–12 · Start applying at end of this month</div>
+
+      <div class="month-section-label">Learn</div>
+      <ul class="month-items">
+        <li>LLM interfaces: function/tool calling, structured outputs, JSON Schema, streaming and typed validation</li>
+        <li>Context engineering: context selection, ordering, compression, summaries, state and prompt/context caching</li>
+        <li>Model routing: choose models by task difficulty, quality, latency, context needs and cost</li>
+        <li>RAG foundations: chunking strategies, embeddings, similarity search and metadata filtering</li>
+        <li>Advanced retrieval: BM25 + dense hybrid search, query rewriting, multi-query retrieval, parent-child/contextual retrieval and reranking</li>
+        <li>RAG evaluation: Recall@k, Precision@k, MRR/NDCG, groundedness, faithfulness, citation accuracy and retrieval-failure taxonomy</li>
+        <li>Vector databases: set up Chroma locally, Qdrant in Docker, pgvector in Postgres; understand indexes, filtering and trade-offs</li>
+        <li>Reasoning-model usage: adaptive reasoning effort, decomposition, verification and cost-aware escalation</li>
+      </ul>
+
+      <div class="month-section-label">Tech Stack This Month</div>
+      <div class="tech-chips">
+        <span class="tech-chip">OpenAI / Anthropic SDKs</span>
+        <span class="tech-chip">Pydantic</span>
+        <span class="tech-chip">Structured Outputs</span>
+        <span class="tech-chip">Context Engineering</span>
+        <span class="tech-chip">LangGraph</span>
+        <span class="tech-chip">LlamaIndex</span>
+        <span class="tech-chip">pgvector</span>
+        <span class="tech-chip">Chroma</span>
+        <span class="tech-chip">Qdrant</span>
+        <span class="tech-chip">BM25</span>
+        <span class="tech-chip">Rerankers</span>
+        <span class="tech-chip">RAG Evaluation</span>
+      </div>
+
+      <div class="month-section-label">Courses / Resources</div>
+      <ul class="month-items">
+        <li>DeepLearning.AI — LangChain for LLM Application Development (free, 1-week course)</li>
+        <li>DeepLearning.AI — Building Systems with the ChatGPT API (free)</li>
+        <li>Full Stack LLM Bootcamp — LLMOps (YouTube playlist)</li>
+        <li>Pinecone Learning Center — RAG from scratch (free)</li>
+      </ul>
+
+      <div class="deliverable-box">
+        <div class="d-label">🎯 Month 3 Deliverable — YOUR FLAGSHIP PROJECT</div>
+        <div class="d-items">
+          Build a <strong>production RAG application</strong> with a real domain: e.g., "Chat with Indian Tax Laws (GST)" or "AI Research Paper Summarizer" or "Local Business Intelligence Agent". Must have: governed ingestion, proper chunking, metadata filtering, hybrid search (semantic + keyword), query rewriting or multi-query retrieval, reranking, structured outputs, context budgeting, access-aware retrieval, streaming responses, retrieval-level and answer-level evaluation, a real UI (Streamlit or Next.js), and public deployment (Vercel/Railway). Record Recall@k/Precision@k or MRR/NDCG, answer quality, groundedness/citation accuracy, latency and approximate cost per task. Include a short failure analysis showing where retrieval fails and what you changed. This becomes the first measurable production artifact in the portfolio. <strong>Write a LinkedIn post about it. This is your public signal.</strong>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end months-grid phase 1 -->
+
+  <!-- PHASE 2 -->
+  <div class="callout" style="margin:24px 0 20px">
+    <strong>UPDATE 4 — ADVANCED RAG & KNOWLEDGE SYSTEMS:</strong> Retrieval is treated as an engineered subsystem rather than a vector-database add-on. The curriculum now moves from ingestion and chunking through hybrid retrieval, query transformation, reranking, graph retrieval, agentic/adaptive retrieval and subsystem-level evaluation. The goal is to diagnose retrieval failures, quantify quality/cost/latency trade-offs and build RAG systems that remain reliable as the corpus and query distribution change.
+  </div>
+
+  <div class="callout" style="margin-top:12px;">
+    <strong>UPDATE 5 — MCP 2026 PROTOCOL & INTEROPERABILITY:</strong> MCP is now taught as production infrastructure rather than a simple tool-server tutorial. The curriculum targets the <strong>2026-07-28</strong> specification: stateless protocol core, Streamable HTTP, server discovery, header-based routing, cacheable list results, Multi Round-Trip Requests (MRTR), Tasks, MCP Apps, trace context, OAuth/OIDC authorization hardening, CIMD and enterprise-managed authorization. Legacy session/SSE patterns and deprecated primitives are treated as migration knowledge rather than the target architecture.
+  </div>
+
+  <div class="callout" style="margin-top:12px; border-left-color:#ff4d6d;">
+    <strong>UPDATE 6 — AGENT SECURITY & TRUST:</strong> Agents are treated as privileged software actors. The curriculum covers threat modeling, identity, least privilege, sandboxing, secret isolation, adversarial testing, auditability, containment and incident response. Security is validated through executable tests rather than a generic AI-safety checklist.
+  </div>
+
+  <div class="callout" style="margin-top:12px;">
+    <strong>UPDATE 7 — AI CODING & AGENTIC SOFTWARE ENGINEERING:</strong> Coding agents are treated as software-engineering systems: repository context, task decomposition, subagents, sandboxed execution, automated verification, secure code review, CI gates, provenance and rollback. The objective is controlled agent-assisted delivery—not merely AI autocomplete.
+  </div>
+
+  <div style="margin: 40px 0 20px; font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--accent2); letter-spacing:0.12em; text-transform:uppercase;">
+    ▸ PHASE 2: DEPTH + JOB HUNT (Months 4–7) — Apply, Deploy, Get Hired
+  </div>
+
+  <div class="months-grid">
+
+    <div class="month-card" data-month="04">
+      <div class="month-num">Month 04</div>
+      <div class="month-title">Agentic AI + LangGraph + MLOps Basics</div>
+      <div class="month-phase">Phase 2 · Week 13–16 · Active job applications begin</div>
+
+      <div class="month-section-label">Learn</div>
+      <ul class="month-items">
+        <li>LangGraph: stateful agents, conditional edges, parallel node execution, checkpoints and human-in-the-loop</li>
+        <li>Agent harness design: explicit state, typed tool contracts, step budgets, timeouts, retries, backoff and deterministic stop conditions</li>
+        <li>Tool security: least-privilege permissions, scoped credentials, secret isolation, sandboxing and approval gates for destructive actions</li>
+        <li>Multi-agent patterns: Supervisor, Swarm, hierarchical agents, planner/executor/reviewer — and when a deterministic workflow is better</li>
+        <li>Agent observability: trace every model call, tool call, state transition, failure and retry; define success and failure metrics</li>
+        <li>MLflow: experiment tracking, model registry, model serving, project structure</li>
+        <li>GitHub Actions: CI/CD for ML — auto-test, eval gates, model versioning and deployment checks on push</li>
+        <li>AWS basics: EC2 GPU instances, S3, IAM, Elastic Container Registry</li>
+        <li>MCP 2026-07-28 architecture: stateless request handling, Streamable HTTP, server discovery and explicit application state handles</li>
+        <li>MCP routing and caching: Mcp-Method/Mcp-Name headers, cacheable list/resource results, W3C trace-context propagation and gateway observability</li>
+        <li>Multi Round-Trip Requests (MRTR): input-required flows, elicitation/approval patterns and retrying calls with request state</li>
+        <li>Tasks extension: task handles, tasks/get, tasks/update, cancellation, polling and long-running agent work</li>
+        <li>MCP authorization: issuer validation, credential binding, OAuth/OIDC concepts, Client ID Metadata Documents (CIMD) and enterprise-managed authorization</li>
+        <li>MCP lifecycle and compatibility: extensions, MCP Apps, deprecation policy, legacy HTTP+SSE migration and version-aware clients/servers</li>
+        <li>Agent threat modeling: prompt injection, indirect injection, malicious tool output, confused-deputy attacks, excessive agency, SSRF and data exfiltration paths</li>
+        <li>Agent authorization: short-lived credentials, per-tool scopes, least privilege, workload identity, approval policies and tenant boundaries</li>
+        <li>Containment engineering: sandboxed execution, filesystem/network egress controls, secret isolation, resource quotas and emergency kill switches</li>
+      </ul>
+
+      <div class="month-section-label">Tech Stack This Month</div>
+      <div class="tech-chips">
+        <span class="tech-chip">LangGraph</span>
+        <span class="tech-chip">Typed Tool Contracts</span>
+        <span class="tech-chip">Agent Harness</span>
+        <span class="tech-chip">Sandboxing</span>
+        <span class="tech-chip">OpenTelemetry</span>
+        <span class="tech-chip">MLflow</span>
+        <span class="tech-chip">GitHub Actions</span>
+        <span class="tech-chip">AWS EC2/S3</span>
+        <span class="tech-chip">MCP 2026-07-28</span>
+        <span class="tech-chip">Streamable HTTP</span>
+        <span class="tech-chip">MRTR</span>
+        <span class="tech-chip">Tasks Extension</span>
+        <span class="tech-chip">MCP Apps</span>
+        <span class="tech-chip">OAuth/OIDC</span>
+        <span class="tech-chip">CIMD / EMA</span>
+        <span class="tech-chip">Agent Threat Modeling</span>
+        <span class="tech-chip">Least Privilege</span>
+        <span class="tech-chip">Sandboxing</span>
+        <span class="tech-chip">Security Evals</span>
+      </div>
+
+      <div class="month-section-label">Job Applications — Target These Now</div>
+      <ul class="month-items">
+        <li>Prompt Engineer / AI Workflow Designer roles at YC startups (workatastartup.com)</li>
+        <li>AI Application Engineer roles at Series A–B companies</li>
+        <li>Junior/Mid MLOps Engineer roles at scale-ups</li>
+        <li>Contract/freelance AI roles on Toptal, Arc.dev (start building paid work history)</li>
+      </ul>
+
+      <div class="deliverable-box">
+        <div class="d-label">🎯 Month 4 Deliverable</div>
+        <div class="d-items">
+          Build a <strong>production-grade agent system</strong>: e.g., "AI Startup Research Agent" that researches a company, synthesizes evidence and sends a brief. Use LangGraph for orchestration, but build an explicit harness around it: typed tools, permission-scoped credentials, step/time budgets, retries with idempotency, checkpointed state, human approval before external actions, sandboxing and full traces. Add an adversarial test set for prompt injection, malicious tool output and unauthorized tool use. <strong>Expose at least one production capability through an MCP 2026-07-28-compatible remote server.</strong> Demonstrate stateless Streamable HTTP requests, server discovery, header-based routing, an MRTR approval flow or Tasks-based long-running operation, authorization, trace propagation and a documented compatibility/deprecation strategy. Deploy behind a load balancer and publish failure/recovery plus MCP latency/error metrics. Add a security report documenting the threat model, privilege boundaries, adversarial cases, containment tests and incident-response procedure. <strong>This is your first agent-systems proof of work — not another toy chatbot.</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="month-card" data-month="05">
+      <div class="month-num">Month 05</div>
+      <div class="month-title">LLM Fine-tuning + Kubernetes + Interview Prep</div>
+      <div class="month-phase">Phase 2 · Week 17–20 · First offers possible this month</div>
+
+      <div class="month-section-label">Learn</div>
+      <ul class="month-items">
+        <li>LoRA and QLoRA fine-tuning: use Unsloth to fine-tune Llama 3 / Mistral 7B on a domain dataset</li>
+        <li>PEFT library: understand LoRA math, rank, alpha, target modules</li>
+        <li>Kubernetes fundamentals: pods, deployments, services, ConfigMaps, GPU node pools</li>
+        <li>Model evaluation: RAGAS for RAG evaluation, LLM-as-judge patterns, benchmark design</li>
+        <li>System design for ML: designing ML systems at scale (Alex Xu's ML System Design book)</li>
+        <li>LeetCode: 2–3 problems/day, focus on Arrays, HashMaps, DP, Graphs (Medium level)</li>
+      </ul>
+
+      <div class="month-section-label">Tech Stack This Month</div>
+      <div class="tech-chips">
+        <span class="tech-chip">Unsloth</span>
+        <span class="tech-chip">LoRA/QLoRA</span>
+        <span class="tech-chip">PEFT</span>
+        <span class="tech-chip">RAGAS</span>
+        <span class="tech-chip">Kubernetes</span>
+        <span class="tech-chip">Helm</span>
+        <span class="tech-chip">DeepEval</span>
+      </div>
+
+      <div class="month-section-label">Interview Prep This Month</div>
+      <ul class="month-items">
+        <li>ML system design: practice 2 systems/week (recommendation engine, fraud detection, RAG system)</li>
+        <li>ML fundamentals: bias-variance, regularization, attention mechanism, RLHF pipeline</li>
+        <li>Behavioral: STAR method stories for "tell me about a project", "failure", "impact"</li>
+        <li>Mock interviews: Pramp, Exponent, Interviewing.io</li>
+      </ul>
+
+      <div class="deliverable-box">
+        <div class="d-label">🎯 Month 5 Deliverable</div>
+        <div class="d-items">
+          <strong>Fine-tuned domain model</strong>: Fine-tune a 7B parameter LLM (Llama 3 8B or Mistral 7B) on a specific domain (medical Q&A, Indian legal judgments, code generation for a specific framework). Use Unsloth + QLoRA. Push the fine-tuned model to HuggingFace Hub. Write a detailed technical blog. This puts you on the HuggingFace leaderboard radar.
+        </div>
+      </div>
+    </div>
+
+    <div class="month-card" data-month="06">
+      <div class="month-num">Month 06</div>
+      <div class="month-title">Full Deployment + Land Your First Role</div>
+      <div class="month-phase">Phase 2 · Week 21–24 · TARGET: First offer signed</div>
+
+      <div class="month-section-label">Learn</div>
+      <ul class="month-items">
+        <li>vLLM: set up a production inference server, batching, continuous batching, quantized serving</li>
+        <li>Ray: distributed computing, Ray Serve for model serving, Ray Data for distributed preprocessing</li>
+        <li>Monitoring: set up Evidently AI + Grafana for model drift monitoring</li>
+        <li>Terraform basics: provision AWS infrastructure as code</li>
+        <li>Cost optimization: GPU cost calculators, spot instances, model distillation strategy</li>
+      </ul>
+
+      <div class="month-section-label">Tech Stack This Month</div>
+      <div class="tech-chips">
+        <span class="tech-chip">vLLM</span>
+        <span class="tech-chip">Ray Serve</span>
+        <span class="tech-chip">Evidently AI</span>
+        <span class="tech-chip">Grafana</span>
+        <span class="tech-chip">Terraform</span>
+        <span class="tech-chip">Modal</span>
+      </div>
+
+      <div class="month-section-label">Job Push — Maximum Intensity</div>
+      <ul class="month-items">
+        <li>Apply to 10–15 targeted roles/week (quality over quantity — tailored cover letters)</li>
+        <li>Cold DM 5 founders/CTOs per week on LinkedIn with your specific project work</li>
+        <li>Post your Month 5 fine-tuning project write-up on LinkedIn — tag the model creators</li>
+        <li>Submit to YC Work at a Startup — fill out profile completely</li>
+      </ul>
+
+      <div class="deliverable-box">
+        <div class="d-label">🎯 Month 6 Goal: First Paid AI Role</div>
+        <div class="d-items">
+          This is the target landing date for your <strong>first remote AI role</strong> — either full-time (AI Application Engineer, MLOps, or AI Agent Developer at $120K–$160K) or a high-value contract ($80–$120/hr freelance through Arc.dev or Toptal). Accept it. Start generating USD income. Continue building skills in months 7–12 while employed.
+        </div>
+      </div>
+    </div>
+
+    <div class="month-card" data-month="07">
+      <div class="month-num">Month 07</div>
+      <div class="month-title">While Employed: Go Deep on ML Systems</div>
+      <div class="month-phase">Phase 2 → 3 · Week 25–28 · Employed + leveling up</div>
+
+      <div class="month-section-label">Learn (1–2 hrs/day while working)</div>
+      <ul class="month-items">
+        <li>Stanford CS329S: Machine Learning Systems Design (free, YouTube)</li>
+        <li>Designing Machine Learning Systems by Chip Huyen — read and implement chapters</li>
+        <li>Feature stores: Feast, Tecton — understand online vs offline feature serving</li>
+        <li>Streaming ML: Kafka + Flink for real-time inference pipelines</li>
+        <li>Model distillation: teacher-student training, knowledge distillation techniques</li>
+      </ul>
+
+        <li>AI-native software engineering: use coding agents to inspect repositories, plan changes, edit files, run tests and iterate through failures</li>
+        <li>Repository context: AGENTS.md, architecture notes, codebase maps, scoped context, context compaction and durable task state</li>
+        <li>Agentic code review: require tests, type checks, static analysis, dependency/security scans and human diff review before merge</li>
+        <li>Agent harness controls: sandboxed shell, permission modes, hooks, subagents, checkpoints, time/token budgets and rollback</li>
+        <li>Issue-to-PR workflow: issue triage → plan → implementation → test → review → CI → merge, with human approval at high-risk boundaries</li>
+
+      <div class="month-section-label">Career Actions</div>
+      <ul class="month-items">
+        <li>Contribute to 1 open-source AI project (LangChain, LlamaIndex, or Haystack)</li>
+        <li>Write 2 technical blog posts on your work (Medium / personal site / Substack)</li>
+        <li>Start building a newsletter or Twitter/X thread series on AI engineering insights</li>
+        <li>Get 1 AWS certification: AWS Certified Machine Learning Specialty</li>
+      </ul>
+
+      <div class="deliverable-box">
+        <div class="d-label">🎯 Month 7 Deliverable</div>
+        <div class="d-items">
+          <strong>Open-source contribution merged</strong> to a major AI library. Even a documentation fix or small bug fix counts. Being a contributor to LangChain, LlamaIndex, or HuggingFace puts you on the map in a way that no amount of personal projects can match.
+        </div>
+      </div>
+    </div>
+
+  <div class="callout warn" style="margin-top:26px">
+    <strong>Agent Production Gate:</strong> Before calling an agent "production-ready," you must be able to show its allowed tools, permission boundaries, maximum steps, timeout behavior, retry policy, state/checkpoint strategy, human-approval points, prompt-injection tests, traces, cost/latency metrics and rollback path. A demo that succeeds once is not evidence of reliability.
+  </div>
+
+  </div><!-- end phase 2 months -->
+
+  <!-- PHASE 3 -->
+  <div style="margin: 40px 0 20px; font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--accent3); letter-spacing:0.12em; text-transform:uppercase;">
+    ▸ PHASE 3: SENIOR TRAJECTORY (Months 8–12) — $200K+ Target, Maximum Leverage
+  </div>
+
+  <div class="months-grid">
+
+    <div class="month-card" data-month="08">
+      <div class="month-num">Month 08</div>
+      <div class="month-title">Evaluation Engineering + AI Reliability</div>
+      <div class="month-phase">Phase 3 · Week 29–32</div>
+
+      <div class="month-section-label">Learn</div>
+      <ul class="month-items">
+        <li>Evaluation methodology: define task success, quality dimensions, failure taxonomies, acceptance thresholds and measurable SLOs before choosing a model</li>
+        <li>Golden datasets: curate representative cases, edge cases, hard negatives, adversarial examples and versioned evaluation sets</li>
+        <li>LLM-as-judge: pairwise grading, rubric design, judge calibration, inter-rater agreement, bias checks and human spot-checking</li>
+        <li>Agent evaluation: trajectory success, tool-call correctness, state transitions, recovery rate, intervention rate and cost per successful task</li>
+        <li>RAG evaluation: retrieval recall/precision, MRR/NDCG, groundedness, faithfulness, citation correctness and end-to-end answer quality</li>
+        <li>Regression engineering: prompt/model changes, retrieval changes, tool changes and agent-policy changes must trigger automated evaluation</li>
+        <li>Online evaluation: shadow traffic, canaries, A/B tests, production feedback loops and monitoring for judge/model drift</li>
+        <li>Evaluation statistics: confidence intervals, bootstrap comparisons, significance versus practical significance and sample-size reasoning</li>
+        <li>Security/reliability evals: prompt injection, malicious tool output, refusal boundaries, data leakage and recovery from tool failures</li>
+        <li>Multimodal evaluation: vision-language grounding, OCR/document extraction, audio/speech quality and cross-modal consistency</li>
+      </ul>
+
+      <div class="tech-chips" style="margin-top:12px">
+        <span class="tech-chip">DeepEval</span>
+        <span class="tech-chip">RAGAS</span>
+        <span class="tech-chip">lm-eval-harness</span>
+        <span class="tech-chip">Phoenix</span>
+        <span class="tech-chip">W&amp;B</span>
+      </div>
+
+      <div class="deliverable-box">
+        <div class="d-label">🎯 Month 8 Deliverable</div>
+        <div class="d-items">
+          Build and publish a <strong>production-grade evaluation suite</strong> for a specific AI system. Create a versioned golden dataset, adversarial set and failure taxonomy; compare 3–4 models/agents; calibrate an LLM judge against human labels; measure task success, trajectory/tool correctness, retrieval quality, latency and cost; then add an automated CI regression gate and a canary/shadow evaluation path. The artifact must show exactly how a model or prompt change is accepted or rejected.
+        </div>
+      </div>
+    </div>
+
+    <div class="month-card" data-month="09">
+      <div class="month-num">Month 09</div>
+      <div class="month-title">Inference Engineering + GPU Systems</div>
+      <div class="month-phase">Phase 3 · Week 33–36</div>
+
+      <div class="month-section-label">Learn</div>
+      <ul class="month-items">
+        <li>Inference runtimes: vLLM and SGLang architecture, continuous batching, scheduling and request prioritization</li>
+        <li>KV cache engineering: memory layout, prefix caching, cache reuse, eviction and long-context tradeoffs</li>
+        <li>Quantization: FP8, INT8, INT4, GPTQ/AWQ-style approaches, calibration and quality/cost tradeoffs</li>
+        <li>Speculative decoding and decoding optimizations: when they improve latency and when they add complexity</li>
+        <li>Inference parallelism: tensor parallelism, pipeline parallelism, expert parallelism and multi-GPU serving</li>
+        <li>Distributed training: FSDP/FSDP2, DeepSpeed ZeRO, NCCL collectives, checkpointing and recovery</li>
+        <li>GPU performance: memory hierarchy, occupancy, register pressure, shared memory, coalescing and kernel fusion</li>
+        <li>Triton kernels + profiling: build one custom kernel and use Nsight Systems/Compute to explain the bottleneck</li>
+        <li>Inference SLOs: TTFT, TPOT, throughput, P95/P99 latency, GPU utilization, queueing and autoscaling</li>
+        <li>Inference economics: cost/token, cost/request, cost/successful-task and capacity planning across GPU types</li>
+      </ul>
+
+      <div class="tech-chips" style="margin-top:12px">
+        <span class="tech-chip">vLLM</span>
+        <span class="tech-chip">SGLang</span>
+        <span class="tech-chip">FSDP2</span>
+        <span class="tech-chip">NCCL</span>
+        <span class="tech-chip">Triton</span>
+        <span class="tech-chip">Nsight</span>
+      </div>
+
+      <div class="deliverable-box">
+        <div class="d-label">🎯 Month 9 Deliverable</div>
+        <div class="d-items">
+          Build and benchmark a <strong>production inference stack</strong> for an open-weight model. Compare at least two serving runtimes and two optimization strategies; measure TTFT, TPOT, throughput, P95 latency, GPU memory/utilization and cost per successful task under realistic concurrency. Then profile one bottleneck with Nsight or Triton, implement an optimization, and publish the before/after evidence. Include a short distributed-training experiment covering FSDP/ZeRO and checkpoint recovery.
+        </div>
+      </div>
+    </div>
+
+  <div class="callout" style="margin-top:26px">
+    <strong>Update 8 — Evaluation Gate:</strong> You are not finished until an AI system has a versioned golden dataset, explicit success criteria, calibrated grading, adversarial cases, regression tests and a documented release decision. “The model seems better” is not an evaluation methodology.
+  </div>
+
+  <div class="callout warn" style="margin-top:18px">
+    <strong>Update 9 — Inference/GPU Gate:</strong> You are not finished until you can explain the latency/cost bottleneck quantitatively, profile the runtime, measure GPU utilization and demonstrate an optimization with before/after evidence. Knowing a serving framework's API is not inference engineering.
+  </div>
+
+  <div class="callout" style="margin-top:18px">
+    <strong>Update 10 — Multimodal/Computer-Use Gate:</strong> You are not finished until you can build a multimodal workflow that grounds perception to evidence, performs a bounded computer-use action sequence in an isolated environment, handles failures safely, and reports reproducible task-success, intervention, latency and cost metrics. A vision demo is not multimodal systems engineering.
+  </div>
+
+    <div class="month-card" data-month="10">
+      <div class="month-num">Month 10</div>
+      <div class="month-title">Multimodal + Computer-Use AI</div>
+      <div class="month-phase">Phase 3 · Week 37–40</div>
+
+      <div class="month-section-label">Learn</div>
+      <ul class="month-items">
+        <li>Multimodal pipelines: image/video/audio preprocessing, modality routing, shared context and asynchronous processing</li>
+        <li>Vision-language systems: visual grounding, OCR/document understanding, charts/tables, screenshots and spatial reasoning</li>
+        <li>Audio + realtime AI: speech recognition, speech synthesis, turn-taking, interruption handling and latency budgets</li>
+        <li>Video understanding: temporal sampling, event localization, long-video retrieval and multimodal memory</li>
+        <li>Multimodal RAG: image/document retrieval, multimodal embeddings, cross-modal reranking and citation grounding</li>
+        <li>Computer-use agents: browser/desktop control, screenshots, Playwright, action schemas and confirmation policies</li>
+        <li>Computer-use safety: isolated environments, domain allowlists, human approval for high-impact actions and recovery after UI changes</li>
+        <li>Multimodal evaluation: grounding, OCR, WER, temporal accuracy, cross-modal consistency and end-to-end task success</li>
+        <li>Benchmarking agentic computer use with realistic workflows; measure success rate, intervention rate, latency and cost/task</li>
+      </ul>
+
+      <div class="tech-chips" style="margin-top:12px">
+        <span class="tech-chip">Vision-Language Models</span>
+        <span class="tech-chip">Multimodal RAG</span>
+        <span class="tech-chip">Whisper / Speech</span>
+        <span class="tech-chip">Playwright</span>
+        <span class="tech-chip">Computer Use</span>
+        <span class="tech-chip">Multimodal Evals</span>
+      </div>
+
+      <div class="deliverable-box">
+        <div class="d-label">🎯 Month 10 Deliverable</div>
+        <div class="d-items">
+          Build a <strong>multimodal computer-use system</strong>: accept at least two modalities, ground outputs to source evidence, execute a bounded browser/desktop workflow in an isolated environment, require approval for risky actions, and publish an evaluation report covering task success, grounding accuracy, intervention rate, latency and cost/task.
+        </div>
+      </div>
+    </div>
+
+    <div class="month-card" data-month="11">
+      <div class="month-num">Month 11</div>
+      <div class="month-title">Production AI + Economics</div>
+      <div class="month-phase">Phase 3 · Week 41–44 · Operate AI systems, not demos</div>
+
+      <div class="month-section-label">Learn — Production Reliability</div>
+      <ul class="month-items">
+        <li><strong>AI SRE:</strong> define SLIs/SLOs for latency, availability, task success, tool failures and model-quality regressions</li>
+        <li><strong>Observability:</strong> correlate application, model, retrieval, tool, GPU and sandbox telemetry with distributed traces</li>
+        <li><strong>Failure handling:</strong> retries with budgets, timeouts, circuit breakers, fallbacks, graceful degradation and idempotent tool execution</li>
+        <li><strong>Safe delivery:</strong> feature flags, shadow traffic, canaries, rollback plans and automated release gates tied to evaluation and SLOs</li>
+        <li><strong>Incident response:</strong> alerting, severity classification, runbooks, postmortems, root-cause analysis and corrective actions</li>
+        <li><strong>Resilience:</strong> load testing, capacity testing, dependency failure drills and controlled chaos experiments</li>
+      </ul>
+
+      <div class="month-section-label">Learn — AI Economics & FinOps</div>
+      <ul class="month-items">
+        <li><strong>Unit economics:</strong> measure cost/request, cost/task and cost/successful outcome—not just cost/token</li>
+        <li><strong>Inference economics:</strong> compare API, self-hosted and hybrid serving using utilization, latency, reliability and operational overhead</li>
+        <li><strong>Optimization:</strong> caching, batching, quantization, model routing, right-sizing and workload placement</li>
+        <li><strong>Capacity planning:</strong> forecast traffic, GPU demand, concurrency, headroom and failure capacity</li>
+        <li><strong>FinOps:</strong> budgets, anomaly detection, ownership, chargeback/showback, commitment strategy and cost attribution</li>
+        <li><strong>TCO:</strong> include inference, backend, databases, storage, networking, observability, human review, maintenance and failure/rework</li>
+      </ul>
+
+      <div class="month-section-label">Learn — Governance & Operational Control</div>
+      <ul class="month-items">
+        <li>Maintain an inventory of models, agents, tools, datasets, owners and production versions</li>
+        <li>Implement provenance, audit trails, access controls, retention policies and approval workflows</li>
+        <li>Connect governance to deployment: every production change should have an owner, evidence, rollback path and monitoring plan</li>
+        <li>Design operational kill switches for runaway agents, unsafe model behavior and unexpected spend</li>
+      </ul>
+
+      <div class="tech-chips" style="margin-top:12px">
+        <span class="tech-chip">OpenTelemetry</span>
+        <span class="tech-chip">Prometheus</span>
+        <span class="tech-chip">Grafana</span>
+        <span class="tech-chip">SLO / SLI</span>
+        <span class="tech-chip">AI FinOps</span>
+        <span class="tech-chip">Cost / Task</span>
+        <span class="tech-chip">Capacity Planning</span>
+        <span class="tech-chip">Canary + Rollback</span>
+      </div>
+
+      <div class="deliverable-box">
+        <div class="d-label">🎯 Month 11 Deliverable</div>
+        <div class="d-items">
+          Take one of your existing AI systems and turn it into a <strong>production operating case study</strong>. Publish an architecture + SLO document, live observability dashboard, failure/runbook matrix, incident simulation, release/rollback procedure and bottom-up TCO model. Report <strong>cost/task, cost/successful task, P95 latency, availability, task-success rate, GPU/API utilization and monthly capacity forecast</strong>. Show at least one optimization and quantify the before/after impact.
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:16px">
+        <strong>Production Gate:</strong> You are not done because the model works. You are done when another engineer can operate the system at 3 a.m., understand what failed, control the blast radius, roll back safely and explain what the system costs to run.
+      </div>
+    </div>
+
+    <div class="callout win" style="margin:18px 0">
+      <strong>UPDATE 11 — PRODUCTION AI:</strong> The target has shifted from “deployed” to <strong>operable, measurable and economically defensible</strong>. Current 2026 practice increasingly treats observability, governance and cost attribution as part of the AI system itself, not post-deployment extras. citeturn0search1turn0search0turn0news22
+    </div>
+
+    <div class="month-card" data-month="12">
+      <div class="month-num">Month 12</div>
+      <div class="month-title">Land the $200K+ Role — Full Leverage</div>
+      <div class="month-phase">Phase 3 · Week 45–52 · Maximum leverage play</div>
+
+      <div class="month-section-label">Your Profile At Month 12</div>
+      <ul class="month-items">
+        <li>6+ production AI projects deployed publicly with real users</li>
+        <li>1 HuggingFace model published with 500+ downloads</li>
+        <li>1 open-source contribution to a major AI library</li>
+        <li>AWS ML Specialty certification (or GCP/Azure equivalent)</li>
+        <li>10+ technical blog posts with measurable readership</li>
+        <li>LinkedIn: 2,000+ connections, consistent posting, recruiter inbound messages weekly</li>
+        <li>GitHub: 500+ stars across your repositories</li>
+        <li>1 conference talk or meetup presentation on your specialization</li>
+      </ul>
+
+      <div class="month-section-label">Salary Negotiation Strategy</div>
+      <ul class="month-items">
+        <li>Always have 2+ competing offers simultaneously — creates urgency and leverage</li>
+        <li>Quote total comp expectations, not just base: base + equity + bonus + signing</li>
+        <li>Use Levels.fyi and Glassdoor to anchor your ask 15–20% above median</li>
+        <li>Never accept the first offer — always counter once, even if you plan to accept</li>
+      </ul>
+
+      <div class="deliverable-box">
+        <div class="d-label">🎯 Month 12 Goal</div>
+        <div class="d-items">
+          Signed offer for a <strong>Senior AI / ML Engineer role at $180K–$280K base</strong> (remote, USD-denominated). Total comp including equity: $250K–$400K. Targets: YC-backed Series A/B startups, MAANG AI teams, or Anthropic/OpenAI. You are now in the top 5% of global AI talent by signal, portfolio, and verified output.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end phase 3 months -->
+</div><!-- /.section -->
+</div><!-- /#roadmap -->
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 4: BECOME THE SIGNAL          -->
+<!-- ═══════════════════════════════════════ -->
+<div id="signal">
+<div class="section-divider"><span>04 — Become the Signal</span></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">Recruiter Magnetism</div>
+    <h2 class="section-title">How Recruiters, CEOs &amp; HRs Find <em>You</em></h2>
+    <p class="section-desc">The goal is to build such a strong signal that opportunities come inbound. AI recruiting agents now search GitHub, LinkedIn, and niche communities simultaneously. You need to appear on every channel.</p>
+  </div>
+
+  <div class="callout">
+    <strong>The Inbound Flywheel:</strong> Visible work → community engagement → content → GitHub presence → LinkedIn authority → inbound DMs from founders and recruiters. Every month, do something that increases your surface area to be discovered.
+  </div>
+
+  <div class="signal-grid">
+
+    <div class="signal-card">
+      <span class="signal-icon">⚡</span>
+      <div class="signal-title">LinkedIn — Your Recruiting Radar Dish</div>
+      <ul class="signal-list">
+        <li><strong>Headline formula:</strong> "AI/ML Engineer | LLM Fine-tuning · RAG · Agents | Open to Remote Roles" — use exact keywords recruiters search for</li>
+        <li><strong>About section:</strong> 1,500–2,000 chars. Lead with your strongest result (e.g., "Built and deployed 6 production AI systems serving real users in 12 months"). Keyword-dense but human-readable.</li>
+        <li><strong>Activity cadence:</strong> 1 post/week minimum. LinkedIn algorithm now rewards consistent activity. Active profiles appear first in recruiter semantic search.</li>
+        <li><strong>Content that works:</strong> "I built X in 48 hours — here's exactly how" threads. Behind-the-scenes project walkthroughs. Technical opinions on trending AI tools.</li>
+        <li><strong>Certifications:</strong> Add AWS/GCP/HuggingFace certs. Profiles with recent certifications get 40% more recruiter search appearances.</li>
+        <li><strong>Open to Work:</strong> Turn it ON. Add "Open to Remote Roles" explicitly in the headline text — many recruiters filter by headline keywords directly.</li>
+        <li><strong>Connection strategy:</strong> Send 10 personalized connection requests/week to: AI startup founders, ML engineers at target companies, AI recruiters at top agencies. Personalize each.</li>
+        <li><strong>Recommendations:</strong> Get 1 recommendation per project from a collaborator, mentor, or hiring manager. Aim for 3+ by month 6.</li>
+      </ul>
+    </div>
+
+    <div class="signal-card">
+      <span class="signal-icon">🐙</span>
+      <div class="signal-title">GitHub — Your Live Engineering Résumé</div>
+      <ul class="signal-list">
+        <li><strong>Profile README:</strong> Pin 4–6 best projects. Add a skills badge grid. Add a GitHub stats card showing contribution streak. Add a "Currently Building" section.</li>
+        <li><strong>Repository quality:</strong> Every repo needs: a detailed README with demo GIF, installation guide, architecture diagram, and performance benchmarks. Treat each repo like a product.</li>
+        <li><strong>Commit frequency:</strong> Daily green squares. Even documentation updates count. Recruiters literally look at the contribution graph as a proxy for consistency.</li>
+        <li><strong>Stars matter:</strong> A repo with 100+ stars signals real-world validation. Post your projects on Hacker News ("Show HN"), Reddit r/MachineLearning, r/LocalLLaMA, X/Twitter.</li>
+        <li><strong>Open-source contributions:</strong> Even small PRs to LangChain, LlamaIndex, or HuggingFace list you as a "contributor" on their repos. AI recruiting agents search contributor lists.</li>
+        <li><strong>GitHub Topics:</strong> Tag every repo with relevant topics: llm, rag, langchain, fine-tuning, agents, mlops. These appear in GitHub search results.</li>
+        <li><strong>HuggingFace Hub:</strong> Push at least one model and one dataset. HuggingFace is searchable by recruiters at AI labs specifically.</li>
+      </ul>
+    </div>
+
+    <div class="signal-card">
+      <span class="signal-icon">✍️</span>
+      <div class="signal-title">Content — Your Long-term Compounding Asset</div>
+      <ul class="signal-list">
+        <li><strong>Write one technical blog post per project.</strong> Not a summary — a deep technical walkthrough with code snippets, architecture diagrams, and lessons learned. These rank on Google and get shared in newsletters.</li>
+        <li><strong>Best platforms:</strong> Medium (AI/ML publications), Towards Data Science, personal site (use Hashnode or Substack — free, great SEO). Cross-post everywhere.</li>
+        <li><strong>Title formula that works:</strong> "I built [specific thing] with [specific tech] — here's exactly what I learned" or "Why [popular approach] is wrong and what to do instead."</li>
+        <li><strong>Twitter/X threads:</strong> Package each blog as a 10-tweet thread. Tag the tools you used (@LangChainAI, @AnthropicAI, etc.). They often retweet good content — 10x reach instantly.</li>
+        <li><strong>YouTube:</strong> Even one "Build X with Me" video per month gets substantial views from developers. Not optional for the top 1% signal — but optional if writing output is high.</li>
+        <li><strong>Newsletter:</strong> A 500-subscriber newsletter on AI engineering insights is a top-tier signal. Founders subscribe, then hire the author. Substack is free to start.</li>
+      </ul>
+    </div>
+
+    <div class="signal-card">
+      <span class="signal-icon">🏅</span>
+      <div class="signal-title">Community — Where Passive Recruiting Happens</div>
+      <ul class="signal-list">
+        <li><strong>Discord servers to join and be active in:</strong> LangChain Discord, LlamaIndex Discord, HuggingFace community, Weights & Biases community, EleutherAI, MLOps Community.</li>
+        <li><strong>Slack communities:</strong> MLOps Community Slack (3,000+ ML professionals), DataTalks.Club, AINow Slack. Answer questions regularly. Founders lurk these and DM active contributors.</li>
+        <li><strong>Kaggle:</strong> Get to Expert or Master tier. A top-100 finish in any competition is a major differentiator. Many MAANG ML interviews start with "I saw your Kaggle profile."</li>
+        <li><strong>Hacker News:</strong> Submit your "Show HN: I built X" posts. Upvotes here drive hundreds of GitHub stars overnight. YC founders are on HN daily.</li>
+        <li><strong>Local AI meetups:</strong> Attend and then speak at AI meetups (even virtual). One 15-minute talk on your RAG system makes you "the RAG person" in that community.</li>
+        <li><strong>AI conferences:</strong> NeurIPS, ICLR, MLSys have virtual attendance options. Just attending and tweeting live = signal. A poster submission = massive signal.</li>
+      </ul>
+    </div>
+
+    <div class="signal-card">
+      <span class="signal-icon">🎯</span>
+      <div class="signal-title">Direct Outreach — Cold DMs That Actually Work</div>
+      <ul class="signal-list">
+        <li><strong>Target list:</strong> Every month, identify 20 YC founders and 20 ML tech leads at target companies. Follow them on Twitter/X, engage with their content for 2 weeks, then DM.</li>
+        <li><strong>DM formula:</strong> "Hey [Name] — I've been following your work on [specific thing]. I built [project URL] that [specific result]. I'm looking for [specific role] and your team seems like a great fit. Would love to connect." Max 4 sentences.</li>
+        <li><strong>Email outreach:</strong> Find founder emails via Hunter.io, then email with your project attached. Subject: "Built a [domain] AI agent — wanted to share." Founders open anything that looks like product feedback.</li>
+        <li><strong>YC Work at a Startup:</strong> Fill your profile completely. Founders actively browse and cold-message candidates. The platform requires being found — maximize your profile.</li>
+        <li><strong>Referral network:</strong> Every engineer you know is a potential referral. MAANG referrals bypass ATS entirely and go straight to the hiring manager. Cultivate these actively.</li>
+      </ul>
+    </div>
+
+    <div class="signal-card">
+      <span class="signal-icon">📜</span>
+      <div class="signal-title">Certifications — Credibility Multipliers</div>
+      <ul class="signal-list">
+        <li><strong>AWS Certified Machine Learning — Specialty:</strong> ~$300, most widely recognized cloud ML cert. Adds $20K–40K salary premium. Prioritize this by month 7.</li>
+        <li><strong>Google Cloud Professional ML Engineer:</strong> Strong for GCP/Vertex AI roles. Complements AWS cert well.</li>
+        <li><strong>DeepLearning.AI Specializations:</strong> "Machine Learning Specialization" (Andrew Ng) and "Deep Learning Specialization" — globally recognized, free to audit, ~$50 to certify.</li>
+        <li><strong>HuggingFace Certified:</strong> The "Hugging Face Certified" badge on your profile is a direct signal to AI labs that you know the ecosystem.</li>
+        <li><strong>Coursera/edX ML certs:</strong> Stanford Online ML course cert — still highly respected in job screeners and ATS filters.</li>
+        <li><strong>LeetCode Premium:</strong> $35/month. "LeetCode All-time Rank" in top 10% + completion of company-tagged questions for your target companies. Shows on profile.</li>
+      </ul>
+    </div>
+
+  </div><!-- /.signal-grid -->
+
+  <div class="callout win" style="margin-top:32px">
+    <strong>The YC Startup Hiring Pattern:</strong> YC founders don't post on LinkedIn first. They search GitHub for contributors to AI repos. They read AI newsletters and blogs. They look at who's active in the LangChain Discord. They check who posted "Show HN" on Hacker News. They look at who's been tagging their tools on Twitter/X. Build your signal on <em>all</em> these channels simultaneously, and you will receive inbound messages from founders before month 5.
+  </div>
+
+</div><!-- /.section -->
+</div><!-- /#signal -->
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 5: RESUME BLUEPRINT           -->
+<!-- ═══════════════════════════════════════ -->
+<div id="resume">
+<div class="section-divider"><span>05 — Resume Blueprint</span></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">Your Paper Identity</div>
+    <h2 class="section-title">The Resume That Gets You MAANG + YC Interviews</h2>
+    <p class="section-desc">This is the exact structure used by engineers who land $200K+ AI roles. Every line is deliberate. ATS-optimized, human-readable, and engineered to surface you to both automated screening and human hiring managers.</p>
+  </div>
+
+  <div class="callout warn">
+    <strong>Resume Rules:</strong> 1 page max (2 pages only at 10+ years experience). No photo, no objective statement. PDF format always. Use strong action verbs (Built, Deployed, Designed, Reduced, Increased, Led). Every bullet must have a metric. No generic phrases like "worked on ML models" — always say what, how, and what result.
+  </div>
+
+  <div class="resume-template">
+    <div class="r-name">YOUR NAME</div>
+    <div class="r-title">AI / ML Engineer · LLM Systems · Agentic AI · Production Engineering</div>
+    <div class="r-contact">
+      📧 yourname@email.com &nbsp;|&nbsp; 🔗 linkedin.com/in/yourname &nbsp;|&nbsp; 🐙 github.com/yourname &nbsp;|&nbsp; 🤗 huggingface.co/yourname &nbsp;|&nbsp; 🌐 yourblog.com &nbsp;|&nbsp; 📍 Remote (UTC+5:30)
+    </div>
+
+    <div class="r-section-title">Technical Skills</div>
+    <div class="r-skills-row">
+      <span class="r-skill">Python</span><span class="r-skill">PyTorch</span><span class="r-skill">HuggingFace</span><span class="r-skill">LangChain/LangGraph</span><span class="r-skill">LlamaIndex</span><span class="r-skill">vLLM</span><span class="r-skill">FastAPI</span>
+    </div>
+    <div class="r-skills-row">
+      <span class="r-skill">LoRA/QLoRA (Unsloth)</span><span class="r-skill">RLHF/DPO</span><span class="r-skill">RAG Systems</span><span class="r-skill">Vector DBs (Qdrant, pgvector)</span><span class="r-skill">MLflow</span><span class="r-skill">W&B</span>
+    </div>
+    <div class="r-skills-row">
+      <span class="r-skill">Kubernetes</span><span class="r-skill">Docker</span><span class="r-skill">AWS (SageMaker, Bedrock)</span><span class="r-skill">Terraform</span><span class="r-skill">GitHub Actions</span><span class="r-skill">Ray Serve</span><span class="r-skill">Redis</span>
+    </div>
+    <div class="r-skills-row">
+      <span class="r-skill">OpenAI API</span><span class="r-skill">Anthropic API</span><span class="r-skill">Gemini API</span><span class="r-skill">PostgreSQL</span><span class="r-skill">Kafka</span><span class="r-skill">DeepSpeed / FSDP</span>
+    </div>
+
+    <div class="r-section-title">Experience</div>
+
+    <div class="r-job-title">Senior AI Engineer — [Company Name, YC Backed / Series B] · Remote</div>
+    <div class="r-job-meta">Jan 2026 – Present &nbsp;|&nbsp; Full-time</div>
+    <div class="r-bullet">Architected and deployed a multi-agent LangGraph system handling 50,000+ autonomous task executions/day, reducing manual operations by 78% and cutting processing time from 4 hours to 6 minutes</div>
+    <div class="r-bullet">Fine-tuned Llama 3 70B using QLoRA (4-bit, Unsloth) on 50K domain-specific examples, achieving 94% accuracy vs. 71% baseline GPT-4o on internal benchmarks while reducing inference cost by 60%</div>
+    <div class="r-bullet">Built production RAG pipeline (LlamaIndex + Qdrant + pgvector hybrid search) serving 10K daily active users with P95 latency of 1.2 seconds and 97.3% retrieval accuracy (RAGAS evaluation)</div>
+    <div class="r-bullet">Designed MLOps infrastructure (MLflow + Kubernetes + GitHub Actions) enabling 3x faster model iteration — reduced time-to-production from 3 weeks to 5 days</div>
+
+    <div class="r-job-title" style="margin-top:12px">AI/ML Engineer (Contract) — [Client Name] · Remote</div>
+    <div class="r-job-meta">Jul 2025 – Dec 2025 &nbsp;|&nbsp; Contract ($90/hr)</div>
+    <div class="r-bullet">Delivered end-to-end AI document processing system using GPT-4o + custom OCR pipeline, processing 500+ legal documents/day with 99.1% extraction accuracy, replacing a 5-person manual team</div>
+    <div class="r-bullet">Implemented semantic caching layer (Redis + embedding similarity) reducing LLM API costs by 42% ($8,000/month savings) while improving response time by 35%</div>
+    <div class="r-bullet">Built real-time model monitoring dashboard (Evidently AI + Grafana) detecting data drift 48 hours before performance degradation — zero production incidents over 6 months</div>
+
+    <div class="r-section-title">Projects (Open Source / Deployed)</div>
+
+    <div class="r-job-title">🔗 IndiaLegal-RAG — github.com/yourname/indialegal-rag &nbsp;[⭐ 320 stars]</div>
+    <div class="r-job-meta">Live at legalrag.yourdomain.com · 2,000+ monthly active users</div>
+    <div class="r-bullet">Production RAG system over 50,000 Indian court judgments using hybrid BM25 + dense retrieval (Qdrant), streaming responses via FastAPI + WebSocket, deployed on Railway</div>
+    <div class="r-bullet">Published fine-tuned legal-domain embedding model on HuggingFace Hub: 1,200+ downloads, outperforms text-embedding-ada-002 by 18% on BEIR legal benchmark</div>
+
+    <div class="r-job-title" style="margin-top:10px">🔗 MultiAgent Research Crawler — github.com/yourname/agent-researcher &nbsp;[⭐ 180 stars]</div>
+    <div class="r-job-meta">Featured in LangChain newsletter · Contributed 3 PRs to LangGraph repo</div>
+    <div class="r-bullet">Multi-agent system using LangGraph orchestrating 4 specialized agents (web browsing, PDF extraction, synthesis, email delivery) with human-in-the-loop approval for autonomous research reports</div>
+
+    <div class="r-section-title">Education & Certifications</div>
+    <div class="r-bullet">B.Tech / B.E. / M.Sc — [Your Degree] · [Your University] · [Year]</div>
+    <div class="r-bullet">AWS Certified Machine Learning – Specialty · Amazon Web Services · 2025</div>
+    <div class="r-bullet">Deep Learning Specialization · DeepLearning.AI (Coursera) · 2025</div>
+    <div class="r-bullet">HuggingFace ML Course · Certified · 2025</div>
+
+    <div style="margin-top:12px; font-size:10px; color:#999; border-top:1px solid #eee; padding-top:8px;">
+      Open to Remote · No sponsorship required for contract · UTC+5:30 (IST) · Available for US EST/PST overlap hours
+    </div>
+  </div><!-- /.resume-template -->
+
+  <div style="margin-top:32px">
+    <div class="callout">
+      <strong>Resume Formatting Rules for ATS Survival:</strong> Export as a clean single-column PDF. No tables for main content (ATS can't parse them). No headers/footers. No graphics outside the skills section. Use standard section headings (Experience, Education, Skills). File name: "FirstName_LastName_AI_Engineer_Resume.pdf". Target ATS score of 80%+ by matching the exact keywords from the job description in your bullets.
+    </div>
+  </div>
+
+</div><!-- /.section -->
+</div><!-- /#resume -->
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 6: WHERE TO HUNT              -->
+<!-- ═══════════════════════════════════════ -->
+<div id="jobhunt">
+<div class="section-divider"><span>06 — Where to Hunt</span></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">Job Boards + Hunting Grounds</div>
+    <h2 class="section-title">Every Platform, Ranked by Signal Quality</h2>
+    <p class="section-desc">Not all job boards are equal. These are prioritized by quality of AI roles, likelihood of remote, USD pay, and the caliber of companies you'll find. Use all of them — but prioritize the top tier.</p>
+  </div>
+
+  <div style="margin-bottom:20px; font-family:'Syne',sans-serif; font-size:12px; font-weight:700; color:var(--accent3); letter-spacing:0.1em; text-transform:uppercase;">⬤ Tier 1 — High Quality AI Roles, USD Pay, Remote-First</div>
+  <div class="sites-grid">
+    <div class="site-card">
+      <div class="site-name">workatastartup.com</div>
+      <div class="site-type">YC Official</div>
+      <div class="site-desc">Direct access to all YC-backed startups. Founders browse candidate profiles and reach out directly. Fill your profile completely. Updated every YC batch. The #1 source for YC-specific roles.</div>
+    </div>
+    <div class="site-card">
+      <div class="site-name">ycombinator.com/jobs</div>
+      <div class="site-type">YC Job Board</div>
+      <div class="site-desc">Curated AI and engineering roles at YC portfolio companies. Filter by "Remote" and "AI/ML". Many roles are posted here before anywhere else. Check daily during batch announcements.</div>
+    </div>
+    <div class="site-card">
+      <div class="site-name">levels.fyi/jobs</div>
+      <div class="site-type">Compensation-Verified</div>
+      <div class="site-desc">Jobs with verified total compensation data. Every listing shows base + equity + bonus. Filter for $200K+ AI roles. Essential for understanding what you should actually negotiate for.</div>
+    </div>
+    <div class="site-card">
+      <div class="site-name">arc.dev</div>
+      <div class="site-type">Remote AI Jobs</div>
+      <div class="site-desc">Curated remote roles with verified USD pay. Senior AI roles on Arc.dev start at $120K and go to $250K. The vetting process is rigorous — passing their screen is itself a credential.</div>
+    </div>
+    <div class="site-card">
+      <div class="site-name">wellfound.com</div>
+      <div class="site-type">Startup Focus</div>
+      <div class="site-desc">Formerly AngelList. Every funded startup posts here. Filter by "AI" + "Remote" + "$100K+". Shows funding stage and investor info — critical for targeting well-funded AI startups.</div>
+    </div>
+    <div class="site-card">
+      <div class="site-name">toptal.com</div>
+      <div class="site-type">Elite Freelance</div>
+      <div class="site-desc">Top 3% vetting. Once you're in, contract rates start at $80/hr and go to $200/hr for senior AI engineers. Toptal contracts often convert to full-time. Apply at month 4–5.</div>
+    </div>
+  </div>
+
+  <div style="margin: 28px 0 16px; font-family:'Syne',sans-serif; font-size:12px; font-weight:700; color:var(--accent); letter-spacing:0.1em; text-transform:uppercase;">⬤ Tier 2 — High Volume, Good Filtering Available</div>
+  <div class="sites-grid">
+    <div class="site-card">
+      <div class="site-name">LinkedIn Jobs</div>
+      <div class="site-type">Largest Volume</div>
+      <div class="site-desc">Filter: Remote + AI Engineer + $150K+. Set up job alerts for: "LLM Engineer", "AI Agent", "MLOps", "Machine Learning Engineer". Apply same day as posting — applications decay fast.</div>
+    </div>
+    <div class="site-card">
+      <div class="site-name">aijobs.net</div>
+      <div class="site-type">AI Specialist Board</div>
+      <div class="site-desc">Focused entirely on AI roles. Less noise than general boards. Good for finding niche specialization roles (AI Safety, Alignment, specific domain ML). Updated daily.</div>
+    </div>
+    <div class="site-card">
+      <div class="site-name">huggingface.co/jobs</div>
+      <div class="site-type">AI Lab Focus</div>
+      <div class="site-desc">Jobs at AI-first companies that use the HuggingFace ecosystem. If you've published models on the Hub, you're a warm candidate for everything listed here. Check weekly.</div>
+    </div>
+    <div class="site-card">
+      <div class="site-name">remoteok.com</div>
+      <div class="site-type">Remote-Only</div>
+      <div class="site-desc">Filter by "ML", "AI", "Python". 100% remote roles only. Good for finding international companies offering USD pay to global talent. Less vetting — verify companies independently.</div>
+    </div>
+    <div class="site-card">
+      <div class="site-name">greenhouse.io / lever.co</div>
+      <div class="site-type">ATS Portals</div>
+      <div class="site-desc">Most MAANG and well-funded startups use these ATS systems. Going directly to the company's Greenhouse/Lever page sometimes gets you seen before the LinkedIn post goes live.</div>
+    </div>
+    <div class="site-card">
+      <div class="site-name">climatechangeai.org/jobs</div>
+      <div class="site-type">Niche (Climate AI)</div>
+      <div class="site-desc">High-prestige niche — climate AI roles at NGOs and research institutions often pay $120K–$180K and are 100% remote. Less competition than general AI market.</div>
+    </div>
+  </div>
+
+  <div style="margin: 28px 0 16px; font-family:'Syne',sans-serif; font-size:12px; font-weight:700; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">⬤ Tier 3 — Supplementary / High-Value Niches</div>
+  <div class="sites-grid">
+    <div class="site-card">
+      <div class="site-name">Glassdoor</div>
+      <div class="site-type">Research Tool</div>
+      <div class="site-desc">Use for salary verification and company culture research. Apply through company website, not Glassdoor. Essential for negotiation — know exact salary bands before talking to recruiters.</div>
+    </div>
+    <div class="site-card">
+      <div class="site-name">Turing.com</div>
+      <div class="site-type">Global Remote</div>
+      <div class="site-desc">Matches global AI engineers with US companies. Once vetted, they send you matching roles without applying. Rates are somewhat lower than direct applications but volume is high.</div>
+    </div>
+    <div class="site-card">
+      <div class="site-name">talent.io</div>
+      <div class="site-type">EU + US Remote</div>
+      <div class="site-desc">Strong for European AI companies paying USD/EUR. Less competition than US-focused boards. Good companies, high acceptance of remote global talent.</div>
+    </div>
+    <div class="site-card">
+      <div class="site-name">kaggle.com/jobs</div>
+      <div class="site-type">ML-Specific</div>
+      <div class="site-desc">Companies post directly to the Kaggle community. Having a strong Kaggle profile here is as good as a résumé for data science and ML roles. Expert tier = direct recruiter messages.</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:32px">
+    <strong>The Cold-Apply Mistake:</strong> Don't spray-and-pray. Use a <em>targeted application system</em>, not spray-and-pray. Prioritize roles where your evidence matches the problem, combine direct applications with referrals/recruiters/open-source visibility, and track outcomes by channel. Do not promise a universal conversion rate — hiring outcomes vary dramatically by company, geography, seniority and role fit.
+  </div>
+
+</div><!-- /.section -->
+</div><!-- /#jobhunt -->
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 7: INTERVIEW PLAYBOOK         -->
+<!-- ═══════════════════════════════════════ -->
+<div id="interview">
+<div class="section-divider"><span>07 — Interview + Hiring Playbook</span></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">2026–27 Hiring Reality</div>
+    <h2 class="section-title">Prove You Can Ship, Not Just Talk</h2>
+    <p class="section-desc">Modern AI hiring increasingly tests whether you can turn uncertain model behavior into a reliable product: retrieval, agents, evaluation, system design, debugging, cost, latency, safety and production judgment. Treat every round as evidence collection, not vocabulary recital.</p>
+  </div>
+
+  <div class="callout win">
+    <strong>Update 12 — Hiring Reality:</strong> Do not optimize for looking senior. Optimize for producing verifiable evidence of engineering judgment. Current 2026 interview coverage consistently centers on RAG, agents, evaluations, system design, production operations and cost/latency; practical assessments are increasingly used to distinguish builders from candidates who only know the terminology. citeturn0search8turn0search11turn0search22
+  </div>
+
+  <div class="months-grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); margin-top:24px">
+    <div class="month-card">
+      <div class="month-num">Signal 01</div>
+      <div class="month-title">Portfolio Evidence</div>
+      <ul class="month-items">
+        <li>Maintain 3–5 flagship projects rather than a graveyard of tutorial repositories</li>
+        <li>Every flagship must have architecture, README, reproducible setup, tests and a live/demo path where practical</li>
+        <li>Publish measurable evidence: task success, retrieval metrics, latency, cost, reliability and failure analysis</li>
+        <li>Show one difficult optimization or architectural trade-off with before/after numbers</li>
+        <li>Include an explicit security/evaluation section in every production AI project</li>
+        <li>Keep commit history, issue discussions and design notes credible; never manufacture users, stars, accuracy or business impact</li>
+        <li>Prefer one serious open-source contribution with merged evidence over dozens of superficial repositories</li>
+        <li>Use papers, benchmarks, deployed services or technical reports as supporting evidence—not certificates alone</li>
+        <li>Maintain a project evidence sheet: claim → metric → artifact → link → reproducibility status</li>
+        <li>Refresh flagship projects every 6–12 months as the stack changes</li>
+      </ul>
+    </div>
+
+    <div class="month-card">
+      <div class="month-num">Signal 02</div>
+      <div class="month-title">Resume + Application System</div>
+      <ul class="month-items">
+        <li>Use one truthful master resume and create targeted variants for Applied AI, Agent, Platform, Inference and Research roles</li>
+        <li>Write bullets around ownership → engineering action → measurable result → evidence</li>
+        <li>Never invent production metrics, employers, users, stars, savings or seniority</li>
+        <li>Match terminology from the job description only when the underlying skill is genuinely demonstrated</li>
+        <li>Keep a job tracker with role, company, location eligibility, compensation, referral, stage, follow-up and rejection reason</li>
+        <li>Prioritize referrals, direct recruiter conversations, targeted applications and strong technical artifacts over blind volume</li>
+        <li>For remote roles, verify country eligibility, employment model, timezone overlap, travel requirements and compensation geography before investing heavily</li>
+        <li>Use a short technical portfolio link that lets a reviewer reach your strongest artifact in under 60 seconds</li>
+      </ul>
+    </div>
+
+    <div class="month-card">
+      <div class="month-num">Signal 03</div>
+      <div class="month-title">AI Engineering Interview Loop</div>
+      <ul class="month-items">
+        <li>LLM fundamentals: tokens, context, attention, prefill/decode, KV cache, sampling, structured outputs and reasoning-model trade-offs</li>
+        <li>RAG: ingestion → chunking → indexing → retrieval → reranking → context assembly → generation → evaluation</li>
+        <li>Agents: workflow vs agent, tools, state, memory, retries, failure modes, MCP, authorization and human approval</li>
+        <li>Evals: golden sets, judges, calibration, trajectory/outcome evaluation, regression gates and error analysis</li>
+        <li>System design: requirements → architecture → data → model/retrieval → serving → observability → security → cost → scaling</li>
+        <li>Production debugging: diagnose hallucination, retrieval failure, latency spikes, tool errors, token explosions and model regressions</li>
+        <li>Inference: batching, caching, quantization, throughput, TTFT, TPOT, GPU utilization and cost/task</li>
+        <li>Classic coding still matters where the company requires it: Python, data structures, algorithms, testing and clean engineering</li>
+        <li>Behavioral: ownership, failure, disagreement, ambiguity, prioritization, learning velocity and customer impact</li>
+        <li>Practice explaining one real system deeply enough to survive five consecutive “why?” questions</li>
+      </ul>
+    </div>
+
+    <div class="month-card">
+      <div class="month-num">Signal 04</div>
+      <div class="month-title">Take-Home / Practical Assessment</div>
+      <ul class="month-items">
+        <li>Scope first: define requirements, assumptions, non-goals and time budget before coding</li>
+        <li>Ship the smallest complete system rather than an over-engineered half-finished platform</li>
+        <li>Include tests and an evaluation harness from the beginning</li>
+        <li>Document architecture and rejected alternatives</li>
+        <li>Measure quality, latency and cost rather than claiming success subjectively</li>
+        <li>Add one security/threat-model section for agentic or tool-using systems</li>
+        <li>Provide a clear README: setup → architecture → evaluation → limitations → next steps</li>
+        <li>Use AI coding tools transparently as accelerators, but personally verify generated code and dependencies</li>
+        <li>Finish with a concise demo or walkthrough showing the hardest engineering decision</li>
+        <li>Assume the reviewer will inspect the repository, not just the screenshot</li>
+      </ul>
+    </div>
+
+    <div class="month-card">
+      <div class="month-num">Signal 05</div>
+      <div class="month-title">Remote + International Hiring</div>
+      <ul class="month-items">
+        <li>Distinguish worldwide remote, country-restricted remote, contractor and employee roles</li>
+        <li>Check India eligibility, EOR availability, contractor requirements and timezone overlap before applying</li>
+        <li>Be ready to work asynchronously: written design notes, status updates, decision logs and crisp handoffs</li>
+        <li>Demonstrate independent execution without requiring constant synchronous supervision</li>
+        <li>Understand base, bonus, equity, vesting, currency, taxes and contractor economics before negotiating</li>
+        <li>Never assume “remote” means globally employable</li>
+        <li>Prepare a concise overlap-hours statement and remote-work operating model</li>
+        <li>Use references, open-source evidence and public technical work to establish trust before the first call</li>
+      </ul>
+    </div>
+
+    <div class="month-card">
+      <div class="month-num">Signal 06</div>
+      <div class="month-title">Offer + Negotiation Discipline</div>
+      <ul class="month-items">
+        <li>Evaluate total compensation, role scope, equity, location policy, learning value and technical ownership together</li>
+        <li>Request the complete written package before making a final decision</li>
+        <li>Benchmark compensation using current market data appropriate to geography and level</li>
+        <li>Do not anchor yourself to a fantasy salary simply because a roadmap printed a number</li>
+        <li>Negotiate from evidence: competing offers, rare skills, demonstrated impact and role scope</li>
+        <li>Ask explicitly about remote policy, return-to-office risk, timezone expectations and travel</li>
+        <li>For startups, understand equity type, vesting, strike price/valuation context and dilution risk</li>
+        <li>Prefer a strong role with genuine ownership and learning over a flashy title with no technical leverage</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:28px">
+    <strong>Interview Preparation Matrix:</strong> Build a 40-question rotating bank across LLM fundamentals, RAG, agents/MCP, evaluation, inference, production debugging, system design and behavioral judgment. For each answer, record: mechanism → trade-off → failure mode → metric → mitigation. Do not memorize scripts. Practice reasoning under pressure.
+  </div>
+
+  <div class="callout warn" style="margin-top:18px">
+    <strong>Portfolio Integrity Rule:</strong> If a number cannot be reproduced, measured or backed by an artifact, do not put it on your resume. A smaller truthful result is more valuable than an impressive fabricated one.
+  </div>
+
+  <div class="callout" style="margin-top:18px">
+    <strong>Update 12 Gate:</strong> You are career-ready when a stranger can inspect your resume, GitHub and flagship project in 10 minutes and find consistent evidence for the exact capabilities you claim: building, evaluating, securing, deploying, debugging and operating AI systems. Current 2026 hiring guidance increasingly favors practical evidence and task-based assessment over polished AI vocabulary. citeturn0news22turn0search18
+  </div>
+</div><!-- /.section -->
+</div><!-- /#interview -->
+
+<!-- SECTION 8: FINAL STRATEGY             -->
+<!-- ═══════════════════════════════════════ -->
+<div id="strategy">
+<div class="section-divider"><span>08 — Final Strategy</span></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">The Long Game</div>
+    <h2 class="section-title">2025–2035: How to Stay at the Top</h2>
+    <p class="section-desc">Getting the first role is phase 1. Staying irreplaceable and building toward $300K+ in 5 years requires a decade-long strategy. The market will evolve dramatically — here's how to evolve with it.</p>
+  </div>
+
+  <div class="callout win">
+    <strong>The 10-Year Bet:</strong> The AI agent market alone grows from $7.8B today to $236B by 2034. The demand for the top 5% of AI talent will continue outpacing supply through 2030 (3.2:1 ratio, critical shortage in LLM fine-tuning, MLOps, AI ethics). Your job is to <em>stay in the top 5%</em> — which means continuously specializing as the baseline rises.
+  </div>
+
+  <div class="months-grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+
+    <div class="month-card" data-month="YR1">
+      <div class="month-num">Year 1–2 (2025–2026)</div>
+      <div class="month-title">Build the Foundation</div>
+      <div class="month-phase">Target: $120K–$160K first role → $160K–$200K by end of Year 2</div>
+      <ul class="month-items">
+        <li>Establish core identity: AI Application / MLOps / Agent Engineer</li>
+        <li>Build your GitHub portfolio to 5+ deployed projects</li>
+        <li>Get AWS ML Specialty cert and HuggingFace model on Hub</li>
+        <li>Land first remote USD role (contract or full-time)</li>
+        <li>Build LinkedIn to 2K+ connections and consistent content cadence</li>
+        <li>Contribute to 1 open-source AI project</li>
+      </ul>
+    </div>
+
+    <div class="month-card" data-month="YR3">
+      <div class="month-num">Year 3–4 (2027–2028)</div>
+      <div class="month-title">Deepen Specialization</div>
+      <div class="month-phase">Target: $180K–$250K · Senior roles at MAANG or top-tier startups</div>
+      <ul class="month-items">
+        <li>Pick a deep specialization: LLM alignment, multimodal AI, or production agent systems</li>
+        <li>Publish technical papers or detailed reports (arXiv, company blog)</li>
+        <li>Speak at a major AI conference (NeurIPS workshop, MLSys, ICLR)</li>
+        <li>Build or maintain a tool/library used by 1,000+ engineers</li>
+        <li>Transition to Staff Engineer or lead a team of 3–5 AI engineers</li>
+        <li>Multimodal AI and agentic systems will be the dominant battlegrounds in this window</li>
+      </ul>
+    </div>
+
+    <div class="month-card" data-month="YR5">
+      <div class="month-num">Year 5–7 (2029–2031)</div>
+      <div class="month-title">Compound to Principal / Staff</div>
+      <div class="month-phase">Target: $280K–$400K total comp · Principal Engineer or AI Architect</div>
+      <ul class="month-items">
+        <li>Principal/Staff AI Engineer or AI Architect at MAANG = $350K–$500K total comp</li>
+        <li>Quantum-AI hybrid systems will begin entering enterprise — position early</li>
+        <li>AI governance roles ($340K new regulatory jobs projected) — deep niche with high pay</li>
+        <li>Build personal brand to 20K+ LinkedIn followers and newsletter subscribers</li>
+        <li>Consider: fractional CTO or AI Advisor to startups ($5K–$15K/month retainer)</li>
+        <li>Open-source project or research work cited in industry — the compounding output of years 1–4</li>
+      </ul>
+    </div>
+
+    <div class="month-card" data-month="YR10">
+      <div class="month-num">Year 8–10 (2032–2035)</div>
+      <div class="month-title">The Leverage Phase</div>
+      <div class="month-phase">Target: $400K+ total comp · Chief AI Officer / Founder / AI VC Advisor</div>
+      <ul class="month-items">
+        <li>Chief AI Officer (CAIO) roles emerging at every Fortune 500 — $400K–$800K comp</li>
+        <li>AI startup founder: raise pre-seed from YC using your deep domain expertise</li>
+        <li>AI venture studio / advisor: take equity stakes in 10–20 early-stage AI startups</li>
+        <li>Course creator / educator: a premium AI engineering course at this level = $1M+ revenue</li>
+        <li>The 2032–2035 market is unrecognizable from today. Agents are autonomous. Models are ubiquitous. The value is in <em>domain expertise + AI orchestration wisdom</em>, not just knowing how to fine-tune.</li>
+        <li>The engineers who started in 2025 will have 10 years of compound experience — untouchable.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div style="margin-top:40px">
+    <div class="callout warn">
+      <strong>What Will Kill Your Career:</strong> Staying a generalist too long after year 2. Not building in public. Only applying to jobs rather than letting opportunities come to you. Skipping the open-source contribution phase. Ignoring agentic AI as a "fad" — it's not. Not upgrading your skills every 6 months in a field that changes every 6 weeks.
+    </div>
+  </div>
+
+  <div style="margin-top:24px">
+    <div class="callout win">
+      <strong>The Geographic Arbitrage Reality (For You, Based in India):</strong> A $180K remote USD role translates to approximately ₹1.5 crore/year — placing you in the top 0.1% of Indian earners. The cost of living arbitrage is massive. After 2–3 years of this comp, you have options: financial independence, funding your own startup, investing in real estate, or simply building the highest quality of life available anywhere. The path described in this document is not fantasy — it is the documented experience of hundreds of Indian engineers who started exactly where you are and are now at Anthropic, OpenAI, Google DeepMind, and well-funded YC startups.
+    </div>
+  </div>
+
+</div><!-- /.section -->
+</div><!-- /#strategy -->
+
+
+  <div class="callout" style="margin-top:24px">
+    <strong>Update 12 — Final Career Standard:</strong> Optimize for verifiable capability, not title inflation. The roadmap is complete only when your portfolio, resume, interview preparation and job-hunt process all reinforce the same engineering evidence.
+  </div>
+<!-- ═══════════════════════════════════════ -->
+<!-- FOOTER                                -->
+<!-- ═══════════════════════════════════════ -->
+<footer>
+  <div class="footer-quote">
+    "The best time to start building your AI career was yesterday.<br>The second best time is right now, with this roadmap open."
+  </div>
+  <div class="footer-sub" style="margin-bottom:16px">
+    Deep-researched · Updated August 2026 · Data sources: Levels.fyi, Kore1 2026 Salary Guide, PwC AI Jobs Barometer, Second Talent, Glassdoor, Gartner, World Economic Forum Future of Jobs Report 2025
+  </div>
+  <div class="footer-sub">
+    Built for a remote AI engineer targeting $200K+ USD · Start Month 1 today.
+  </div>
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrolled = (doc.scrollTop || document.body.scrollTop);
+  const total = doc.scrollHeight - doc.clientHeight;
+  const pct = (scrolled / total) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+});
+
+// Intersection observer for fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.05 });
+
+document.querySelectorAll('.month-card, .role-card, .signal-card, .site-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(16px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+
+// Active nav link
+const sections = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('.toc-nav a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+    a.style.borderBottomColor = a.getAttribute('href') === '#' + current ? 'var(--accent)' : 'transparent';
+  });
+});
+</script>
+
+</body>
+</html>
