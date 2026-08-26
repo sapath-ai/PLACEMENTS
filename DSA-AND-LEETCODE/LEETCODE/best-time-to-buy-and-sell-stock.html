@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEDGER // Best Time to Buy and Sell Stock — Interactive DSA Chapter</title>
+<style>
+:root{
+  --bg:#080B10;
+  --bg-panel:#0E141C;
+  --bg-panel-2:#121A24;
+  --line:#1D2733;
+  --line-soft:#161F29;
+  --text:#DCE6EF;
+  --text-dim:#7C8AA0;
+  --text-faint:#4B5568;
+  --gain:#00D9A3;
+  --gain-dim:#0A5C48;
+  --loss:#FF5C6C;
+  --loss-dim:#5C2229;
+  --amber:#FFB020;
+  --amber-dim:#5C4110;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Consolas, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+}
+
+/* ===== layout shell ===== */
+.shell{ display:grid; grid-template-columns:260px 1fr; min-height:100vh; }
+@media (max-width:900px){ .shell{ grid-template-columns:1fr; } .sidebar{ position:static; height:auto; } }
+
+.sidebar{
+  position:sticky; top:0; height:100vh; overflow-y:auto;
+  border-right:1px solid var(--line);
+  background:linear-gradient(180deg, var(--bg-panel), var(--bg));
+  padding:20px 0 40px;
+}
+.ticker-brand{
+  padding:0 20px 18px; border-bottom:1px solid var(--line); margin-bottom:12px;
+}
+.ticker-brand .sym{ font-family:var(--mono); font-size:12px; letter-spacing:.14em; color:var(--gain); }
+.ticker-brand h1{ font-size:17px; margin:6px 0 4px; letter-spacing:-.01em; }
+.ticker-brand .sub{ font-family:var(--mono); font-size:11px; color:var(--text-faint); }
+
+.progress-wrap{ padding:0 20px 16px; border-bottom:1px solid var(--line); margin-bottom:8px; }
+.progress-label{ display:flex; justify-content:space-between; font-family:var(--mono); font-size:10.5px; color:var(--text-dim); margin-bottom:6px; }
+.progress-track{ height:3px; background:var(--line-soft); border-radius:2px; overflow:hidden; }
+.progress-fill{ height:100%; width:0%; background:linear-gradient(90deg,var(--gain),#00A6FF); transition:width .25s ease; }
+
+nav.toc{ display:flex; flex-direction:column; }
+nav.toc a{
+  display:flex; gap:10px; align-items:baseline;
+  padding:7px 20px; color:var(--text-dim); text-decoration:none; font-size:12.5px;
+  border-left:2px solid transparent;
+  transition:.15s;
+}
+nav.toc a .tick{ font-family:var(--mono); font-size:10.5px; color:var(--text-faint); min-width:34px; }
+nav.toc a:hover{ color:var(--text); background:var(--bg-panel-2); }
+nav.toc a.active{ color:var(--gain); border-left-color:var(--gain); background:var(--bg-panel-2); }
+nav.toc a.active .tick{ color:var(--gain); }
+
+main{ padding:0; max-width:100%; overflow-x:hidden; }
+.section{ padding:64px clamp(20px,5vw,72px); border-bottom:1px solid var(--line-soft); position:relative; }
+.section:last-child{ border-bottom:none; }
+.section-head{ display:flex; align-items:center; gap:14px; margin-bottom:28px; }
+.section-tag{
+  font-family:var(--mono); font-size:11px; color:var(--bg); background:var(--gain);
+  padding:3px 9px; border-radius:3px; letter-spacing:.08em; white-space:nowrap;
+}
+.section h2{ font-size:clamp(22px,3vw,30px); margin:0; letter-spacing:-.01em; }
+.section .kicker{ font-family:var(--mono); font-size:11.5px; color:var(--text-faint); letter-spacing:.1em; margin-bottom:8px; text-transform:uppercase; }
+.section .lead{ font-size:16.5px; color:var(--text-dim); max-width:760px; margin-bottom:8px; }
+.prose{ max-width:760px; color:var(--text); }
+.prose p{ margin:0 0 14px; }
+.prose strong{ color:#fff; }
+.prose code{ font-family:var(--mono); background:var(--bg-panel-2); padding:1px 6px; border-radius:4px; font-size:13px; color:var(--gain); border:1px solid var(--line); }
+
+.hero{ padding-top:56px; }
+.hero-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center; }
+@media (max-width:900px){ .hero-grid{ grid-template-columns:1fr; } }
+.hero .kicker{ color:var(--gain); }
+.hero h1{ font-size:clamp(32px,5vw,54px); line-height:1.05; margin:6px 0 18px; letter-spacing:-.02em; }
+.hero h1 .accent{ color:var(--gain); }
+.hero p.deck{ font-size:16.5px; color:var(--text-dim); max-width:520px; }
+.hero-badges{ display:flex; gap:8px; margin-top:22px; flex-wrap:wrap; }
+.badge{ font-family:var(--mono); font-size:11px; padding:5px 10px; border:1px solid var(--line); border-radius:20px; color:var(--text-dim); }
+
+/* ticker HUD used across sections */
+.hud{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);
+  border:1px solid var(--line); border-radius:8px; overflow:hidden; font-family:var(--mono);
+}
+@media (max-width:640px){ .hud{ grid-template-columns:repeat(2,1fr); } }
+.hud .cell{ background:var(--bg-panel); padding:14px 16px; }
+.hud .cell .k{ font-size:10.5px; color:var(--text-faint); letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; }
+.hud .cell .v{ font-size:22px; font-weight:600; }
+.hud .cell.min .v{ color:var(--loss); }
+.hud .cell.cur .v{ color:var(--text); }
+.hud .cell.profit .v{ color:var(--gain); }
+.hud .cell.max .v{ color:var(--amber); }
+
+.panel{ background:var(--bg-panel); border:1px solid var(--line); border-radius:10px; padding:20px; }
+.chart-wrap{ margin:20px 0; }
+svg.chart{ width:100%; height:auto; display:block; }
+.chart-caption{ font-family:var(--mono); font-size:11px; color:var(--text-faint); margin-top:8px; text-align:center; }
+
+.controls{ display:flex; gap:10px; flex-wrap:wrap; margin:16px 0; align-items:center; }
+button.ctl{
+  font-family:var(--mono); font-size:12px; color:var(--text); background:var(--bg-panel-2);
+  border:1px solid var(--line); padding:9px 16px; border-radius:6px; cursor:pointer; transition:.15s;
+}
+button.ctl:hover{ border-color:var(--gain); color:var(--gain); }
+button.ctl.primary{ background:var(--gain); color:#04120E; border-color:var(--gain); font-weight:600; }
+button.ctl.primary:hover{ filter:brightness(1.08); color:#04120E; }
+button.ctl:disabled{ opacity:.4; cursor:not-allowed; }
+.step-log{ font-family:var(--mono); font-size:13px; color:var(--text-dim); min-height:22px; }
+
+/* analogy cards */
+.analogy-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:24px 0; }
+.analogy-card{ background:var(--bg-panel); border:1px solid var(--line); border-radius:10px; padding:18px; cursor:pointer; transition:.2s; }
+.analogy-card:hover{ border-color:var(--gain); transform:translateY(-2px); }
+.analogy-card .icon{ margin-bottom:10px; }
+.analogy-card h4{ margin:0 0 6px; font-size:14.5px; }
+.analogy-card p{ margin:0; font-size:13px; color:var(--text-dim); }
+
+/* collapsible */
+details.reveal{ background:var(--bg-panel); border:1px solid var(--line); border-radius:8px; margin:12px 0; overflow:hidden; }
+details.reveal summary{ padding:14px 18px; cursor:pointer; font-size:14px; color:var(--text); list-style:none; display:flex; justify-content:space-between; align-items:center; }
+details.reveal summary::-webkit-details-marker{ display:none; }
+details.reveal summary::after{ content:'+'; font-family:var(--mono); color:var(--gain); font-size:18px; }
+details.reveal[open] summary::after{ content:'–'; }
+details.reveal .reveal-body{ padding:0 18px 18px; color:var(--text-dim); font-size:13.5px; }
+
+/* code block */
+.code{
+  background:#070A0E; border:1px solid var(--line); border-radius:10px; padding:0; overflow:hidden; margin:20px 0;
+}
+.code-head{ display:flex; justify-content:space-between; align-items:center; padding:10px 16px; border-bottom:1px solid var(--line); background:var(--bg-panel); }
+.code-head span{ font-family:var(--mono); font-size:11.5px; color:var(--text-faint); }
+.copy-btn{ font-family:var(--mono); font-size:11px; color:var(--text-dim); background:transparent; border:1px solid var(--line); padding:4px 10px; border-radius:5px; cursor:pointer; }
+.copy-btn:hover{ color:var(--gain); border-color:var(--gain); }
+pre.code-body{ margin:0; padding:18px; font-family:var(--mono); font-size:13px; overflow-x:auto; line-height:1.65; }
+.code-line{ display:block; padding:2px 10px; border-radius:4px; cursor:pointer; transition:.15s; }
+.code-line:hover{ background:var(--bg-panel-2); }
+.code-line.active{ background:var(--gain-dim); }
+.cm{ color:var(--text-faint); }
+.kw{ color:#C792EA; }
+.fn{ color:#82AAFF; }
+.nm{ color:#F78C6C; }
+.str{ color:var(--gain); }
+.explain-box{ background:var(--bg-panel-2); border-left:3px solid var(--gain); padding:12px 16px; border-radius:0 8px 8px 0; font-size:13.5px; color:var(--text-dim); min-height:24px; margin-top:14px; }
+
+/* complexity race */
+.race{ display:flex; flex-direction:column; gap:16px; margin:20px 0; }
+.race-row{ display:flex; align-items:center; gap:14px; }
+.race-label{ font-family:var(--mono); font-size:12px; width:130px; color:var(--text-dim); }
+.race-track{ flex:1; height:22px; background:var(--bg-panel-2); border:1px solid var(--line); border-radius:4px; overflow:hidden; position:relative; }
+.race-fill{ height:100%; width:0%; }
+.race-fill.n2{ background:linear-gradient(90deg,var(--loss-dim),var(--loss)); }
+.race-fill.n{ background:linear-gradient(90deg,var(--gain-dim),var(--gain)); }
+.race-count{ font-family:var(--mono); font-size:11px; width:90px; text-align:right; color:var(--text-faint); }
+
+/* mistakes */
+.mistake-list{ display:flex; flex-direction:column; gap:10px; margin:20px 0; }
+.mistake{ display:flex; gap:14px; background:var(--bg-panel); border:1px solid var(--loss-dim); border-radius:8px; padding:14px 16px; }
+.mistake .x{ color:var(--loss); font-family:var(--mono); font-weight:700; }
+.mistake .body b{ display:block; color:#fff; font-size:14px; margin-bottom:3px; }
+.mistake .body span{ font-size:13px; color:var(--text-dim); }
+
+/* interview */
+.qa{ border:1px solid var(--line); border-radius:8px; margin:12px 0; background:var(--bg-panel); }
+.qa .q{ padding:16px 18px; font-size:14.5px; display:flex; gap:10px; cursor:pointer; align-items:flex-start; }
+.qa .q .qmark{ font-family:var(--mono); color:var(--amber); }
+.qa .a{ display:none; padding:0 18px 18px 42px; font-size:13.5px; color:var(--text-dim); border-top:1px solid var(--line-soft); }
+.qa .a.show{ display:block; padding-top:14px; }
+
+/* pattern roadmap */
+.roadmap{ display:flex; gap:0; margin:24px 0; overflow-x:auto; padding-bottom:8px; }
+.roadmap .node{ min-width:190px; background:var(--bg-panel); border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin-right:18px; position:relative; }
+.roadmap .node:not(:last-child)::after{ content:'→'; position:absolute; right:-24px; top:44%; color:var(--text-faint); font-family:var(--mono); }
+.roadmap .node .tag{ font-family:var(--mono); font-size:10px; color:var(--gain); text-transform:uppercase; letter-spacing:.06em; }
+.roadmap .node h5{ margin:6px 0 4px; font-size:13.5px; }
+.roadmap .node p{ margin:0; font-size:11.5px; color:var(--text-dim); }
+
+/* quiz */
+.quiz-card{ background:var(--bg-panel); border:1px solid var(--line); border-radius:10px; padding:20px; margin:18px 0; }
+.quiz-q{ font-size:15px; margin-bottom:14px; }
+.quiz-opts{ display:flex; flex-direction:column; gap:8px; }
+.quiz-opt{ text-align:left; background:var(--bg-panel-2); border:1px solid var(--line); border-radius:6px; padding:11px 14px; cursor:pointer; color:var(--text); font-size:13.5px; transition:.15s; }
+.quiz-opt:hover{ border-color:var(--text-dim); }
+.quiz-opt.correct{ border-color:var(--gain); background:var(--gain-dim); color:#fff; }
+.quiz-opt.wrong{ border-color:var(--loss); background:var(--loss-dim); color:#fff; }
+.quiz-explain{ margin-top:12px; font-size:13px; color:var(--text-dim); display:none; padding:12px 14px; background:var(--bg-panel-2); border-radius:6px; border-left:3px solid var(--amber); }
+.quiz-explain.show{ display:block; }
+.quiz-score{ font-family:var(--mono); font-size:13px; color:var(--gain); text-align:right; margin-top:10px; }
+
+/* cheat sheet */
+.cheat-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+@media (max-width:760px){ .cheat-grid{ grid-template-columns:1fr; } }
+.cheat-card{ background:var(--bg-panel); border:1px solid var(--line); border-radius:10px; padding:18px; }
+.cheat-card h4{ margin:0 0 10px; font-size:13px; font-family:var(--mono); color:var(--amber); text-transform:uppercase; letter-spacing:.06em; }
+.cheat-card ul{ margin:0; padding-left:18px; font-size:13.5px; color:var(--text-dim); }
+.cheat-card li{ margin-bottom:6px; }
+
+.closing-bell{ text-align:center; padding:60px 20px 40px; }
+.closing-bell .bell-sym{ font-family:var(--mono); font-size:12px; color:var(--gain); letter-spacing:.15em; }
+.closing-bell h2{ font-size:26px; margin:10px 0; }
+.closing-bell p{ color:var(--text-dim); max-width:520px; margin:0 auto; }
+
+::selection{ background:var(--gain-dim); color:#fff; }
+.blink{ animation:blink 1.1s step-end infinite; }
+@keyframes blink{ 50%{ opacity:0; } }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="ticker-brand">
+      <div class="sym">NASDAQ: LC121 <span class="blink">●</span></div>
+      <h1>Ledger</h1>
+      <div class="sub">Interactive DSA Terminal / Vol. 121</div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>SESSION PROGRESS</span><span id="progressPct">0%</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <nav class="toc" id="toc">
+      <a href="#s1"><span class="tick">01</span>Big Picture</a>
+      <a href="#s2"><span class="tick">02</span>The Problem</a>
+      <a href="#s3"><span class="tick">03</span>Intuition</a>
+      <a href="#s4"><span class="tick">04</span>Brute Force</a>
+      <a href="#s5"><span class="tick">05</span>Better Idea</a>
+      <a href="#s6"><span class="tick">06</span>Key Insight</a>
+      <a href="#s7"><span class="tick">07</span>The Algorithm</a>
+      <a href="#s8"><span class="tick">08</span>Python Code</a>
+      <a href="#s9"><span class="tick">09</span>Why It Works</a>
+      <a href="#s10"><span class="tick">10</span>Complexity</a>
+      <a href="#s11"><span class="tick">11</span>Mistakes</a>
+      <a href="#s12"><span class="tick">12</span>Interview</a>
+      <a href="#s13"><span class="tick">13</span>Pattern</a>
+      <a href="#s14"><span class="tick">14</span>Quiz</a>
+      <a href="#s15"><span class="tick">15</span>Cheat Sheet</a>
+    </nav>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main>
+
+    <!-- HERO -->
+    <section class="section hero" id="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="kicker">LeetCode 121 · Easy · Array</div>
+          <h1>Best Time to <span class="accent">Buy</span> and Sell Stock</h1>
+          <p class="deck">One price tape. One buy. One sell. Your job: watch the tape once, and never miss the biggest gain hiding in it. This chapter builds the optimal algorithm from scratch — you will derive it, not memorize it.</p>
+          <div class="hero-badges">
+            <span class="badge">Pattern: Running Minimum</span>
+            <span class="badge">Time: O(n)</span>
+            <span class="badge">Space: O(1)</span>
+            <span class="badge">Family: Greedy / One-Pass</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="chart-caption" style="margin-top:0;margin-bottom:8px;">LIVE TAPE — prices = [7, 1, 5, 3, 6, 4]</div>
+          <div id="heroChart" class="chart-wrap"></div>
+          <div class="hud" id="heroHud">
+            <div class="cell min"><div class="k">Min So Far</div><div class="v" id="heroMin">–</div></div>
+            <div class="cell cur"><div class="k">Today</div><div class="v" id="heroCur">–</div></div>
+            <div class="cell profit"><div class="k">Profit Today</div><div class="v" id="heroProfit">–</div></div>
+            <div class="cell max"><div class="k">Best So Far</div><div class="v" id="heroMax">–</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: BIG PICTURE -->
+    <section class="section" id="s1">
+      <div class="section-head"><span class="section-tag">01</span><h2>The Big Picture</h2></div>
+      <div class="prose">
+        <p><strong>What is this problem?</strong> You're handed one number per day — the stock's closing price. You may buy on exactly one day and sell on a later day. You want the trade that makes the most money. That's it. No shorting, no multiple trades, no crystal ball — just one clean read of a list of numbers.</p>
+        <p><strong>Why interviewers love it.</strong> It looks like arithmetic, but it's really a test of whether you can resist the obvious-but-slow instinct (compare every pair of days) and instead notice that the problem has much less "memory" than it seems to. That noticing — realizing you don't need to remember everything, only one running fact — is the core skill interviewers are actually screening for.</p>
+        <p><strong>What it develops.</strong> This problem is your first real exposure to <em>single-pass, constant-memory reasoning</em>: scanning data exactly once while carrying forward only the summary you truly need. That skill reappears constantly — it's the same instinct behind streaming analytics, cache eviction, and real-time monitoring dashboards.</p>
+        <p><strong>Where it shows up in real life and real software.</strong> A monitoring system watching server latency wants to know "how much did the worst dip recover by" without storing every past reading. A shopper watching a price tracker wants to know the best moment they could have bought, using only what they've seen so far. Even everyday decisions — "should I have bought plane tickets sooner?" — are this exact shape: a stream of values, and a running "best reference point so far."</p>
+      </div>
+    </section>
+
+    <!-- SECTION 2: UNDERSTANDING THE PROBLEM -->
+    <section class="section" id="s2">
+      <div class="section-head"><span class="section-tag">02</span><h2>Understanding the Problem</h2></div>
+      <div class="prose">
+        <p>Let's slow the problem down into plain statements before touching any code.</p>
+      </div>
+      <div class="hud" style="grid-template-columns:1fr;margin-bottom:18px;">
+        <div class="cell" style="display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center;">
+          <div class="k" style="margin:0;">INPUT</div><div class="v" style="font-size:14px;font-weight:400;">A list of daily prices, e.g. <code style="background:transparent;border:none;color:var(--gain);">[7, 1, 5, 3, 6, 4]</code>. Index = day number, value = price that day.</div>
+        </div>
+      </div>
+      <div class="hud" style="grid-template-columns:1fr;margin-bottom:18px;">
+        <div class="cell" style="display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center;">
+          <div class="k" style="margin:0;">OUTPUT</div><div class="v" style="font-size:14px;font-weight:400;">A single number: the maximum profit obtainable from one buy followed by one later sell.</div>
+        </div>
+      </div>
+      <div class="hud" style="grid-template-columns:1fr;margin-bottom:22px;">
+        <div class="cell" style="display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center;">
+          <div class="k" style="margin:0;">CONSTRAINTS</div><div class="v" style="font-size:14px;font-weight:400;">1 ≤ prices.length ≤ 10⁵. Prices are non-negative integers. Only one buy and one sell, total.</div>
+        </div>
+      </div>
+      <details class="reveal" open>
+        <summary>Why must buying happen before selling?</summary>
+        <div class="reveal-body">You can't sell a stock you don't yet own. If day <code>i</code> is your buy day, your sell day <code>j</code> must satisfy <code>j > i</code>. This ordering constraint is the whole reason the "compare every pair" brute force even needs the restriction <code>j > i</code> — and it's exactly the constraint the optimal algorithm respects for free, since it only ever looks backward at prices already seen.</div>
+      </details>
+      <details class="reveal">
+        <summary>Why only one transaction?</summary>
+        <div class="reveal-body">This version of the problem caps you at a single buy and a single sell. That restriction is what keeps the answer to "one interval, one dip, one rise." (LeetCode has a follow-up variant, <em>Best Time to Buy and Sell Stock II</em>, where unlimited transactions are allowed — we'll touch on how the strategy changes for that in the pattern-recognition section.)</div>
+      </details>
+      <details class="reveal">
+        <summary>Why is returning 0 sometimes correct?</summary>
+        <div class="reveal-body">If prices only ever fall — like <code>[7,6,4,3,1]</code> — every possible trade loses money. Since you're never <em>forced</em> to trade, the best move is to not trade at all, which yields a profit of exactly <code>0</code>. The algorithm needs to recognize "doing nothing" as a valid, sometimes-optimal answer.</div>
+      </details>
+    </section>
+
+    <!-- SECTION 3: BUILDING INTUITION -->
+    <section class="section" id="s3">
+      <div class="section-head"><span class="section-tag">03</span><h2>Building Intuition</h2></div>
+      <p class="lead">Four different lenses on the exact same idea. Click a card to see it mapped onto the price tape.</p>
+      <div class="analogy-grid" id="analogyGrid">
+        <div class="analogy-card" data-analogy="fruit">
+          <div class="icon">🍎</div>
+          <h4>The Fruit Stall</h4>
+          <p>Buy fruit when it's cheapest at the market, sell it later when the price has gone up. You'd never buy on the expensive day hoping to sell cheaper later.</p>
+        </div>
+        <div class="analogy-card" data-analogy="stock">
+          <div class="icon">📈</div>
+          <h4>The Stock Ticker</h4>
+          <p>Watch the price tape day by day. At every moment, ask: "if I'd bought at the lowest point I've seen so far, how much would today's price earn me?"</p>
+        </div>
+        <div class="analogy-card" data-analogy="mountain">
+          <div class="icon">⛰️</div>
+          <h4>Valley Before Peak</h4>
+          <p>You're hiking a line graph. You want the deepest valley that occurs <em>before</em> the highest peak that follows it — not just the deepest valley and the highest peak anywhere.</p>
+        </div>
+        <div class="analogy-card" data-analogy="slope">
+          <div class="icon">📐</div>
+          <h4>Biggest Upward Slope</h4>
+          <p>Among all the "climbs" in the line (any point going up to a later, higher point), find the one climb with the greatest vertical rise.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="chart-caption" style="margin-top:0;margin-bottom:8px;" id="analogyCaption">Select an analogy above to highlight it on the tape.</div>
+        <div id="analogyChart" class="chart-wrap"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: BRUTE FORCE -->
+    <section class="section" id="s4">
+      <div class="section-head"><span class="section-tag">04</span><h2>Thinking Like a Beginner</h2></div>
+      <div class="prose">
+        <p><strong>If I were solving this by hand</strong>, I'd probably just try everything: for every possible buy day, check every possible later sell day, compute the profit, and remember the biggest one I find. Let's animate exactly that.</p>
+      </div>
+      <div class="panel">
+        <div id="bruteChart" class="chart-wrap"></div>
+        <div class="controls">
+          <button class="ctl primary" id="bruteStep">Step Through →</button>
+          <button class="ctl" id="bruteAuto">▶ Auto-Play</button>
+          <button class="ctl" id="bruteReset">↺ Reset</button>
+        </div>
+        <div class="step-log" id="bruteLog">Press "Step Through" to try buy day 0 against every later sell day.</div>
+        <div class="hud" style="margin-top:14px;">
+          <div class="cell cur"><div class="k">Buy Day</div><div class="v" id="bruteBuy">–</div></div>
+          <div class="cell cur"><div class="k">Sell Day</div><div class="v" id="bruteSell">–</div></div>
+          <div class="cell profit"><div class="k">This Trade</div><div class="v" id="bruteThis">–</div></div>
+          <div class="cell max"><div class="k">Best Found</div><div class="v" id="bruteBest">0</div></div>
+        </div>
+      </div>
+      <div class="prose" style="margin-top:20px;">
+        <p>This works — it checks every possible trade, so it can't miss the answer. But notice the shape of the work: for each of the <code>n</code> buy days, we scan up to <code>n</code> sell days. That's roughly <code>n × n</code> comparisons. For 6 prices that's fine. For 100,000 daily prices, that's <strong>up to 10 billion comparisons</strong> — far too slow. We need to keep the correctness, but drop the redundant re-scanning.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 5: DISCOVERING THE BETTER IDEA -->
+    <section class="section" id="s5">
+      <div class="section-head"><span class="section-tag">05</span><h2>Discovering the Better Idea</h2></div>
+      <div class="prose">
+        <p>Don't jump to the answer — interrogate the brute force instead. Click each question to think about it, then reveal.</p>
+      </div>
+      <details class="reveal">
+        <summary>What information do we actually need, standing on day <em>i</em>?</summary>
+        <div class="reveal-body">To evaluate "sell today," we don't need every individual price before today — we only need to know <em>one thing</em>: the lowest price among all of them. That single number is enough to compute the best possible profit if today is the sell day.</div>
+      </details>
+      <details class="reveal">
+        <summary>Do we need to remember every previous price?</summary>
+        <div class="reveal-body">No. Once we know the minimum price so far, every other previous price is strictly worse to buy at (it can only produce equal or smaller profit). They can be safely forgotten.</div>
+      </details>
+      <details class="reveal">
+        <summary>If today's selling price is fixed, which buying day maximizes profit?</summary>
+        <div class="reveal-body">Always the day with the smallest price seen so far. Buying any higher than the historical minimum can only shrink the profit, never grow it. This is the entire insight in one sentence.</div>
+      </details>
+      <details class="reveal">
+        <summary>So what's the only "memory" the algorithm needs to carry forward?</summary>
+        <div class="reveal-body">Two numbers: the <strong>minimum price seen so far</strong>, and the <strong>maximum profit found so far</strong>. Everything else — the full history of prices — can be thrown away the moment it's been used to update those two numbers.</div>
+      </details>
+    </section>
+
+    <!-- SECTION 6: KEY INSIGHT -->
+    <section class="section" id="s6">
+      <div class="section-head"><span class="section-tag">06</span><h2>The Key Insight</h2></div>
+      <div class="prose">
+        <p>Say it plainly: <strong>we never need all previous prices — we only need the cheapest one we've seen.</strong> Every day, two questions get asked, in this order:</p>
+        <p>1. "Is today's price a new record low?" → if so, update the minimum.<br>2. "If I'd bought at the minimum and sold today, is that better than my best profit so far?" → if so, update the best profit.</p>
+      </div>
+      <div class="panel">
+        <div id="insightChart" class="chart-wrap"></div>
+        <div class="controls">
+          <button class="ctl primary" id="insightStep">Advance One Day →</button>
+          <button class="ctl" id="insightReset">↺ Reset</button>
+        </div>
+        <div class="hud" style="margin-top:14px;">
+          <div class="cell min"><div class="k">Min Price So Far</div><div class="v" id="insightMin">–</div></div>
+          <div class="cell cur"><div class="k">Today's Price</div><div class="v" id="insightCur">–</div></div>
+          <div class="cell profit"><div class="k">Profit If Sold Today</div><div class="v" id="insightProfit">–</div></div>
+          <div class="cell max"><div class="k">Max Profit So Far</div><div class="v" id="insightMax">0</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: THE OPTIMAL ALGORITHM -->
+    <section class="section" id="s7">
+      <div class="section-head"><span class="section-tag">07</span><h2>The Optimal Algorithm</h2></div>
+      <p class="lead">The full one-pass walkthrough, synchronized across the chart, the day counter, and the running numbers. This is the algorithm end to end.</p>
+      <div class="panel">
+        <div id="algoChart" class="chart-wrap"></div>
+        <div class="controls">
+          <button class="ctl" id="algoPrev">← Prev Day</button>
+          <button class="ctl primary" id="algoNext">Next Day →</button>
+          <button class="ctl" id="algoAuto">▶ Auto-Play</button>
+          <button class="ctl" id="algoReset">↺ Reset</button>
+        </div>
+        <div class="step-log" id="algoLog">Day 0: we start here — this price becomes our first minimum by definition.</div>
+        <div class="hud" style="margin-top:14px;">
+          <div class="cell cur"><div class="k">Day</div><div class="v" id="algoDay">0 / 5</div></div>
+          <div class="cell min"><div class="k">Min Price</div><div class="v" id="algoMin">7</div></div>
+          <div class="cell profit"><div class="k">Profit Today</div><div class="v" id="algoProfit">0</div></div>
+          <div class="cell max"><div class="k">Max Profit</div><div class="v" id="algoMax">0</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: PYTHON IMPLEMENTATION -->
+    <section class="section" id="s8">
+      <div class="section-head"><span class="section-tag">08</span><h2>Python Implementation</h2></div>
+      <p class="lead">Click any line for a plain-language explanation of exactly what it does and why.</p>
+      <div class="code">
+        <div class="code-head"><span>solution.py</span><button class="copy-btn" id="copyCode">Copy</button></div>
+        <pre class="code-body" id="codeBody"></pre>
+      </div>
+      <div class="explain-box" id="codeExplain">Click a line above to see why it's written that way.</div>
+    </section>
+
+    <!-- SECTION 9: WHY THE ALGORITHM WORKS -->
+    <section class="section" id="s9">
+      <div class="section-head"><span class="section-tag">09</span><h2>Why the Algorithm Works</h2></div>
+      <div class="prose">
+        <p><strong>The claim to prove:</strong> tracking the smallest price seen so far, and comparing today's price against only that number, is guaranteed to find the true maximum possible profit — even though we never explicitly compare every pair of days.</p>
+        <p><strong>The reasoning:</strong> for any fixed sell day <code>j</code>, the best possible buy day is whichever earlier day had the lowest price — there's no other buy day that could produce a larger <code>prices[j] − prices[buy_day]</code>. Our running minimum, by construction, always equals "the lowest price among all days before now." So at every single day <code>j</code>, when we compute <code>prices[j] − min_so_far</code>, we are computing <em>exactly</em> the best possible profit achievable if <code>j</code> is the sell day. Since we do this check on <strong>every</strong> day, and keep the largest result, we're guaranteed to have checked the best profit for the true optimal sell day too — we just never had to compare it against every candidate buy day individually, because the running minimum already <em>is</em> that comparison, pre-computed.</p>
+        <p>In other words: the brute force's inner loop asked "which buy day was best for this sell day?" — one comparison at a time. The running minimum answers that same question in O(1), because it's been silently comparing all along.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 10: COMPLEXITY -->
+    <section class="section" id="s10">
+      <div class="section-head"><span class="section-tag">10</span><h2>Complexity</h2></div>
+      <div class="prose">
+        <p><strong>Brute force:</strong> for each of <code>n</code> buy days, we scan up to <code>n</code> sell days → <strong>O(n²)</strong> time. <strong>Optimal:</strong> one single pass over the array, carrying two variables → <strong>O(n)</strong> time, <strong>O(1)</strong> extra space (no matter how long the price list is, we only ever store <code>min_price</code> and <code>max_profit</code>).</p>
+      </div>
+      <div class="panel">
+        <div class="controls"><button class="ctl primary" id="raceRun">▶ Run Comparison at n = 40</button><button class="ctl" id="raceReset">↺ Reset</button></div>
+        <div class="race">
+          <div class="race-row"><div class="race-label">Brute Force O(n²)</div><div class="race-track"><div class="race-fill n2" id="raceN2"></div></div><div class="race-count" id="raceN2Count">0 ops</div></div>
+          <div class="race-row"><div class="race-label">Optimal O(n)</div><div class="race-track"><div class="race-fill n" id="raceN"></div></div><div class="race-count" id="raceNCount">0 ops</div></div>
+        </div>
+        <div class="chart-caption" style="margin-top:4px;">At n = 40: brute force ≈ 1,600 operations · optimal ≈ 40 operations.</div>
+      </div>
+    </section>
+
+    <!-- SECTION 11: COMMON MISTAKES -->
+    <section class="section" id="s11">
+      <div class="section-head"><span class="section-tag">11</span><h2>Common Mistakes</h2></div>
+      <div class="mistake-list">
+        <div class="mistake"><span class="x">✕</span><div class="body"><b>Selling before buying</b><span>Comparing <code>prices[i]</code> to a later <code>prices[j]</code> where <code>j &lt; i</code> — always require the sell index to come after the buy index.</span></div></div>
+        <div class="mistake"><span class="x">✕</span><div class="body"><b>Resetting the minimum incorrectly</b><span>The minimum should only ever go <em>down</em> (or stay the same) as you scan forward — never reset it back up or recompute it from scratch each day.</span></div></div>
+        <div class="mistake"><span class="x">✕</span><div class="body"><b>Updating profit before updating the minimum</b><span>Order matters: check whether today is a new minimum first, then compute today's potential profit — otherwise you might compute a "profit" using tomorrow's low as if it were available today.</span></div></div>
+        <div class="mistake"><span class="x">✕</span><div class="body"><b>Forgetting to return 0</b><span>If every day's price is lower than the last, no profitable trade exists — the answer must default to <code>0</code>, not a negative number.</span></div></div>
+        <div class="mistake"><span class="x">✕</span><div class="body"><b>Confusing today's profit with the max profit</b><span>Today's <code>price − min_so_far</code> is just one candidate. It must be compared against — and only overwrite — the running <em>maximum</em>, never used directly as the final answer.</span></div></div>
+        <div class="mistake"><span class="x">✕</span><div class="body"><b>Using nested loops out of habit</b><span>If you find yourself writing a loop inside a loop for this problem, it's a sign you're re-deriving information (the minimum) that a single running variable already gives you for free.</span></div></div>
+      </div>
+    </section>
+
+    <!-- SECTION 12: INTERVIEW THINKING -->
+    <section class="section" id="s12">
+      <div class="section-head"><span class="section-tag">12</span><h2>Interview Thinking</h2></div>
+      <p class="lead">Imagine the interviewer asking these live. Click a question, think for a moment, then reveal the answer.</p>
+      <div id="qaList">
+        <div class="qa"><div class="q"><span class="qmark">Q.</span>Can you explain your intuition in one sentence?</div><div class="a">"At every day, the most profitable possible sale is today's price minus the lowest price seen so far — so I just track that running minimum and the best profit it's produced."</div></div>
+        <div class="qa"><div class="q"><span class="qmark">Q.</span>Why does a single pass work here?</div><div class="a">Because the only piece of history that matters for any future decision — the minimum price — can be maintained incrementally. There's no need to look backward more than once per element.</div></div>
+        <div class="qa"><div class="q"><span class="qmark">Q.</span>Why don't you need all previous prices?</div><div class="a">Every price except the running minimum is provably a worse buy point than the minimum itself, so keeping them around adds memory without adding any correctness.</div></div>
+        <div class="qa"><div class="q"><span class="qmark">Q.</span>Could you solve it with two loops instead?</div><div class="a">Yes — it's the brute force, and it's still correct, just O(n²). I'd mention it briefly to show I understand the naive baseline, then pivot to explaining why it's unnecessary here.</div></div>
+        <div class="qa"><div class="q"><span class="qmark">Q.</span>Which solution would you actually choose, and why?</div><div class="a">The one-pass O(n) / O(1) solution — it's strictly better on both time and space, and it's not any harder to write or explain once you see the running-minimum insight.</div></div>
+        <div class="qa"><div class="q"><span class="qmark">Q.</span>What changes if multiple transactions are allowed?</div><div class="a">The problem becomes "capture every upward slope," not just the single biggest one — you'd sum up every day-over-day price increase (see Section 13 for how this generalizes).</div></div>
+      </div>
+    </section>
+
+    <!-- SECTION 13: PATTERN RECOGNITION -->
+    <section class="section" id="s13">
+      <div class="section-head"><span class="section-tag">13</span><h2>Pattern Recognition</h2></div>
+      <div class="prose">
+        <p>Learn to spot this shape again. The signals that a "running minimum / running best" one-pass approach applies:</p>
+      </div>
+      <ul class="prose" style="padding-left:20px;">
+        <li>You're asked for a <strong>best pair</strong> (max difference, max ratio, max gap) where order matters (one side must come before the other).</li>
+        <li>The brute force naturally nests two loops, and the inner loop is always answering the same repeated question ("what's the best X seen so far?").</li>
+        <li>You can describe the needed memory in one or two words: a running minimum, a running maximum, a running sum, or a running count.</li>
+        <li>The problem is inherently <strong>greedy</strong> — the locally-best choice at each step (buy at the lowest point so far) never needs to be revisited later.</li>
+      </ul>
+      <div class="roadmap">
+        <div class="node"><div class="tag">You are here</div><h5>Best Time to Buy &amp; Sell I</h5><p>One transaction. Track running minimum + max profit.</p></div>
+        <div class="node"><div class="tag">Next</div><h5>Buy &amp; Sell Stock II</h5><p>Unlimited transactions. Sum every positive day-over-day gain.</p></div>
+        <div class="node"><div class="tag">Then</div><h5>Buy &amp; Sell Stock III</h5><p>At most two transactions. Track two running "best so far" states.</p></div>
+        <div class="node"><div class="tag">Later</div><h5>With Cooldown / Fee</h5><p>State machine of running bests, one per "position" (holding vs not).</p></div>
+      </div>
+    </section>
+
+    <!-- SECTION 14: KNOWLEDGE CHECK -->
+    <section class="section" id="s14">
+      <div class="section-head"><span class="section-tag">14</span><h2>Knowledge Check</h2></div>
+      <p class="lead">Five questions. Not memorization — reasoning. Explanations appear after every answer.</p>
+      <div id="quizContainer"></div>
+      <div class="quiz-score" id="quizScore"></div>
+    </section>
+
+    <!-- SECTION 15: CHEAT SHEET -->
+    <section class="section" id="s15">
+      <div class="section-head"><span class="section-tag">15</span><h2>Final Cheat Sheet</h2></div>
+      <p class="lead">Everything you need to re-derive this problem in under five minutes.</p>
+      <div class="cheat-grid">
+        <div class="cheat-card">
+          <h4>Core Intuition</h4>
+          <ul><li>Only one previous fact matters: the lowest price seen so far.</li><li>Profit today = today's price − running minimum.</li><li>Track the best such profit across the whole pass.</li></ul>
+        </div>
+        <div class="cheat-card">
+          <h4>Step-by-Step Algorithm</h4>
+          <ul><li>Set <code>min_price</code> = first price, <code>max_profit</code> = 0.</li><li>For each later price: update <code>min_price</code> if it's a new low.</li><li>Compute <code>price − min_price</code>; update <code>max_profit</code> if bigger.</li><li>Return <code>max_profit</code>.</li></ul>
+        </div>
+        <div class="cheat-card">
+          <h4>Python Template</h4>
+          <ul><li><code>min_price = prices[0]</code></li><li><code>max_profit = 0</code></li><li><code>for p in prices[1:]:</code></li><li><code>&nbsp;&nbsp;min_price = min(min_price, p)</code></li><li><code>&nbsp;&nbsp;max_profit = max(max_profit, p - min_price)</code></li></ul>
+        </div>
+        <div class="cheat-card">
+          <h4>Complexity</h4>
+          <ul><li>Time: O(n) — one pass.</li><li>Space: O(1) — two running variables.</li><li>Brute force alternative: O(n²) time, O(1) space.</li></ul>
+        </div>
+        <div class="cheat-card">
+          <h4>Common Mistakes</h4>
+          <ul><li>Selling before buying (index order).</li><li>Updating profit before updating the minimum.</li><li>Forgetting the "no trade" case returns 0.</li></ul>
+        </div>
+        <div class="cheat-card">
+          <h4>Interview Tips</h4>
+          <ul><li>Mention brute force first, briefly, then pivot to the insight.</li><li>State the invariant out loud: "min_price is always the lowest price seen so far."</li><li>Know the multi-transaction follow-up (Stock II).</li></ul>
+        </div>
+        <div class="cheat-card" style="grid-column:1/-1;">
+          <h4>Pattern Recognition Cues</h4>
+          <ul><li>Best pair with order constraint → running min/max.</li><li>Nested loop where inner loop repeats the same "best so far" question → collapse to one variable.</li><li>Greedy local choice that's never revisited → one-pass candidate.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="closing-bell">
+      <div class="bell-sym">— MARKET CLOSED —</div>
+      <h2>You didn't memorize this. You derived it.</h2>
+      <p>Come back to this page and you should be able to rebuild the entire algorithm from Section 5 alone: only one previous fact ever matters.</p>
+    </div>
+
+  </main>
+</div>
+
+<script>
+(function(){
+
+const PRICES = [7,1,5,3,6,4];
+
+/* ============ SVG CHART BUILDER ============ */
+function buildChart(containerId, prices, opts){
+  opts = opts || {};
+  const w = 640, h = 220, padL = 34, padR = 20, padT = 20, padB = 30;
+  const min = Math.min(...prices), max = Math.max(...prices);
+  const range = (max - min) || 1;
+  const stepX = (w - padL - padR) / (prices.length - 1);
+  function x(i){ return padL + i*stepX; }
+  function y(v){ return padT + (h - padT - padB) * (1 - (v - min)/range); }
+
+  let gridLines = '';
+  for(let i=0;i<=4;i++){
+    const gy = padT + (h-padT-padB)*i/4;
+    gridLines += `<line x1="${padL}" y1="${gy}" x2="${w-padR}" y2="${gy}" stroke="var(--line-soft)" stroke-width="1"/>`;
+  }
+
+  let pathD = '';
+  prices.forEach((p,i)=>{ pathD += (i===0?'M':'L') + x(i) + ' ' + y(p) + ' '; });
+
+  const container = document.getElementById(containerId);
+  const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+  svg.setAttribute('class','chart');
+  svg.innerHTML = `
+    ${gridLines}
+    <path d="${pathD}" fill="none" stroke="#2A3949" stroke-width="2" />
+    <g id="${containerId}-hl"></g>
+    <g id="${containerId}-pts">
+      ${prices.map((p,i)=>`<circle data-i="${i}" cx="${x(i)}" cy="${y(p)}" r="4.5" fill="var(--text-faint)" stroke="var(--bg-panel)" stroke-width="2"/>`).join('')}
+    </g>
+    <g id="${containerId}-labels">
+      ${prices.map((p,i)=>`<text x="${x(i)}" y="${h-8}" font-family="var(--mono)" font-size="9.5" fill="var(--text-faint)" text-anchor="middle">D${i}</text>`).join('')}
+      ${prices.map((p,i)=>`<text x="${x(i)}" y="${y(p)-12}" font-family="var(--mono)" font-size="10" fill="var(--text-dim)" text-anchor="middle">$${p}</text>`).join('')}
+    </g>
+  `;
+  container.innerHTML = '';
+  container.appendChild(svg);
+  return { x, y, svg };
+}
+
+function setPointColor(containerId, i, color){
+  const pt = document.querySelector(`#${containerId}-pts circle[data-i="${i}"]`);
+  if(pt) pt.setAttribute('fill', color);
+}
+function resetPoints(containerId, prices){
+  prices.forEach((_,i)=> setPointColor(containerId, i, 'var(--text-faint)'));
+  const hl = document.getElementById(containerId+'-hl');
+  if(hl) hl.innerHTML = '';
+}
+function drawSegment(containerId, geo, i, j, color){
+  const hl = document.getElementById(containerId+'-hl');
+  const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1', geo.x(i)); line.setAttribute('y1', geo.y.call(null, arguments[5]!==undefined?arguments[5]:0));
+  hl.appendChild(line);
+}
+function drawLineBetween(containerId, geo, prices, i, j, color){
+  const hl = document.getElementById(containerId+'-hl');
+  const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1', geo.x(i)); line.setAttribute('y1', geo.y(prices[i]));
+  line.setAttribute('x2', geo.x(j)); line.setAttribute('y2', geo.y(prices[j]));
+  line.setAttribute('stroke', color); line.setAttribute('stroke-width','2.5'); line.setAttribute('stroke-dasharray','4 3');
+  hl.appendChild(line);
+}
+function drawMinLine(containerId, geo, prices, uptoIndex, minVal, color){
+  const hl = document.getElementById(containerId+'-hl');
+  const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1', geo.x(0)); line.setAttribute('y1', geo.y(minVal));
+  line.setAttribute('x2', geo.x(uptoIndex)); line.setAttribute('y2', geo.y(minVal));
+  line.setAttribute('stroke', color); line.setAttribute('stroke-width','1.5'); line.setAttribute('stroke-dasharray','3 3'); line.setAttribute('opacity','0.7');
+  hl.appendChild(line);
+}
+
+/* ============ HERO CHART (ambient, auto) ============ */
+const heroGeo = buildChart('heroChart', PRICES);
+let heroDay = 0, heroMin = PRICES[0], heroMax = 0;
+function heroStep(){
+  resetPoints('heroChart', PRICES);
+  if(heroDay===0){ heroMin = PRICES[0]; heroMax = 0; }
+  else{
+    if(PRICES[heroDay] < heroMin) heroMin = PRICES[heroDay];
+    heroMax = Math.max(heroMax, PRICES[heroDay]-heroMin);
+  }
+  for(let k=0;k<=heroDay;k++) setPointColor('heroChart', k, k===heroDay ? 'var(--gain)' : 'var(--text-faint)');
+  const minIdx = PRICES.indexOf(heroMin);
+  setPointColor('heroChart', minIdx, 'var(--loss)');
+  drawMinLine('heroChart', heroGeo, PRICES, heroDay, heroMin, '#FF5C6C');
+  document.getElementById('heroMin').textContent = '$'+heroMin;
+  document.getElementById('heroCur').textContent = '$'+PRICES[heroDay];
+  document.getElementById('heroProfit').textContent = '$'+(PRICES[heroDay]-heroMin);
+  document.getElementById('heroMax').textContent = '$'+heroMax;
+  heroDay = (heroDay+1) % PRICES.length;
+}
+heroStep();
+setInterval(heroStep, 1800);
+
+/* ============ SECTION 3: ANALOGY CHART ============ */
+const analogyGeo = buildChart('analogyChart', PRICES);
+const analogyCaptions = {
+  fruit: 'Buy at the cheapest day (D1, $1) — the "market low" — sell at the best later price (D4, $6).',
+  stock: 'Watching the tape day by day: the running minimum ($1 at D1) is the only reference point that matters.',
+  mountain: 'The deepest valley (D1) occurring before the highest peak that follows it (D4) — not the global max anywhere.',
+  slope: 'The steepest upward climb in the whole tape: from D1 ($1) to D4 ($6), a rise of $5.'
+};
+document.querySelectorAll('.analogy-card').forEach(card=>{
+  card.addEventListener('click', ()=>{
+    const key = card.dataset.analogy;
+    document.getElementById('analogyCaption').textContent = analogyCaptions[key];
+    resetPoints('analogyChart', PRICES);
+    setPointColor('analogyChart', 1, 'var(--loss)');
+    setPointColor('analogyChart', 4, 'var(--gain)');
+    drawLineBetween('analogyChart', analogyGeo, PRICES, 1, 4, 'var(--amber)');
+  });
+});
+
+/* ============ SECTION 4: BRUTE FORCE ANIMATION ============ */
+const bruteGeo = buildChart('bruteChart', PRICES);
+let bruteBuy = 0, bruteSell = 1, bruteBest = 0, bruteAutoTimer = null;
+function bruteRenderStatic(){
+  document.getElementById('bruteBuy').textContent = 'D'+bruteBuy;
+  document.getElementById('bruteSell').textContent = 'D'+bruteSell;
+  const profit = PRICES[bruteSell]-PRICES[bruteBuy];
+  document.getElementById('bruteThis').textContent = '$'+profit;
+  document.getElementById('bruteBest').textContent = '$'+bruteBest;
+  document.getElementById('bruteLog').textContent = `Trying buy day ${bruteBuy} ($${PRICES[bruteBuy]}) → sell day ${bruteSell} ($${PRICES[bruteSell]}): profit = $${profit}`;
+  resetPoints('bruteChart', PRICES);
+  setPointColor('bruteChart', bruteBuy, 'var(--loss)');
+  setPointColor('bruteChart', bruteSell, 'var(--gain)');
+  drawLineBetween('bruteChart', bruteGeo, PRICES, bruteBuy, bruteSell, profit>0?'var(--gain)':'var(--loss)');
+}
+function bruteAdvance(){
+  const profit = PRICES[bruteSell]-PRICES[bruteBuy];
+  bruteBest = Math.max(bruteBest, profit);
+  bruteSell++;
+  if(bruteSell >= PRICES.length){
+    bruteBuy++;
+    bruteSell = bruteBuy+1;
+  }
+  if(bruteBuy >= PRICES.length-1){
+    bruteBuy = 0; bruteSell = 1;
+    document.getElementById('bruteLog').textContent = `All pairs checked. Best profit found: $${bruteBest}. Restarting sweep…`;
+  }
+  bruteRenderStatic();
+}
+document.getElementById('bruteStep').addEventListener('click', bruteAdvance);
+document.getElementById('bruteReset').addEventListener('click', ()=>{
+  bruteBuy=0; bruteSell=1; bruteBest=0; bruteRenderStatic();
+  document.getElementById('bruteLog').textContent = 'Press "Step Through" to try buy day 0 against every later sell day.';
+});
+document.getElementById('bruteAuto').addEventListener('click', function(){
+  if(bruteAutoTimer){ clearInterval(bruteAutoTimer); bruteAutoTimer=null; this.textContent='▶ Auto-Play'; return; }
+  this.textContent = '⏸ Pause';
+  bruteAutoTimer = setInterval(bruteAdvance, 700);
+});
+bruteRenderStatic();
+
+/* ============ SECTION 6: INSIGHT WALKTHROUGH ============ */
+const insightGeo = buildChart('insightChart', PRICES);
+let insightDay = 0, insightMin = PRICES[0], insightMax = 0;
+function insightRender(){
+  resetPoints('insightChart', PRICES);
+  for(let k=0;k<insightDay;k++) setPointColor('insightChart', k, 'var(--text-dim)');
+  setPointColor('insightChart', insightDay, 'var(--gain)');
+  const minIdx = PRICES.slice(0, insightDay+1).indexOf(insightMin);
+  setPointColor('insightChart', minIdx, 'var(--loss)');
+  drawMinLine('insightChart', insightGeo, PRICES, insightDay, insightMin, '#FF5C6C');
+  document.getElementById('insightMin').textContent = '$'+insightMin;
+  document.getElementById('insightCur').textContent = '$'+PRICES[insightDay];
+  document.getElementById('insightProfit').textContent = '$'+(PRICES[insightDay]-insightMin);
+  document.getElementById('insightMax').textContent = '$'+insightMax;
+}
+document.getElementById('insightStep').addEventListener('click', ()=>{
+  insightDay++;
+  if(insightDay >= PRICES.length){ insightDay = 0; insightMin = PRICES[0]; insightMax = 0; insightRender(); return; }
+  if(PRICES[insightDay] < insightMin) insightMin = PRICES[insightDay];
+  insightMax = Math.max(insightMax, PRICES[insightDay]-insightMin);
+  insightRender();
+});
+document.getElementById('insightReset').addEventListener('click', ()=>{
+  insightDay=0; insightMin=PRICES[0]; insightMax=0; insightRender();
+});
+insightRender();
+
+/* ============ SECTION 7: FULL ALGORITHM WALKTHROUGH ============ */
+const algoGeo = buildChart('algoChart', PRICES);
+let algoDay = 0, algoMin = PRICES[0], algoMax = 0, algoAutoTimer = null;
+const algoNarration = [
+  "Day 0: we start here — this price becomes our first minimum by definition.",
+  "Day 1: price drops to $1 — new record low. Min price updates to $1. Profit today would be $0.",
+  "Day 2: price rises to $5. Min price stays $1. Profit if sold today = $5 − $1 = $4. New max profit!",
+  "Day 3: price drops to $3, but $3 > current min ($1), so min price is unchanged. Profit today = $2 — not better than $4.",
+  "Day 4: price rises to $6. Min price still $1. Profit if sold today = $6 − $1 = $5. New max profit!",
+  "Day 5: price drops to $4. Min stays $1. Profit today = $3 — not better than $5. Final answer: $5."
+];
+function algoRender(){
+  resetPoints('algoChart', PRICES);
+  for(let k=0;k<algoDay;k++) setPointColor('algoChart', k, 'var(--text-dim)');
+  setPointColor('algoChart', algoDay, 'var(--gain)');
+  const minIdx = PRICES.slice(0, algoDay+1).indexOf(algoMin);
+  setPointColor('algoChart', minIdx, 'var(--loss)');
+  drawMinLine('algoChart', algoGeo, PRICES, algoDay, algoMin, '#FF5C6C');
+  document.getElementById('algoDay').textContent = algoDay+' / '+(PRICES.length-1);
+  document.getElementById('algoMin').textContent = '$'+algoMin;
+  document.getElementById('algoProfit').textContent = '$'+(PRICES[algoDay]-algoMin);
+  document.getElementById('algoMax').textContent = '$'+algoMax;
+  document.getElementById('algoLog').textContent = algoNarration[algoDay];
+  document.getElementById('algoPrev').disabled = algoDay===0;
+  document.getElementById('algoNext').disabled = algoDay===PRICES.length-1;
+}
+function algoNext(){
+  if(algoDay >= PRICES.length-1) return;
+  algoDay++;
+  if(PRICES[algoDay] < algoMin) algoMin = PRICES[algoDay];
+  algoMax = Math.max(algoMax, PRICES[algoDay]-algoMin);
+  algoRender();
+}
+function algoPrev(){
+  if(algoDay<=0) return;
+  algoDay--;
+  algoMin = Math.min(...PRICES.slice(0, algoDay+1));
+  let m = PRICES[0], mp = 0;
+  for(let k=1;k<=algoDay;k++){ if(PRICES[k]<m) m=PRICES[k]; mp = Math.max(mp, PRICES[k]-m); }
+  algoMax = mp;
+  algoRender();
+}
+document.getElementById('algoNext').addEventListener('click', algoNext);
+document.getElementById('algoPrev').addEventListener('click', algoPrev);
+document.getElementById('algoReset').addEventListener('click', ()=>{
+  algoDay=0; algoMin=PRICES[0]; algoMax=0; algoRender();
+});
+document.getElementById('algoAuto').addEventListener('click', function(){
+  if(algoAutoTimer){ clearInterval(algoAutoTimer); algoAutoTimer=null; this.textContent='▶ Auto-Play'; return; }
+  this.textContent = '⏸ Pause';
+  algoAutoTimer = setInterval(()=>{
+    if(algoDay>=PRICES.length-1){ algoDay=0; algoMin=PRICES[0]; algoMax=0; algoRender(); }
+    else algoNext();
+  }, 1200);
+});
+algoRender();
+
+/* ============ SECTION 8: CODE EXPLAINER ============ */
+const codeLines = [
+  {code:'<span class="kw">def</span> <span class="fn">max_profit</span>(prices):', explain:'Function signature — takes the list of daily prices and will return a single integer: the maximum profit.'},
+  {code:'    <span class="kw">if not</span> prices:', explain:'Defensive check. If the list is empty, there\'s no possible trade, so we return 0 immediately rather than crashing.'},
+  {code:'        <span class="kw">return</span> <span class="nm">0</span>', explain:'No prices means no trade. Returning 0 keeps the function total for every valid input.'},
+  {code:'    min_price = prices[<span class="nm">0</span>]', explain:'We initialize min_price to the very first price. Why the first price and not, say, 0 or infinity? Because on day 0, the only price we\'ve "seen so far" is that first one — it must be our starting minimum.'},
+  {code:'    max_profit = <span class="nm">0</span>', explain:'We initialize max_profit to 0, not to a negative number or the first possible profit. This directly encodes "doing nothing" as the default, always-valid answer.'},
+  {code:'    <span class="kw">for</span> price <span class="kw">in</span> prices[<span class="nm">1</span>:]:', explain:'We loop starting from the second price (index 1) — day 0 was already used to set the initial minimum, so there\'s nothing new to check on that day.'},
+  {code:'        min_price = <span class="kw">min</span>(min_price, price)', explain:'This is the running-minimum update. min() compares the smallest price seen so far against today\'s price and keeps whichever is smaller — this line is what lets us "forget" all older prices safely.'},
+  {code:'        max_profit = <span class="kw">max</span>(max_profit, price - min_price)', explain:'This is the running-best-profit update. price - min_price is the best possible profit if we sold today (having bought at the cheapest point so far). max() keeps this only if it beats every previous day\'s best.'},
+  {code:'    <span class="kw">return</span> max_profit', explain:'After the single pass completes, max_profit already holds the true maximum profit across every valid buy/sell pair — no further work needed.'}
+];
+const codeBody = document.getElementById('codeBody');
+codeLines.forEach((line, idx)=>{
+  const span = document.createElement('span');
+  span.className = 'code-line';
+  span.innerHTML = line.code || '&nbsp;';
+  span.dataset.idx = idx;
+  span.addEventListener('click', ()=>{
+    document.querySelectorAll('.code-line').forEach(l=>l.classList.remove('active'));
+    span.classList.add('active');
+    document.getElementById('codeExplain').textContent = line.explain;
+  });
+  codeBody.appendChild(span);
+  codeBody.appendChild(document.createTextNode('\n'));
+});
+document.getElementById('copyCode').addEventListener('click', ()=>{
+  const text = 'def max_profit(prices):\n    if not prices:\n        return 0\n    min_price = prices[0]\n    max_profit = 0\n    for price in prices[1:]:\n        min_price = min(min_price, price)\n        max_profit = max(max_profit, price - min_price)\n    return max_profit';
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn = document.getElementById('copyCode');
+    const old = btn.textContent; btn.textContent = 'Copied ✓';
+    setTimeout(()=>btn.textContent = old, 1400);
+  }).catch(()=>{});
+});
+
+/* ============ SECTION 10: COMPLEXITY RACE ============ */
+let raceTimer = null;
+document.getElementById('raceRun').addEventListener('click', function(){
+  if(raceTimer) clearInterval(raceTimer);
+  const n = 40, totalN2 = n*n, totalN = n;
+  let opsN2 = 0, opsN = 0;
+  const fillN2 = document.getElementById('raceN2'), fillN = document.getElementById('raceN');
+  const countN2 = document.getElementById('raceN2Count'), countN = document.getElementById('raceNCount');
+  fillN2.style.width='0%'; fillN.style.width='0%';
+  raceTimer = setInterval(()=>{
+    opsN2 = Math.min(totalN2, opsN2 + 60);
+    opsN = Math.min(totalN, opsN + 1);
+    fillN2.style.width = (opsN2/totalN2*100)+'%';
+    fillN.style.width = (opsN/totalN*100)+'%';
+    countN2.textContent = opsN2+' ops';
+    countN.textContent = opsN+' ops';
+    if(opsN2>=totalN2 && opsN>=totalN) clearInterval(raceTimer);
+  }, 40);
+});
+document.getElementById('raceReset').addEventListener('click', ()=>{
+  if(raceTimer) clearInterval(raceTimer);
+  document.getElementById('raceN2').style.width='0%';
+  document.getElementById('raceN').style.width='0%';
+  document.getElementById('raceN2Count').textContent='0 ops';
+  document.getElementById('raceNCount').textContent='0 ops';
+});
+
+/* ============ SECTION 12: INTERVIEW Q&A ============ */
+document.querySelectorAll('.qa .q').forEach(q=>{
+  q.addEventListener('click', ()=>{
+    const a = q.nextElementSibling;
+    a.classList.toggle('show');
+  });
+});
+
+/* ============ SECTION 14: QUIZ ============ */
+const quizData = [
+  { q:"Why does the optimal algorithm only need the minimum price seen so far, rather than all previous prices?", opts:[
+      "Because any earlier price other than the minimum can only produce an equal or smaller profit, so it's provably never the best buy point.",
+      "Because arrays in Python only let you access the smallest value efficiently.",
+      "Because the problem only allows you to buy on the cheapest day."
+    ], correct:0, explain:"For any fixed sell day, the best buy day is whichever earlier day had the lowest price — no other earlier price could produce a larger profit. That's why only the running minimum matters." },
+  { q:"What should the algorithm return if prices = [9, 7, 5, 3, 1] (strictly decreasing)?", opts:["0","9","-8"], correct:0, explain:"Every possible trade loses money here, and you're never forced to trade — so the optimal choice is to not trade, yielding a profit of exactly 0." },
+  { q:"In the one-pass solution, what should happen first when processing a new day's price?", opts:[
+      "Update max_profit using the current min_price, then check if the new price is a new minimum.",
+      "Check if the new price is a new minimum first, then compute the profit if sold today.",
+      "It doesn't matter what order these happen in."
+    ], correct:1, explain:"Order matters: update the minimum first, so that the profit calculation for today always uses the correct up-to-date minimum, never a stale one." },
+  { q:"What is the time and space complexity of the optimal solution?", opts:["O(n²) time, O(n) space","O(n log n) time, O(log n) space","O(n) time, O(1) space"], correct:2, explain:"A single pass over the array with two running variables (min_price, max_profit) gives O(n) time and O(1) extra space, regardless of input size." },
+  { q:"Which of these is a red flag that you've drifted back into the brute-force mindset?", opts:[
+      "Writing a nested loop that re-scans earlier days for every new day.",
+      "Using two variables to track a running minimum and running maximum.",
+      "Returning 0 when no profitable trade exists."
+    ], correct:0, explain:"A nested loop re-checking earlier days is exactly the redundant work the running-minimum insight eliminates — it's a sign you're re-deriving information a single variable already gives you." }
+];
+const quizContainer = document.getElementById('quizContainer');
+let quizScore = 0, quizAnswered = 0;
+quizData.forEach((item, qi)=>{
+  const card = document.createElement('div');
+  card.className = 'quiz-card';
+  card.innerHTML = `<div class="quiz-q">${qi+1}. ${item.q}</div><div class="quiz-opts"></div><div class="quiz-explain"></div>`;
+  const optsWrap = card.querySelector('.quiz-opts');
+  item.opts.forEach((opt, oi)=>{
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = opt;
+    btn.addEventListener('click', ()=>{
+      if(card.dataset.done) return;
+      card.dataset.done = '1';
+      quizAnswered++;
+      const allOpts = optsWrap.querySelectorAll('.quiz-opt');
+      allOpts.forEach((o,idx)=>{
+        if(idx===item.correct) o.classList.add('correct');
+        else if(idx===oi) o.classList.add('wrong');
+      });
+      if(oi===item.correct) quizScore++;
+      const ex = card.querySelector('.quiz-explain');
+      ex.textContent = item.explain;
+      ex.classList.add('show');
+      document.getElementById('quizScore').textContent = `Score: ${quizScore} / ${quizAnswered} answered (of ${quizData.length})`;
+    });
+    optsWrap.appendChild(btn);
+  });
+  quizContainer.appendChild(card);
+});
+
+/* ============ SIDEBAR: SCROLLSPY + PROGRESS ============ */
+const navLinks = Array.from(document.querySelectorAll('#toc a'));
+const trackedSections = navLinks.map(a => document.querySelector(a.getAttribute('href')));
+
+function updateScrollspy(){
+  const scrollY = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? Math.min(100, Math.round((scrollY/docHeight)*100)) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+
+  let activeIdx = 0;
+  const probe = scrollY + window.innerHeight * 0.3;
+  trackedSections.forEach((sec, i)=>{
+    if(sec && sec.offsetTop <= probe) activeIdx = i;
+  });
+  navLinks.forEach((a,i)=> a.classList.toggle('active', i===activeIdx));
+}
+window.addEventListener('scroll', updateScrollspy, {passive:true});
+window.addEventListener('resize', updateScrollspy);
+updateScrollspy();
+
+})();
+</script>
+</body>
+</html>

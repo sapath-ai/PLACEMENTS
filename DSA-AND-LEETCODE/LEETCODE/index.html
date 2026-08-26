@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LeetCode — Problem Solving Arena</title>
+
+<style>
+:root{
+  --bg:#090a0c;
+  --surface:#101216;
+  --surface2:#15181d;
+  --line:#252a31;
+  --text:#eceff2;
+  --muted:#9299a3;
+  --dim:#5f6670;
+  --accent:#69b7ff;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  --sans:Inter,ui-sans-serif,system-ui,sans-serif;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.shell{
+  width:min(1120px,calc(100% - 36px));
+  margin:auto;
+  padding:28px 0 70px;
+}
+
+.back{
+  color:var(--dim);
+  font:9px var(--mono);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+.hero{
+  padding:70px 0 52px;
+}
+
+.eyebrow{
+  color:var(--accent);
+  font:9px var(--mono);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+h1{
+  margin:12px 0 17px;
+  font-size:clamp(44px,7vw,72px);
+  line-height:.95;
+  letter-spacing:-.055em;
+}
+
+.hero p{
+  max-width:740px;
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.8;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:13px;
+}
+
+.card{
+  min-height:295px;
+  display:flex;
+  flex-direction:column;
+  padding:25px;
+  border:1px solid var(--line);
+  background:var(--surface);
+  transition:.2s ease;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+  border-color:#3c4651;
+  background:var(--surface2);
+}
+
+.number{
+  color:var(--dim);
+  font:8px var(--mono);
+  letter-spacing:.12em;
+}
+
+.icon{
+  margin:34px 0 20px;
+  color:var(--accent);
+  font:24px var(--mono);
+}
+
+.kicker{
+  color:var(--dim);
+  font:8px var(--mono);
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+
+h2{
+  margin:8px 0 12px;
+  font-size:20px;
+  line-height:1.15;
+  letter-spacing:-.03em;
+}
+
+.card p{
+  margin:0;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.75;
+}
+
+.footer{
+  margin-top:auto;
+  padding-top:23px;
+  color:var(--accent);
+  font:9px var(--mono);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+@media(max-width:850px){
+  .grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:600px){
+  .shell{
+    width:min(100% - 26px,600px);
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="shell">
+
+<a class="back" href="../">
+  ← DSA AND LEETCODE
+</a>
+
+<section class="hero">
+
+  <div class="eyebrow">
+    Applied Problem Solving · LeetCode
+  </div>
+
+  <h1>
+    Problem<br>
+    Solving Arena
+  </h1>
+
+  <p>
+    Interactive problem-focused resources for developing pattern
+    recognition, algorithmic intuition, implementation speed, and
+    reliable technical interview problem solving.
+  </p>
+
+</section>
+
+<section class="grid">
+
+  <a class="card" href="two-sum-mastery.html">
+
+    <div class="number">LC / 01</div>
+
+    <div class="icon">∑</div>
+
+    <div class="kicker">
+      Hashing · Pattern Recognition
+    </div>
+
+    <h2>
+      Two Sum Mastery
+    </h2>
+
+    <p>
+      Focused practice around one of the canonical interview
+      problems and the underlying lookup-pattern reasoning.
+    </p>
+
+    <div class="footer">
+      Open problem → 
+    </div>
+
+  </a>
+
+
+  <a class="card" href="best-time-to-buy-and-sell-stock.html">
+
+    <div class="number">LC / 02</div>
+
+    <div class="icon">↗</div>
+
+    <div class="kicker">
+      Greedy · State Tracking
+    </div>
+
+    <h2>
+      Best Time to Buy &amp; Sell Stock
+    </h2>
+
+    <p>
+      Focused practice around one-pass optimization, state
+      tracking, and recognizing the underlying greedy pattern.
+    </p>
+
+    <div class="footer">
+      Open problem →
+    </div>
+
+  </a>
+
+
+  <div class="card">
+
+    <div class="number">LC / 03</div>
+
+    <div class="icon">+</div>
+
+    <div class="kicker">
+      Expansion Slot
+    </div>
+
+    <h2>
+      More Problem Families
+    </h2>
+
+    <p>
+      Reserved for future pattern-based resources including
+      sliding window, binary search, trees, graphs, dynamic
+      programming, backtracking, heaps, and advanced interview
+      problem sets.
+    </p>
+
+    <div class="footer">
+      System expanding
+    </div>
+
+  </div>
+
+</section>
+
+</div>
+
+</body>
+</html>

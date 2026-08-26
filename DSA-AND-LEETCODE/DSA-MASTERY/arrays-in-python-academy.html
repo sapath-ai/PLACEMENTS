@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARRAY/BLUEPRINT — The Python Arrays Academy</title>
+<style>
+/* ============================================================
+   DESIGN TOKENS — "Array Blueprint" (memory-as-engineering-schematic)
+   ============================================================ */
+:root{
+  --ink:#0B1929;
+  --ink-2:#0F2236;
+  --ink-3:#122A42;
+  --line:#3DDBD9;
+  --line-dim:#1F5C5A;
+  --paper:#F5F3EA;
+  --paper-dim:#DDD8C4;
+  --amber:#FFB454;
+  --danger:#FF6B6B;
+  --success:#5FD068;
+  --violet:#B98CFF;
+  --text-hi:#EAF6F5;
+  --text-mid:#9FC3C1;
+  --text-dim:#5D7E7C;
+  --font-display:'Courier New', ui-monospace, 'Cascadia Code', monospace;
+  --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  --font-mono:'Consolas','Menlo','Courier New',monospace;
+  --radius:2px;
+  --grid-size:28px;
+}
+:root[data-theme="light"]{
+  --ink:#F5F3EA;
+  --ink-2:#EDE9D8;
+  --ink-3:#E4DFC8;
+  --line:#0F7A78;
+  --line-dim:#B9CFC6;
+  --paper:#0B1929;
+  --paper-dim:#0F2236;
+  --text-hi:#0B1929;
+  --text-mid:#2C4A48;
+  --text-dim:#5D7E7C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+}
+body{
+  background:var(--ink);
+  color:var(--text-hi);
+  font-family:var(--font-body);
+  min-height:100vh;
+  overflow-x:hidden;
+  background-image:
+    linear-gradient(var(--line-dim) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-dim) 1px, transparent 1px);
+  background-size:var(--grid-size) var(--grid-size);
+  background-attachment:fixed;
+  transition:background-color .3s, color .3s;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background:radial-gradient(circle at 20% 10%, rgba(61,219,217,.10), transparent 40%),
+             radial-gradient(circle at 85% 30%, rgba(185,140,255,.08), transparent 45%),
+             radial-gradient(circle at 50% 90%, rgba(255,180,84,.06), transparent 40%);
+  pointer-events:none;
+  z-index:0;
+}
+::selection{background:var(--line);color:var(--ink);}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-track{background:var(--ink-2);}
+::-webkit-scrollbar-thumb{background:var(--line-dim);border-radius:6px;}
+::-webkit-scrollbar-thumb:hover{background:var(--line);}
+a{color:var(--line);}
+button{font-family:inherit;cursor:pointer;}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+
+/* ---------- utility ---------- */
+.mono{font-family:var(--font-mono);}
+.eyebrow{
+  font-family:var(--font-display);
+  font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--line);
+}
+.tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-mono);font-size:.68rem;letter-spacing:.05em;
+  padding:3px 9px;border:1px solid var(--line-dim);border-radius:20px;color:var(--text-mid);
+  text-transform:uppercase;
+}
+.tag.easy{border-color:var(--success);color:var(--success);}
+.tag.medium{border-color:var(--amber);color:var(--amber);}
+.tag.hard{border-color:var(--danger);color:var(--danger);}
+.tag.foundation{border-color:var(--violet);color:var(--violet);}
+
+/* ============================================================
+   TOP NAV — floating instrument panel
+   ============================================================ */
+#topnav{
+  position:sticky;top:0;z-index:500;
+  display:flex;align-items:center;gap:6px;
+  padding:10px 18px;
+  background:rgba(11,25,41,.82);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-dim);
+  flex-wrap:wrap;
+}
+:root[data-theme="light"] #topnav{background:rgba(245,243,234,.86);}
+#brand{
+  display:flex;align-items:center;gap:10px;margin-right:14px;
+  font-family:var(--font-display);font-weight:700;letter-spacing:.05em;
+}
+#brand .mark{
+  width:26px;height:26px;border:1.5px solid var(--line);border-radius:3px;
+  display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;
+}
+#brand .mark span{background:var(--line);border-radius:1px;}
+#brand .mark span:nth-child(2){background:var(--amber);}
+.navlinks{display:flex;gap:4px;flex-wrap:wrap;}
+.navbtn{
+  background:transparent;border:1px solid transparent;color:var(--text-mid);
+  padding:7px 12px;border-radius:20px;font-size:.82rem;letter-spacing:.02em;
+  transition:all .18s;
+}
+.navbtn:hover{color:var(--text-hi);border-color:var(--line-dim);}
+.navbtn.active{background:var(--line);color:var(--ink);font-weight:700;border-color:var(--line);}
+#navspacer{flex:1;}
+#navtools{display:flex;align-items:center;gap:8px;}
+.iconbtn{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--line-dim);
+  background:var(--ink-2);color:var(--text-hi);display:grid;place-items:center;font-size:.95rem;
+  transition:all .2s;
+}
+.iconbtn:hover{border-color:var(--line);transform:translateY(-1px);}
+#xpwrap{
+  display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:.78rem;
+  border:1px solid var(--line-dim);padding:5px 10px;border-radius:20px;color:var(--text-mid);
+}
+#xpbar-outer{width:70px;height:6px;background:var(--ink-3);border-radius:4px;overflow:hidden;}
+#xpbar-inner{height:100%;background:linear-gradient(90deg,var(--line),var(--amber));width:0%;transition:width .5s;}
+#searchbox{
+  background:var(--ink-2);border:1px solid var(--line-dim);color:var(--text-hi);
+  padding:7px 12px;border-radius:20px;font-size:.8rem;width:150px;transition:width .2s,border-color .2s;
+}
+#searchbox:focus{width:220px;border-color:var(--line);}
+#searchresults{
+  position:absolute;top:56px;right:18px;width:340px;max-height:60vh;overflow:auto;
+  background:var(--ink-2);border:1px solid var(--line);border-radius:8px;padding:8px;
+  display:none;z-index:600;box-shadow:0 20px 60px rgba(0,0,0,.5);
+}
+#searchresults.show{display:block;}
+.sres-item{padding:8px 10px;border-radius:6px;font-size:.82rem;cursor:pointer;color:var(--text-mid);}
+.sres-item:hover{background:var(--ink-3);color:var(--text-hi);}
+.sres-item b{color:var(--amber);}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+main{position:relative;z-index:1;max-width:1220px;margin:0 auto;padding:0 20px 80px;}
+section.view{display:none;animation:fadein .4s ease;}
+section.view.active{display:block;}
+@keyframes fadein{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ---------- HERO ---------- */
+#hero{padding:70px 0 40px;}
+#hero .eyebrow{margin-bottom:16px;}
+#hero h1{
+  font-family:var(--font-display);
+  font-size:clamp(2.1rem,5vw,4rem);line-height:1.05;letter-spacing:-.01em;
+  max-width:15ch;
+}
+#hero h1 .accent{color:var(--line);}
+#hero p.lede{
+  margin-top:22px;max-width:56ch;color:var(--text-mid);font-size:1.05rem;line-height:1.6;
+}
+#hero .cta-row{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
+.btn{
+  padding:12px 22px;border-radius:3px;border:1px solid var(--line);
+  background:var(--line);color:var(--ink);font-weight:700;font-size:.9rem;letter-spacing:.02em;
+  transition:transform .15s, box-shadow .15s;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(61,219,217,.25);}
+.btn.ghost{background:transparent;color:var(--text-hi);}
+.btn.ghost:hover{background:var(--ink-2);}
+.btn.small{padding:7px 14px;font-size:.78rem;}
+
+/* Signature: blueprint memory strip in hero */
+#hero-strip{
+  margin-top:56px;border:1px solid var(--line-dim);border-radius:6px;
+  padding:22px 22px 18px;background:linear-gradient(180deg,rgba(61,219,217,.04),transparent);
+  position:relative;overflow:hidden;
+}
+#hero-strip .dim-label{
+  position:absolute;top:8px;right:16px;font-family:var(--font-mono);font-size:.65rem;color:var(--text-dim);
+  letter-spacing:.1em;
+}
+#hero-cells{display:flex;gap:0;overflow-x:auto;padding-bottom:14px;}
+.hcell{
+  min-width:64px;height:64px;border:1px solid var(--line-dim);
+  display:flex;align-items:center;justify-content:center;position:relative;
+  font-family:var(--font-mono);font-size:1.1rem;color:var(--text-hi);
+  background:var(--ink-2);flex-shrink:0;
+  transition:background .3s, border-color .3s, transform .3s;
+}
+.hcell .addr{
+  position:absolute;bottom:-20px;left:0;right:0;text-align:center;
+  font-size:.62rem;color:var(--text-dim);letter-spacing:.05em;
+}
+.hcell.active{border-color:var(--amber);background:rgba(255,180,84,.14);transform:translateY(-4px);}
+.hcell.found{border-color:var(--success);background:rgba(95,208,104,.18);}
+
+/* ---------- SECTION HEADER pattern ---------- */
+.viewhead{margin:56px 0 28px;}
+.viewhead h2{font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.1rem);margin-top:10px;}
+.viewhead p{color:var(--text-mid);max-width:64ch;margin-top:10px;line-height:1.6;}
+
+/* ---------- CARD SYSTEM ---------- */
+.card{
+  background:rgba(255,255,255,.02);
+  border:1px solid var(--line-dim);border-radius:8px;padding:22px;
+  backdrop-filter:blur(6px);
+  transition:border-color .2s, transform .2s;
+}
+.card:hover{border-color:var(--line);}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+@media(max-width:900px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}}
+
+/* ---------- STAGES / ROADMAP SIDEBAR LAYOUT ---------- */
+#stageslayout{display:grid;grid-template-columns:250px 1fr;gap:26px;align-items:start;}
+@media(max-width:840px){#stageslayout{grid-template-columns:1fr;}}
+#stagesnav{
+  position:sticky;top:74px;
+  border:1px solid var(--line-dim);border-radius:8px;padding:10px;
+  max-height:80vh;overflow:auto;
+}
+.stagebtn{
+  display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+  background:transparent;border:none;color:var(--text-mid);padding:11px 10px;border-radius:6px;
+  font-size:.85rem;transition:all .15s;
+}
+.stagebtn .num{
+  font-family:var(--font-mono);font-size:.7rem;width:22px;height:22px;border-radius:50%;
+  border:1px solid var(--line-dim);display:grid;place-items:center;flex-shrink:0;
+}
+.stagebtn.done .num{background:var(--success);border-color:var(--success);color:var(--ink);}
+.stagebtn:hover{background:var(--ink-2);color:var(--text-hi);}
+.stagebtn.current{background:var(--ink-3);color:var(--text-hi);border-left:2px solid var(--amber);}
+
+.stagepanel{display:none;}
+.stagepanel.active{display:block;animation:fadein .35s ease;}
+.stagepanel h3{font-family:var(--font-display);font-size:1.5rem;margin-bottom:6px;}
+.stagepanel .stagesub{color:var(--text-mid);margin-bottom:22px;}
+.lessonblock{margin-bottom:26px;}
+.lessonblock h4{
+  font-family:var(--font-display);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--line);margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.lessonblock p, .lessonblock li{color:var(--text-mid);line-height:1.68;font-size:.94rem;}
+.lessonblock ul{padding-left:20px;margin-top:6px;}
+.lessonblock ul li{margin-bottom:5px;}
+
+pre.code{
+  background:var(--ink-2);border:1px solid var(--line-dim);border-radius:6px;
+  padding:16px 18px;overflow-x:auto;font-family:var(--font-mono);font-size:.82rem;
+  color:var(--text-hi);line-height:1.6;margin-top:8px;position:relative;
+}
+pre.code .c{color:var(--text-dim);}
+pre.code .kw{color:var(--violet);}
+pre.code .fn{color:var(--line);}
+pre.code .num{color:var(--amber);}
+pre.code .str{color:var(--success);}
+.copybtn{
+  position:absolute;top:8px;right:8px;font-size:.68rem;padding:4px 9px;border-radius:4px;
+  background:var(--ink-3);border:1px solid var(--line-dim);color:var(--text-mid);
+}
+.copybtn:hover{color:var(--text-hi);border-color:var(--line);}
+
+.mistake{
+  border-left:3px solid var(--danger);background:rgba(255,107,107,.06);
+  padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:10px;font-size:.88rem;color:var(--text-mid);
+}
+.tip{
+  border-left:3px solid var(--amber);background:rgba(255,180,84,.06);
+  padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:10px;font-size:.88rem;color:var(--text-mid);
+}
+.complexity-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
+.complexity-pill{
+  font-family:var(--font-mono);font-size:.76rem;padding:5px 12px;border-radius:20px;
+  border:1px solid var(--line-dim);color:var(--text-hi);background:var(--ink-2);
+}
+
+/* ---------- QUIZ ---------- */
+.quizbox{border:1px solid var(--line-dim);border-radius:8px;padding:18px;}
+.quizq{margin-bottom:16px;}
+.quizq p.qtext{font-weight:600;margin-bottom:10px;font-size:.92rem;}
+.quizopts{display:flex;flex-direction:column;gap:8px;}
+.quizopt{
+  text-align:left;padding:10px 14px;border:1px solid var(--line-dim);border-radius:6px;
+  background:transparent;color:var(--text-mid);font-size:.86rem;transition:all .15s;
+}
+.quizopt:hover{border-color:var(--line);color:var(--text-hi);}
+.quizopt.correct{border-color:var(--success);background:rgba(95,208,104,.12);color:var(--success);}
+.quizopt.wrong{border-color:var(--danger);background:rgba(255,107,107,.12);color:var(--danger);}
+.quizfeedback{margin-top:6px;font-size:.82rem;color:var(--text-dim);}
+.quiz-submit-row{display:flex;align-items:center;gap:12px;margin-top:10px;}
+
+/* ---------- MEMORY VISUALIZER ---------- */
+#visualizer .card{padding:24px;}
+#viz-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px;}
+#viz-controls input[type=text]{
+  background:var(--ink-2);border:1px solid var(--line-dim);color:var(--text-hi);
+  padding:8px 12px;border-radius:5px;font-family:var(--font-mono);width:220px;font-size:.82rem;
+}
+#viz-controls select{
+  background:var(--ink-2);border:1px solid var(--line-dim);color:var(--text-hi);
+  padding:8px 10px;border-radius:5px;font-size:.82rem;
+}
+#viz-canvas-wrap{
+  border:1px solid var(--line-dim);border-radius:8px;padding:24px 10px 40px;
+  background:linear-gradient(180deg,rgba(61,219,217,.03),transparent);overflow-x:auto;
+}
+#viz-status{font-family:var(--font-mono);font-size:.82rem;color:var(--amber);min-height:20px;margin-bottom:10px;text-align:center;}
+#player-controls{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:18px;flex-wrap:wrap;}
+#player-controls input[type=range]{width:140px;accent-color:var(--line);}
+.playerbtn{
+  width:38px;height:38px;border-radius:50%;border:1px solid var(--line-dim);
+  background:var(--ink-2);color:var(--text-hi);display:grid;place-items:center;
+}
+.playerbtn:hover{border-color:var(--line);}
+.playerbtn.big{width:46px;height:46px;background:var(--line);color:var(--ink);border-color:var(--line);}
+
+/* ---------- COMPLEXITY LAB ---------- */
+#complexity-canvas-wrap{border:1px solid var(--line-dim);border-radius:8px;padding:20px;}
+.complexity-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-family:var(--font-mono);font-size:.76rem;}
+.complexity-legend span{display:flex;align-items:center;gap:6px;}
+.legend-dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+
+/* ---------- PATTERNS ---------- */
+.patterncard{cursor:pointer;}
+.patterncard h4{font-family:var(--font-display);font-size:1.05rem;margin-bottom:6px;color:var(--text-hi);}
+.patterncard p.desc{color:var(--text-mid);font-size:.85rem;line-height:1.5;}
+.patterndetail{display:none;margin-top:16px;}
+.patterndetail.open{display:block;animation:fadein .3s ease;}
+
+/* ---------- ROADMAP TABLE ---------- */
+.roadmap-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.filterbtn{
+  padding:6px 14px;border-radius:20px;border:1px solid var(--line-dim);background:transparent;
+  color:var(--text-mid);font-size:.78rem;
+}
+.filterbtn.active{background:var(--line);color:var(--ink);border-color:var(--line);font-weight:700;}
+.problemrow{
+  display:grid;grid-template-columns:28px 1.6fr 90px 1fr 90px auto;gap:12px;align-items:center;
+  padding:12px 14px;border-bottom:1px solid var(--line-dim);font-size:.85rem;
+}
+.problemrow:hover{background:rgba(61,219,217,.04);}
+.problemrow .pname{color:var(--text-hi);font-weight:600;}
+.problemrow .ppattern{color:var(--text-dim);font-size:.76rem;}
+.problemrow input[type=checkbox]{width:16px;height:16px;accent-color:var(--success);}
+.hintbtn{font-size:.72rem;padding:4px 10px;border-radius:4px;border:1px solid var(--line-dim);background:transparent;color:var(--text-mid);}
+.hintbox{display:none;grid-column:1/-1;padding:10px 14px;background:var(--ink-2);border-radius:6px;font-size:.82rem;color:var(--text-mid);margin-top:6px;}
+.hintbox.show{display:block;}
+@media(max-width:760px){.problemrow{grid-template-columns:20px 1fr auto;}
+  .problemrow .ppattern,.problemrow .pcol-time{display:none;}}
+
+/* ---------- CHEATSHEET ---------- */
+.cheatgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+@media(max-width:760px){.cheatgrid{grid-template-columns:1fr;}}
+.cheatop{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed var(--line-dim);font-size:.83rem;}
+.cheatop .fn{font-family:var(--font-mono);color:var(--line);}
+.cheatop .cx{font-family:var(--font-mono);color:var(--amber);}
+
+/* ---------- PROGRESS DASHBOARD ---------- */
+.statcard{text-align:center;padding:26px 14px;}
+.statcard .big{font-family:var(--font-display);font-size:2.4rem;color:var(--line);}
+.statcard .lbl{color:var(--text-dim);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;margin-top:6px;}
+.badge{
+  display:inline-flex;flex-direction:column;align-items:center;gap:6px;padding:14px;
+  border:1px solid var(--line-dim);border-radius:8px;width:110px;opacity:.35;filter:grayscale(1);
+}
+.badge.earned{opacity:1;filter:none;border-color:var(--amber);}
+.badge .icon{font-size:1.6rem;}
+.badge .name{font-size:.68rem;text-align:center;color:var(--text-mid);}
+
+/* ---------- FOOTER ---------- */
+footer{border-top:1px solid var(--line-dim);padding:30px 20px;text-align:center;color:var(--text-dim);font-size:.78rem;margin-top:60px;position:relative;z-index:1;}
+
+/* ---------- CONFETTI ---------- */
+#confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:9999;}
+
+/* ---------- TOAST ---------- */
+#toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--ink-2);border:1px solid var(--amber);color:var(--text-hi);
+  padding:12px 22px;border-radius:30px;font-size:.85rem;opacity:0;pointer-events:none;
+  transition:all .35s;z-index:9998;display:flex;align-items:center;gap:10px;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ---------- MISC ---------- */
+.hidden{display:none !important;}
+.divider{height:1px;background:var(--line-dim);margin:26px 0;}
+.small-note{font-size:.76rem;color:var(--text-dim);margin-top:8px;}
+kbd{
+  font-family:var(--font-mono);background:var(--ink-3);border:1px solid var(--line-dim);
+  border-radius:4px;padding:1px 6px;font-size:.75rem;
+}
+</style>
+</head>
+<body>
+<canvas id="confetti-canvas"></canvas>
+<div id="toast"></div>
+
+<nav id="topnav">
+  <div id="brand"><div class="mark"><span></span><span></span><span></span><span></span></div> ARRAY::BLUEPRINT</div>
+  <div class="navlinks" id="navlinks">
+    <button class="navbtn" data-view="home">Home</button>
+    <button class="navbtn" data-view="stages">Stages</button>
+    <button class="navbtn" data-view="patterns">Patterns</button>
+    <button class="navbtn" data-view="visualizer">Visualizer</button>
+    <button class="navbtn" data-view="complexity">Complexity Lab</button>
+    <button class="navbtn" data-view="roadmap">Roadmap</button>
+    <button class="navbtn" data-view="cheatsheet">Cheatsheet</button>
+    <button class="navbtn" data-view="progress">Progress</button>
+  </div>
+  <div id="navspacer"></div>
+  <div id="navtools">
+    <div style="position:relative;">
+      <input id="searchbox" type="text" placeholder="Search course… (/)">
+      <div id="searchresults"></div>
+    </div>
+    <div id="xpwrap"><span id="xpval">0 XP</span><div id="xpbar-outer"><div id="xpbar-inner"></div></div></div>
+    <button class="iconbtn" id="themebtn" title="Toggle light/dark">◐</button>
+    <button class="iconbtn" id="helpbtn" title="Keyboard shortcuts">?</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============================================================ HOME ============================================================ -->
+<section class="view active" id="view-home">
+  <div id="hero">
+    <div class="eyebrow">⌁ AN INTERACTIVE ENGINEERING COURSE</div>
+    <h1>Arrays, drafted like <span class="accent">blueprints</span> of memory.</h1>
+    <p class="lede">You already know Python. This academy teaches you to see a list the way a systems engineer sees a row of numbered memory cells — so every LeetCode array problem becomes a diagram you can reason about, not a trick you have to remember.</p>
+    <div class="cta-row">
+      <button class="btn" data-goto="stages">Start Stage 0 →</button>
+      <button class="btn ghost" data-goto="roadmap">View the 60-problem roadmap</button>
+    </div>
+
+    <div id="hero-strip">
+      <div class="dim-label">FIG. 01 — CONTIGUOUS MEMORY, LIVE</div>
+      <div class="eyebrow" style="margin-bottom:14px;">arr = [4, 1, 7, 3, 9, 2]</div>
+      <div id="hero-cells"></div>
+    </div>
+  </div>
+
+  <div class="viewhead">
+    <div class="eyebrow">◇ WHY THIS EXISTS</div>
+    <h2>Notes don't build intuition. Diagrams do.</h2>
+  </div>
+  <div class="grid-3">
+    <div class="card"><h4 style="font-family:var(--font-display);color:var(--line);margin-bottom:8px;">01 · See It</h4><p style="color:var(--text-mid);font-size:.9rem;line-height:1.6;">Every operation — insert, delete, search, shift — is animated cell by cell, so "shifting is O(n)" stops being a fact you memorized and becomes a fact you watched happen.</p></div>
+    <div class="card"><h4 style="font-family:var(--font-display);color:var(--line);margin-bottom:8px;">02 · Name It</h4><p style="color:var(--text-mid);font-size:.9rem;line-height:1.6;">Twelve interview patterns — two pointers, sliding window, prefix sum, Kadane's, cyclic sort and more — each with the trigger phrase that should make you reach for it.</p></div>
+    <div class="card"><h4 style="font-family:var(--font-display);color:var(--line);margin-bottom:8px;">03 · Prove It</h4><p style="color:var(--text-mid);font-size:.9rem;line-height:1.6;">A curated, ordered roadmap of real LeetCode array problems with hints hidden until you ask, so you can self-test the way an interviewer actually tests you.</p></div>
+  </div>
+
+  <div class="viewhead">
+    <div class="eyebrow">◇ THE PATH</div>
+    <h2>Eleven stages. Each one unlocks the next.</h2>
+  </div>
+  <div class="grid-4" id="home-stage-preview"></div>
+</section>
+
+<!-- ============================================================ STAGES ============================================================ -->
+<section class="view" id="view-stages">
+  <div class="viewhead">
+    <div class="eyebrow">◇ COURSE</div>
+    <h2>The Stages</h2>
+    <p>Work top to bottom. Each stage ends with a short quiz — pass it to mark the stage complete and earn XP.</p>
+  </div>
+  <div id="stageslayout">
+    <div id="stagesnav"></div>
+    <div id="stagespanels"></div>
+  </div>
+</section>
+
+<!-- ============================================================ PATTERNS ============================================================ -->
+<section class="view" id="view-patterns">
+  <div class="viewhead">
+    <div class="eyebrow">◇ PATTERN MASTERCLASS</div>
+    <h2>The 12 patterns behind almost every array problem</h2>
+    <p>Click a card to expand: why it exists, the trigger phrases that signal it, a copy-ready template, and the mistake beginners make.</p>
+  </div>
+  <div class="grid-2" id="patterns-grid"></div>
+</section>
+
+<!-- ============================================================ VISUALIZER ============================================================ -->
+<section class="view" id="view-visualizer">
+  <div class="viewhead">
+    <div class="eyebrow">◇ MEMORY VISUALIZER</div>
+    <h2>Watch the operation happen, one memory block at a time</h2>
+    <p>Edit the array, pick an operation, then use the transport controls to play, pause, or step through the animation frame by frame.</p>
+  </div>
+  <div class="card">
+    <div id="viz-controls">
+      <input type="text" id="viz-array-input" value="4,1,7,3,9,2,8" class="mono">
+      <button class="btn small" id="viz-apply">Set array</button>
+      <select id="viz-op">
+        <option value="traverse">Traverse (O(n))</option>
+        <option value="search">Linear Search (O(n))</option>
+        <option value="binarysearch">Binary Search — needs sorted (O(log n))</option>
+        <option value="insert">Insert at index (O(n))</option>
+        <option value="delete">Delete at index (O(n))</option>
+        <option value="reverse">Reverse in place (O(n))</option>
+        <option value="growth">Dynamic Array Growth (amortized O(1))</option>
+      </select>
+      <input type="text" id="viz-arg" placeholder="value / index" class="mono" style="width:120px;">
+      <button class="btn small" id="viz-run">Build animation</button>
+    </div>
+    <div id="viz-status">Set an array and choose an operation to begin.</div>
+    <div id="viz-canvas-wrap"><canvas id="viz-canvas" width="1120" height="180"></canvas></div>
+    <div id="player-controls">
+      <button class="playerbtn" id="viz-reset" title="Reset">⟲</button>
+      <button class="playerbtn" id="viz-back" title="Step back">◁</button>
+      <button class="playerbtn big" id="viz-play" title="Play/Pause">▶</button>
+      <button class="playerbtn" id="viz-fwd" title="Step forward">▷</button>
+      <span class="small-note mono" id="viz-frame-lbl">0 / 0</span>
+      <span class="small-note">Speed</span>
+      <input type="range" id="viz-speed" min="200" max="1600" value="800">
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ COMPLEXITY LAB ============================================================ -->
+<section class="view" id="view-complexity">
+  <div class="viewhead">
+    <div class="eyebrow">◇ TIME COMPLEXITY LAB</div>
+    <h2>What "Big-O" looks like as n grows</h2>
+    <p>Drag the slider to change input size n, and watch how O(1), O(log n), O(n), and O(n log n) diverge.</p>
+  </div>
+  <div id="complexity-canvas-wrap" class="card">
+    <canvas id="complexity-canvas" width="1120" height="360"></canvas>
+    <div style="display:flex;align-items:center;gap:14px;margin-top:14px;">
+      <span class="mono small-note">n = <span id="cx-nval">100</span></span>
+      <input type="range" id="cx-n" min="2" max="1000" value="100" style="flex:1;accent-color:var(--line);">
+    </div>
+    <div class="complexity-legend">
+      <span><i class="legend-dot" style="background:#5FD068;"></i> O(1) — index access, append, push/pop end</span>
+      <span><i class="legend-dot" style="background:#3DDBD9;"></i> O(log n) — binary search</span>
+      <span><i class="legend-dot" style="background:#FFB454;"></i> O(n) — traverse, insert/delete at front, linear search</span>
+      <span><i class="legend-dot" style="background:#FF6B6B;"></i> O(n log n) — sort()</span>
+    </div>
+  </div>
+  <div class="grid-4" style="margin-top:24px;" id="complexity-op-cards"></div>
+</section>
+
+<!-- ============================================================ ROADMAP ============================================================ -->
+<section class="view" id="view-roadmap">
+  <div class="viewhead">
+    <div class="eyebrow">◇ LEETCODE ARRAY MASTER PLAN</div>
+    <h2>A curated, ordered problem set</h2>
+    <p>Check problems off as you solve them. Hints stay hidden until you tap them — try to solve without peeking first.</p>
+  </div>
+  <div class="roadmap-filters" id="roadmap-filters"></div>
+  <div class="card" style="padding:0;overflow:hidden;">
+    <div class="problemrow" style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;">
+      <span></span><span>Problem</span><span>Difficulty</span><span>Pattern</span><span>Time</span><span></span>
+    </div>
+    <div id="roadmap-list"></div>
+  </div>
+</section>
+
+<!-- ============================================================ CHEATSHEET ============================================================ -->
+<section class="view" id="view-cheatsheet">
+  <div class="viewhead">
+    <div class="eyebrow">◇ PRINTABLE REFERENCE</div>
+    <h2>Cheatsheet</h2>
+    <p>Every list method, its complexity, and the decision tree for picking a pattern under time pressure. Use your browser's Print to save as PDF.</p>
+  </div>
+  <div class="cheatgrid">
+    <div class="card">
+      <h4 style="font-family:var(--font-display);margin-bottom:12px;color:var(--line);">List Operations</h4>
+      <div id="cheat-ops"></div>
+    </div>
+    <div class="card">
+      <h4 style="font-family:var(--font-display);margin-bottom:12px;color:var(--line);">Decision Tree</h4>
+      <div id="decision-tree" class="mono" style="font-size:.85rem;line-height:2;color:var(--text-mid);"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ PROGRESS ============================================================ -->
+<section class="view" id="view-progress">
+  <div class="viewhead">
+    <div class="eyebrow">◇ DASHBOARD</div>
+    <h2>Your progress</h2>
+    <p>Saved automatically to this browser via LocalStorage. Export a backup any time.</p>
+  </div>
+  <div class="grid-4">
+    <div class="card statcard"><div class="big" id="stat-xp">0</div><div class="lbl">Total XP</div></div>
+    <div class="card statcard"><div class="big" id="stat-stages">0/11</div><div class="lbl">Stages complete</div></div>
+    <div class="card statcard"><div class="big" id="stat-problems">0/0</div><div class="lbl">Problems solved</div></div>
+    <div class="card statcard"><div class="big" id="stat-readiness">0%</div><div class="lbl">Interview readiness</div></div>
+  </div>
+  <div class="viewhead"><h2 style="font-size:1.3rem;">Badges</h2></div>
+  <div style="display:flex;gap:14px;flex-wrap:wrap;" id="badges-row"></div>
+  <div class="viewhead"><h2 style="font-size:1.3rem;">Data</h2></div>
+  <div class="card" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+    <button class="btn small" id="export-btn">Export progress (.json)</button>
+    <button class="btn small ghost" id="import-btn">Import progress</button>
+    <input type="file" id="import-file" accept="application/json" class="hidden">
+    <button class="btn small ghost" id="reset-btn" style="border-color:var(--danger);color:var(--danger);">Reset all progress</button>
+  </div>
+</section>
+
+</main>
+
+<footer>Built as a single offline HTML file. No frameworks, no network calls, no tracking. Progress lives only in your browser's LocalStorage. · <kbd>/</kbd> search · <kbd>←/→</kbd> stages · <kbd>d</kbd> theme</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================================================
+   STATE
+   ============================================================ */
+const DEFAULT_STATE = { xp:0, completedStages:{}, quizPassed:{}, solvedProblems:{}, badges:{}, theme:'dark' };
+let STATE = loadState();
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem('arrayAcademyProgress');
+    if(raw) return Object.assign({}, DEFAULT_STATE, JSON.parse(raw));
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT_STATE));
+}
+function saveState(){
+  localStorage.setItem('arrayAcademyProgress', JSON.stringify(STATE));
+  renderProgressUI();
+}
+function addXP(n, reason){
+  STATE.xp += n;
+  saveState();
+  toast('+'+n+' XP — '+reason);
+  checkBadges();
+}
+
+/* ============================================================ TOAST ============================================================ */
+let toastTimer=null;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),2600);
+}
+
+/* ============================================================ CONFETTI ============================================================ */
+const confettiCanvas=document.getElementById('confetti-canvas');
+const cctx=confettiCanvas.getContext('2d');
+function resizeConfetti(){confettiCanvas.width=innerWidth;confettiCanvas.height=innerHeight;}
+resizeConfetti();
+window.addEventListener('resize',resizeConfetti);
+let confettiParticles=[];
+function burstConfetti(){
+  const colors=['#3DDBD9','#FFB454','#B98CFF','#5FD068','#FF6B6B'];
+  for(let i=0;i<90;i++){
+    confettiParticles.push({
+      x:confettiCanvas.width/2 + (Math.random()-.5)*200,
+      y:confettiCanvas.height*0.35,
+      vx:(Math.random()-.5)*9,
+      vy:Math.random()*-9-3,
+      g:0.28,
+      size:4+Math.random()*5,
+      color:colors[Math.floor(Math.random()*colors.length)],
+      rot:Math.random()*360,
+      vr:(Math.random()-.5)*14,
+      life:100+Math.random()*40
+    });
+  }
+  if(!confettiRunning){confettiRunning=true;requestAnimationFrame(tickConfetti);}
+}
+let confettiRunning=false;
+function tickConfetti(){
+  cctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+  confettiParticles.forEach(p=>{
+    p.vy+=p.g; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr; p.life--;
+    cctx.save();
+    cctx.translate(p.x,p.y);
+    cctx.rotate(p.rot*Math.PI/180);
+    cctx.fillStyle=p.color;
+    cctx.fillRect(-p.size/2,-p.size/2,p.size,p.size*0.6);
+    cctx.restore();
+  });
+  confettiParticles=confettiParticles.filter(p=>p.life>0 && p.y<confettiCanvas.height+40);
+  if(confettiParticles.length>0){requestAnimationFrame(tickConfetti);}else{confettiRunning=false;cctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);}
+}
+
+/* ============================================================ NAVIGATION ============================================================ */
+const views=['home','stages','patterns','visualizer','complexity','roadmap','cheatsheet','progress'];
+function gotoView(name){
+  views.forEach(v=>{
+    document.getElementById('view-'+v).classList.toggle('active', v===name);
+  });
+  document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active', b.dataset.view===name));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>gotoView(b.dataset.view)));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>gotoView(b.dataset.goto)));
+
+/* ============================================================ THEME ============================================================ */
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme', STATE.theme);
+  document.getElementById('themebtn').textContent = STATE.theme==='dark' ? '◐' : '◑';
+}
+document.getElementById('themebtn').addEventListener('click',()=>{
+  STATE.theme = STATE.theme==='dark' ? 'light' : 'dark';
+  saveState(); applyTheme();
+});
+applyTheme();
+
+document.getElementById('helpbtn').addEventListener('click',()=>{
+  alert('Keyboard shortcuts:\n\n/  focus search\n← →  move between stages (while on Stages view)\nEnter  select first search result\nd  toggle light/dark theme\nEsc  close search results');
+});
+
+/* ============================================================
+   DATA: STAGES
+   ============================================================ */
+const STAGES = [
+{id:0,title:'Python Lists vs. "Arrays"',sub:'What Python actually gives you, and what interviewers mean by "array".',
+ concept:`<p>In C or Java, an <b>array</b> is a fixed-size, contiguous block of memory holding elements of one type. Python's built-in <code>list</code> is different: it's a dynamic, resizable array of <em>pointers</em> to objects — which is why a Python list can hold mixed types and grow with <code>.append()</code>.</p>
+ <p>On LeetCode, when a problem says "array", it almost always means: <b>use a Python list</b>, and reason about it the way you'd reason about a real fixed array — contiguous, index-accessible, ordered. The interview intuition (memory layout, shifting cost) comes from the C-style array model even though Python abstracts it away.</p>`,
+ code:`<span class="c"># A Python list — dynamically resizable</span>
+arr = [4, 1, 7, 3]
+arr.append(9)         <span class="c"># grows the list — amortized O(1)</span>
+print(arr)             <span class="c"># [4, 1, 7, 3, 9]</span>
+
+<span class="c"># Mixed types are legal in Python, but LeetCode arrays</span>
+<span class="c"># are almost always homogeneous (all int, all str, etc.)</span>
+mixed = [1, "two", 3.0]   <span class="c"># valid Python, unusual for DSA problems</span>`,
+ mistakes:['Assuming Python lists are fixed-size like C arrays — they are not; <code>append</code> resizes automatically.','Forgetting that a Python list stores references, so copying the list does not deep-copy the objects inside it.'],
+ tips:['When an interviewer says "array", think "Python list used as a fixed-size, homogeneous sequence" unless resizing is part of the problem.'],
+ complexity:[['Access by index','O(1)'],['Append','O(1) amortized'],['Insert at front','O(n)']],
+ quiz:[{q:'What is the main structural difference between a C array and a Python list?',opts:['Python lists cannot be indexed','Python lists are dynamic arrays of references, not fixed contiguous typed memory','C arrays can hold mixed types','There is no difference'],correct:1,fb:'Python lists are resizable and store references to objects, unlike a raw fixed C array.'},
+        {q:'On LeetCode, "array" almost always means:',opts:['A linked list','A Python dict','A Python list used as an ordered, index-accessible sequence','A set'],correct:2,fb:'Correct — treat it like a fixed, ordered, index-accessible sequence.'}]},
+
+{id:1,title:'Understanding Memory',sub:'Why index access is O(1) and shifting is O(n).',
+ concept:`<p>Picture memory as a numbered row of boxes. A contiguous array's element <code>i</code> lives at <code>base_address + i * element_size</code>. That formula is why <b>reading <code>arr[i]</code> takes the same amount of time no matter how big the array is</b> — it's one calculation, not a search.</p>
+ <p>Insertion or deletion in the middle, however, requires physically shifting every element after that point to keep the array contiguous — which is why those operations cost O(n).</p>`,
+ code:`<span class="c"># Conceptually:</span>
+<span class="c"># address(arr[i]) = base_address + i * element_size</span>
+arr = [10, 20, 30, 40]
+<span class="c">#  index:    0    1    2    3</span>
+<span class="c">#  addr:  1000 1008 1016 1024   (8 bytes per slot, illustrative)</span>
+print(arr[2])   <span class="c"># O(1) — jumps straight to addr 1016</span>`,
+ mistakes:['Thinking <code>arr[i]</code> "searches" for the element — it computes an address, it does not scan.','Believing insertion at the end and insertion at the front cost the same — they do not.'],
+ tips:['If a problem needs frequent insertions at arbitrary positions, ask whether a different structure (deque, linked list) fits better.'],
+ complexity:[['Read by index','O(1)'],['Insert at end','O(1) amortized'],['Insert/delete at front or middle','O(n)']],
+ quiz:[{q:'Why is index access O(1)?',opts:['Python caches every value','It computes a memory address directly from the index','It uses a hash table internally','It scans until it finds the index'],correct:1,fb:'address = base + i*size — a direct calculation, not a search.'},
+       {q:'Why is inserting at the front of an array O(n)?',opts:['Python re-sorts the array','Every existing element must shift one slot to make room','It triggers garbage collection','It does not need shifting'],correct:1,fb:'All n elements must move to keep the array contiguous.'}]},
+
+{id:2,title:'Indexing',sub:'Positive, negative, and out-of-range indexing.',
+ concept:`<p>Python indices start at <b>0</b>. Negative indices count from the end: <code>arr[-1]</code> is the last element, <code>arr[-2]</code> the second-to-last. Out-of-range indexing raises an <code>IndexError</code> — unlike some languages, Python never silently returns garbage.</p>`,
+ code:`arr = [10, 20, 30, 40, 50]
+print(arr[0])    <span class="c"># 10 — first element</span>
+print(arr[-1])   <span class="c"># 50 — last element</span>
+print(arr[-2])   <span class="c"># 40 — second to last</span>
+
+<span class="kw">try</span>:
+    print(arr[10])
+<span class="kw">except</span> IndexError:
+    print(<span class="str">"Index out of range!"</span>)`,
+ mistakes:['Off-by-one: forgetting the last valid index is <code>len(arr)-1</code>, not <code>len(arr)</code>.','Assuming negative indices "wrap infinitely" — <code>arr[-len(arr)-1]</code> still raises IndexError.'],
+ tips:['<code>arr[-1]</code> is the idiomatic, fast way to get the last element — prefer it over <code>arr[len(arr)-1]</code>.'],
+ complexity:[['Positive index access','O(1)'],['Negative index access','O(1)']],
+ quiz:[{q:'What does arr[-1] return?',opts:['An error','The first element','The last element','None'],correct:2,fb:'Negative indices count backward from the end; -1 is the last element.'},
+       {q:'What is the last valid positive index of a list of length n?',opts:['n','n-1','n+1','0'],correct:1,fb:'Indices run from 0 to n-1.'}]},
+
+{id:3,title:'Traversal',sub:'The many idiomatic ways to walk an array.',
+ concept:`<p>Traversal — visiting every element — is the foundation every other pattern builds on. Python offers several idioms; picking the right one communicates intent clearly to a reviewer or interviewer.</p>`,
+ code:`arr = [10, 20, 30]
+
+<span class="c"># by value</span>
+<span class="kw">for</span> x <span class="kw">in</span> arr:
+    print(x)
+
+<span class="c"># by index (when you need the position)</span>
+<span class="kw">for</span> i <span class="kw">in</span> range(len(arr)):
+    print(i, arr[i])
+
+<span class="c"># both at once — the idiomatic choice</span>
+<span class="kw">for</span> i, x <span class="kw">in</span> enumerate(arr):
+    print(i, x)
+
+<span class="c"># reverse traversal</span>
+<span class="kw">for</span> x <span class="kw">in</span> reversed(arr):
+    print(x)`,
+ mistakes:['Using <code>range(len(arr))</code> and then immediately indexing <code>arr[i]</code> when <code>enumerate</code> is clearer and equally fast.','Mutating a list while iterating over it directly — this skips or duplicates elements.'],
+ tips:['Reach for <code>enumerate()</code> whenever you need both index and value — it is the Pythonic default in interviews.'],
+ complexity:[['Full traversal','O(n)']],
+ quiz:[{q:'What does enumerate(arr) yield?',opts:['Only values','Only indices','(index, value) pairs','A reversed list'],correct:2,fb:'enumerate gives you both index and value together.'},
+       {q:'What is the time complexity of visiting every element once?',opts:['O(1)','O(log n)','O(n)','O(n^2)'],correct:2,fb:'One pass over n elements is O(n) by definition.'}]},
+
+{id:4,title:'Insertion',sub:'append, insert, extend — and their real costs.',
+ concept:`<p>Python gives you three main ways to add elements, and they are <b>not</b> interchangeable in cost. <code>append()</code> adds to the end in amortized O(1). <code>insert(i, x)</code> shifts every element from index <code>i</code> onward, costing O(n). <code>extend()</code> appends every element of another iterable, costing O(k) for k new elements.</p>`,
+ code:`arr = [1, 2, 3]
+arr.append(4)          <span class="c"># [1, 2, 3, 4]        O(1) amortized</span>
+arr.insert(1, 99)      <span class="c"># [1, 99, 2, 3, 4]    O(n) — shifts everything after index 1</span>
+arr.extend([5, 6])     <span class="c"># [1, 99, 2, 3, 4, 5, 6]  O(k)</span>
+arr += [7]             <span class="c"># same as append for a single item, O(1) amortized</span>`,
+ mistakes:['Calling <code>insert(0, x)</code> in a loop — this is O(n) <em>per call</em>, so an n-item loop becomes O(n²).','Confusing <code>append(x)</code> (adds x as one element) with <code>extend(x)</code> (adds each item of x).'],
+ tips:['If you find yourself repeatedly inserting at the front, consider building the list in reverse then reversing once, or using <code>collections.deque</code>.'],
+ complexity:[['append(x)','O(1) amortized'],['insert(i, x)','O(n)'],['extend(iterable)','O(k)']],
+ quiz:[{q:'Why is calling insert(0, x) in a loop dangerous for performance?',opts:["It's actually O(1)",'Each call is O(n), so n calls become O(n²)','Python forbids it','It only works once'],correct:1,fb:'Every insert(0,x) shifts all existing elements — n such calls costs O(n²).'},
+       {q:'What is the difference between append([1,2]) and extend([1,2]) on a list?',opts:['No difference','append adds [1,2] as a single nested element; extend adds 1 and 2 individually','extend is slower','append is invalid'],correct:1,fb:'append nests the argument; extend unpacks it.'}]},
+
+{id:5,title:'Deletion',sub:'pop, remove, del, clear — know exactly what each does.',
+ concept:`<p>Deletion has four common tools, each with a different signature and cost: <code>pop()</code> removes by index (default last), <code>remove(x)</code> removes the first matching <em>value</em>, <code>del arr[i]</code> deletes by index or slice, and <code>clear()</code> empties the list.</p>`,
+ code:`arr = [10, 20, 30, 40]
+
+arr.pop()        <span class="c"># removes &amp; returns 40 — O(1)</span>
+arr.pop(0)       <span class="c"># removes &amp; returns 10 — O(n), shifts remaining</span>
+arr.remove(20)   <span class="c"># removes the *value* 20 (first match) — O(n)</span>
+<span class="kw">del</span> arr[0]     <span class="c"># deletes by index, no return value — O(n)</span>
+arr.clear()      <span class="c"># empties the list — O(n)</span>`,
+ mistakes:['Calling <code>remove(x)</code> expecting it to remove by index — it removes by <em>value</em> and raises ValueError if absent.','Popping from index 0 in a loop, which is O(n) per call — same trap as inserting at the front.'],
+ tips:['<code>pop()</code> with no argument (removing the last element) is the only O(1) deletion — prefer it when order allows.'],
+ complexity:[['pop() — last','O(1)'],['pop(i) / del arr[i] / remove(x)','O(n)'],['clear()','O(n)']],
+ quiz:[{q:'What does list.remove(x) delete?',opts:['The element at index x','The first element equal to value x','The last element','Nothing, it errors always'],correct:1,fb:'remove searches for the value x and deletes its first occurrence.'},
+       {q:'Which single deletion operation is O(1)?',opts:['pop(0)','remove(x)','pop() with no argument','del arr[0]'],correct:2,fb:'Popping the last element needs no shifting.'}]},
+
+{id:6,title:'Searching',sub:'Linear search vs. binary search, and when each applies.',
+ concept:`<p><b>Linear search</b> checks each element in order — O(n), works on any list. <b>Binary search</b> repeatedly halves the search space — O(log n), but <em>requires the array to already be sorted</em>. Reaching for binary search on an unsorted array is a classic interview mistake.</p>`,
+ code:`<span class="c"># Linear search — O(n)</span>
+<span class="kw">def</span> <span class="fn">linear_search</span>(arr, target):
+    <span class="kw">for</span> i, x <span class="kw">in</span> enumerate(arr):
+        <span class="kw">if</span> x == target:
+            <span class="kw">return</span> i
+    <span class="kw">return</span> -1
+
+<span class="c"># Binary search — O(log n), array MUST be sorted</span>
+<span class="kw">def</span> <span class="fn">binary_search</span>(arr, target):
+    lo, hi = 0, len(arr) - 1
+    <span class="kw">while</span> lo &lt;= hi:
+        mid = (lo + hi) // 2
+        <span class="kw">if</span> arr[mid] == target:
+            <span class="kw">return</span> mid
+        <span class="kw">elif</span> arr[mid] &lt; target:
+            lo = mid + 1
+        <span class="kw">else</span>:
+            hi = mid - 1
+    <span class="kw">return</span> -1`,
+ mistakes:['Running binary search on unsorted data — it will silently return wrong answers, not an error.','Off-by-one in the binary search bounds — always double-check with a 1- or 2-element array.'],
+ tips:['If a problem\'s array is sorted (or can cheaply be sorted) and asks for a value/threshold, binary search is almost always the O(log n) upgrade path.'],
+ complexity:[['Linear search','O(n)'],['Binary search (sorted)','O(log n)']],
+ quiz:[{q:'What is required for binary search to work correctly?',opts:['The array must be sorted','The array must be reversed','The array must contain only integers','Nothing special'],correct:0,fb:'Binary search relies on sortedness to eliminate half the space each step.'},
+       {q:'What is the time complexity of binary search?',opts:['O(n)','O(n^2)','O(log n)','O(1)'],correct:2,fb:'Each comparison halves the remaining search space.'}]},
+
+{id:7,title:'Complexities',sub:'A full map of Big-O for every list operation.',
+ concept:`<p>Big-O describes how running time (or space) scales as input size n grows — not literal seconds. Below is the complete complexity map for Python's <code>list</code>. Memorizing this table is one of the highest-leverage things you can do before interviews.</p>`,
+ code:`<span class="c"># Rule of thumb:</span>
+<span class="c"># end-of-list operations   -> usually O(1)</span>
+<span class="c"># start/middle operations  -> usually O(n) (shifting)</span>
+<span class="c"># search on unsorted data  -> O(n)</span>
+<span class="c"># search on sorted data    -> O(log n) with binary search</span>
+<span class="c"># sort()                   -> O(n log n)</span>`,
+ mistakes:['Confusing "amortized O(1)" with "always exactly O(1)" — occasional resizes still cost O(n) individually, but average out.','Assuming <code>in</code> (membership test) on a list is fast — <code>x in list</code> is O(n); use a set for O(1) average membership.'],
+ tips:['When stuck on optimizing, ask: "which operation in my brute force is O(n) inside a loop that\'s already O(n)?" That nested cost is usually the O(n²) culprit to remove.'],
+ complexity:[['index / index-1','O(1)'],['append / pop()','O(1) amortized'],['insert/pop(i)/del','O(n)'],['x in list','O(n)'],['sort() / sorted()','O(n log n)'],['len()','O(1)'],['slicing arr[a:b]','O(b-a)']],
+ quiz:[{q:'What is the time complexity of "x in my_list"?',opts:['O(1)','O(log n)','O(n)','O(n^2)'],correct:2,fb:'Membership testing on a list scans linearly; use a set for O(1) average lookup.'},
+       {q:'What is the complexity of Python\'s built-in sort()?',opts:['O(n)','O(n log n)','O(n^2)','O(log n)'],correct:1,fb:'Timsort, used by list.sort(), runs in O(n log n) worst case.'}]},
+
+{id:8,title:'Patterns Overview',sub:'A map of the 12-pattern masterclass, before you dive in.',
+ concept:`<p>Most array interview problems are not novel — they are a known pattern wearing a new costume. This stage is a short map; the full <b>Pattern Masterclass</b> (with templates and worked examples) lives in its own section in the top navigation.</p>
+ <p>The two questions that route you to a pattern: <b>(1) Is the array sorted, or can I sort it cheaply?</b> and <b>(2) Am I looking for a contiguous subarray, a pair/triplet, or a global property?</b></p>`,
+ code:`<span class="c"># Quick trigger-word map (see the Patterns tab for full detail):</span>
+<span class="c">#  "pair that sums to X" on sorted array  -> Two Pointers</span>
+<span class="c">#  "longest/shortest subarray with..."    -> Sliding Window</span>
+<span class="c">#  "sum of subarray range"                -> Prefix Sum</span>
+<span class="c">#  "maximum subarray sum"                 -> Kadane's Algorithm</span>
+<span class="c">#  "sorted, find index/boundary"          -> Binary Search</span>
+<span class="c">#  "numbers 1..n, find missing/duplicate" -> Cyclic Sort</span>`,
+ mistakes:['Jumping straight to code before naming the pattern out loud — this is the #1 cause of getting stuck mid-interview.'],
+ tips:['Say the pattern name to your interviewer before coding ("this looks like a sliding window problem because...") — it demonstrates structured thinking even before you\'ve written a line.'],
+ complexity:[['Pattern recognition','Practice-driven, not formulaic']],
+ quiz:[{q:'What is the first question to ask when facing a new array problem?',opts:['What language should I use?','Is the array sorted, and am I looking for a subarray, pair, or global property?','How long is the array?','What IDE does the interviewer use?'],correct:1,fb:'These two questions route you to the right pattern fastest.'}]},
+
+{id:9,title:'Interview Preparation',sub:'How interviewers actually think, and how to communicate.',
+ concept:`<p>Interviewers are grading your <b>process</b>, not just your final answer. A clean O(n²) solution you explain well often beats a memorized O(n) solution you can't justify.</p>
+ <ul>
+ <li><b>Clarify first.</b> Ask about array size, duplicates, sorted-ness, negative numbers, empty input.</li>
+ <li><b>State the brute force out loud</b>, then its complexity, before optimizing.</li>
+ <li><b>Name the pattern</b> you're reaching for and why.</li>
+ <li><b>Narrate while coding</b> — silence reads as uncertainty even when you're not uncertain.</li>
+ <li><b>Dry-run on a small example</b> before declaring you're done.</li>
+ <li><b>State final complexity</b> unprompted — interviewers rarely have to ask a strong candidate for it.</li>
+ </ul>`,
+ code:`<span class="c"># A sentence template that works in almost every array interview:</span>
+<span class="c">#</span>
+<span class="c"># "My brute force is O(n^2) because I compare every pair.</span>
+<span class="c">#  I can improve it to O(n) using a hash map / two pointers</span>
+<span class="c">#  because [reason]. Let me code that, then dry-run it on</span>
+<span class="c">#  [small example], and check edge cases: empty array,</span>
+<span class="c">#  one element, all duplicates, negative numbers."</span>`,
+ mistakes:['Going silent while thinking for more than ~20-30 seconds — narrate your thought process even when unsure.','Declaring "done" without testing a single example by hand.'],
+ tips:['If truly stuck, brute force + correct beats silence. A working O(n²) you can explain is better than a broken "optimal" attempt.'],
+ complexity:[['Communication overhead','Worth it — it is graded']],
+ quiz:[{q:'What should you typically state before writing optimized code?',opts:['Nothing, just start coding the best solution','The brute force approach and its complexity first','Your resume','The interviewer\'s name'],correct:1,fb:'Starting from brute force shows structured thinking and gives you a fallback.'},
+       {q:'A working O(n^2) solution you can explain well vs. a broken attempt at O(n) — which is usually better in an interview?',opts:['The broken O(n) attempt','The working O(n^2), clearly explained','Neither matters','It depends only on speed'],correct:1,fb:'Correctness and clear reasoning usually outweigh an unfinished optimization.'}]},
+
+{id:10,title:'Mastery Challenge',sub:'A final self-check before you start the roadmap.',
+ concept:`<p>This stage has no new content — it's a checklist. If you can honestly say yes to all of these, you're ready for the <b>LeetCode Array Master Plan</b> in the Roadmap tab.</p>
+ <ul>
+ <li>I can explain why index access is O(1) and shifting is O(n) without looking it up.</li>
+ <li>I can write linear search and binary search from memory, including the off-by-one-safe binary search bounds.</li>
+ <li>I can name at least 6 of the 12 patterns and describe their trigger phrase.</li>
+ <li>I know the complexity of append, insert, pop, remove, sort, and membership testing without checking.</li>
+ <li>I can state a brute force, its complexity, and a plan to optimize before writing any code.</li>
+ </ul>`,
+ code:`<span class="c"># Suggested first week on the roadmap:</span>
+<span class="c">#  Day 1-2: Foundation problems (10)</span>
+<span class="c">#  Day 3-4: Easy problems, focus on two pointers &amp; prefix sum</span>
+<span class="c">#  Day 5-6: Medium problems, focus on sliding window &amp; Kadane's</span>
+<span class="c">#  Day 7:   Review mistakes, redo 3 problems from memory</span>`,
+ mistakes:['Rushing to Hard problems before Easy/Medium patterns are automatic — pattern recognition speed is what interviews actually test.'],
+ tips:['Re-solving a problem you got wrong, 2-3 days later, from a blank file, builds far more retention than reading the solution twice.'],
+ complexity:[['Readiness','Self-assessed — be honest']],
+ quiz:[{q:'What builds more long-term retention?',opts:['Reading a solution twice','Re-solving a missed problem from scratch a few days later','Memorizing solutions verbatim','Skipping straight to Hard problems'],correct:1,fb:'Active recall (re-solving from a blank file) beats passive re-reading.'}]}
+];
+
+/* ============================================================
+   DATA: PATTERNS (Masterclass)
+   ============================================================ */
+const PATTERNS = [
+{name:'Two Pointers', trigger:'"sorted array" + "pair/triplet that sums to X" or "remove duplicates in place"',
+ why:'Avoids a nested O(n²) loop by moving two indices toward or away from each other, using the sorted order to decide which pointer to move.',
+ template:`<span class="kw">def</span> <span class="fn">two_sum_sorted</span>(arr, target):
+    left, right = 0, len(arr) - 1
+    <span class="kw">while</span> left &lt; right:
+        s = arr[left] + arr[right]
+        <span class="kw">if</span> s == target:
+            <span class="kw">return</span> [left, right]
+        <span class="kw">elif</span> s &lt; target:
+            left += 1
+        <span class="kw">else</span>:
+            right -= 1
+    <span class="kw">return</span> [-1, -1]`,
+ mistake:'Using two pointers on an unsorted array without sorting first (or without a reason the order doesn\'t matter).', cx:'O(n) time, O(1) extra space'},
+
+{name:'Sliding Window', trigger:'"longest/shortest/max/min subarray with condition Y", contiguous subarrays',
+ why:'Maintains a running window [left, right] and expands/shrinks it incrementally instead of recomputing every subarray from scratch.',
+ template:`<span class="kw">def</span> <span class="fn">max_sum_window</span>(arr, k):
+    window_sum = <span class="fn">sum</span>(arr[:k])
+    best = window_sum
+    <span class="kw">for</span> right <span class="kw">in</span> range(k, len(arr)):
+        window_sum += arr[right] - arr[right - k]
+        best = <span class="fn">max</span>(best, window_sum)
+    <span class="kw">return</span> best`,
+ mistake:'Recomputing the window sum from scratch every step instead of adjusting it incrementally — turns O(n) into O(n·k).', cx:'O(n) time, O(1) extra space'},
+
+{name:'Prefix Sum', trigger:'"sum of subarray from i to j" asked many times, "subarray sum equals K"',
+ why:'Precomputes cumulative sums so any range sum becomes a single subtraction, turning repeated O(n) queries into O(1) each.',
+ template:`prefix = [0] * (len(arr) + 1)
+<span class="kw">for</span> i, x <span class="kw">in</span> enumerate(arr):
+    prefix[i + 1] = prefix[i] + x
+
+<span class="kw">def</span> <span class="fn">range_sum</span>(i, j):  <span class="c"># sum of arr[i..j] inclusive</span>
+    <span class="kw">return</span> prefix[j + 1] - prefix[i]`,
+ mistake:'Off-by-one in the prefix array size or the subtraction indices — always test on a 2-element array by hand.', cx:'O(n) to build, O(1) per query'},
+
+{name:'Difference Array', trigger:'"apply many range updates, then read final array"',
+ why:'Encodes range +=k updates as two point updates, so k range updates cost O(k) total instead of O(k·n).',
+ template:`diff = [0] * (len(arr) + 1)
+<span class="kw">def</span> <span class="fn">add_range</span>(i, j, val):
+    diff[i] += val
+    diff[j + 1] -= val
+
+<span class="c"># after all updates, rebuild with a running sum:</span>
+result, running = [], 0
+<span class="kw">for</span> d <span class="kw">in</span> diff[:-1]:
+    running += d
+    result.append(running)`,
+ mistake:'Forgetting to rebuild the array via running prefix sum after applying all the range updates.', cx:'O(1) per update, O(n) to rebuild'},
+
+{name:"Kadane's Algorithm", trigger:'"maximum subarray sum" (contiguous)',
+ why:'Tracks the best sum ending at the current index; if that running sum ever goes negative, restarting from the current element only can only help.',
+ template:`<span class="kw">def</span> <span class="fn">max_subarray</span>(arr):
+    best = cur = arr[0]
+    <span class="kw">for</span> x <span class="kw">in</span> arr[1:]:
+        cur = <span class="fn">max</span>(x, cur + x)
+        best = <span class="fn">max</span>(best, cur)
+    <span class="kw">return</span> best`,
+ mistake:'Initializing best/cur to 0 instead of arr[0] — breaks on all-negative arrays.', cx:'O(n) time, O(1) space'},
+
+{name:'Dutch National Flag', trigger:'"sort an array of only 3 distinct values in place, one pass"',
+ why:'Partitions the array into three regions (low/mid/high) using three pointers in a single pass, avoiding a full sort.',
+ template:`<span class="kw">def</span> <span class="fn">sort_colors</span>(arr):
+    low, mid, high = 0, 0, len(arr) - 1
+    <span class="kw">while</span> mid &lt;= high:
+        <span class="kw">if</span> arr[mid] == 0:
+            arr[low], arr[mid] = arr[mid], arr[low]
+            low += 1; mid += 1
+        <span class="kw">elif</span> arr[mid] == 1:
+            mid += 1
+        <span class="kw">else</span>:
+            arr[mid], arr[high] = arr[high], arr[mid]
+            high -= 1`,
+ mistake:'Incrementing mid after a swap with high — you must re-check the newly swapped-in value at mid first.', cx:'O(n) time, O(1) space'},
+
+{name:'Merge Intervals', trigger:'"overlapping intervals", "meeting rooms", "insert interval"',
+ why:'Sorting intervals by start time turns an O(n²) overlap check into a single O(n) linear scan merging as you go.',
+ template:`<span class="kw">def</span> <span class="fn">merge</span>(intervals):
+    intervals.sort(key=<span class="kw">lambda</span> x: x[0])
+    result = [intervals[0]]
+    <span class="kw">for</span> start, end <span class="kw">in</span> intervals[1:]:
+        <span class="kw">if</span> start &lt;= result[-1][1]:
+            result[-1][1] = <span class="fn">max</span>(result[-1][1], end)
+        <span class="kw">else</span>:
+            result.append([start, end])
+    <span class="kw">return</span> result`,
+ mistake:'Forgetting to sort by start time first — merging logic assumes sorted order.', cx:'O(n log n) time (dominated by the sort)'},
+
+{name:'Binary Search on Arrays', trigger:'"sorted array", "find boundary/threshold", "minimize/maximize the answer" (binary search on the answer)',
+ why:'Halves the search space each step whenever a monotonic condition (sorted values, or a yes/no answer that flips once) exists.',
+ template:`<span class="kw">def</span> <span class="fn">lower_bound</span>(arr, target):
+    lo, hi = 0, len(arr)
+    <span class="kw">while</span> lo &lt; hi:
+        mid = (lo + hi) // 2
+        <span class="kw">if</span> arr[mid] &lt; target:
+            lo = mid + 1
+        <span class="kw">else</span>:
+            hi = mid
+    <span class="kw">return</span> lo`,
+ mistake:'Using <code>mid = (lo+hi)//2</code> bounds inconsistently between "search value" and "search answer" variants — pick one template and drill it.', cx:'O(log n) time'},
+
+{name:'Cyclic Sort', trigger:'"array contains numbers from 1 to n" (or 0 to n-1), "find missing/duplicate number", O(1) space required',
+ why:'When values are a known permutation range, you can place each number at its "home" index in one pass without extra space.',
+ template:`<span class="kw">def</span> <span class="fn">cyclic_sort</span>(arr):
+    i = 0
+    <span class="kw">while</span> i &lt; len(arr):
+        correct = arr[i] - 1
+        <span class="kw">if</span> arr[i] != arr[correct]:
+            arr[i], arr[correct] = arr[correct], arr[i]
+        <span class="kw">else</span>:
+            i += 1
+    <span class="kw">return</span> arr`,
+ mistake:'Applying cyclic sort when values are NOT a bounded 1..n (or 0..n-1) range — the index math only works for that specific case.', cx:'O(n) time, O(1) extra space'},
+
+{name:'In-place Rearrangement', trigger:'"modify the array in place", "O(1) extra space", "move zeroes/evens/odds"',
+ why:'Uses a slow/fast pointer to overwrite the array from the front, avoiding a second array allocation.',
+ template:`<span class="kw">def</span> <span class="fn">move_zeroes</span>(arr):
+    slow = 0
+    <span class="kw">for</span> fast <span class="kw">in</span> range(len(arr)):
+        <span class="kw">if</span> arr[fast] != 0:
+            arr[slow], arr[fast] = arr[fast], arr[slow]
+            slow += 1`,
+ mistake:'Allocating a new list when the problem explicitly asks for O(1) extra space, in-place modification.', cx:'O(n) time, O(1) space'},
+
+{name:'Monotonic Stack (intro)', trigger:'"next greater/smaller element", "daily temperatures"',
+ why:'Keeps a stack of indices whose values are monotonic; popping when the order breaks answers "next greater" queries in one linear pass instead of O(n²).',
+ template:`<span class="kw">def</span> <span class="fn">next_greater</span>(arr):
+    result = [-1] * len(arr)
+    stack = []  <span class="c"># stores indices</span>
+    <span class="kw">for</span> i, x <span class="kw">in</span> enumerate(arr):
+        <span class="kw">while</span> stack <span class="kw">and</span> arr[stack[-1]] &lt; x:
+            result[stack.pop()] = x
+        stack.append(i)
+    <span class="kw">return</span> result`,
+ mistake:'Storing values instead of indices on the stack when the answer requires reporting a position.', cx:'O(n) time overall — each index pushed/popped once'},
+
+{name:'Matrix & Spiral Traversal', trigger:'"2D array", "spiral order", "rotate image", "set matrix zeroes"',
+ why:'2D array problems reduce to careful boundary bookkeeping (top/bottom/left/right) rather than a new algorithm.',
+ template:`<span class="kw">def</span> <span class="fn">spiral_order</span>(matrix):
+    result = []
+    top, bottom = 0, len(matrix) - 1
+    left, right = 0, len(matrix[0]) - 1
+    <span class="kw">while</span> top &lt;= bottom <span class="kw">and</span> left &lt;= right:
+        <span class="kw">for</span> c <span class="kw">in</span> range(left, right + 1): result.append(matrix[top][c])
+        top += 1
+        <span class="kw">for</span> r <span class="kw">in</span> range(top, bottom + 1): result.append(matrix[r][right])
+        right -= 1
+        <span class="kw">if</span> top &lt;= bottom:
+            <span class="kw">for</span> c <span class="kw">in</span> range(right, left - 1, -1): result.append(matrix[bottom][c])
+            bottom -= 1
+        <span class="kw">if</span> left &lt;= right:
+            <span class="kw">for</span> r <span class="kw">in</span> range(bottom, top - 1, -1): result.append(matrix[r][left])
+            left += 1
+    <span class="kw">return</span> result`,
+ mistake:'Forgetting the two guard checks (top<=bottom, left<=right) before the last two inner loops — causes duplicate visits on non-square matrices.', cx:'O(rows × cols) time'}
+];
+
+/* ============================================================
+   DATA: ROADMAP PROBLEMS
+   ============================================================ */
+const PROBLEMS = [
+// Foundation
+{n:'Two Sum',d:'foundation',p:'Hash Map',t:'15m',lc:'https://leetcode.com/problems/two-sum/',hint:'Store each value\'s index in a dict as you go; check if target-x has been seen.'},
+{n:'Running Sum of 1d Array',d:'foundation',p:'Prefix Sum',t:'10m',lc:'https://leetcode.com/problems/running-sum-of-1d-array/',hint:'result[i] = result[i-1] + arr[i].'},
+{n:'Concatenation of Array',d:'foundation',p:'Basics',t:'5m',lc:'https://leetcode.com/problems/concatenation-of-array/',hint:'arr + arr works directly.'},
+{n:'Build Array from Permutation',d:'foundation',p:'Basics',t:'10m',lc:'https://leetcode.com/problems/build-array-from-permutation/',hint:'ans[i] = nums[nums[i]].'},
+{n:'Shuffle the Array',d:'foundation',p:'Two Pointers',t:'10m',lc:'https://leetcode.com/problems/shuffle-the-array/',hint:'Interleave the first and second halves.'},
+{n:'Richest Customer Wealth',d:'foundation',p:'Traversal',t:'8m',lc:'https://leetcode.com/problems/richest-customer-wealth/',hint:'Sum each row, track the max.'},
+{n:'Find Numbers with Even Number of Digits',d:'foundation',p:'Traversal',t:'8m',lc:'https://leetcode.com/problems/find-numbers-with-even-number-of-digits/',hint:'len(str(x)) % 2 == 0.'},
+{n:'Squares of a Sorted Array',d:'foundation',p:'Two Pointers',t:'15m',lc:'https://leetcode.com/problems/squares-of-a-sorted-array/',hint:'Largest squares come from the ends; fill result from the back.'},
+{n:'Best Time to Buy and Sell Stock',d:'foundation',p:'Sliding Window',t:'15m',lc:'https://leetcode.com/problems/best-time-to-buy-and-sell-stock/',hint:'Track the minimum price seen so far and the best profit.'},
+{n:'Contains Duplicate',d:'foundation',p:'Hash Set',t:'10m',lc:'https://leetcode.com/problems/contains-duplicate/',hint:'len(set(arr)) != len(arr), or track seen values.'},
+
+// Easy
+{n:'Move Zeroes',d:'easy',p:'In-place Rearrangement',t:'15m',lc:'https://leetcode.com/problems/move-zeroes/',hint:'Slow/fast pointer: overwrite non-zero values forward, then zero-fill the tail.'},
+{n:'Majority Element',d:'easy',p:'Boyer-Moore / Hash Map',t:'15m',lc:'https://leetcode.com/problems/majority-element/',hint:'A candidate + counter works in one pass (Boyer-Moore voting).'},
+{n:'Missing Number',d:'easy',p:'Cyclic Sort / Math',t:'15m',lc:'https://leetcode.com/problems/missing-number/',hint:'Expected sum n*(n+1)/2 minus actual sum.'},
+{n:'Single Number',d:'easy',p:'Bit Manipulation',t:'10m',lc:'https://leetcode.com/problems/single-number/',hint:'XOR all elements; duplicates cancel out.'},
+{n:'Plus One',d:'easy',p:'Simulation',t:'10m',lc:'https://leetcode.com/problems/plus-one/',hint:'Handle the carry from the last digit backward.'},
+{n:'Remove Duplicates from Sorted Array',d:'easy',p:'Two Pointers',t:'15m',lc:'https://leetcode.com/problems/remove-duplicates-from-sorted-array/',hint:'Slow pointer marks the last unique position.'},
+{n:'Remove Element',d:'easy',p:'Two Pointers',t:'10m',lc:'https://leetcode.com/problems/remove-element/',hint:'Overwrite forward, skip the target value.'},
+{n:'Merge Sorted Array',d:'easy',p:'Two Pointers',t:'20m',lc:'https://leetcode.com/problems/merge-sorted-array/',hint:'Merge from the back to avoid overwriting unread values.'},
+{n:'Two Sum II - Input Array Is Sorted',d:'easy',p:'Two Pointers',t:'15m',lc:'https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/',hint:'Classic two pointers, move based on sum vs target.'},
+{n:'Valid Mountain Array',d:'easy',p:'Two Pointers',t:'10m',lc:'https://leetcode.com/problems/valid-mountain-array/',hint:'Walk up from both ends, they should meet at the same peak.'},
+{n:'Third Maximum Number',d:'easy',p:'Traversal',t:'15m',lc:'https://leetcode.com/problems/third-maximum-number/',hint:'Track top 3 distinct values in one pass.'},
+{n:"Pascal's Triangle",d:'easy',p:'Simulation',t:'15m',lc:'https://leetcode.com/problems/pascals-triangle/',hint:'Each row built from the previous: row[i] = prev[i-1] + prev[i].'},
+{n:'Rotate Array',d:'easy',p:'In-place Rearrangement',t:'20m',lc:'https://leetcode.com/problems/rotate-array/',hint:'Reverse the whole array, then reverse each of the two segments.'},
+{n:'Intersection of Two Arrays II',d:'easy',p:'Hash Map',t:'15m',lc:'https://leetcode.com/problems/intersection-of-two-arrays-ii/',hint:'Count frequencies in one array, decrement while scanning the other.'},
+{n:'Max Consecutive Ones',d:'easy',p:'Sliding Window',t:'10m',lc:'https://leetcode.com/problems/max-consecutive-ones/',hint:'Track a running streak, reset on a zero.'},
+
+// Medium
+{n:'3Sum',d:'medium',p:'Two Pointers',t:'30m',lc:'https://leetcode.com/problems/3sum/',hint:'Sort first, fix one number, two-pointer the rest, skip duplicates.'},
+{n:'Container With Most Water',d:'medium',p:'Two Pointers',t:'20m',lc:'https://leetcode.com/problems/container-with-most-water/',hint:'Move the pointer at the shorter line inward.'},
+{n:'Product of Array Except Self',d:'medium',p:'Prefix Sum',t:'25m',lc:'https://leetcode.com/problems/product-of-array-except-self/',hint:'Prefix products from the left, suffix products from the right.'},
+{n:'Subarray Sum Equals K',d:'medium',p:'Prefix Sum',t:'25m',lc:'https://leetcode.com/problems/subarray-sum-equals-k/',hint:'Hash map of prefix-sum frequency; check for prefix_sum - k.'},
+{n:'Maximum Subarray',d:'medium',p:"Kadane's Algorithm",t:'20m',lc:'https://leetcode.com/problems/maximum-subarray/',hint:'See the Kadane\'s pattern card.'},
+{n:'Rotate Image',d:'medium',p:'Matrix Traversal',t:'25m',lc:'https://leetcode.com/problems/rotate-image/',hint:'Transpose the matrix, then reverse each row.'},
+{n:'Spiral Matrix',d:'medium',p:'Matrix Traversal',t:'25m',lc:'https://leetcode.com/problems/spiral-matrix/',hint:'See the Spiral Traversal pattern card.'},
+{n:'Next Permutation',d:'medium',p:'In-place Rearrangement',t:'30m',lc:'https://leetcode.com/problems/next-permutation/',hint:'Find the rightmost ascent, swap with the next larger digit, reverse the suffix.'},
+{n:'Sort Colors',d:'medium',p:'Dutch National Flag',t:'20m',lc:'https://leetcode.com/problems/sort-colors/',hint:'See the Dutch National Flag pattern card.'},
+{n:'Insert Interval',d:'medium',p:'Merge Intervals',t:'25m',lc:'https://leetcode.com/problems/insert-interval/',hint:'Add intervals ending before newInterval starts, merge overlaps, add the rest.'},
+{n:'Merge Intervals',d:'medium',p:'Merge Intervals',t:'20m',lc:'https://leetcode.com/problems/merge-intervals/',hint:'Sort by start, merge while overlapping.'},
+{n:'Gas Station',d:'medium',p:'Greedy',t:'25m',lc:'https://leetcode.com/problems/gas-station/',hint:'If total gas >= total cost a solution exists; track running tank and reset start on deficit.'},
+{n:'Jump Game',d:'medium',p:'Greedy',t:'20m',lc:'https://leetcode.com/problems/jump-game/',hint:'Track the furthest reachable index while scanning.'},
+{n:'Jump Game II',d:'medium',p:'Greedy / Sliding Window',t:'25m',lc:'https://leetcode.com/problems/jump-game-ii/',hint:'BFS-style level expansion: track current end and farthest reachable.'},
+{n:'Find First and Last Position of Element in Sorted Array',d:'medium',p:'Binary Search',t:'25m',lc:'https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/',hint:'Two binary searches: lower bound and upper bound.'},
+{n:'Search in Rotated Sorted Array',d:'medium',p:'Binary Search',t:'30m',lc:'https://leetcode.com/problems/search-in-rotated-sorted-array/',hint:'At each mid, one half is guaranteed sorted — check which, then decide direction.'},
+{n:'Find Minimum in Rotated Sorted Array',d:'medium',p:'Binary Search',t:'20m',lc:'https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/',hint:'Compare arr[mid] with arr[right] to decide which half holds the minimum.'},
+{n:'4Sum',d:'medium',p:'Two Pointers',t:'30m',lc:'https://leetcode.com/problems/4sum/',hint:'Fix two numbers, two-pointer the rest, same duplicate-skipping as 3Sum.'},
+{n:'Set Matrix Zeroes',d:'medium',p:'Matrix Traversal',t:'25m',lc:'https://leetcode.com/problems/set-matrix-zeroes/',hint:'Use the first row/column as markers to achieve O(1) extra space.'},
+{n:'Game of Life',d:'medium',p:'Matrix Traversal / Simulation',t:'25m',lc:'https://leetcode.com/problems/game-of-life/',hint:'Encode next state in extra bits of the same cell to update in place.'},
+{n:'Continuous Subarray Sum',d:'medium',p:'Prefix Sum',t:'25m',lc:'https://leetcode.com/problems/continuous-subarray-sum/',hint:'Track prefix_sum % k; a repeated remainder implies a valid subarray.'},
+{n:'Non-overlapping Intervals',d:'medium',p:'Merge Intervals / Greedy',t:'25m',lc:'https://leetcode.com/problems/non-overlapping-intervals/',hint:'Sort by end time, greedily keep the interval that ends earliest.'},
+{n:'Minimum Size Subarray Sum',d:'medium',p:'Sliding Window',t:'20m',lc:'https://leetcode.com/problems/minimum-size-subarray-sum/',hint:'Expand right, shrink left whenever the window sum meets the target.'},
+{n:'Longest Consecutive Sequence',d:'medium',p:'Hash Set',t:'25m',lc:'https://leetcode.com/problems/longest-consecutive-sequence/',hint:'Only start counting a streak from a number whose predecessor is absent.'},
+
+// Hard
+{n:'Trapping Rain Water',d:'hard',p:'Two Pointers',t:'35m',lc:'https://leetcode.com/problems/trapping-rain-water/',hint:'Water at i is min(maxLeft, maxRight) - height[i]; two pointers track running maxes.'},
+{n:'First Missing Positive',d:'hard',p:'Cyclic Sort',t:'30m',lc:'https://leetcode.com/problems/first-missing-positive/',hint:'Place each value v at index v-1 in place, then scan for the first mismatch.'},
+{n:'Median of Two Sorted Arrays',d:'hard',p:'Binary Search',t:'40m',lc:'https://leetcode.com/problems/median-of-two-sorted-arrays/',hint:'Binary search the smaller array for a valid partition point.'},
+{n:'Sliding Window Maximum',d:'hard',p:'Monotonic Stack/Deque',t:'30m',lc:'https://leetcode.com/problems/sliding-window-maximum/',hint:'Maintain a decreasing deque of indices; front is always the current max.'},
+{n:'Maximum Gap',d:'hard',p:'Bucket Sort',t:'30m',lc:'https://leetcode.com/problems/maximum-gap/',hint:'Bucket by an ideal gap of (max-min)/(n-1); the answer spans buckets, not within one.'},
+{n:'Count of Smaller Numbers After Self',d:'hard',p:'Merge Sort / BIT',t:'40m',lc:'https://leetcode.com/problems/count-of-smaller-numbers-after-self/',hint:'Count cross-inversions while merge-sorting from the right.'},
+{n:'Candy',d:'hard',p:'Greedy / Two Pass',t:'25m',lc:'https://leetcode.com/problems/candy/',hint:'One left-to-right pass for ascending runs, one right-to-left for descending, take the max.'}
+];
+
+/* ============================================================
+   DATA: CHEATSHEET
+   ============================================================ */
+const CHEAT_OPS = [
+['len(arr)','O(1)'],['arr[i]','O(1)'],['arr[i] = x','O(1)'],['arr.append(x)','O(1)*'],
+['arr.pop()','O(1)'],['arr.pop(i)','O(n)'],['arr.insert(i, x)','O(n)'],['arr.remove(x)','O(n)'],
+['del arr[i]','O(n)'],['x in arr','O(n)'],['arr.index(x)','O(n)'],['arr.count(x)','O(n)'],
+['arr.sort()','O(n log n)'],['sorted(arr)','O(n log n)'],['arr.reverse()','O(n)'],
+['arr[a:b]','O(b-a)'],['arr.copy()','O(n)'],['arr.extend(it)','O(k)'],['min(arr)/max(arr)','O(n)'],['sum(arr)','O(n)']
+];
+
+/* ============================================================
+   RENDERERS
+   ============================================================ */
+
+// ---- Hero cells
+function renderHeroCells(){
+  const wrap=document.getElementById('hero-cells');
+  const vals=[4,1,7,3,9,2];
+  wrap.innerHTML = vals.map((v,i)=>`<div class="hcell" id="hc-${i}">${v}<span class="addr">idx ${i}</span></div>`).join('');
+  let i=0;
+  setInterval(()=>{
+    document.querySelectorAll('.hcell').forEach(c=>c.classList.remove('active'));
+    const el=document.getElementById('hc-'+i);
+    if(el) el.classList.add('active');
+    i=(i+1)%vals.length;
+  },900);
+}
+
+// ---- Home stage preview cards
+function renderHomePreview(){
+  const wrap=document.getElementById('home-stage-preview');
+  wrap.innerHTML = STAGES.slice(0,8).map(s=>`
+    <div class="card" style="cursor:pointer;" data-stage="${s.id}">
+      <div class="eyebrow">STAGE ${s.id}</div>
+      <h4 style="margin-top:8px;font-size:1rem;color:var(--text-hi);">${s.title}</h4>
+      <p style="color:var(--text-mid);font-size:.82rem;margin-top:6px;line-height:1.5;">${s.sub}</p>
+    </div>`).join('');
+  wrap.querySelectorAll('[data-stage]').forEach(c=>c.addEventListener('click',()=>{
+    gotoView('stages'); selectStage(parseInt(c.dataset.stage));
+  }));
+}
+
+// ---- Stages nav + panels
+function renderStages(){
+  const nav=document.getElementById('stagesnav');
+  nav.innerHTML = STAGES.map(s=>`
+    <button class="stagebtn ${STATE.completedStages[s.id]?'done':''}" data-stage="${s.id}">
+      <span class="num">${STATE.completedStages[s.id]?'✓':s.id}</span>
+      <span>${s.title}</span>
+    </button>`).join('');
+  nav.querySelectorAll('.stagebtn').forEach(b=>b.addEventListener('click',()=>selectStage(parseInt(b.dataset.stage))));
+
+  const panels=document.getElementById('stagespanels');
+  panels.innerHTML = STAGES.map(s=>`
+    <div class="stagepanel" id="stagepanel-${s.id}">
+      <div class="eyebrow">STAGE ${s.id} OF 10</div>
+      <h3>${s.title}</h3>
+      <p class="stagesub">${s.sub}</p>
+
+      <div class="lessonblock"><h4>◇ Concept</h4>${s.concept}</div>
+
+      <div class="lessonblock"><h4>◇ Python Example</h4><pre class="code"><button class="copybtn" data-copy="code-${s.id}">Copy</button><code id="code-${s.id}">${s.code}</code></pre></div>
+
+      <div class="lessonblock"><h4>◇ Complexity</h4>
+        <div class="complexity-row">${s.complexity.map(c=>`<span class="complexity-pill">${c[0]}: <b style="color:var(--amber);">${c[1]}</b></span>`).join('')}</div>
+      </div>
+
+      <div class="lessonblock"><h4>◇ Common Mistakes</h4>${s.mistakes.map(m=>`<div class="mistake">⚠ ${m}</div>`).join('')}</div>
+
+      ${s.tips?`<div class="lessonblock"><h4>◇ Interview Notes</h4>${s.tips.map(t=>`<div class="tip">◆ ${t}</div>`).join('')}</div>`:''}
+
+      <div class="lessonblock"><h4>◇ Mini Quiz — pass to complete this stage</h4>
+        <div class="quizbox" id="quiz-${s.id}"></div>
+      </div>
+
+      <div class="lessonblock"><h4>◇ Summary</h4><p>${s.sub} Once the quiz above is passed, Stage ${s.id} is marked complete on your dashboard.</p></div>
+    </div>`).join('');
+
+  STAGES.forEach(s=>renderQuiz(s));
+  selectStage(0);
+}
+
+let currentStage = 0;
+function selectStage(id){
+  currentStage = id;
+  document.querySelectorAll('.stagebtn').forEach(b=>b.classList.toggle('current', parseInt(b.dataset.stage)===id));
+  document.querySelectorAll('.stagepanel').forEach(p=>p.classList.toggle('active', p.id==='stagepanel-'+id));
+  document.getElementById('stageslayout').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ---- Quiz engine
+function renderQuiz(stage){
+  const box=document.getElementById('quiz-'+stage.id);
+  box.innerHTML = stage.quiz.map((q,qi)=>`
+    <div class="quizq" data-qi="${qi}">
+      <p class="qtext">${qi+1}. ${q.q}</p>
+      <div class="quizopts">
+        ${q.opts.map((o,oi)=>`<button class="quizopt" data-oi="${oi}">${o}</button>`).join('')}
+      </div>
+      <div class="quizfeedback"></div>
+    </div>
+  `).join('') + `<div class="quiz-submit-row"><span class="small-note" id="quizscore-${stage.id}"></span></div>`;
+
+  const answered = {};
+  box.querySelectorAll('.quizq').forEach(qEl=>{
+    const qi = parseInt(qEl.dataset.qi);
+    const qdata = stage.quiz[qi];
+    qEl.querySelectorAll('.quizopt').forEach(optBtn=>{
+      optBtn.addEventListener('click',()=>{
+        if(answered[qi]) return;
+        answered[qi]=true;
+        const oi=parseInt(optBtn.dataset.oi);
+        qEl.querySelectorAll('.quizopt').forEach((b,i)=>{
+          if(i===qdata.correct) b.classList.add('correct');
+          else if(i===oi) b.classList.add('wrong');
+          b.disabled=true;
+        });
+        qEl.querySelector('.quizfeedback').textContent = (oi===qdata.correct?'✓ Correct — ':'✗ Not quite — ') + qdata.fb;
+        checkStageComplete(stage, answered);
+      });
+    });
+  });
+}
+function checkStageComplete(stage, answered){
+  if(Object.keys(answered).length === stage.quiz.length){
+    if(!STATE.completedStages[stage.id]){
+      STATE.completedStages[stage.id]=true;
+      addXP(50, 'Stage '+stage.id+' complete');
+      burstConfetti();
+      renderStages();
+      selectStage(stage.id);
+    }
+  }
+}
+
+// ---- Patterns
+function renderPatterns(){
+  const grid=document.getElementById('patterns-grid');
+  grid.innerHTML = PATTERNS.map((p,i)=>`
+    <div class="card patterncard" data-search="${p.name.toLowerCase()}" data-i="${i}">
+      <div class="eyebrow">PATTERN ${String(i+1).padStart(2,'0')}</div>
+      <h4>${p.name}</h4>
+      <p class="desc">${p.trigger}</p>
+      <div class="patterndetail" id="patdetail-${i}">
+        <div class="divider"></div>
+        <p style="color:var(--text-mid);font-size:.88rem;line-height:1.6;"><b style="color:var(--text-hi);">Why it exists: </b>${p.why}</p>
+        <pre class="code" style="margin-top:12px;"><button class="copybtn" data-copy="pat-${i}">Copy</button><code id="pat-${i}">${p.template}</code></pre>
+        <div class="mistake" style="margin-top:10px;">⚠ ${p.mistake}</div>
+        <div class="complexity-row"><span class="complexity-pill">${p.cx}</span></div>
+      </div>
+    </div>`).join('');
+  grid.querySelectorAll('.patterncard').forEach(c=>{
+    c.addEventListener('click',(e)=>{
+      if(e.target.classList.contains('copybtn')) return;
+      document.getElementById('patdetail-'+c.dataset.i).classList.toggle('open');
+    });
+  });
+  bindCopyButtons();
+}
+
+function bindCopyButtons(){
+  document.querySelectorAll('.copybtn').forEach(btn=>{
+    btn.onclick = (e)=>{
+      e.stopPropagation();
+      const target = document.getElementById(btn.dataset.copy);
+      const text = target.textContent;
+      navigator.clipboard && navigator.clipboard.writeText(text).then(()=>{
+        toast('Copied to clipboard');
+      }).catch(()=>{toast('Copy failed — select manually');});
+    };
+  });
+}
+
+// ---- Complexity op cards
+const COMPLEXITY_OPS = [
+  {op:'arr[i]',cx:'O(1)',note:'Direct address calculation'},
+  {op:'arr.append(x)',cx:'O(1)*',note:'Amortized — occasional resize'},
+  {op:'arr.insert(0,x)',cx:'O(n)',note:'Shifts every element right'},
+  {op:'x in arr',cx:'O(n)',note:'Linear scan; use a set for O(1) avg'},
+  {op:'binary_search(arr,x)',cx:'O(log n)',note:'Requires sorted input'},
+  {op:'arr.sort()',cx:'O(n log n)',note:'Timsort under the hood'},
+  {op:'nested loop over arr',cx:'O(n²)',note:'Watch for this hiding in brute force'},
+  {op:'arr.pop()',cx:'O(1)',note:'Removing the last element needs no shift'}
+];
+function renderComplexityCards(){
+  document.getElementById('complexity-op-cards').innerHTML = COMPLEXITY_OPS.map(o=>`
+    <div class="card" style="padding:16px;">
+      <div class="mono" style="color:var(--line);font-size:.85rem;">${o.op}</div>
+      <div class="mono" style="color:var(--amber);font-size:1.3rem;margin:6px 0;">${o.cx}</div>
+      <div style="color:var(--text-dim);font-size:.76rem;">${o.note}</div>
+    </div>`).join('');
+}
+
+// ---- Roadmap
+let roadmapFilter='all';
+function renderRoadmapFilters(){
+  const cats=['all','foundation','easy','medium','hard'];
+  document.getElementById('roadmap-filters').innerHTML = cats.map(c=>`<button class="filterbtn ${c===roadmapFilter?'active':''}" data-cat="${c}">${c==='all'?'All':c[0].toUpperCase()+c.slice(1)}</button>`).join('');
+  document.querySelectorAll('.filterbtn').forEach(b=>b.addEventListener('click',()=>{
+    roadmapFilter=b.dataset.cat; renderRoadmapFilters(); renderRoadmapList();
+  }));
+}
+function renderRoadmapList(){
+  const list=document.getElementById('roadmap-list');
+  const items = PROBLEMS.filter(p=>roadmapFilter==='all'||p.d===roadmapFilter);
+  list.innerHTML = items.map((p,idx)=>{
+    const key = p.n;
+    const solved = !!STATE.solvedProblems[key];
+    return `
+    <div class="problemrow" data-search="${p.n.toLowerCase()} ${p.p.toLowerCase()}">
+      <input type="checkbox" data-key="${key}" ${solved?'checked':''}>
+      <span class="pname">${p.n}</span>
+      <span class="tag ${p.d}">${p.d}</span>
+      <span class="ppattern">${p.p}</span>
+      <span class="pcol-time mono" style="color:var(--text-dim);">${p.t}</span>
+      <span style="display:flex;gap:6px;">
+        <button class="hintbtn" data-hint="hint-${idx}-${roadmapFilter}">Hint</button>
+        <a href="${p.lc}" target="_blank" rel="noopener" class="btn small ghost" style="padding:5px 10px;">Open ↗</a>
+      </span>
+      <div class="hintbox" id="hint-${idx}-${roadmapFilter}">${p.hint}</div>
+    </div>`;
+  }).join('');
+  list.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    cb.addEventListener('change',()=>{
+      const key=cb.dataset.key;
+      if(cb.checked){ STATE.solvedProblems[key]=true; addXP(20,'Solved: '+key); if(Object.keys(STATE.solvedProblems).length%10===0) burstConfetti(); }
+      else{ delete STATE.solvedProblems[key]; saveState(); }
+    });
+  });
+  list.querySelectorAll('.hintbtn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.getElementById(b.dataset.hint).classList.toggle('show');
+    });
+  });
+}
+
+// ---- Cheatsheet
+function renderCheatsheet(){
+  document.getElementById('cheat-ops').innerHTML = CHEAT_OPS.map(([fn,cx])=>`<div class="cheatop"><span class="fn">${fn}</span><span class="cx">${cx}</span></div>`).join('');
+  document.getElementById('decision-tree').innerHTML = `
+  Is the array sorted?<br>
+  ├─ Yes → need a value/boundary? → <b style="color:var(--line);">Binary Search</b><br>
+  │        need a pair/triplet sum? → <b style="color:var(--line);">Two Pointers</b><br>
+  └─ No  → need contiguous subarray? → <b style="color:var(--line);">Sliding Window</b><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;need many range-sum queries? → <b style="color:var(--line);">Prefix Sum</b><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;values are 1..n, need O(1) space? → <b style="color:var(--line);">Cyclic Sort</b><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;need max contiguous sum? → <b style="color:var(--line);">Kadane's</b><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;need next greater/smaller? → <b style="color:var(--line);">Monotonic Stack</b><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;it's a grid? → <b style="color:var(--line);">Matrix Traversal</b>`;
+}
+
+/* ============================================================
+   PROGRESS DASHBOARD
+   ============================================================ */
+const BADGES = [
+  {id:'first_stage', icon:'🧭', name:'First Steps', cond:()=>Object.keys(STATE.completedStages).length>=1},
+  {id:'halfway', icon:'🛠️', name:'Halfway There', cond:()=>Object.keys(STATE.completedStages).length>=6},
+  {id:'all_stages', icon:'🎓', name:'Course Complete', cond:()=>Object.keys(STATE.completedStages).length>=11},
+  {id:'ten_solved', icon:'🔟', name:'10 Solved', cond:()=>Object.keys(STATE.solvedProblems).length>=10},
+  {id:'thirty_solved', icon:'🔥', name:'30 Solved', cond:()=>Object.keys(STATE.solvedProblems).length>=30},
+  {id:'all_solved', icon:'🏆', name:'Roadmap Cleared', cond:()=>Object.keys(STATE.solvedProblems).length>=PROBLEMS.length},
+  {id:'xp500', icon:'⚡', name:'500 XP', cond:()=>STATE.xp>=500}
+];
+function checkBadges(){
+  let newBadge=false;
+  BADGES.forEach(b=>{
+    if(!STATE.badges[b.id] && b.cond()){ STATE.badges[b.id]=true; newBadge=true; }
+  });
+  if(newBadge){ saveState(); burstConfetti(); toast('🏅 New badge earned!'); }
+}
+function renderProgressUI(){
+  document.getElementById('xpval').textContent = STATE.xp+' XP';
+  document.getElementById('xpbar-inner').style.width = Math.min(100, (STATE.xp%500)/5)+'%';
+  document.getElementById('stat-xp').textContent = STATE.xp;
+  const stagesDone = Object.keys(STATE.completedStages).length;
+  document.getElementById('stat-stages').textContent = stagesDone+'/11';
+  const solved = Object.keys(STATE.solvedProblems).length;
+  document.getElementById('stat-problems').textContent = solved+'/'+PROBLEMS.length;
+  const readiness = Math.round(((stagesDone/11)*0.5 + (solved/PROBLEMS.length)*0.5)*100);
+  document.getElementById('stat-readiness').textContent = readiness+'%';
+  document.getElementById('badges-row').innerHTML = BADGES.map(b=>`
+    <div class="badge ${STATE.badges[b.id]?'earned':''}"><span class="icon">${b.icon}</span><span class="name">${b.name}</span></div>`).join('');
+}
+
+/* ============================================================
+   SEARCH
+   ============================================================ */
+const SEARCH_INDEX = [];
+function buildSearchIndex(){
+  STAGES.forEach(s=>SEARCH_INDEX.push({type:'Stage '+s.id, label:s.title, view:'stages', action:()=>selectStage(s.id)}));
+  PATTERNS.forEach((p,i)=>SEARCH_INDEX.push({type:'Pattern', label:p.name, view:'patterns', action:()=>{ document.getElementById('patdetail-'+i).classList.add('open'); document.querySelector('[data-i="'+i+'"]').scrollIntoView({behavior:'smooth',block:'center'}); }}));
+  PROBLEMS.forEach(p=>SEARCH_INDEX.push({type:'Problem', label:p.n, view:'roadmap', action:()=>{ roadmapFilter='all'; renderRoadmapFilters(); renderRoadmapList(); }}));
+}
+const searchbox=document.getElementById('searchbox');
+const searchresults=document.getElementById('searchresults');
+searchbox.addEventListener('input',()=>{
+  const q=searchbox.value.trim().toLowerCase();
+  if(!q){searchresults.classList.remove('show');return;}
+  const matches=SEARCH_INDEX.filter(item=>item.label.toLowerCase().includes(q)).slice(0,12);
+  if(matches.length===0){searchresults.innerHTML='<div class="sres-item">No matches</div>';}
+  else{
+    searchresults.innerHTML = matches.map((m,i)=>`<div class="sres-item" data-i="${i}"><b>${m.type}</b> — ${m.label}</div>`).join('');
+    searchresults.querySelectorAll('.sres-item').forEach((el,i)=>{
+      el.addEventListener('click',()=>{
+        gotoView(matches[i].view);
+        matches[i].action && matches[i].action();
+        searchresults.classList.remove('show');
+        searchbox.value='';
+      });
+    });
+  }
+  searchresults.classList.add('show');
+});
+document.addEventListener('click',(e)=>{
+  if(!e.target.closest('#navtools')) searchresults.classList.remove('show');
+});
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='/' && document.activeElement!==searchbox){ e.preventDefault(); searchbox.focus(); }
+  if(e.key==='Escape'){ searchresults.classList.remove('show'); searchbox.blur(); }
+  if(e.key==='d' && document.activeElement!==searchbox){ document.getElementById('themebtn').click(); }
+  if((e.key==='ArrowRight'||e.key==='ArrowLeft') && document.getElementById('view-stages').classList.contains('active') && document.activeElement!==searchbox){
+    const dir = e.key==='ArrowRight'?1:-1;
+    const next = Math.max(0, Math.min(10, currentStage+dir));
+    selectStage(next);
+  }
+});
+
+/* ============================================================
+   MEMORY VISUALIZER
+   ============================================================ */
+const vcanvas=document.getElementById('viz-canvas');
+const vctx=vcanvas.getContext('2d');
+let vArray=[4,1,7,3,9,2,8];
+let vFrames=[]; // each frame: {arr, highlights:{idx:color}, note, pointerLabels:{idx:'L'}}
+let vFrameIdx=0;
+let vPlaying=false;
+let vTimer=null;
+
+function cssVar(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
+
+function drawFrame(){
+  const f = vFrames[vFrameIdx];
+  vctx.clearRect(0,0,vcanvas.width,vcanvas.height);
+  document.getElementById('viz-status').textContent = f ? f.note : 'No animation built yet.';
+  document.getElementById('viz-frame-lbl').textContent = (vFrames.length? (vFrameIdx+1) : 0)+' / '+vFrames.length;
+  if(!f) return;
+  const arr=f.arr;
+  const cellW=Math.min(84, (vcanvas.width-40)/Math.max(arr.length,1));
+  const cellH=64;
+  const startX = (vcanvas.width - cellW*arr.length)/2;
+  const y=50;
+  arr.forEach((val,i)=>{
+    const x=startX+i*cellW;
+    const hl=f.highlights && f.highlights[i];
+    vctx.lineWidth=1.5;
+    vctx.strokeStyle = hl ? hl : (cssVar('--line-dim')||'#1F5C5A');
+    vctx.fillStyle = hl ? hexToRgba(hl,0.16) : 'rgba(255,255,255,0.02)';
+    roundRect(vctx, x+3, y, cellW-6, cellH, 4);
+    vctx.fill(); vctx.stroke();
+    vctx.fillStyle = hl ? hl : (cssVar('--text-hi')||'#EAF6F5');
+    vctx.font='600 18px Consolas, monospace';
+    vctx.textAlign='center'; vctx.textBaseline='middle';
+    vctx.fillText(val===null||val===undefined?'':val, x+cellW/2, y+cellH/2);
+    vctx.font='11px Consolas, monospace';
+    vctx.fillStyle = cssVar('--text-dim')||'#5D7E7C';
+    vctx.fillText('idx '+i, x+cellW/2, y+cellH+16);
+    if(f.pointerLabels && f.pointerLabels[i]){
+      vctx.fillStyle = cssVar('--amber')||'#FFB454';
+      vctx.font='bold 12px Consolas, monospace';
+      vctx.fillText(f.pointerLabels[i], x+cellW/2, y-14);
+    }
+  });
+}
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+}
+function hexToRgba(hex,a){
+  hex=hex.replace('#','');
+  if(hex.length===3) hex=hex.split('').map(c=>c+c).join('');
+  const num=parseInt(hex,16);
+  const r=(num>>16)&255,g=(num>>8)&255,b=num&255;
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+function buildFrames(op, arg){
+  const arr=[...vArray];
+  const frames=[];
+  const push=(a,hl,note,pl)=>frames.push({arr:[...a],highlights:hl||{},note,pointerLabels:pl||{}});
+
+  if(op==='traverse'){
+    push(arr,{},'Starting traversal…');
+    arr.forEach((v,i)=>push(arr,{[i]:cssVar('--amber')||'#FFB454'},`Visiting index ${i} → value ${v}. O(1) per step, O(n) total.`));
+    push(arr,{},'Traversal complete — every element visited once.');
+  }
+  else if(op==='search'){
+    const target=parseInt(arg);
+    push(arr,{},`Linear search for ${target}…`);
+    let found=-1;
+    for(let i=0;i<arr.length;i++){
+      if(found===-1){
+        if(arr[i]===target){found=i; push(arr,{[i]:cssVar('--success')||'#5FD068'},`Found ${target} at index ${i}!`);break;}
+        else push(arr,{[i]:cssVar('--amber')||'#FFB454'},`Checking index ${i} (${arr[i]}) — not a match.`);
+      }
+    }
+    if(found===-1) push(arr,{},`${target} not found after checking all ${arr.length} elements.`);
+  }
+  else if(op==='binarysearch'){
+    const sorted=[...arr].sort((a,b)=>a-b);
+    const target=parseInt(arg);
+    push(sorted,{},`Array sorted first: [${sorted.join(', ')}]. Binary searching for ${target}…`);
+    let lo=0,hi=sorted.length-1,found=-1;
+    while(lo<=hi){
+      const mid=Math.floor((lo+hi)/2);
+      const pl={}; pl[lo]='L'; pl[hi]='R'; pl[mid]='M';
+      if(sorted[mid]===target){found=mid; push(sorted,{[mid]:cssVar('--success')||'#5FD068'},`arr[${mid}]=${sorted[mid]} — match found!`,pl); break;}
+      else if(sorted[mid]<target){push(sorted,{[mid]:cssVar('--amber')||'#FFB454'},`arr[${mid}]=${sorted[mid]} < ${target} → search right half.`,pl); lo=mid+1;}
+      else{push(sorted,{[mid]:cssVar('--amber')||'#FFB454'},`arr[${mid}]=${sorted[mid]} > ${target} → search left half.`,pl); hi=mid-1;}
+    }
+    if(found===-1) push(sorted,{},`${target} not in array — search space exhausted. O(log n) steps total.`);
+  }
+  else if(op==='insert'){
+    const idx=Math.max(0,Math.min(arr.length,parseInt(arg.split(',')[1]||arr.length)));
+    const val=parseInt(arg.split(',')[0]);
+    push(arr,{},`Inserting ${val} at index ${idx} — every element from ${idx} onward must shift right.`);
+    const work=[...arr];
+    for(let i=work.length;i>idx;i--){
+      work[i]=work[i-1];
+      const hl={}; hl[i]=cssVar('--amber')||'#FFB454';
+      push(work.slice(0,i+1).concat(work.slice(i+1)).map((v,ix)=>ix<=i?work[ix]:v),hl,`Shifting value at ${i-1} → ${i}.`);
+    }
+    work[idx]=val;
+    push(work,{[idx]:cssVar('--success')||'#5FD068'},`Placed ${val} at index ${idx}. Insertion cost: O(n).`);
+  }
+  else if(op==='delete'){
+    const idx=Math.max(0,Math.min(arr.length-1,parseInt(arg)));
+    push(arr,{[idx]:cssVar('--danger')||'#FF6B6B'},`Deleting index ${idx} (value ${arr[idx]}) — elements after it must shift left.`);
+    const work=[...arr];
+    for(let i=idx;i<work.length-1;i++){
+      work[i]=work[i+1];
+      push(work.slice(0,work.length-1),{[i]:cssVar('--amber')||'#FFB454'},`Shifting value at ${i+1} → ${i}.`);
+    }
+    work.pop();
+    push(work,{},`Deletion complete. New length ${work.length}. Cost: O(n).`);
+  }
+  else if(op==='reverse'){
+    const work=[...arr];
+    let l=0,r=work.length-1;
+    push(work,{},'Reversing in place using two pointers…');
+    while(l<r){
+      const pl={}; pl[l]='L'; pl[r]='R';
+      [work[l],work[r]]=[work[r],work[l]];
+      push(work,{[l]:cssVar('--amber')||'#FFB454',[r]:cssVar('--amber')||'#FFB454'},`Swapped index ${l} and ${r}.`,pl);
+      l++; r--;
+    }
+    push(work,{},'Reverse complete. O(n) time, O(1) extra space.');
+  }
+  else if(op==='growth'){
+    push(arr,{},`Current capacity holds ${arr.length} items. Appending one more…`);
+    let work=[...arr];
+    work.push(0);
+    push(work,{[work.length-1]:cssVar('--success')||'#5FD068'},'If there was spare capacity: O(1) — just place the value.');
+    push(work,{},`If capacity was full: Python allocates a larger block (~1.125× growth), copies all ${work.length-1} elements over — O(n) for that one call, but amortized O(1) across many appends.`);
+  }
+  return frames;
+}
+
+document.getElementById('viz-apply').addEventListener('click',()=>{
+  const raw=document.getElementById('viz-array-input').value;
+  const parsed=raw.split(',').map(s=>parseInt(s.trim())).filter(n=>!isNaN(n));
+  if(parsed.length===0){toast('Enter valid comma-separated numbers'); return;}
+  vArray=parsed;
+  vFrames=[{arr:[...vArray],highlights:{},note:'Array set. Choose an operation and click "Build animation".'}];
+  vFrameIdx=0; drawFrame();
+});
+document.getElementById('viz-run').addEventListener('click',()=>{
+  const op=document.getElementById('viz-op').value;
+  const arg=document.getElementById('viz-arg').value;
+  vFrames=buildFrames(op,arg);
+  vFrameIdx=0; drawFrame();
+});
+document.getElementById('viz-reset').addEventListener('click',()=>{vFrameIdx=0; vPlaying=false; clearInterval(vTimer); document.getElementById('viz-play').textContent='▶'; drawFrame();});
+document.getElementById('viz-back').addEventListener('click',()=>{vFrameIdx=Math.max(0,vFrameIdx-1); drawFrame();});
+document.getElementById('viz-fwd').addEventListener('click',()=>{vFrameIdx=Math.min(vFrames.length-1,vFrameIdx+1); drawFrame();});
+document.getElementById('viz-play').addEventListener('click',()=>{
+  vPlaying=!vPlaying;
+  document.getElementById('viz-play').textContent = vPlaying ? '⏸' : '▶';
+  if(vPlaying){
+    vTimer=setInterval(()=>{
+      if(vFrameIdx>=vFrames.length-1){vPlaying=false; document.getElementById('viz-play').textContent='▶'; clearInterval(vTimer); return;}
+      vFrameIdx++; drawFrame();
+    }, parseInt(document.getElementById('viz-speed').value));
+  } else clearInterval(vTimer);
+});
+document.getElementById('viz-speed').addEventListener('input',()=>{
+  if(vPlaying){clearInterval(vTimer); document.getElementById('viz-play').click(); document.getElementById('viz-play').click();}
+});
+
+/* ============================================================
+   COMPLEXITY LAB CHART
+   ============================================================ */
+const cxCanvas=document.getElementById('complexity-canvas');
+const cxCtx=cxCanvas.getContext('2d');
+function drawComplexityChart(n){
+  const w=cxCanvas.width,h=cxCanvas.height, pad=50;
+  cxCtx.clearRect(0,0,w,h);
+  cxCtx.strokeStyle=cssVar('--line-dim')||'#1F5C5A';
+  cxCtx.lineWidth=1;
+  cxCtx.beginPath(); cxCtx.moveTo(pad,10); cxCtx.lineTo(pad,h-pad); cxCtx.lineTo(w-10,h-pad); cxCtx.stroke();
+  cxCtx.fillStyle=cssVar('--text-dim')||'#5D7E7C';
+  cxCtx.font='11px Consolas, monospace';
+  cxCtx.fillText('operations', 6, 20);
+  cxCtx.fillText('n = '+n, w-70, h-pad+22);
+
+  const maxN=1000;
+  const series=[
+    {fn:x=>1, color:'#5FD068'},
+    {fn:x=>Math.log2(Math.max(x,2)), color:'#3DDBD9'},
+    {fn:x=>x, color:'#FFB454'},
+    {fn:x=>x*Math.log2(Math.max(x,2)), color:'#FF6B6B'}
+  ];
+  const maxVal = maxN*Math.log2(maxN);
+  series.forEach(s=>{
+    cxCtx.strokeStyle=s.color; cxCtx.lineWidth=2; cxCtx.beginPath();
+    for(let x=1;x<=maxN;x+=4){
+      const px = pad + (x/maxN)*(w-pad-20);
+      const py = (h-pad) - (s.fn(x)/maxVal)*(h-pad-30);
+      x===1?cxCtx.moveTo(px,py):cxCtx.lineTo(px,py);
+    }
+    cxCtx.stroke();
+  });
+  // current n marker
+  const px = pad + (n/maxN)*(w-pad-20);
+  cxCtx.strokeStyle=cssVar('--text-hi')||'#EAF6F5';
+  cxCtx.setLineDash([4,4]);
+  cxCtx.beginPath(); cxCtx.moveTo(px,10); cxCtx.lineTo(px,h-pad); cxCtx.stroke();
+  cxCtx.setLineDash([]);
+}
+document.getElementById('cx-n').addEventListener('input',(e)=>{
+  document.getElementById('cx-nval').textContent=e.target.value;
+  drawComplexityChart(parseInt(e.target.value));
+});
+
+/* ============================================================
+   EXPORT / IMPORT / RESET
+   ============================================================ */
+document.getElementById('export-btn').addEventListener('click',()=>{
+  const blob=new Blob([JSON.stringify(STATE,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download='array-academy-progress.json'; a.click();
+  URL.revokeObjectURL(url);
+  toast('Progress exported');
+});
+document.getElementById('import-btn').addEventListener('click',()=>document.getElementById('import-file').click());
+document.getElementById('import-file').addEventListener('change',(e)=>{
+  const file=e.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      STATE=Object.assign({}, DEFAULT_STATE, data);
+      saveState(); applyTheme(); renderStages(); renderRoadmapList();
+      toast('Progress imported');
+    }catch(err){toast('Invalid file');}
+  };
+  reader.readAsText(file);
+});
+document.getElementById('reset-btn').addEventListener('click',()=>{
+  if(confirm('Reset all progress? This cannot be undone.')){
+    STATE=JSON.parse(JSON.stringify(DEFAULT_STATE));
+    saveState(); renderStages(); renderRoadmapList();
+    toast('Progress reset');
+  }
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function init(){
+  renderHeroCells();
+  renderHomePreview();
+  renderStages();
+  renderPatterns();
+  renderComplexityCards();
+  renderRoadmapFilters();
+  renderRoadmapList();
+  renderCheatsheet();
+  renderProgressUI();
+  buildSearchIndex();
+  bindCopyButtons();
+  drawComplexityChart(100);
+  vFrames=[{arr:[...vArray],highlights:{},note:'Set an array and choose an operation to begin.'}];
+  drawFrame();
+  gotoView('home');
+  checkBadges();
+}
+init();
+})();
+</script>
+</body>
+</html>
