@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-First Backend Developer — Complete Roadmap 2026+</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #18181f;
+    --border: #252530;
+    --accent: #7c6bff;
+    --accent2: #00e5c8;
+    --accent3: #ff6b6b;
+    --accent4: #ffd166;
+    --accent5: #06d6a0;
+    --text: #e8e8f0;
+    --muted: #888899;
+    --heading: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 50%, #0a120e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 72px 40px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -40%; left: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(124,107,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -30%; right: 5%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,229,200,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 5vw, 62px);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--heading);
+    max-width: 900px;
+    margin-bottom: 20px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p { font-size: 17px; color: var(--muted); max-width: 680px; line-height: 1.6; }
+  .hero-meta { margin-top: 28px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .hero-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    border: 1px solid;
+  }
+  .badge-v { color: var(--accent); border-color: rgba(124,107,255,0.3); background: rgba(124,107,255,0.06); }
+  .badge-t { color: var(--accent2); border-color: rgba(0,229,200,0.3); background: rgba(0,229,200,0.06); }
+  .badge-r { color: var(--accent3); border-color: rgba(255,107,107,0.3); background: rgba(255,107,107,0.06); }
+  .badge-y { color: var(--accent4); border-color: rgba(255,209,102,0.3); background: rgba(255,209,102,0.06); }
+
+  /* LAYOUT */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+  /* NAV */
+  nav {
+    background: rgba(10,10,15,0.95);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  nav a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 16px 18px;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* SECTIONS */
+  section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+  .section-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(24px, 3vw, 38px);
+    font-weight: 800;
+    color: var(--heading);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .section-desc { color: var(--muted); font-size: 15px; max-width: 660px; margin-bottom: 40px; }
+  h3 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--heading); margin-bottom: 12px; }
+  h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
+
+  /* GRIDS */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media(max-width: 900px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+  @media(min-width: 901px) and (max-width: 1100px) {
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+    .grid-4 { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(124,107,255,0.35); }
+  .card-accent { border-top: 3px solid var(--accent); }
+  .card-green  { border-top: 3px solid var(--accent2); }
+  .card-red    { border-top: 3px solid var(--accent3); }
+  .card-yellow { border-top: 3px solid var(--accent4); }
+  .card-teal   { border-top: 3px solid var(--accent5); }
+
+  .card-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .card-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  /* PHASE BLOCKS */
+  .phase-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+  .phase-header {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .phase-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .pn-1 { background: rgba(124,107,255,0.15); color: var(--accent); }
+  .pn-2 { background: rgba(0,229,200,0.12); color: var(--accent2); }
+  .pn-3 { background: rgba(255,209,102,0.12); color: var(--accent4); }
+  .pn-4 { background: rgba(255,107,107,0.12); color: var(--accent3); }
+
+  .phase-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--heading); }
+  .phase-subtitle { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .phase-body { padding: 28px; }
+
+  /* SKILL TABLE */
+  .skill-table { width: 100%; border-collapse: collapse; }
+  .skill-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-table td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(37,37,48,0.6);
+    font-size: 14px;
+    vertical-align: top;
+  }
+  .skill-table tr:last-child td { border-bottom: none; }
+  .skill-table tr:hover td { background: rgba(124,107,255,0.04); }
+  .skill-name { font-weight: 600; color: var(--text); }
+  .stag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-right: 4px;
+    margin-top: 2px;
+  }
+  .stag-core   { background: rgba(124,107,255,0.15); color: var(--accent); }
+  .stag-tool   { background: rgba(0,229,200,0.12); color: var(--accent2); }
+  .stag-infra  { background: rgba(255,209,102,0.12); color: var(--accent4); }
+  .stag-agent  { background: rgba(255,107,107,0.12); color: var(--accent3); }
+  .stag-ml     { background: rgba(6,214,160,0.12); color: var(--accent5); }
+
+  /* PILLS */
+  .pill-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--surface2);
+    transition: all 0.15s;
+  }
+  .pill:hover { border-color: var(--accent); color: var(--accent); }
+  .pill-hot  { border-color: rgba(124,107,255,0.4); color: var(--accent); background: rgba(124,107,255,0.08); }
+  .pill-warm { border-color: rgba(0,229,200,0.4); color: var(--accent2); background: rgba(0,229,200,0.08); }
+  .pill-red  { border-color: rgba(255,107,107,0.4); color: var(--accent3); background: rgba(255,107,107,0.08); }
+  .pill-yellow { border-color: rgba(255,209,102,0.4); color: var(--accent4); background: rgba(255,209,102,0.08); }
+
+  /* SALARY TABLE */
+  .salary-table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+  .salary-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 16px;
+    text-align: left;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+  .salary-table td { padding: 14px 16px; border-bottom: 1px solid rgba(37,37,48,0.6); font-size: 14px; }
+  .salary-table tr:hover td { background: rgba(124,107,255,0.04); }
+  .salary-hi  { color: var(--accent2); font-weight: 600; }
+  .salary-mid { color: var(--accent4); font-weight: 600; }
+  .salary-lo  { color: var(--muted); font-weight: 600; }
+
+  /* NUMBERED LIST */
+  .numbered-list { list-style: none; counter-reset: items; }
+  .numbered-list li {
+    counter-increment: items;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(37,37,48,0.5);
+    font-size: 14px;
+  }
+  .numbered-list li:last-child { border-bottom: none; }
+  .numbered-list li::before {
+    content: counter(items, decimal-leading-zero);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    min-width: 28px;
+    padding-top: 2px;
+  }
+  .numbered-list li strong { color: var(--text); display: block; margin-bottom: 2px; }
+  .numbered-list li span { color: var(--muted); font-size: 13px; }
+
+  /* PROJECT ITEM */
+  .project-item {
+    display: flex;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(37,37,48,0.5);
+    align-items: flex-start;
+  }
+  .project-item:last-child { border-bottom: none; }
+  .proj-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    background: rgba(124,107,255,0.1);
+    padding: 3px 8px;
+    border-radius: 3px;
+    min-width: 36px;
+    text-align: center;
+    margin-top: 3px;
+    white-space: nowrap;
+  }
+  .proj-title { font-weight: 600; color: var(--text); font-size: 15px; line-height: 1.4; margin-bottom: 4px; }
+  .proj-desc { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+  .proj-stack { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+
+  /* CALLOUT */
+  .callout {
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 24px 0;
+    border-left: 3px solid;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .callout-warn   { background: rgba(255,209,102,0.06); border-color: var(--accent4); color: #e8d88a; }
+  .callout-info   { background: rgba(0,229,200,0.06); border-color: var(--accent2); color: #80ede3; }
+  .callout-danger { background: rgba(255,107,107,0.06); border-color: var(--accent3); color: #ffaaaa; }
+  .callout-purple { background: rgba(124,107,255,0.06); border-color: var(--accent); color: #b3a8ff; }
+  .callout strong { display: block; margin-bottom: 4px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; font-family: 'IBM Plex Mono', monospace; }
+
+  /* COMPANY TIER */
+  .company-tier { margin-bottom: 28px; }
+  .company-tier-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 14px;
+  }
+  .tier-s1 { background: rgba(124,107,255,0.15); color: var(--accent); }
+  .tier-s2 { background: rgba(0,229,200,0.12); color: var(--accent2); }
+  .tier-s3 { background: rgba(255,209,102,0.12); color: var(--accent4); }
+  .tier-s4 { background: rgba(6,214,160,0.12); color: var(--accent5); }
+  .tier-s5 { background: rgba(255,107,107,0.12); color: var(--accent3); }
+
+  /* CALENDAR TABLE */
+  .cal-table { width: 100%; border-collapse: collapse; }
+  .cal-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 14px;
+    text-align: left;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+  .cal-table td { padding: 12px 14px; border-bottom: 1px solid rgba(37,37,48,0.6); font-size: 13px; vertical-align: top; }
+  .cal-table tr:hover td { background: rgba(124,107,255,0.03); }
+  .cal-table tr:last-child td { border-bottom: none; }
+  .cal-month { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent); font-weight: 500; }
+  .cal-activity { color: var(--text); font-weight: 500; font-size: 14px; margin-bottom: 2px; }
+  .cal-desc { color: var(--muted); font-size: 12px; }
+  .cal-who { display: flex; flex-wrap: wrap; gap: 4px; }
+
+  /* MISC */
+  code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    background: rgba(124,107,255,0.1);
+    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+  ul.plain { list-style: none; }
+  ul.plain li {
+    padding: 5px 0;
+    font-size: 14px;
+    color: var(--text);
+    border-bottom: 1px solid rgba(37,37,48,0.4);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  ul.plain li::before { content: '→'; color: var(--accent); font-size: 12px; margin-top: 3px; flex-shrink: 0; }
+  ul.plain li:last-child { border-bottom: none; }
+  ul.plain li strong { color: var(--heading); }
+
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 32px 0; }
+  .two-col { columns: 2; column-gap: 32px; }
+  @media(max-width: 700px) { .two-col { columns: 1; } }
+
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  footer strong { color: var(--accent); }
+
+  .vs-row { display: flex; gap: 12px; margin-top: 16px; }
+  .vs-col { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+  .vs-col-title { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  @media(max-width: 700px) { .vs-row { flex-direction: column; } }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">// Engineering Career Roadmap 2026+</div>
+  <h1>The <span>AI-First</span><br>Backend Developer</h1>
+  <p>A complete 12-month path from backend foundations to production AI systems — covering skills, projects, salary benchmarks, and exactly when to apply.</p>
+  <div class="hero-meta">
+    <div class="hero-badge badge-v">12-month roadmap</div>
+    <div class="hero-badge badge-t">9 portfolio projects</div>
+    <div class="hero-badge badge-r">₹15L–₹50L+ target CTC</div>
+    <div class="hero-badge badge-y">Generative AI · Agents · MLOps</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#what">What Is This</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#skills">Skill Tree</a>
+    <a href="#projects">Projects</a>
+    <a href="#companies">Companies</a>
+    <a href="#calendar">Hiring Calendar</a>
+    <a href="#salaries">Salaries</a>
+    <a href="#execution">Execution Plan</a>
+  </div>
+</nav>
+
+<!-- WHAT IS AN AI-FIRST BACKEND DEV -->
+<section id="what">
+  <div class="container">
+    <div class="section-tag">// role definition</div>
+    <h2>What Is an AI-First Backend Developer?</h2>
+    <p class="section-desc">Not "a backend dev who knows some ML." A fundamentally different engineering identity — someone who designs server-side systems with AI as the structural foundation, not an add-on.</p>
+
+    <div class="grid-2" style="margin-bottom:28px;">
+      <div class="card card-accent">
+        <h3>The Mindset Shift</h3>
+        <p style="color:var(--muted); font-size:14px; margin-bottom:14px;">Traditional backend engineers build deterministic systems. AI-first backend engineers build probabilistic systems with guardrails — and understand the difference deeply.</p>
+        <ul class="plain">
+          <li><strong>AI as infrastructure:</strong> LLMs, embeddings, and vector stores are first-class citizens, not bolt-ons.</li>
+          <li><strong>Async-native thinking:</strong> Streaming responses, long-running inference jobs, and token budgets are everyday concerns.</li>
+          <li><strong>Probabilistic outputs:</strong> Designing for non-determinism with evals, fallbacks, and confidence scoring.</li>
+          <li><strong>Context window architecture:</strong> Treating the context window like memory — engineered, not improvised.</li>
+        </ul>
+      </div>
+      <div class="card card-green">
+        <h3>What They Build</h3>
+        <ul class="plain" style="margin-top:8px;">
+          <li><strong>LLM-powered APIs:</strong> Inference endpoints, streaming routes, structured output APIs</li>
+          <li><strong>RAG pipelines:</strong> Chunking, embedding, vector search, reranking, hybrid retrieval</li>
+          <li><strong>Agentic backends:</strong> Multi-agent orchestration, tool-use servers, MCP integrations</li>
+          <li><strong>Model serving infra:</strong> vLLM, TGI, Triton — self-hosted and cloud</li>
+          <li><strong>Evaluation systems:</strong> LLM-as-judge pipelines, regression testing, drift detection</li>
+          <li><strong>AI observability:</strong> Trace logging, token cost dashboards, latency profiling</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Traditional Backend vs AI-First Backend</h3>
+    <div class="vs-row">
+      <div class="vs-col">
+        <div class="vs-col-title" style="color:var(--muted);">Traditional Backend</div>
+        <ul class="plain">
+          <li>CRUD APIs, REST / GraphQL</li>
+          <li>Relational & NoSQL databases</li>
+          <li>Deterministic business logic</li>
+          <li>Standard latency targets (p99 &lt; 200ms)</li>
+          <li>Auth, rate limiting, caching</li>
+          <li>Swagger docs = done</li>
+        </ul>
+      </div>
+      <div class="vs-col" style="border-color: rgba(124,107,255,0.3);">
+        <div class="vs-col-title" style="color:var(--accent);">AI-First Backend</div>
+        <ul class="plain">
+          <li>Inference APIs, streaming LLM responses</li>
+          <li>Vector DBs + relational hybrid stores</li>
+          <li>Probabilistic outputs + guardrails + evals</li>
+          <li>Token throughput, TTFT, KV cache optimization</li>
+          <li>Context management, memory systems, tool schemas</li>
+          <li>LangSmith traces + eval suites = done</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-warn" style="margin-top:28px;">
+      <strong>⚠ Who this role is NOT for</strong>
+      If you want to call the OpenAI API, wrap it in FastAPI, and call it an "AI startup" — that's a weekend project, not a career. AI-first backend engineering means understanding inference infrastructure, failure modes of probabilistic systems, RAG quality bottlenecks, and how to build reliable products on top of unreliable models.
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="container">
+    <div class="section-tag">// 12-month structured path</div>
+    <h2>The Roadmap</h2>
+    <p class="section-desc">Four phases, each building on the last. You cannot skip Phase 1 and make Phase 3 work. The foundation is not optional.</p>
+
+    <!-- Phase 1 -->
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-num pn-1">Phase 01 · Month 1–2</div>
+        <div>
+          <div class="phase-title">Core Backend Foundation</div>
+          <div class="phase-subtitle">Production-grade APIs, databases, deployment — before touching AI</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="callout callout-purple" style="margin-top:0;">
+          <strong>📌 Phase Goal</strong>
+          Build and deploy a production-ready REST API with JWT auth, Redis caching, PostgreSQL, background jobs, and a GitHub Actions CI/CD pipeline. Internalize clean architecture before layering in AI — the chaos compounds otherwise.
+        </div>
+        <table class="skill-table">
+          <tr><th>Skill</th><th>Key Topics</th><th>Type</th><th>Resources</th></tr>
+          <tr>
+            <td><span class="skill-name">FastAPI & Async Python</span></td>
+            <td style="color:var(--muted);">Async/await, dependency injection, middleware, background tasks, Pydantic v2</td>
+            <td><span class="stag stag-core">Core</span></td>
+            <td style="color:var(--muted); font-size:12px;">FastAPI docs · TalkPython course</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">PostgreSQL + SQLAlchemy</span></td>
+            <td style="color:var(--muted);">Schema design, indexing, connection pooling, async ORM, migrations with Alembic</td>
+            <td><span class="stag stag-core">Core</span></td>
+            <td style="color:var(--muted); font-size:12px;">Use The Index, Luke · SQLAlchemy docs</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Redis & Caching</span></td>
+            <td style="color:var(--muted);">Cache patterns, pub/sub, rate limiting, session management, Redis Streams</td>
+            <td><span class="stag stag-tool">Tool</span></td>
+            <td style="color:var(--muted); font-size:12px;">Redis University (free)</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Docker & CI/CD</span></td>
+            <td style="color:var(--muted);">Containerization, multi-stage builds, docker-compose, GitHub Actions, env management</td>
+            <td><span class="stag stag-infra">Infra</span></td>
+            <td style="color:var(--muted); font-size:12px;">Docker docs · GH Actions docs</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">System Design Basics</span></td>
+            <td style="color:var(--muted);">Load balancing, caching layers, rate limiting, API gateway patterns, HLD vs LLD</td>
+            <td><span class="stag stag-core">Core</span></td>
+            <td style="color:var(--muted); font-size:12px;">ByteByteGo · Designing Data-Intensive Apps</td>
+          </tr>
+        </table>
+        <div style="margin-top:20px;">
+          <h4>Tech Stack</h4>
+          <div class="pill-cloud">
+            <span class="pill pill-hot">Python 3.12+</span>
+            <span class="pill pill-hot">FastAPI</span>
+            <span class="pill pill-warm">PostgreSQL</span>
+            <span class="pill pill-warm">Redis</span>
+            <span class="pill">SQLAlchemy</span>
+            <span class="pill">Alembic</span>
+            <span class="pill">Docker</span>
+            <span class="pill">GitHub Actions</span>
+            <span class="pill">JWT / OAuth2</span>
+            <span class="pill">Celery</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-num pn-2">Phase 02 · Month 3–5</div>
+        <div>
+          <div class="phase-title">LLM Integration & RAG Engineering</div>
+          <div class="phase-subtitle">Inference APIs, embeddings, retrieval-augmented generation, structured output</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="callout callout-info" style="margin-top:0;">
+          <strong>📌 Phase Goal</strong>
+          Build a complete, production-quality RAG system on a real dataset. Understand every component: chunking strategy → embedding model → vector search → reranking → response generation → evaluation. Integrate it into a FastAPI backend with streaming.
+        </div>
+        <table class="skill-table">
+          <tr><th>Skill</th><th>Key Topics</th><th>Type</th><th>Resources</th></tr>
+          <tr>
+            <td><span class="skill-name">LLM API Integration</span></td>
+            <td style="color:var(--muted);">OpenAI, Anthropic, Gemini SDKs, streaming, token budgets, error handling, retries</td>
+            <td><span class="stag stag-core">Core</span></td>
+            <td style="color:var(--muted); font-size:12px;">Anthropic docs · OpenAI cookbook</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Embeddings & Vector DBs</span></td>
+            <td style="color:var(--muted);">Embedding models (BGE, E5, Cohere), Qdrant, pgvector, FAISS, ANN algorithms, cosine sim</td>
+            <td><span class="stag stag-tool">Tool</span></td>
+            <td style="color:var(--muted); font-size:12px;">Qdrant docs · ANN Benchmarks</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">RAG Pipeline Design</span></td>
+            <td style="color:var(--muted);">Chunking strategies, hybrid search (BM25 + dense), reranking (Cohere, Jina), contextual compression</td>
+            <td><span class="stag stag-core">Core</span></td>
+            <td style="color:var(--muted); font-size:12px;">LlamaIndex docs · RAG survey paper</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Prompt Engineering</span></td>
+            <td style="color:var(--muted);">System prompts, few-shot, CoT, structured output (JSON mode, tool use), DSPy</td>
+            <td><span class="stag stag-core">Core</span></td>
+            <td style="color:var(--muted); font-size:12px;">Anthropic PE guide · DSPy docs</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">RAG Evaluation</span></td>
+            <td style="color:var(--muted);">RAGAS metrics (faithfulness, answer relevancy, context recall), LLM-as-judge, human eval</td>
+            <td><span class="stag stag-ml">Eval</span></td>
+            <td style="color:var(--muted); font-size:12px;">RAGAS library · DeepEval</td>
+          </tr>
+        </table>
+        <div style="margin-top:20px;">
+          <h4>Tech Stack</h4>
+          <div class="pill-cloud">
+            <span class="pill pill-hot">LangChain / LlamaIndex</span>
+            <span class="pill pill-hot">Qdrant</span>
+            <span class="pill pill-warm">pgvector</span>
+            <span class="pill pill-warm">OpenAI API</span>
+            <span class="pill">Anthropic API</span>
+            <span class="pill">Cohere Rerank</span>
+            <span class="pill">RAGAS</span>
+            <span class="pill">BM25s</span>
+            <span class="pill">DSPy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-num pn-3">Phase 03 · Month 6–9</div>
+        <div>
+          <div class="phase-title">Agentic Systems & Orchestration</div>
+          <div class="phase-subtitle">Multi-agent workflows, tool use, memory systems, observability</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="callout callout-warn" style="margin-top:0;">
+          <strong>📌 Phase Goal</strong>
+          Ship a multi-agent system that autonomously plans, executes, and self-corrects using tool use. It must be fully observable via traces, evaluated by an LLM judge, and handle failure gracefully without human intervention.
+        </div>
+        <table class="skill-table">
+          <tr><th>Skill</th><th>Key Topics</th><th>Type</th><th>Resources</th></tr>
+          <tr>
+            <td><span class="skill-name">Agent Frameworks</span></td>
+            <td style="color:var(--muted);">LangGraph state machines, CrewAI orchestration, AutoGen conversations, ReAct loop</td>
+            <td><span class="stag stag-agent">Agent</span></td>
+            <td style="color:var(--muted); font-size:12px;">LangGraph academy · CrewAI docs</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Tool & Function Calling</span></td>
+            <td style="color:var(--muted);">OpenAI tool use, Anthropic tool blocks, MCP protocol, parallel tool calls, tool schemas</td>
+            <td><span class="stag stag-agent">Agent</span></td>
+            <td style="color:var(--muted); font-size:12px;">MCP spec · Anthropic tool-use guide</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Memory Systems</span></td>
+            <td style="color:var(--muted);">Short-term (context window), long-term episodic (Mem0, Zep), semantic memory (vector), procedural</td>
+            <td><span class="stag stag-agent">Agent</span></td>
+            <td style="color:var(--muted); font-size:12px;">Mem0 docs · Letta / MemGPT paper</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">AI Observability</span></td>
+            <td style="color:var(--muted);">LangSmith traces, Langfuse, Arize Phoenix, token cost tracking, latency profiling, alert rules</td>
+            <td><span class="stag stag-infra">Infra</span></td>
+            <td style="color:var(--muted); font-size:12px;">LangSmith docs · Langfuse quickstart</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Guardrails & Safety</span></td>
+            <td style="color:var(--muted);">Input/output filtering, NeMo Guardrails, prompt injection defense, content moderation APIs</td>
+            <td><span class="stag stag-ml">Safety</span></td>
+            <td style="color:var(--muted); font-size:12px;">NVIDIA NeMo Guardrails · Lakera</td>
+          </tr>
+        </table>
+        <div style="margin-top:20px;">
+          <h4>Tech Stack</h4>
+          <div class="pill-cloud">
+            <span class="pill pill-hot">LangGraph</span>
+            <span class="pill pill-hot">CrewAI</span>
+            <span class="pill pill-warm">LangSmith</span>
+            <span class="pill pill-warm">Langfuse</span>
+            <span class="pill">Mem0</span>
+            <span class="pill">MCP</span>
+            <span class="pill">AutoGen</span>
+            <span class="pill">NeMo Guardrails</span>
+            <span class="pill">Celery + Redis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4 -->
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-num pn-4">Phase 04 · Month 10–12</div>
+        <div>
+          <div class="phase-title">Model Serving & AI Infrastructure</div>
+          <div class="phase-subtitle">GPU inference, self-hosted LLMs, fine-tuning, distributed scaling</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="callout callout-danger" style="margin-top:0;">
+          <strong>📌 Phase Goal</strong>
+          Deploy a quantized open-source LLM (Mistral, Llama 3, Qwen) via vLLM with a FastAPI inference wrapper, load balancer, and cost dashboard. Implement LoRA fine-tuning on a domain dataset. Profile and optimize TTFT under load.
+        </div>
+        <table class="skill-table">
+          <tr><th>Skill</th><th>Key Topics</th><th>Type</th><th>Resources</th></tr>
+          <tr>
+            <td><span class="skill-name">Model Serving</span></td>
+            <td style="color:var(--muted);">vLLM, TGI (HuggingFace), Triton Inference Server, BentoML, batching, continuous batching</td>
+            <td><span class="stag stag-infra">Infra</span></td>
+            <td style="color:var(--muted); font-size:12px;">vLLM docs · TGI docs</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Quantization & Compression</span></td>
+            <td style="color:var(--muted);">GGUF (llama.cpp), AWQ, GPTQ, bitsandbytes int4/int8, model distillation basics</td>
+            <td><span class="stag stag-ml">ML</span></td>
+            <td style="color:var(--muted); font-size:12px;">AutoAWQ · llama.cpp wiki</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Fine-tuning (LoRA / QLoRA)</span></td>
+            <td style="color:var(--muted);">PEFT, LoRA rank/alpha, dataset formatting, training loop, evaluation, merging adapters</td>
+            <td><span class="stag stag-ml">ML</span></td>
+            <td style="color:var(--muted); font-size:12px;">Unsloth · HuggingFace PEFT docs</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Kubernetes for ML</span></td>
+            <td style="color:var(--muted);">GPU node scheduling, resource limits, Helm charts for ML, auto-scaling, GPU operators</td>
+            <td><span class="stag stag-infra">Infra</span></td>
+            <td style="color:var(--muted); font-size:12px;">KServe docs · NVIDIA GPU operator</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">MLflow & Experiment Tracking</span></td>
+            <td style="color:var(--muted);">Run tracking, model registry, artifact storage, comparison dashboards, reproducibility</td>
+            <td><span class="stag stag-infra">Infra</span></td>
+            <td style="color:var(--muted); font-size:12px;">MLflow docs · W&B quickstart</td>
+          </tr>
+        </table>
+        <div style="margin-top:20px;">
+          <h4>Tech Stack</h4>
+          <div class="pill-cloud">
+            <span class="pill pill-hot">vLLM</span>
+            <span class="pill pill-hot">HuggingFace TGI</span>
+            <span class="pill pill-warm">Unsloth / PEFT</span>
+            <span class="pill pill-warm">llama.cpp</span>
+            <span class="pill">Triton</span>
+            <span class="pill">MLflow</span>
+            <span class="pill">Kubernetes</span>
+            <span class="pill">Weights & Biases</span>
+            <span class="pill">BentoML</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILL TREE -->
+<section id="skills">
+  <div class="container">
+    <div class="section-tag">// complete skill map</div>
+    <h2>Skill Tree</h2>
+    <p class="section-desc">Every domain an AI-first backend engineer needs to master. Not all at once — follow the phase sequence above.</p>
+
+    <div class="grid-2">
+      <div class="card card-accent">
+        <h3>🔧 Backend Engineering</h3>
+        <ul class="plain" style="margin-top:12px;">
+          <li><strong>FastAPI / Async Python:</strong> Middleware, DI, background tasks, WebSockets</li>
+          <li><strong>Database mastery:</strong> PostgreSQL (indexing, EXPLAIN ANALYZE), Redis patterns</li>
+          <li><strong>API design:</strong> REST semantics, versioning, rate limiting, pagination</li>
+          <li><strong>Message queues:</strong> Celery, RQ, Kafka basics for async AI jobs</li>
+          <li><strong>Auth:</strong> JWT, OAuth2, API keys, row-level security</li>
+        </ul>
+      </div>
+      <div class="card card-green">
+        <h3>🤖 LLM & RAG</h3>
+        <ul class="plain" style="margin-top:12px;">
+          <li><strong>LLM APIs:</strong> OpenAI, Anthropic, Gemini, Groq, together.ai</li>
+          <li><strong>Embeddings:</strong> BGE-M3, E5-mistral, Cohere Embed v3</li>
+          <li><strong>Vector DBs:</strong> Qdrant, Weaviate, pgvector, Pinecone</li>
+          <li><strong>RAG patterns:</strong> Naive → Advanced → Modular → Agentic RAG</li>
+          <li><strong>Reranking:</strong> Cross-encoder, Cohere Rerank, ColBERT</li>
+        </ul>
+      </div>
+      <div class="card card-yellow">
+        <h3>🧩 Agentic Systems</h3>
+        <ul class="plain" style="margin-top:12px;">
+          <li><strong>Orchestration:</strong> LangGraph, CrewAI, AutoGen, Semantic Kernel</li>
+          <li><strong>Tool use:</strong> Function calling, MCP servers, tool schemas</li>
+          <li><strong>Memory:</strong> Short-term context, Mem0, Zep, episodic + semantic</li>
+          <li><strong>Planning:</strong> ReAct, ToT, Monte Carlo Tree Search for agents</li>
+          <li><strong>Evaluation:</strong> Agent benchmarks, task completion rate, hallucination rate</li>
+        </ul>
+      </div>
+      <div class="card card-red">
+        <h3>⚙️ ML Infra & Serving</h3>
+        <ul class="plain" style="margin-top:12px;">
+          <li><strong>Model serving:</strong> vLLM, TGI, Triton, BentoML</li>
+          <li><strong>Quantization:</strong> GGUF, AWQ, GPTQ, int4/int8</li>
+          <li><strong>Fine-tuning:</strong> LoRA, QLoRA, PEFT, full fine-tune basics</li>
+          <li><strong>GPU compute:</strong> CUDA basics, VRAM budgeting, multi-GPU</li>
+          <li><strong>Observability:</strong> LangSmith, Langfuse, Arize, cost tracking</li>
+        </ul>
+      </div>
+      <div class="card card-teal">
+        <h3>☁️ Cloud & DevOps</h3>
+        <ul class="plain" style="margin-top:12px;">
+          <li><strong>Cloud:</strong> AWS (EC2, Lambda, ECS, S3, Bedrock), GCP Vertex AI</li>
+          <li><strong>Containers:</strong> Docker, Kubernetes, Helm, GPU operators</li>
+          <li><strong>CI/CD:</strong> GitHub Actions, ArgoCD, automated evals in pipeline</li>
+          <li><strong>IaC:</strong> Terraform basics for reproducible GPU infra</li>
+          <li><strong>Cost management:</strong> Spot instances, auto-scaling, reserved capacity</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📊 Evaluation & Safety</h3>
+        <ul class="plain" style="margin-top:12px;">
+          <li><strong>RAG evals:</strong> RAGAS, DeepEval, TruLens, ARES</li>
+          <li><strong>LLM-as-judge:</strong> G-Eval, MT-Bench, custom judge prompts</li>
+          <li><strong>Safety:</strong> Prompt injection defense, output filtering, jailbreak detection</li>
+          <li><strong>A/B testing:</strong> Model routing, shadow deployment, feature flags</li>
+          <li><strong>Regression testing:</strong> Golden dataset evals, drift detection</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-info" style="margin-top:28px;">
+      <strong>💡 Stack Priority Order</strong>
+      Master FastAPI + PostgreSQL + Redis first (weeks 1–4). Then LLM APIs + Qdrant + RAG (weeks 5–12). Then LangGraph + LangSmith (weeks 13–20). Then vLLM + fine-tuning (weeks 21–28). Doing it in reverse order produces engineers who can fine-tune a model but can't run it in production.
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-tag">// portfolio projects</div>
+    <h2>9 Portfolio Projects</h2>
+    <p class="section-desc">Every project here is designed to be: (a) immediately deployable, (b) differentiated from tutorials, (c) directly nameable in interviews. Build them in order.</p>
+
+    <div class="grid-2">
+      <div class="card card-accent">
+        <h4 style="color:var(--accent); margin-top:0;">Phase 1 Projects · Backend Foundation</h4>
+        <div class="project-item">
+          <div class="proj-num">P01</div>
+          <div>
+            <div class="proj-title">Production Task API with Auth & Queue</div>
+            <div class="proj-desc">A full-featured REST API with JWT auth, role-based access, PostgreSQL, Redis caching, and Celery background jobs for async processing. Deployed on Railway or Render with full CI/CD.</div>
+            <div class="proj-stack">
+              <span class="stag stag-core">FastAPI</span><span class="stag stag-tool">PostgreSQL</span><span class="stag stag-tool">Redis</span><span class="stag stag-infra">Celery</span><span class="stag stag-infra">Docker</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-item">
+          <div class="proj-num">P02</div>
+          <div>
+            <div class="proj-title">Real-Time Notification Service</div>
+            <div class="proj-desc">WebSocket-based notification backend with pub/sub via Redis Streams, fan-out to multiple subscribers, and persistent message history. Tests at 1000+ concurrent connections.</div>
+            <div class="proj-stack">
+              <span class="stag stag-core">FastAPI</span><span class="stag stag-tool">WebSockets</span><span class="stag stag-tool">Redis Streams</span><span class="stag stag-infra">Locust</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-green">
+        <h4 style="color:var(--accent2); margin-top:0;">Phase 2 Projects · LLM & RAG</h4>
+        <div class="project-item">
+          <div class="proj-num">P03</div>
+          <div>
+            <div class="proj-title">Research Paper RAG System</div>
+            <div class="proj-desc">Ingest 500+ arXiv papers into Qdrant with hybrid search (BM25 + dense). Streaming API with reranking, citation extraction, and RAGAS evaluation dashboard. Deployed publicly.</div>
+            <div class="proj-stack">
+              <span class="stag stag-core">LlamaIndex</span><span class="stag stag-tool">Qdrant</span><span class="stag stag-tool">Cohere Rerank</span><span class="stag stag-ml">RAGAS</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-item">
+          <div class="proj-num">P04</div>
+          <div>
+            <div class="proj-title">Structured Data Extraction API</div>
+            <div class="proj-desc">Upload any document (PDF, image, HTML), extract structured JSON via LLM with Instructor/Pydantic validation, confidence scoring, and fallback chains. Handles 100+ doc types.</div>
+            <div class="proj-stack">
+              <span class="stag stag-core">Instructor</span><span class="stag stag-tool">Pydantic v2</span><span class="stag stag-infra">Celery</span><span class="stag stag-ml">Eval suite</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-item">
+          <div class="proj-num">P05</div>
+          <div>
+            <div class="proj-title">Multi-Provider LLM Router</div>
+            <div class="proj-desc">A smart routing layer that selects between OpenAI, Anthropic, Groq, and Together.ai based on task complexity, latency targets, and cost budgets. Includes fallback chains and caching.</div>
+            <div class="proj-stack">
+              <span class="stag stag-core">FastAPI</span><span class="stag stag-tool">LiteLLM</span><span class="stag stag-infra">Redis</span><span class="stag stag-ml">Cost dashboard</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-yellow">
+        <h4 style="color:var(--accent4); margin-top:0;">Phase 3 Projects · Agentic Systems</h4>
+        <div class="project-item">
+          <div class="proj-num">P06</div>
+          <div>
+            <div class="proj-title">Autonomous Research Agent</div>
+            <div class="proj-desc">LangGraph-based agent that searches the web, reads papers, synthesizes findings, and produces structured reports. Has persistent memory across sessions and a LangSmith trace dashboard.</div>
+            <div class="proj-stack">
+              <span class="stag stag-agent">LangGraph</span><span class="stag stag-tool">Tavily</span><span class="stag stag-tool">LangSmith</span><span class="stag stag-ml">Mem0</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-item">
+          <div class="proj-num">P07</div>
+          <div>
+            <div class="proj-title">Multi-Agent Code Review System</div>
+            <div class="proj-desc">CrewAI system with specialized agents: Reviewer (logic), Security Auditor (vulns), Style Checker (PEP8). Agents debate findings and produce a consensus report. Integrates with GitHub webhooks.</div>
+            <div class="proj-stack">
+              <span class="stag stag-agent">CrewAI</span><span class="stag stag-infra">FastAPI</span><span class="stag stag-tool">GitHub API</span><span class="stag stag-ml">Langfuse</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-red">
+        <h4 style="color:var(--accent3); margin-top:0;">Phase 4 Projects · Infra & Serving</h4>
+        <div class="project-item">
+          <div class="proj-num">P08</div>
+          <div>
+            <div class="proj-title">Self-Hosted LLM Inference Server</div>
+            <div class="proj-desc">Deploy Mistral-7B or Llama-3-8B on a GPU instance via vLLM with an OpenAI-compatible API. Includes quantization (AWQ), load balancing, rate limiting, and a cost-per-token dashboard.</div>
+            <div class="proj-stack">
+              <span class="stag stag-infra">vLLM</span><span class="stag stag-ml">AWQ</span><span class="stag stag-infra">Nginx</span><span class="stag stag-tool">Grafana</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-item">
+          <div class="proj-num">P09</div>
+          <div>
+            <div class="proj-title">Domain-Specific Fine-Tuned Model API</div>
+            <div class="proj-desc">LoRA fine-tune a 7B model on a domain dataset (medical, legal, code), evaluate against base model on custom benchmark, merge adapters, and serve via BentoML with A/B routing vs GPT-4o.</div>
+            <div class="proj-stack">
+              <span class="stag stag-ml">Unsloth</span><span class="stag stag-ml">PEFT</span><span class="stag stag-infra">BentoML</span><span class="stag stag-tool">MLflow</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-warn" style="margin-top:8px;">
+      <strong>⚠ Portfolio Rule</strong>
+      Every project must have: (1) a live public URL or demo, (2) a GitHub repo with a real README including architecture diagram, (3) documented evaluation metrics — not just "it works." Recruiters at AI companies look at GitHub within 30 seconds of seeing your resume. Make the repo land.
+    </div>
+  </div>
+</section>
+
+<!-- COMPANY TYPES -->
+<section id="companies">
+  <div class="container">
+    <div class="section-tag">// who hires these engineers</div>
+    <h2>Companies That Hire AI-First Backend Engineers</h2>
+    <p class="section-desc">Five distinct segments, each with different expectations, compensation, and growth trajectories. Know which one you're targeting before you apply.</p>
+
+    <div class="company-tier">
+      <div class="company-tier-head tier-s1">Tier S — AI Labs & Frontier Model Companies</div>
+      <div class="grid-4">
+        <div class="card card-accent">
+          <div class="card-num">$180K+</div>
+          <div class="card-label">US total comp</div>
+          <h3>Anthropic, OpenAI, Google DeepMind, Meta AI, Mistral</h3>
+          <p style="font-size:13px; color:var(--muted); margin-top:8px;">Need deep systems understanding — model internals, inference optimization, RLHF pipelines. Research engineering overlap is heavy. Bar is extremely high: research papers or significant open-source work expected.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;">What They Look For</h4>
+          <ul class="plain">
+            <li>CUDA / GPU programming knowledge</li>
+            <li>Distributed training experience</li>
+            <li>Published research or top-tier OSS</li>
+            <li>Strong ML theory fundamentals</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;">Interview Process</h4>
+          <ul class="plain">
+            <li>ML systems design (2–3 rounds)</li>
+            <li>LeetCode Hard / competitive programming</li>
+            <li>Research paper deep-dive</li>
+            <li>Infra + distributed systems round</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;">India Presence</h4>
+          <p style="font-size:13px; color:var(--muted);">Limited direct India offices. Most hires are remote from India for research roles. Google DeepMind Bangalore is a notable exception. Target for remote or relocation after 2–3 years of strong experience.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="company-tier">
+      <div class="company-tier-head tier-s2">Tier A — AI-Native Product Companies</div>
+      <div class="grid-4">
+        <div class="card card-green">
+          <div class="card-num">₹30L–₹70L</div>
+          <div class="card-label">India CTC range</div>
+          <h3>Sarvam AI, Krutrim, Cohere, Scale AI, Hugging Face, Together AI</h3>
+          <p style="font-size:13px; color:var(--muted); margin-top:8px;">Pure AI companies where backend infra is the product. Engineering quality expectations are very high. Fast-moving, high ownership, and your work ships to customers immediately.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;">What They Look For</h4>
+          <ul class="plain">
+            <li>End-to-end RAG + agent experience</li>
+            <li>Model serving at scale</li>
+            <li>Strong eval culture instincts</li>
+            <li>Ownership mindset, ships fast</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;">Interview Process</h4>
+          <ul class="plain">
+            <li>Take-home AI system design project</li>
+            <li>LeetCode Medium (2–3 problems)</li>
+            <li>RAG / agent system design</li>
+            <li>Culture + ownership discussion</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;">Best Target For</h4>
+          <p style="font-size:13px; color:var(--muted);">Engineers with 1–3 years of experience who have strong project portfolios. Sarvam AI and Krutrim are the top India-specific AI labs. Scale AI hires remotely from India for labeling and eval infra.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="company-tier">
+      <div class="company-tier-head tier-s3">Tier B — Big Tech AI Divisions</div>
+      <div class="grid-4">
+        <div class="card card-yellow">
+          <div class="card-num">₹40L–₹1.2Cr</div>
+          <div class="card-label">India CTC range</div>
+          <h3>Google (Search/Gemini), Microsoft (Copilot), Amazon (Bedrock/Alexa), Adobe AI, Salesforce AI</h3>
+          <p style="font-size:13px; color:var(--muted); margin-top:8px;">Massive scale, strong comp, structured growth. AI is one team among many — you'll be a "generative AI backend engineer" within a larger org. Slower-moving but more stable.</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;">What They Look For</h4>
+          <ul class="plain">
+            <li>LeetCode Medium–Hard fluency</li>
+            <li>System design at scale (millions of users)</li>
+            <li>LLM API integration experience</li>
+            <li>Strong coding fundamentals</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;">Interview Process</h4>
+          <ul class="plain">
+            <li>OA: 2 LeetCode + MCQs</li>
+            <li>3–5 technical rounds (DSA heavy)</li>
+            <li>System design round</li>
+            <li>Behavioural (LP / STAR)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;">Best Target For</h4>
+          <p style="font-size:13px; color:var(--muted);">Excellent for compensation and brand name. Google Bangalore, Microsoft India, Amazon India have strong AI teams. Apply after building a solid portfolio — use these as benchmark offers during negotiation.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="company-tier">
+      <div class="company-tier-head tier-s4">Tier C — AI-Adopting Startups & Scaleups</div>
+      <div class="grid-2">
+        <div class="card card-teal">
+          <div class="card-num">₹15L–₹40L</div>
+          <div class="card-label">India CTC + equity</div>
+          <h3>Fintech AI, HealthTech AI, EdTech AI, Legal AI, HR Tech AI — Series A to C</h3>
+          <p style="font-size:13px; color:var(--muted); margin-top:8px;">Companies like Leapfrog, Signzy, Darwinbox, Razorpay AI, Zepto AI, PhysicsWallah, Unacademy AI. Not pure AI companies — but AI is core to their product roadmap. You'll own the entire AI backend.</p>
+          <ul class="plain" style="margin-top:12px;">
+            <li><strong>Why go here:</strong> Highest ownership, fastest learning, equity upside, ship in days not quarters</li>
+            <li><strong>Risk:</strong> Unstable, may pivot, less structured mentorship</li>
+            <li><strong>Target roles:</strong> AI Engineer, GenAI Engineer, ML Platform Engineer</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;">Remote-First AI Companies (India-accessible)</h4>
+          <ul class="plain">
+            <li><strong>Weights & Biases:</strong> MLOps infra, strong engineering culture, remote-friendly</li>
+            <li><strong>Hugging Face:</strong> Open-source first, community-driven, distributed team</li>
+            <li><strong>Replicate:</strong> Model hosting infra — pure infra work</li>
+            <li><strong>Modal Labs:</strong> GPU cloud infrastructure engineering</li>
+            <li><strong>Baseten:</strong> ML deployment platform</li>
+            <li><strong>Anyscale (Ray):</strong> Distributed ML infra</li>
+            <li><strong>Together.ai:</strong> Open model training + inference</li>
+          </ul>
+          <div class="callout callout-info" style="margin:16px 0 0 0;">
+            <strong>💡 Remote strategy</strong>
+            These companies pay $80K–$150K USD remotely. Target after 2 years of India experience. Strong GitHub + blog presence is the primary filter, not a referral network.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="company-tier">
+      <div class="company-tier-head tier-s5">Tier D — Service & Consulting (Exit Plan Required)</div>
+      <div class="card card-red">
+        <p style="font-size:14px; color:var(--text);">
+          <strong style="color:var(--accent3);">TCS AI CoE, Infosys Topaz, Wipro AI, HCL AI, Capgemini AI</strong> — Salary range ₹8L–₹22L. These are valid entry points if you have no other offer, but treat them as a 12–18 month launchpad, not a destination. The work is often client-dependent, slow-moving, and technically shallow compared to product companies. Build aggressively on the side, contribute to open-source, and exit into a product company as soon as your portfolio is strong enough.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HIRING CALENDAR -->
+<section id="calendar">
+  <div class="container">
+    <div class="section-tag">// when to apply</div>
+    <h2>Recruitment Calendar</h2>
+    <p class="section-desc">AI hiring does not follow a strict "season" like traditional SWE — it's rolling. But there are patterns. This calendar maps when different company types are most active.</p>
+
+    <div class="callout callout-warn">
+      <strong>⚠ Key Insight</strong>
+      AI engineering roles at top companies get filled 60–70% faster than general SWE roles because the talent pool is smaller. Apply when you're 80% ready — don't wait for 100%. A live project portfolio outweighs a polished resume.
+    </div>
+
+    <table class="cal-table" style="margin-top:24px;">
+      <tr>
+        <th style="width:110px;">Period</th>
+        <th>Hiring Activity</th>
+        <th>Who's Hiring</th>
+        <th>What To Do</th>
+      </tr>
+      <tr>
+        <td><div class="cal-month">Jan – Feb</div></td>
+        <td>
+          <div class="cal-activity">🟢 Peak Season — New Budget Unlocked</div>
+          <div class="cal-desc">Q1 headcount approved. Most companies open reqs in January. Highest volume of job postings of the year.</div>
+        </td>
+        <td>
+          <div class="cal-who">
+            <span class="pill pill-hot">Big Tech (Google, Microsoft, Amazon)</span>
+            <span class="pill pill-warm">AI-Native Startups</span>
+            <span class="pill pill-hot">Remote-First AI Companies</span>
+          </div>
+        </td>
+        <td style="font-size:12px; color:var(--muted);">Apply aggressively. Refresh resume. Update GitHub. Cold email hiring managers on LinkedIn. Referrals are gold here.</td>
+      </tr>
+      <tr>
+        <td><div class="cal-month">Mar – Apr</div></td>
+        <td>
+          <div class="cal-activity">🟡 Active — Campus + Experienced Hiring</div>
+          <div class="cal-desc">Campus placement season ends. Experienced hire cycle continues. Good for first-time applicants with strong projects.</div>
+        </td>
+        <td>
+          <div class="cal-who">
+            <span class="pill pill-warm">AI-Adopting Startups</span>
+            <span class="pill">IT Consulting (AI CoE)</span>
+            <span class="pill pill-warm">Fintech / HealthTech AI</span>
+          </div>
+        </td>
+        <td style="font-size:12px; color:var(--muted);">Hackathons and AI challenges (Kaggle, Devfolio) spike here. Winning one is a strong signal. Focus on take-home projects.</td>
+      </tr>
+      <tr>
+        <td><div class="cal-month">May – Jun</div></td>
+        <td>
+          <div class="cal-activity">🟢 Internship Conversion + New Grads</div>
+          <div class="cal-desc">Internship season peaks. Summer intern offers convert to FTE. New grad openings from big tech surge.</div>
+        </td>
+        <td>
+          <div class="cal-who">
+            <span class="pill pill-hot">Google, Microsoft, Amazon (new grad)</span>
+            <span class="pill pill-warm">Sarvam AI, Krutrim</span>
+            <span class="pill">Series B–C Startups</span>
+          </div>
+        </td>
+        <td style="font-size:12px; color:var(--muted);">If interning, over-deliver for conversion. If job searching, target new grad roles. Apply to remote-first companies for higher comp.</td>
+      </tr>
+      <tr>
+        <td><div class="cal-month">Jul – Aug</div></td>
+        <td>
+          <div class="cal-activity">🔵 Moderate — Mid-Year Backfill</div>
+          <div class="cal-desc">Slower but steady. Backfill roles from H1 exits. AI companies continue rolling hiring. Good time to apply for startups.</div>
+        </td>
+        <td>
+          <div class="cal-who">
+            <span class="pill">AI Startups (Series A–B)</span>
+            <span class="pill pill-warm">Remote AI Companies</span>
+            <span class="pill">Enterprise AI Teams</span>
+          </div>
+        </td>
+        <td style="font-size:12px; color:var(--muted);">Build projects during this window if not applying. Attend AI conferences (NeurIPS workshops, AI community meetups). Write technical blogs.</td>
+      </tr>
+      <tr>
+        <td><div class="cal-month">Sep – Oct</div></td>
+        <td>
+          <div class="cal-activity">🟢 Second Peak — H2 Budget Spend</div>
+          <div class="cal-desc">Companies rush to hire before year-end budget freeze. Second largest hiring wave. Especially strong for AI roles post-conference season.</div>
+        </td>
+        <td>
+          <div class="cal-who">
+            <span class="pill pill-hot">All tiers — broad activity</span>
+            <span class="pill pill-warm">Post-NeurIPS / ICLR hype hires</span>
+            <span class="pill">Global remote roles</span>
+          </div>
+        </td>
+        <td style="font-size:12px; color:var(--muted);">Most competitive time of year. Have your portfolio polished by August. This is your best shot if you have 6+ months of experience on resume.</td>
+      </tr>
+      <tr>
+        <td><div class="cal-month">Nov – Dec</div></td>
+        <td>
+          <div class="cal-activity">🔴 Slow — Budget Freeze</div>
+          <div class="cal-desc">Most large companies freeze hiring. Startups continue but slowly. Offers made in October/November start in January.</div>
+        </td>
+        <td>
+          <div class="cal-who">
+            <span class="pill">Early-stage startups</span>
+            <span class="pill">Remote freelance gigs</span>
+            <span class="pill pill-yellow">Prep for Jan surge</span>
+          </div>
+        </td>
+        <td style="font-size:12px; color:var(--muted);">Don't stop applying — just lower expectations on response rate. Use this time to sharpen DSA, update portfolio, and build the network for January outreach.</td>
+      </tr>
+    </table>
+
+    <div class="divider"></div>
+
+    <h3>Application Strategy by Experience Level</h3>
+    <div class="grid-3" style="margin-top:16px;">
+      <div class="card card-accent">
+        <h3>0–1 Year Experience</h3>
+        <ul class="plain" style="margin-top:8px;">
+          <li><strong>Primary target:</strong> AI startups (Series A–B), IT consulting AI CoE</li>
+          <li><strong>Portfolio minimum:</strong> 2–3 live projects on GitHub with real evals</li>
+          <li><strong>Differentiator:</strong> Kaggle / hackathon wins, open-source PRs to LangChain / LlamaIndex</li>
+          <li><strong>Avoid:</strong> Applying to Google/Anthropic cold without referral — low hit rate</li>
+        </ul>
+      </div>
+      <div class="card card-green">
+        <h3>1–3 Years Experience</h3>
+        <ul class="plain" style="margin-top:8px;">
+          <li><strong>Primary target:</strong> AI-native companies, Big Tech AI divisions, remote-first</li>
+          <li><strong>Portfolio minimum:</strong> 1 production AI system used by real users</li>
+          <li><strong>Differentiator:</strong> Measurable impact metrics (latency reduction %, eval scores), technical writing</li>
+          <li><strong>Apply to:</strong> Sarvam AI, Weights & Biases, Hugging Face, remote roles</li>
+        </ul>
+      </div>
+      <div class="card card-yellow">
+        <h3>3+ Years Experience</h3>
+        <ul class="plain" style="margin-top:8px;">
+          <li><strong>Primary target:</strong> AI labs (Anthropic, OpenAI), Staff/Principal roles at AI-native companies</li>
+          <li><strong>Portfolio minimum:</strong> Led an AI product end-to-end, or published paper / major OSS contribution</li>
+          <li><strong>Differentiator:</strong> Thought leadership, conference talks, niche domain expertise</li>
+          <li><strong>Realistic CTC:</strong> ₹50L–₹1.2Cr India, $150K–$350K remote/US</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SALARIES -->
+<section id="salaries">
+  <div class="container">
+    <div class="section-tag">// compensation data</div>
+    <h2>Salary Benchmarks — 2026</h2>
+    <p class="section-desc">India and global data for AI-first backend engineering roles. AI commands a 30–60% premium over equivalent traditional backend roles at the same company.</p>
+
+    <h3>India — By Role & Experience</h3>
+    <table class="salary-table">
+      <tr>
+        <th>Role</th><th>Fresher / 0–1yr</th><th>1–3 Years</th><th>3–5 Years</th><th>5+ Years (Senior/Staff)</th><th>Typical Companies</th>
+      </tr>
+      <tr>
+        <td style="font-weight:600; color:var(--text);">AI Engineer / GenAI Engineer</td>
+        <td class="salary-mid">₹8L–₹15L</td>
+        <td class="salary-hi">₹18L–₹35L</td>
+        <td class="salary-hi">₹35L–₹60L</td>
+        <td class="salary-hi">₹60L–₹1.2Cr</td>
+        <td style="color:var(--muted); font-size:12px;">Sarvam, Krutrim, startups, Big Tech</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600; color:var(--text);">ML Platform Engineer</td>
+        <td class="salary-mid">₹10L–₹18L</td>
+        <td class="salary-hi">₹20L–₹40L</td>
+        <td class="salary-hi">₹40L–₹70L</td>
+        <td class="salary-hi">₹70L–₹1.5Cr</td>
+        <td style="color:var(--muted); font-size:12px;">Google, Microsoft, Amazon, unicorns</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600; color:var(--text);">LLM Backend Engineer</td>
+        <td class="salary-mid">₹8L–₹14L</td>
+        <td class="salary-hi">₹16L–₹32L</td>
+        <td class="salary-hi">₹30L–₹55L</td>
+        <td class="salary-hi">₹55L–₹1Cr</td>
+        <td style="color:var(--muted); font-size:12px;">AI-native startups, Big Tech AI teams</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600; color:var(--text);">AI Infrastructure Engineer</td>
+        <td class="salary-mid">₹12L–₹20L</td>
+        <td class="salary-hi">₹22L–₹45L</td>
+        <td class="salary-hi">₹45L–₹80L</td>
+        <td class="salary-hi">₹80L–₹2Cr</td>
+        <td style="color:var(--muted); font-size:12px;">Google DeepMind, Microsoft Research, NVIDIA</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600; color:var(--text);">Agentic Systems Engineer</td>
+        <td class="salary-mid">₹7L–₹13L</td>
+        <td class="salary-hi">₹15L–₹28L</td>
+        <td class="salary-hi">₹28L–₹50L</td>
+        <td class="salary-hi">₹50L–₹90L</td>
+        <td style="color:var(--muted); font-size:12px;">AI-first startups, enterprise AI teams</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600; color:var(--text);">IT Consulting AI CoE</td>
+        <td class="salary-lo">₹4L–₹8L</td>
+        <td class="salary-lo">₹8L–₹18L</td>
+        <td class="salary-mid">₹15L–₹25L</td>
+        <td class="salary-mid">₹22L–₹35L</td>
+        <td style="color:var(--muted); font-size:12px;">TCS, Infosys, Wipro, HCL</td>
+      </tr>
+    </table>
+
+    <div class="divider"></div>
+
+    <h3>Global Remote — USD (India-Based)</h3>
+    <table class="salary-table">
+      <tr><th>Company Type</th><th>1–3 Years</th><th>3–6 Years</th><th>6+ Years (Senior)</th><th>Notes</th></tr>
+      <tr>
+        <td style="font-weight:600; color:var(--text);">AI Labs (Anthropic, OpenAI)</td>
+        <td class="salary-hi">$120K–$160K</td>
+        <td class="salary-hi">$160K–$250K</td>
+        <td class="salary-hi">$250K–$500K+</td>
+        <td style="color:var(--muted); font-size:12px;">Extremely hard to get. Research background expected.</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600; color:var(--text);">AI-Native Scaleups (HuggingFace, W&B)</td>
+        <td class="salary-hi">$90K–$130K</td>
+        <td class="salary-hi">$130K–$200K</td>
+        <td class="salary-hi">$180K–$300K</td>
+        <td style="color:var(--muted); font-size:12px;">Very achievable with strong portfolio. Remote-friendly.</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600; color:var(--text);">Big Tech AI Divisions</td>
+        <td class="salary-hi">$100K–$150K</td>
+        <td class="salary-hi">$150K–$250K</td>
+        <td class="salary-hi">$220K–$400K</td>
+        <td style="color:var(--muted); font-size:12px;">Requires strong DSA + system design. High bar consistently.</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600; color:var(--text);">AI Startups (Series A–B, remote)</td>
+        <td class="salary-mid">$70K–$110K</td>
+        <td class="salary-hi">$100K–$160K</td>
+        <td class="salary-hi">$140K–$220K</td>
+        <td style="color:var(--muted); font-size:12px;">Equity potential. More accessible with good portfolio.</td>
+      </tr>
+    </table>
+
+    <div class="divider"></div>
+
+    <h3>Salary Multipliers — How to Earn 30–60% More</h3>
+    <div class="grid-4">
+      <div class="card card-green">
+        <div class="card-num">+30%</div>
+        <div class="card-label">MLOps Depth</div>
+        <p style="font-size:12px; color:var(--muted);">MLOps is the #1 bottleneck. Most companies have models but can't deploy them reliably or cheaply. If you can fix that, you're immediately senior.</p>
+      </div>
+      <div class="card card-accent">
+        <div class="card-num">+25%</div>
+        <div class="card-label">LLM Specialization</div>
+        <p style="font-size:12px; color:var(--muted);">Deep expertise in fine-tuning, inference optimization, RLHF. LLM engineering is in 22% of all AI job postings as of Q1 2026.</p>
+      </div>
+      <div class="card card-yellow">
+        <div class="card-num">+20%</div>
+        <div class="card-label">Published Paper / OSS</div>
+        <p style="font-size:12px; color:var(--muted);">Even one workshop paper at NeurIPS/ICLR or a popular open-source tool (500+ GitHub stars) significantly unlocks senior compensation bands.</p>
+      </div>
+      <div class="card card-red">
+        <div class="card-num">+20%</div>
+        <div class="card-label">Domain Expertise</div>
+        <p style="font-size:12px; color:var(--muted);">AI for medical imaging, legal, finance, or autonomous systems commands significant premiums. Domain knowledge is rare; combine it with AI and you're a unicorn.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXECUTION PLAN -->
+<section id="execution">
+  <div class="container">
+    <div class="section-tag">// month-by-month execution</div>
+    <h2>12-Month Execution Plan</h2>
+    <p class="section-desc">This is what a week-by-week calendar looks like for an engineer committed to landing a top AI-first backend role in 12 months. Every week, every month.</p>
+
+    <div class="grid-2" style="margin-bottom:28px;">
+      <div class="card">
+        <h4>Weekly Time Budget (Minimum 20 hrs/week outside job/college)</h4>
+        <ul class="plain">
+          <li><strong>Core skill building:</strong> 8 hours (follow the phase curriculum)</li>
+          <li><strong>Portfolio project work:</strong> 6 hours (ship, don't plan)</li>
+          <li><strong>DSA practice:</strong> 3 hours (1 problem/day, 3 days/week)</li>
+          <li><strong>Paper reading:</strong> 2 hours (1 paper deeply per week)</li>
+          <li><strong>Content / networking:</strong> 1 hour (1 LinkedIn post per week)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Communities to Join Immediately</h4>
+        <ul class="plain">
+          <li><strong>Discord:</strong> Hugging Face, LangChain, AI Engineer Foundation, LocalLLaMA</li>
+          <li><strong>Reddit:</strong> r/LocalLLaMA, r/MachineLearning, r/learnmachinelearning</li>
+          <li><strong>Twitter/X:</strong> Andrej Karpathy, Simon Willison, Chip Huyen, Sebastian Raschka</li>
+          <li><strong>LinkedIn:</strong> Post weekly project updates — recruiters search, they don't wait</li>
+          <li><strong>GitHub:</strong> Star, fork, contribute to LlamaIndex, LangChain, vLLM repos</li>
+        </ul>
+      </div>
+    </div>
+
+    <ol class="numbered-list">
+      <li>
+        <strong>Month 1–2 · Backend Foundation</strong>
+        <span>Set up dev environment (Docker, Postgres, Redis locally). Master FastAPI async patterns. Build P01 (Task API). Deploy it live. Reach 30 LeetCode problems. Read "Designing Data-Intensive Applications" intro + Chapter 1–3.</span>
+      </li>
+      <li>
+        <strong>Month 3 · LLM Integration Begins</strong>
+        <span>Get API access to OpenAI + Anthropic. Build first streaming LLM endpoint in FastAPI. Understand token limits, cost management. Set up a Qdrant instance. Read "Attention Is All You Need" paper. Reach 50 LeetCode.</span>
+      </li>
+      <li>
+        <strong>Month 4–5 · RAG Mastery</strong>
+        <span>Build P03 (Research Paper RAG). Implement hybrid search, reranking, RAGAS evaluation. Deploy publicly. Build P04 (Structured Extraction). Write your first LinkedIn technical article about what you built and what you learned. Reach 80 LeetCode.</span>
+      </li>
+      <li>
+        <strong>Month 6 · Agent Framework Introduction</strong>
+        <span>Work through LangGraph academy fully. Build a simple ReAct agent. Instrument with LangSmith. Build P05 (LLM Router). Start applying to Tier C startups with your 3 live projects. Reach 100 LeetCode.</span>
+      </li>
+      <li>
+        <strong>Month 7–8 · Agentic Systems</strong>
+        <span>Build P06 (Research Agent) and P07 (Multi-Agent Code Review). Make both publicly accessible. Submit to one AI hackathon. Start contributing to LlamaIndex or LangChain GitHub — even small docs or bug fixes. Reach 130 LeetCode. Begin applying to Tier A companies.</span>
+      </li>
+      <li>
+        <strong>Month 9 · Consolidate & Evaluate</strong>
+        <span>Do a "portfolio audit" — every project must have a README with architecture diagram + eval metrics. Record a 3-minute demo video for each. Refresh LinkedIn and resume. Begin mock interviews (2x/week). Reach 160 LeetCode. Apply to remote AI companies.</span>
+      </li>
+      <li>
+        <strong>Month 10–11 · Model Serving Infrastructure</strong>
+        <span>Build P08 (Self-Hosted Inference Server) — rent a GPU for a month (~₹8K–₹15K on Lambda Labs). Deploy vLLM. Build the cost dashboard. Start LoRA fine-tuning experimentation for P09. Study CUDA basics (CS344 on YouTube). Reach 200 LeetCode.</span>
+      </li>
+      <li>
+        <strong>Month 12 · Ship, Apply, Negotiate</strong>
+        <span>Complete P09 (Fine-tuned Model API). Apply aggressively to Tier A and B companies. Aim for 10+ active applications. Do 3 mock system design interviews per week. Target Jan hiring surge. Negotiate offers — use competing offers as leverage. Final goal: ₹25L+ India or $90K+ remote.</span>
+      </li>
+    </ol>
+
+    <div class="callout callout-danger" style="margin-top:28px;">
+      <strong>🚨 The Most Common Mistake</strong>
+      Spending 80% of time learning and 20% building. It should be the reverse. No recruiter has ever hired someone for reading LangChain docs — they hire for things you shipped. After Month 2, every week must produce something: a deployed endpoint, a GitHub commit, a blog post, or a Kaggle submission. Learning in isolation is procrastination with better aesthetics.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div style="max-width:800px; margin:0 auto;">
+    <p style="font-size:14px; color:var(--text); margin-bottom:8px;">The <strong>AI-First Backend Developer</strong> — Complete Roadmap 2026+</p>
+    <p>Compiled from job postings analysis across LinkedIn, Naukri, Wellfound · Salary data from Glassdoor, AmbitionBox, Levels.fyi, direct recruiter sources · Hiring calendar from aggregate of 50+ engineering blog posts and recruiter interviews.</p>
+    <div style="margin-top:16px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+      <span style="color:var(--accent);">Data: May 2026</span>
+      <span>·</span>
+      <span>Update salary data every 6 months — AI compensation moves fast</span>
+      <span>·</span>
+      <span style="color:var(--accent2);">Built for Sapath — M.Tech CS, Techno India University</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

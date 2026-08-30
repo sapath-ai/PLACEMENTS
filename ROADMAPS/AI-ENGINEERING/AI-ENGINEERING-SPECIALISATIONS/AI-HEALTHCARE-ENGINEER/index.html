@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Healthcare Engineer — Mastery Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F1E8;
+    --ink: #1A1714;
+    --ink-muted: #5C5549;
+    --ink-faint: #9C9488;
+    --red: #C0392B;
+    --red-light: #F5E8E6;
+    --red-mid: #E8B4AD;
+    --teal: #0D7377;
+    --teal-light: #E3F2F3;
+    --teal-mid: #8ECDD0;
+    --amber: #B5610A;
+    --amber-light: #FBF0E3;
+    --amber-mid: #F0C490;
+    --violet: #4A3580;
+    --violet-light: #ECEAF8;
+    --violet-mid: #B8AEE0;
+    --green: #1E6B45;
+    --green-light: #E5F2EB;
+    --green-mid: #8EC8A8;
+    --rule: rgba(26,23,20,0.12);
+    --rule-strong: rgba(26,23,20,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    background: var(--cream);
+    z-index: 100;
+  }
+
+  .masthead-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .masthead-nav {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .masthead-nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .masthead-nav a:hover { color: var(--ink); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 80px 48px 64px;
+    border-bottom: 1px solid var(--rule-strong);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--red);
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(40px, 7vw, 88px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    max-width: 900px;
+    margin-bottom: 36px;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--red);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--ink-muted);
+    max-width: 620px;
+    line-height: 1.6;
+    margin-bottom: 48px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .hero-stat {
+    border-left: 3px solid var(--red);
+    padding-left: 16px;
+  }
+
+  .hero-stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .hero-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .hero-deco {
+    position: absolute;
+    right: 48px;
+    top: 40px;
+    font-family: 'Syne', sans-serif;
+    font-size: 180px;
+    font-weight: 800;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(26,23,20,0.06);
+    user-select: none;
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  /* ── SECTION TITLES ── */
+  .section-header {
+    padding: 72px 0 48px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 0;
+  }
+
+  .section-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  /* ── PHASE BLOCKS ── */
+  .phase-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0;
+  }
+
+  .phase-sidebar {
+    padding: 48px 32px 48px 0;
+    border-right: 1px solid var(--rule);
+    position: sticky;
+    top: 56px;
+    height: fit-content;
+  }
+
+  .phase-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 80px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-bottom: 8px;
+  }
+
+  .phase-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .phase-duration {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  .phase-tagline {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .phase-body {
+    padding: 48px 0 48px 48px;
+  }
+
+  .phase-block {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .phase-block:last-child {
+    border-bottom: none;
+  }
+
+  /* ── COLOR THEMES ── */
+  .theme-red .phase-number { color: var(--red); }
+  .theme-red .phase-label { color: var(--red); }
+  .theme-red .phase-duration { background: var(--red-light); color: var(--red); }
+  .theme-red .card-accent { border-color: var(--red); }
+  .theme-red .pill { background: var(--red-light); color: var(--red); }
+  .theme-red .module-num { color: var(--red); }
+
+  .theme-teal .phase-number { color: var(--teal); }
+  .theme-teal .phase-label { color: var(--teal); }
+  .theme-teal .phase-duration { background: var(--teal-light); color: var(--teal); }
+  .theme-teal .card-accent { border-color: var(--teal); }
+  .theme-teal .pill { background: var(--teal-light); color: var(--teal); }
+  .theme-teal .module-num { color: var(--teal); }
+
+  .theme-amber .phase-number { color: var(--amber); }
+  .theme-amber .phase-label { color: var(--amber); }
+  .theme-amber .phase-duration { background: var(--amber-light); color: var(--amber); }
+  .theme-amber .card-accent { border-color: var(--amber); }
+  .theme-amber .pill { background: var(--amber-light); color: var(--amber); }
+  .theme-amber .module-num { color: var(--amber); }
+
+  .theme-violet .phase-number { color: var(--violet); }
+  .theme-violet .phase-label { color: var(--violet); }
+  .theme-violet .phase-duration { background: var(--violet-light); color: var(--violet); }
+  .theme-violet .card-accent { border-color: var(--violet); }
+  .theme-violet .pill { background: var(--violet-light); color: var(--violet); }
+  .theme-violet .module-num { color: var(--violet); }
+
+  .theme-green .phase-number { color: var(--green); }
+  .theme-green .phase-label { color: var(--green); }
+  .theme-green .phase-duration { background: var(--green-light); color: var(--green); }
+  .theme-green .card-accent { border-color: var(--green); }
+  .theme-green .pill { background: var(--green-light); color: var(--green); }
+  .theme-green .module-num { color: var(--green); }
+
+  /* ── MODULE CARDS ── */
+  .module-group {
+    margin-bottom: 48px;
+  }
+
+  .module-group-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .module-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+  }
+
+  .module-group-desc {
+    font-size: 14px;
+    color: var(--ink-muted);
+    margin-bottom: 20px;
+    max-width: 560px;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 20px;
+    border-left: 3px solid transparent;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-accent { border-left-width: 3px; }
+
+  .card:hover {
+    box-shadow: 0 4px 20px rgba(26,23,20,0.08);
+    transform: translateY(-1px);
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+
+  .card-body {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  /* ── TOOL/RESOURCE STRIPS ── */
+  .resource-strip {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-top: 16px;
+  }
+
+  .resource-strip-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 12px;
+  }
+
+  .resource-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .resource-item {
+    font-size: 13px;
+    color: var(--ink-muted);
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 4px 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+  }
+
+  /* ── NEURO SPOTLIGHT ── */
+  .spotlight {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 4px;
+    padding: 48px;
+    margin: 64px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .spotlight::before {
+    content: '🧠';
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 100px;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+
+  .spotlight-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    margin-bottom: 16px;
+  }
+
+  .spotlight-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    line-height: 1.1;
+    color: white;
+  }
+
+  .spotlight-body {
+    font-size: 15px;
+    color: rgba(245,241,232,0.7);
+    max-width: 640px;
+    margin-bottom: 36px;
+    line-height: 1.65;
+  }
+
+  .spotlight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .spotlight-card {
+    background: rgba(245,241,232,0.06);
+    border: 1px solid rgba(245,241,232,0.12);
+    border-radius: 4px;
+    padding: 20px;
+    border-top: 2px solid var(--teal);
+  }
+
+  .spotlight-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+  }
+
+  .spotlight-card-body {
+    font-size: 13px;
+    color: rgba(245,241,232,0.6);
+    line-height: 1.5;
+  }
+
+  /* ── SIGNAL SECTION (how to get known) ── */
+  .signal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 48px;
+  }
+
+  .signal-cell {
+    padding: 32px 28px;
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+
+  .signal-cell:last-child { border-right: none; }
+
+  .signal-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: rgba(26,23,20,0.06);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .signal-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .signal-body {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.55;
+  }
+
+  .signal-items {
+    margin-top: 12px;
+    list-style: none;
+    font-size: 12px;
+    color: var(--ink-muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .signal-items li::before {
+    content: '→ ';
+    color: var(--red);
+  }
+
+  .signal-items li {
+    margin-bottom: 4px;
+  }
+
+  /* ── MILESTONE TIMELINE ── */
+  .timeline {
+    padding: 48px 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 48px;
+    bottom: 48px;
+    width: 1px;
+    background: var(--rule-strong);
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 32px;
+    margin-bottom: 48px;
+    align-items: start;
+  }
+
+  .timeline-dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--rule-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    z-index: 1;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .timeline-content { padding-top: 8px; }
+
+  .timeline-month {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+
+  .timeline-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .timeline-desc {
+    font-size: 14px;
+    color: var(--ink-muted);
+    max-width: 520px;
+    line-height: 1.55;
+  }
+
+
+  /* ── GOD MODE 2026 EXTENSIONS ── */
+  .godmode {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 4px;
+    padding: 56px;
+    margin: 72px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .godmode::after {
+    content: '2026';
+    position: absolute;
+    right: 28px;
+    top: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 150px;
+    font-weight: 800;
+    color: rgba(245,241,232,0.035);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .godmode-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    margin-bottom: 14px;
+  }
+  .godmode-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(30px, 5vw, 54px);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+    max-width: 850px;
+    color: white;
+  }
+  .godmode-intro {
+    color: rgba(245,241,232,0.72);
+    max-width: 760px;
+    font-size: 15px;
+    line-height: 1.65;
+    margin-bottom: 38px;
+  }
+  .god-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .god-card {
+    background: rgba(245,241,232,0.055);
+    border: 1px solid rgba(245,241,232,0.12);
+    border-top: 2px solid var(--teal);
+    border-radius: 4px;
+    padding: 22px;
+  }
+  .god-card:nth-child(3n+2) { border-top-color: var(--amber); }
+  .god-card:nth-child(3n+3) { border-top-color: var(--red); }
+  .god-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    color: white;
+    margin-bottom: 9px;
+  }
+  .god-card p {
+    font-size: 12.5px;
+    color: rgba(245,241,232,0.62);
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+  .god-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .god-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 4px 7px;
+    border: 1px solid rgba(245,241,232,0.16);
+    border-radius: 2px;
+    color: rgba(245,241,232,0.7);
+  }
+  .god-section {
+    padding: 72px 0 0;
+  }
+  .god-section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(25px, 4vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .god-section-desc {
+    max-width: 720px;
+    color: var(--ink-muted);
+    font-size: 15px;
+    line-height: 1.65;
+    margin-bottom: 30px;
+  }
+  .stack {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+  .stack-row { display: contents; }
+  .stack-label {
+    padding: 18px;
+    background: rgba(26,23,20,0.035);
+    border-bottom: 1px solid var(--rule);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .stack-content {
+    padding: 18px;
+    border-left: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.55;
+  }
+  .stack-row:last-child .stack-label,
+  .stack-row:last-child .stack-content { border-bottom: none; }
+  .frontier-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+  .frontier-item {
+    padding: 16px;
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+  }
+  .frontier-item strong {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  .frontier-item span {
+    font-size: 12px;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+  .refresh-box {
+    border: 2px solid var(--ink);
+    padding: 28px;
+    margin: 48px 0 0;
+    background: white;
+  }
+  .refresh-box h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .refresh-box p {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    max-width: 760px;
+  }
+  .refresh-box strong { color: var(--ink); }
+
+  @media (max-width: 768px) {
+    .godmode { padding: 32px 24px; }
+    .god-grid { grid-template-columns: 1fr; }
+    .stack { grid-template-columns: 1fr; }
+    .stack-content { border-left: none; }
+    .frontier-list { grid-template-columns: 1fr; }
+    .godmode::after { display: none; }
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 2px solid var(--ink);
+    padding: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 80px;
+  }
+
+  .footer-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .footer-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: right;
+  }
+
+  /* ── DIVIDERS ── */
+  hr.fancy {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 0;
+  }
+
+  /* ── PULL QUOTES ── */
+  .pullquote {
+    border-left: 3px solid var(--red);
+    padding: 8px 0 8px 24px;
+    margin: 24px 0;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-muted);
+    max-width: 540px;
+  }
+
+  /* ── READING CHECK ── */
+  .check-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  .check-row::before {
+    content: '□';
+    font-family: 'DM Mono', monospace;
+    color: var(--ink-faint);
+    flex-shrink: 0;
+  }
+
+  /* ── BIG INTRO TEXT ── */
+  .intro-text {
+    font-size: 20px;
+    line-height: 1.65;
+    color: var(--ink);
+    max-width: 700px;
+    padding: 48px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .intro-text strong {
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  @media (max-width: 768px) {
+    .masthead { padding: 0 24px; }
+    .masthead-nav { display: none; }
+    .hero { padding: 48px 24px 40px; }
+    .container { padding: 0 24px; }
+    .phase-grid { grid-template-columns: 1fr; }
+    .phase-sidebar { position: static; padding: 32px 0 0; border-right: none; border-bottom: 1px solid var(--rule); }
+    .phase-body { padding: 32px 0; }
+    .signal-grid { grid-template-columns: 1fr; }
+    .signal-cell { border-right: none; border-bottom: 1px solid var(--rule); }
+    .footer { flex-direction: column; gap: 16px; align-items: flex-start; }
+    .hero-deco { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-title">AI Healthcare Engineer — Mastery Roadmap</div>
+  <nav>
+    <ul class="masthead-nav">
+      <li><a href="#foundations">Foundations</a></li>
+      <li><a href="#clinical">Clinical AI</a></li>
+      <li><a href="#neuro">Neuro & Brain</a></li>
+      <li><a href="#signal">Signal</a></li>
+      <li><a href="#milestones">Milestones</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-deco">Rx</div>
+  <div class="hero-label">Your Personal Mastery Roadmap · 2026 Frontier Edition</div>
+  <h1>Become the AI Engineer<br>Medicine Trusts <em>Most.</em></h1>
+  <p class="hero-sub">A structured, deeply articulated path from M.Tech student to the go-to AI engineer for healthcare and the human brain — designed to make you irreplaceable.</p>
+  <div class="hero-meta">
+    <div class="hero-stat">
+      <div class="hero-stat-num">5</div>
+      <div class="hero-stat-label">Phases</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">~3 yrs</div>
+      <div class="hero-stat-label">Full mastery timeline</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">2</div>
+      <div class="hero-stat-label">Deep specialisations</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">∞</div>
+      <div class="hero-stat-label">Ceiling</div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO TEXT -->
+<div class="container">
+  <p class="intro-text">
+    The AI world is flooding medicine with unprecedented capability — but most engineers understand the technology without understanding the domain. 
+    <strong>That gap is your opportunity.</strong> This roadmap builds you into someone who understands both the biology and the algorithms, both the clinical workflow and the model architecture. You will specialise in two of the most consequential frontiers: <strong>general healthcare AI</strong> (medical imaging, clinical NLP, drug discovery, genomics) and the <strong>AI of the human brain and nervous system</strong> — computational neuroscience, BCI, neural decoding, and neurological disease modelling. The combination is rare. Rare is irreplaceable.
+  </p>
+</div>
+
+<hr class="fancy">
+
+<!-- ════════════════════════════════ PHASE 1 ════════════════════════════════ -->
+<section id="foundations">
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Phase One</div>
+    <div class="section-title">Build the Biological Fluency<br>That Engineers Lack</div>
+  </div>
+
+  <div class="phase-grid phase-block theme-red">
+    <div class="phase-sidebar">
+      <div class="phase-number">01</div>
+      <div class="phase-label">Foundations</div>
+      <div class="phase-duration">Months 1–4</div>
+      <div class="phase-tagline">"You cannot engineer what you do not understand. Learn to think like a clinician."</div>
+    </div>
+
+    <div class="phase-body">
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">1.1</span> Human Biology & Physiology for AI Engineers
+        </div>
+        <div class="module-group-desc">You need enough biology to read a medical paper and know what matters. This is not about becoming a doctor — it's about not being ignorant in the room.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-red">
+            <div class="card-title">Anatomy & Organ Systems</div>
+            <div class="card-body">Cardiovascular, respiratory, renal, hepatic. Understand what each organ measures, regulates, and signals. Know the biomarkers (troponin, creatinine, HbA1c) that appear in clinical datasets.</div>
+            <div class="card-tags"><span class="pill">Biology</span><span class="pill">Clinical</span></div>
+          </div>
+          <div class="card card-accent theme-red">
+            <div class="card-title">Cellular & Molecular Biology</div>
+            <div class="card-body">DNA → RNA → Protein. Gene expression, transcription factors, epigenetics. Essential for genomics AI and drug discovery — you cannot build what you cannot explain.</div>
+            <div class="card-tags"><span class="pill">Genomics</span><span class="pill">Foundations</span></div>
+          </div>
+          <div class="card card-accent theme-red">
+            <div class="card-title">Neuroscience Fundamentals</div>
+            <div class="card-body">Neuron morphology, action potentials, synaptic transmission, neurotransmitters. The structure of the cortex, basal ganglia, cerebellum. This is your neuro primer — you will go very deep later.</div>
+            <div class="card-tags"><span class="pill">Neuro</span><span class="pill">Priority</span></div>
+          </div>
+          <div class="card card-accent theme-red">
+            <div class="card-title">Pathophysiology</div>
+            <div class="card-body">How diseases disrupt normal function. Cancer biology, neurodegeneration (Alzheimer's, Parkinson's), diabetes, cardiovascular disease. AI solves problems — you need to know what the problems actually are.</div>
+            <div class="card-tags"><span class="pill">Disease</span><span class="pill">Clinical</span></div>
+          </div>
+        </div>
+        <div class="resource-strip">
+          <div class="resource-strip-label">Resources</div>
+          <div class="resource-list">
+            <span class="resource-item">Coursera: Medical Neuroscience (Duke)</span>
+            <span class="resource-item">Khan Academy: MCAT Biology</span>
+            <span class="resource-item">Principles of Neural Science — Kandel</span>
+            <span class="resource-item">Human Physiology — Silverthorn</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">1.2</span> Medical Data Types & Healthcare Systems
+        </div>
+        <div class="module-group-desc">Healthcare data is messy, structured differently from everything else, and governed by regulations engineers usually ignore until it bites them.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-red">
+            <div class="card-title">Medical Imaging Modalities</div>
+            <div class="card-body">X-ray (projection), CT (Hounsfield units, slices), MRI (T1/T2/FLAIR/fMRI/DWI), PET, Ultrasound. Understand the physics and what each modality reveals vs hides. This directly governs which architectures work.</div>
+            <div class="card-tags"><span class="pill">Imaging</span><span class="pill">Technical</span></div>
+          </div>
+          <div class="card card-accent theme-red">
+            <div class="card-title">Clinical Data Standards</div>
+            <div class="card-body">HL7, FHIR (SMART on FHIR), DICOM (for images), ICD-10/11 (diagnoses), SNOMED CT, LOINC (lab codes), CPT. These are the lingua franca of hospital data. Ignorance here costs months.</div>
+            <div class="card-tags"><span class="pill">Standards</span><span class="pill">Interoperability</span></div>
+          </div>
+          <div class="card card-accent theme-red">
+            <div class="card-title">EHR & Clinical Workflow</div>
+            <div class="card-body">Electronic Health Records (Epic, Cerner), clinical notes, SOAP format, medication orders, lab orders. Understanding clinical workflow tells you where AI fits — and where it will be ignored.</div>
+            <div class="card-tags"><span class="pill">Clinical</span><span class="pill">Workflow</span></div>
+          </div>
+          <div class="card card-accent theme-red">
+            <div class="card-title">Biomedical Signal Data</div>
+            <div class="card-body">ECG (12-lead), EEG (10–20 system), EMG, PPG, SpO2. Temporal, multichannel, noisy. These signals are the raw material of computational neuroscience and wearable health AI.</div>
+            <div class="card-tags"><span class="pill">Signals</span><span class="pill">Neuro</span></div>
+          </div>
+        </div>
+        <div class="resource-strip">
+          <div class="resource-strip-label">Resources & Tools</div>
+          <div class="resource-list">
+            <span class="resource-item">PhysioNet (free ECG/EEG datasets)</span>
+            <span class="resource-item">MIMIC-IV (clinical ICU data)</span>
+            <span class="resource-item">DICOM standard — NEMA docs</span>
+            <span class="resource-item">FHIR R5 (with R4/R4B interoperability) — HL7.org</span>
+            <span class="resource-item">pydicom, hl7apy (Python libs)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">1.3</span> Regulatory & Ethical Landscape
+        </div>
+        <div class="module-group-desc">AI that cannot be deployed is worthless. The best engineers know what it takes to get a system approved and trusted in a clinical setting.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-red">
+            <div class="card-title">FDA & CE Mark (AI/ML)</div>
+            <div class="card-body">FDA's AI/ML-based Software as Medical Device (SaMD) framework, predetermined change control plans, 510(k) vs PMA. Europe's EU AI Act + MDR. These determine what you can ship.</div>
+            <div class="card-tags"><span class="pill">Regulatory</span><span class="pill">FDA</span></div>
+          </div>
+          <div class="card card-accent theme-red">
+            <div class="card-title">HIPAA, GDPR & Data Ethics</div>
+            <div class="card-body">De-identification, data use agreements, consent frameworks, federated learning as a privacy solution. You will be trusted with the most sensitive human data that exists — treat it accordingly.</div>
+            <div class="card-tags"><span class="pill">Privacy</span><span class="pill">Ethics</span></div>
+          </div>
+          <div class="card card-accent theme-red">
+            <div class="card-title">Fairness & Bias in Healthcare AI</div>
+            <div class="card-body">Pulse oximetry bias in dark skin. Dermatology datasets skewed toward fair skin. Chest X-ray models trained on US data failing globally. Know where bias hides and how to measure and mitigate it.</div>
+            <div class="card-tags"><span class="pill">Fairness</span><span class="pill">Critical</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</section>
+
+<hr class="fancy">
+
+<!-- ════════════════════════════════ PHASE 2 ════════════════════════════════ -->
+<section id="clinical">
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Phase Two</div>
+    <div class="section-title">Master the Core Domains<br>of Clinical AI</div>
+  </div>
+
+  <div class="phase-grid phase-block theme-teal">
+    <div class="phase-sidebar">
+      <div class="phase-number">02</div>
+      <div class="phase-label">Clinical AI</div>
+      <div class="phase-duration">Months 4–12</div>
+      <div class="phase-tagline">"Go wide enough to advise on anything, deep enough to be indispensable on something."</div>
+    </div>
+
+    <div class="phase-body">
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">2.1</span> Medical Imaging AI
+        </div>
+        <div class="module-group-desc">The most commercially mature domain. Radiology, pathology, ophthalmology, dermatology — all transformed by vision AI. This is where most healthcare AI jobs live today.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-teal">
+            <div class="card-title">Radiology AI</div>
+            <div class="card-body">CNNs and Vision Transformers for chest X-ray (pneumonia, TB, pneumothorax), CT (lung nodule detection, intracranial haemorrhage), MRI brain tumour segmentation (BraTS dataset). The gold standard pipelines.</div>
+            <div class="card-tags"><span class="pill">CNN</span><span class="pill">ViT</span><span class="pill">Segmentation</span></div>
+          </div>
+          <div class="card card-accent theme-teal">
+            <div class="card-title">Computational Pathology</div>
+            <div class="card-body">Whole Slide Imaging (WSI), Multiple Instance Learning (MIL) for tumour grading, H&E stain analysis. Models like UNI and CONCH — foundation models trained on millions of pathology slides. This is an exploding field.</div>
+            <div class="card-tags"><span class="pill">Pathology</span><span class="pill">MIL</span><span class="pill">Foundation Models</span></div>
+          </div>
+          <div class="card card-accent theme-teal">
+            <div class="card-title">Ophthalmology AI</div>
+            <div class="card-body">Diabetic retinopathy grading (the first FDA-approved autonomous AI diagnostic — IDx-DR), glaucoma detection from fundus photos, AMD staging. One of the highest-precision domains in the field.</div>
+            <div class="card-tags"><span class="pill">Retina</span><span class="pill">FDA-approved</span></div>
+          </div>
+          <div class="card card-accent theme-teal">
+            <div class="card-title">3D Medical Image Segmentation</div>
+            <div class="card-body">nnU-Net (the self-configuring segmentation framework that beats almost everything), MONAI (PyTorch-based medical imaging library), SAM-Med (Segment Anything adapted for medicine). Organ and tumour delineation for treatment planning.</div>
+            <div class="card-tags"><span class="pill">nnU-Net</span><span class="pill">MONAI</span><span class="pill">SAM</span></div>
+          </div>
+          <div class="card card-accent theme-teal">
+            <div class="card-title">Multimodal Imaging Fusion</div>
+            <div class="card-body">Combining CT + PET, MRI + genomics, imaging + clinical text. The future of radiology AI is not single-modality — it's holistic, cross-modal understanding. Learn cross-attention and late fusion strategies.</div>
+            <div class="card-tags"><span class="pill">Multimodal</span><span class="pill">Advanced</span></div>
+          </div>
+        </div>
+        <div class="resource-strip">
+          <div class="resource-strip-label">Key Datasets & Tools</div>
+          <div class="resource-list">
+            <span class="resource-item">CheXpert / CheXNet (Stanford)</span>
+            <span class="resource-item">BraTS (brain tumour MRI)</span>
+            <span class="resource-item">CAMELYON16/17 (pathology)</span>
+            <span class="resource-item">MONAI (PyTorch medical)</span>
+            <span class="resource-item">nnU-Net framework</span>
+            <span class="resource-item">nibabel / SimpleITK</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">2.2</span> Clinical NLP & Large Language Models in Medicine
+        </div>
+        <div class="module-group-desc">The explosion of medical LLMs is the biggest shift in healthcare AI right now. Clinical notes contain more diagnostic information than any other data source.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-teal">
+            <div class="card-title">Medical NLP Fundamentals</div>
+            <div class="card-body">Named Entity Recognition for clinical concepts (diseases, drugs, dosages), relation extraction, negation detection (is this symptom present or absent?), temporal reasoning in notes. spaCy + scispaCy, cTAKES.</div>
+            <div class="card-tags"><span class="pill">NLP</span><span class="pill">NER</span><span class="pill">scispaCy</span></div>
+          </div>
+          <div class="card card-accent theme-teal">
+            <div class="card-title">Medical Foundation Models</div>
+            <div class="card-body">BioBERT, PubMedBERT, ClinicalBERT and GatorTron as historical foundations; then move to modern multimodal medical foundation models, VLMs, reasoning models and clinical agents. Know their training data, benchmarks (MedQA, PubMedQA, MedMCQA, USMLE), and where each one excels and fails.</div>
+            <div class="card-tags"><span class="pill">LLM</span><span class="pill">BERT</span><span class="pill">Med-PaLM</span></div>
+          </div>
+          <div class="card card-accent theme-teal">
+            <div class="card-title">Clinical Decision Support</div>
+            <div class="card-body">RAG systems grounded in clinical guidelines (UpToDate, NICE, AHA), differential diagnosis generation, drug-drug interaction detection, sepsis early warning systems. The gap between a chatbot and a clinical tool.</div>
+            <div class="card-tags"><span class="pill">RAG</span><span class="pill">CDS</span><span class="pill">Sepsis</span></div>
+          </div>
+          <div class="card card-accent theme-teal">
+            <div class="card-title">Discharge Summary & Note Generation</div>
+            <div class="card-body">Automated clinical documentation using LLMs — the largest time sink in modern healthcare. Nuance DAX Copilot, Ambience Healthcare. Hallucination is life-threatening here. Learn grounding and verification techniques.</div>
+            <div class="card-tags"><span class="pill">Generation</span><span class="pill">Safety</span><span class="pill">RAG</span></div>
+          </div>
+        </div>
+        <div class="resource-strip">
+          <div class="resource-strip-label">Key Resources</div>
+          <div class="resource-list">
+            <span class="resource-item">MIMIC-III/IV clinical notes</span>
+            <span class="resource-item">i2b2 NLP challenges</span>
+            <span class="resource-item">scispaCy / medspaCy</span>
+            <span class="resource-item">Hugging Face Medical Models Hub</span>
+            <span class="resource-item">MedQA / USMLE benchmark</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">2.3</span> Genomics, Drug Discovery & Precision Medicine
+        </div>
+        <div class="module-group-desc">AI is collapsing the drug development timeline from 12+ years toward years. This is one of the highest-value frontiers in the entire AI landscape.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-teal">
+            <div class="card-title">Genomic AI & Variant Calling</div>
+            <div class="card-body">Deep learning for DNA sequence modelling (Enformer, Evo 2, AlphaGenome), variant effect prediction, GWAS + ML, polygenic risk scores. AlphaFold 2/3, AlphaGenome and modern protein/DNA foundation models; learn structure prediction, biomolecular interactions and generative design.</div>
+            <div class="card-tags"><span class="pill">Genomics</span><span class="pill">AlphaFold</span><span class="pill">Enformer</span></div>
+          </div>
+          <div class="card card-accent theme-teal">
+            <div class="card-title">Drug Discovery AI</div>
+            <div class="card-body">Molecular property prediction with Graph Neural Networks (GNNs), de novo molecule generation (diffusion models, VAEs), target-ligand binding affinity prediction, ADMET modelling. Tools: RDKit, DeepChem, Therapeutics Data Commons.</div>
+            <div class="card-tags"><span class="pill">GNN</span><span class="pill">Molecules</span><span class="pill">DeepChem</span></div>
+          </div>
+          <div class="card card-accent theme-teal">
+            <div class="card-title">Single-Cell & Multi-Omics</div>
+            <div class="card-body">scRNA-seq analysis, cell type annotation, trajectory inference, spatial transcriptomics. Transformer models for single-cell data (scGPT, Geneformer). The frontier of precision oncology and immunotherapy.</div>
+            <div class="card-tags"><span class="pill">scRNA-seq</span><span class="pill">scGPT</span><span class="pill">Spatial</span></div>
+          </div>
+          <div class="card card-accent theme-teal">
+            <div class="card-title">Clinical Trials & Real World Evidence</div>
+            <div class="card-body">AI for patient eligibility matching in trials, survival analysis (DeepSurv), causal inference from observational EHR data. Learning to distinguish correlation from causation in messy hospital databases.</div>
+            <div class="card-tags"><span class="pill">Causal AI</span><span class="pill">Survival</span><span class="pill">RWE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">2.4</span> Wearables, IoT & Predictive Health
+        </div>
+        <div class="module-group-desc">The future of healthcare is continuous, ambient monitoring — outside the hospital. This is a massive emerging market.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-teal">
+            <div class="card-title">Time-Series AI for Biosignals</div>
+            <div class="card-body">ECG arrhythmia classification (deep learning on 12-lead ECG — Cardiogram, Apple Watch), PPG-based blood pressure estimation, accelerometry for fall detection and Parkinson's tremor quantification.</div>
+            <div class="card-tags"><span class="pill">ECG</span><span class="pill">PPG</span><span class="pill">Time-series</span></div>
+          </div>
+          <div class="card card-accent theme-teal">
+            <div class="card-title">ICU & Early Warning Systems</div>
+            <div class="card-body">Sepsis prediction (MIMIC-III benchmark), deterioration detection, alarm fatigue reduction. Time-series Transformers (TST, PatchTST), multi-vital stream fusion. These systems save lives when deployed correctly.</div>
+            <div class="card-tags"><span class="pill">ICU</span><span class="pill">Sepsis</span><span class="pill">Transformers</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</section>
+
+<hr class="fancy">
+
+<!-- ════════════════════════════════ NEURO SPOTLIGHT ════════════════════════════════ -->
+<div class="container" id="neuro">
+  <div class="spotlight">
+    <div class="spotlight-eyebrow">Deep Specialisation — Priority Domain</div>
+    <div class="spotlight-title">AI & The Human Brain:<br>Your Signature Frontier</div>
+    <div class="spotlight-body">
+      The intersection of AI and the human brain and nervous system is among the most intellectually demanding, scientifically rich, and commercially explosive frontiers in all of technology. Neural implants, brain-computer interfaces, AI-driven diagnosis of neurological disease, computational models of cognition — this is where you want to be known. Very few engineers can navigate both the neuroscience and the engineering. You will become one of them.
+    </div>
+    <div class="spotlight-grid">
+      <div class="spotlight-card">
+        <div class="spotlight-card-title">Computational Neuroscience</div>
+        <div class="spotlight-card-body">Mathematical models of neurons and circuits. How the brain computes. The science underneath the engineering.</div>
+      </div>
+      <div class="spotlight-card">
+        <div class="spotlight-card-title">Neural Decoding & BCI</div>
+        <div class="spotlight-card-body">Reading the brain's signals — from EEG to electrocorticography to Utah arrays. Translating neural activity into intent.</div>
+      </div>
+      <div class="spotlight-card">
+        <div class="spotlight-card-title">Neurological Disease AI</div>
+        <div class="spotlight-card-body">AI for Alzheimer's, Parkinson's, epilepsy, depression, schizophrenia, TBI. Diagnosis, prognosis, treatment response.</div>
+      </div>
+      <div class="spotlight-card">
+        <div class="spotlight-card-title">Neuroimaging AI</div>
+        <div class="spotlight-card-body">fMRI connectivity, diffusion tractography, structural MRI morphometry. The atlas of the brain in health and disease.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ PHASE 3 ════════════════════════════════ -->
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Phase Three</div>
+    <div class="section-title">Go Deep on AI &<br>The Human Brain</div>
+  </div>
+
+  <div class="phase-grid phase-block theme-amber">
+    <div class="phase-sidebar">
+      <div class="phase-number">03</div>
+      <div class="phase-label">Neuro AI</div>
+      <div class="phase-duration">Months 8–18</div>
+      <div class="phase-tagline">"The brain is the most complex object in the known universe. AI is the first tool powerful enough to begin understanding it."</div>
+    </div>
+
+    <div class="phase-body">
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">3.1</span> Computational Neuroscience
+        </div>
+        <div class="module-group-desc">Before you can build AI for the brain, you need a deep quantitative model of how the brain actually works. This is the science that feeds the engineering.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-amber">
+            <div class="card-title">Single Neuron Models</div>
+            <div class="card-body">Hodgkin-Huxley equations (the original neural spiking model), Integrate-and-Fire models, adaptive exponential IF. Simulating neurons in code using NEURON or Brian2. Understanding why approximations work.</div>
+            <div class="card-tags"><span class="pill">Biophysics</span><span class="pill">Spiking</span><span class="pill">NEURON</span></div>
+          </div>
+          <div class="card card-accent theme-amber">
+            <div class="card-title">Network & Systems Neuroscience</div>
+            <div class="card-body">Hopfield networks, attractor dynamics, working memory models, the free energy principle (Karl Friston's predictive coding). How circuits give rise to perception, cognition, and behaviour.</div>
+            <div class="card-tags"><span class="pill">Networks</span><span class="pill">Dynamics</span><span class="pill">Cognition</span></div>
+          </div>
+          <div class="card card-accent theme-amber">
+            <div class="card-title">Spike Sorting & Neural Data Analysis</div>
+            <div class="card-body">Multi-electrode arrays, spike sorting (Kilosort, MountainSort), population vector decoding, dimensionality reduction of neural trajectories (PCA, UMAP on firing rates). The raw data pipeline from electrode to insight.</div>
+            <div class="card-tags"><span class="pill">Spikes</span><span class="pill">Kilosort</span><span class="pill">Population</span></div>
+          </div>
+          <div class="card card-accent theme-amber">
+            <div class="card-title">Reinforcement Learning as Neuroscience</div>
+            <div class="card-body">Temporal difference learning as a model of dopamine signals. Prediction error in the basal ganglia. The deep connection between RL and reward circuits — why understanding one illuminates the other.</div>
+            <div class="card-tags"><span class="pill">RL</span><span class="pill">Dopamine</span><span class="pill">Basal Ganglia</span></div>
+          </div>
+        </div>
+        <div class="resource-strip">
+          <div class="resource-strip-label">Resources</div>
+          <div class="resource-list">
+            <span class="resource-item">Theoretical Neuroscience — Dayan & Abbott</span>
+            <span class="resource-item">Neuromatch Academy (free online)</span>
+            <span class="resource-item">Allen Brain Atlas (open data)</span>
+            <span class="resource-item">Brian2 / NEST simulators</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">3.2</span> Brain-Computer Interfaces & Neural Decoding
+        </div>
+        <div class="module-group-desc">Reading thought and intent from brain signals. From EEG headbands to Neuralink. The most direct application of AI to the nervous system.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-amber">
+            <div class="card-title">EEG-Based BCIs</div>
+            <div class="card-body">Motor imagery classification (left vs right hand), P300 speller, SSVEP paradigms. EEGNet (compact CNN for EEG), ERP components (N200, P300). MOABB benchmark for EEG MI. The most accessible entry point into BCI.</div>
+            <div class="card-tags"><span class="pill">EEG</span><span class="pill">Motor Imagery</span><span class="pill">EEGNet</span></div>
+          </div>
+          <div class="card card-accent theme-amber">
+            <div class="card-title">Invasive BCI — The Frontier</div>
+            <div class="card-body">Utah arrays, electrocorticography (ECoG), Neuropixels probes. BrainGate trials (speech decoding, cursor control). Meta's research decoding speech from MEG. Neuralink's first human implant results. Know the engineering AND the neuroscience here.</div>
+            <div class="card-tags"><span class="pill">ECoG</span><span class="pill">Neuropixels</span><span class="pill">BrainGate</span></div>
+          </div>
+          <div class="card card-accent theme-amber">
+            <div class="card-title">Neural Speech & Language Decoding</div>
+            <div class="card-body">Decoding attempted speech from paralysed patients (Frank Willett / Chang Lab papers). RNN and Transformer decoders trained on neural population activity. GPT-based language models integrated with neural readout. One of the most impactful BCI directions.</div>
+            <div class="card-tags"><span class="pill">Speech</span><span class="pill">Paralysis</span><span class="pill">Transformers</span></div>
+          </div>
+          <div class="card card-accent theme-amber">
+            <div class="card-title">Neurostimulation & Closed-Loop Systems</div>
+            <div class="card-body">Deep Brain Stimulation (DBS) for Parkinson's, TMS, tDCS. Closed-loop systems that decode neural state and deliver stimulation in response. Adaptive DBS — the next generation. Medtronic, Abbott, and academic research.</div>
+            <div class="card-tags"><span class="pill">DBS</span><span class="pill">Closed-Loop</span><span class="pill">TMS</span></div>
+          </div>
+          <div class="card card-accent theme-amber">
+            <div class="card-title">Transfer Learning Across BCI Sessions</div>
+            <div class="card-body">The non-stationarity problem: neural signals change day-to-day, electrode-to-electrode. Domain adaptation, meta-learning (MAML), and Riemannian geometry-based alignment for EEG. A critical practical challenge in BCI deployment.</div>
+            <div class="card-tags"><span class="pill">Domain Adaptation</span><span class="pill">Meta-learning</span><span class="pill">Riemannian</span></div>
+          </div>
+        </div>
+        <div class="resource-strip">
+          <div class="resource-strip-label">Key Papers & Tools</div>
+          <div class="resource-list">
+            <span class="resource-item">MNE-Python (EEG/MEG)</span>
+            <span class="resource-item">MOABB (BCI benchmark)</span>
+            <span class="resource-item">Willett et al. 2023 + current neural speech decoding literature</span>
+            <span class="resource-item">BrainGate publications</span>
+            <span class="resource-item">Braindecode library</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">3.3</span> AI for Neurological & Psychiatric Disease
+        </div>
+        <div class="module-group-desc">Billion-dollar problems with inadequate tools. AI is beginning to change diagnosis, prognosis, and treatment selection for the most complex diseases humans face.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-amber">
+            <div class="card-title">Alzheimer's & Dementia AI</div>
+            <div class="card-body">Amyloid PET classification, structural MRI hippocampal atrophy, CSF biomarker modelling (Aβ42/tau ratio), speech and language markers of cognitive decline, multi-modal progression prediction. ADNI dataset is your anchor.</div>
+            <div class="card-tags"><span class="pill">Alzheimer's</span><span class="pill">ADNI</span><span class="pill">Multimodal</span></div>
+          </div>
+          <div class="card card-accent theme-amber">
+            <div class="card-title">Parkinson's Disease AI</div>
+            <div class="card-body">Gait analysis (accelerometry + ML), voice/speech markers (jitter, shimmer, MFCCs), DaTscan SPECT imaging, tremor quantification from wearables. Remote monitoring for disease progression tracking.</div>
+            <div class="card-tags"><span class="pill">Parkinson's</span><span class="pill">Gait</span><span class="pill">Voice</span></div>
+          </div>
+          <div class="card card-accent theme-amber">
+            <div class="card-title">Epilepsy Seizure Detection & Prediction</div>
+            <div class="card-body">Automated seizure detection from scalp EEG (TUH EEG corpus — largest in the world), intracranial EEG seizure prediction, spike detection. Deep learning vs traditional feature engineering. FDA-cleared devices in this space.</div>
+            <div class="card-tags"><span class="pill">Epilepsy</span><span class="pill">Seizure</span><span class="pill">TUH EEG</span></div>
+          </div>
+          <div class="card card-accent theme-amber">
+            <div class="card-title">Mental Health & Psychiatry AI</div>
+            <div class="card-body">Depression/anxiety classification from speech, facial action units, actigraphy. Suicide risk stratification from clinical notes. Treatment response prediction for antidepressants. Digital biomarkers from smartphones. An emerging but ethically complex domain.</div>
+            <div class="card-tags"><span class="pill">Depression</span><span class="pill">Digital Biomarkers</span><span class="pill">Ethics</span></div>
+          </div>
+          <div class="card card-accent theme-amber">
+            <div class="card-title">Stroke & TBI</div>
+            <div class="card-body">Ischaemic stroke lesion segmentation from DWI MRI, large vessel occlusion detection for triage (Viz.ai — FDA cleared), prognosis after TBI from CT, rehabilitation monitoring with wearable movement sensors.</div>
+            <div class="card-tags"><span class="pill">Stroke</span><span class="pill">TBI</span><span class="pill">Triage</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">3.4</span> Advanced Neuroimaging AI
+        </div>
+        <div class="module-group-desc">fMRI and diffusion MRI contain structural and functional maps of the entire brain. AI is learning to read them in ways that took humans decades to begin understanding.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-amber">
+            <div class="card-title">fMRI Connectivity & Resting-State</div>
+            <div class="card-body">Default Mode Network, functional connectomes, graph-based models of brain connectivity, fMRI decoding (reading visual images from brain activity — mind-reading research). Nilearn and nitime for analysis.</div>
+            <div class="card-tags"><span class="pill">fMRI</span><span class="pill">Connectome</span><span class="pill">Decoding</span></div>
+          </div>
+          <div class="card card-accent theme-amber">
+            <div class="card-title">Diffusion Tractography</div>
+            <div class="card-body">DTI (Fractional Anisotropy, Mean Diffusivity), white matter tract reconstruction (FSL, MRtrix3), deep learning tractography. Mapping the structural wiring of the brain — damaged in MS, TBI, and schizophrenia.</div>
+            <div class="card-tags"><span class="pill">DTI</span><span class="pill">White Matter</span><span class="pill">MRtrix3</span></div>
+          </div>
+          <div class="card card-accent theme-amber">
+            <div class="card-title">Graph Neural Networks for Brain</div>
+            <div class="card-body">Brain as a graph: nodes = regions, edges = functional or structural connectivity. GNNs for connectome-based disease classification. BrainNetCNN, BrainGB. The most principled way to model brain network data.</div>
+            <div class="card-tags"><span class="pill">GNN</span><span class="pill">Connectome</span><span class="pill">BrainNetCNN</span></div>
+          </div>
+        </div>
+        <div class="resource-strip">
+          <div class="resource-strip-label">Tools & Datasets</div>
+          <div class="resource-list">
+            <span class="resource-item">Nilearn (fMRI Python)</span>
+            <span class="resource-item">FSL / FreeSurfer / MRtrix3</span>
+            <span class="resource-item">Human Connectome Project (HCP)</span>
+            <span class="resource-item">ADNI / PPMI / TUH EEG</span>
+            <span class="resource-item">OpenNeuro.org (BIDS datasets)</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<hr class="fancy">
+
+<!-- ════════════════════════════════ PHASE 4 ════════════════════════════════ -->
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Phase Four</div>
+    <div class="section-title">Build, Publish & Ship<br>Real Things</div>
+  </div>
+
+  <div class="phase-grid phase-block theme-violet">
+    <div class="phase-sidebar">
+      <div class="phase-number">04</div>
+      <div class="phase-label">Creation</div>
+      <div class="phase-duration">Months 12–24</div>
+      <div class="phase-tagline">"Knowledge without artefacts is invisible. Build things the world can see and judge."</div>
+    </div>
+
+    <div class="phase-body">
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">4.1</span> Research — Read, Reproduce, Extend
+        </div>
+        <div class="module-group-desc">You become known in research by producing research. Start by deeply understanding the best existing work, then find the gap.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-violet">
+            <div class="card-title">Paper Reading Practice</div>
+            <div class="card-body">Read 2–3 papers per week in your focus areas. Use structured reading: Abstract → Figures → Methods → Results → Related Work. Write a 1-paragraph summary for each. Do this for 12 months and you will know the field.</div>
+            <div class="card-tags"><span class="pill">Habit</span><span class="pill">Research</span></div>
+          </div>
+          <div class="card card-accent theme-violet">
+            <div class="card-title">Reproduce a Key Paper</div>
+            <div class="card-body">Pick one landmark paper (BraTS segmentation, EEGNet, neural speech decoding, AlphaFold application) and reproduce it completely from scratch. Reproducing is understanding. Publish the reproduction as a GitHub repo with a thorough README.</div>
+            <div class="card-tags"><span class="pill">Reproduction</span><span class="pill">GitHub</span></div>
+          </div>
+          <div class="card card-accent theme-violet">
+            <div class="card-title">Find a Novel Contribution</div>
+            <div class="card-body">Look for: (1) a method that works in domain A applied to domain B, (2) a dataset no one has properly benchmarked, (3) a known limitation explicitly called out in a paper's "future work" section. This is where your first paper lives.</div>
+            <div class="card-tags"><span class="pill">Research Gap</span><span class="pill">Contribution</span></div>
+          </div>
+          <div class="card card-accent theme-violet">
+            <div class="card-title">Target Conferences & Journals</div>
+            <div class="card-body">NeurIPS, MICCAI (medical imaging), ICLR, EMBC (biomedical engineering), Nature Methods, The Lancet Digital Health, npj Digital Medicine, Journal of Neural Engineering. Know the tiers and submission timelines.</div>
+            <div class="card-tags"><span class="pill">MICCAI</span><span class="pill">NeurIPS</span><span class="pill">Lancet Digital</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">4.2</span> Portfolio Projects — The Ones That Signal Everything
+        </div>
+        <div class="module-group-desc">Each of these is a complete, deployable, explainable project that demonstrates your dual mastery of the biology and the engineering.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-violet">
+            <div class="card-title">Project 1: EEG Motor Imagery BCI</div>
+            <div class="card-body">Train EEGNet and a Transformer on PhysioNet EEG Motor Imagery dataset. Build a real-time inference pipeline. Visualise attention maps. Deploy as a Streamlit demo. Write a full blog post explaining the neuroscience of motor imagery.</div>
+            <div class="card-tags"><span class="pill">BCI</span><span class="pill">EEG</span><span class="pill">Real-time</span></div>
+          </div>
+          <div class="card card-accent theme-violet">
+            <div class="card-title">Project 2: Brain Tumour Segmentation</div>
+            <div class="card-body">nnU-Net on BraTS dataset. Compare with a ViT-based approach. Produce Grad-CAM visualisations. Write a clear explanation of what glioblastoma is and why precise segmentation matters for radiotherapy planning.</div>
+            <div class="card-tags"><span class="pill">nnU-Net</span><span class="pill">MRI</span><span class="pill">Segmentation</span></div>
+          </div>
+          <div class="card card-accent theme-violet">
+            <div class="card-title">Project 3: Clinical NLP Pipeline</div>
+            <div class="card-body">Build a Named Entity Recognition + Relation Extraction pipeline on MIMIC-III discharge summaries. Extract diagnoses, medications, procedures. Use scispaCy + fine-tuned BERT. Visualise with displaCy. Deploy a clinical note summariser.</div>
+            <div class="card-tags"><span class="pill">NLP</span><span class="pill">MIMIC-III</span><span class="pill">BERT</span></div>
+          </div>
+          <div class="card card-accent theme-violet">
+            <div class="card-title">Project 4: Alzheimer's Multimodal Prediction</div>
+            <div class="card-body">Combine MRI structural features (hippocampal volume via FreeSurfer) + cognitive test scores (MMSE, CDR) + demographic data from ADNI. Predict conversion from MCI to Alzheimer's. Use XGBoost + deep learning. Publish SHAP explanations.</div>
+            <div class="card-tags"><span class="pill">Alzheimer's</span><span class="pill">Multimodal</span><span class="pill">ADNI</span></div>
+          </div>
+          <div class="card card-accent theme-violet">
+            <div class="card-title">Project 5: Seizure Detection from EEG</div>
+            <div class="card-body">Train on the TUH Seizure Corpus (largest annotated EEG dataset in the world). Implement a temporal CNN + LSTM hybrid. Achieve competitive performance on the TUH benchmark. Deploy a demo with uploaded EEG files.</div>
+            <div class="card-tags"><span class="pill">Epilepsy</span><span class="pill">TUH EEG</span><span class="pill">LSTM</span></div>
+          </div>
+          <div class="card card-accent theme-violet">
+            <div class="card-title">Project 6: Drug-Target Interaction GNN</div>
+            <div class="card-body">Molecular graph representation of drug compounds. GNN trained on BindingDB for binding affinity prediction. Visualise molecular attention. Apply to a rare disease target. Use DeepChem + PyG (PyTorch Geometric).</div>
+            <div class="card-tags"><span class="pill">Drug Discovery</span><span class="pill">GNN</span><span class="pill">DeepChem</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">4.3</span> Technical Writing & Open Source
+        </div>
+        <div class="module-group-desc">The best engineers in healthcare AI are also excellent communicators. They write for both technical and clinical audiences.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-violet">
+            <div class="card-title">Technical Blog (Medium / Substack)</div>
+            <div class="card-body">Write one deep-dive post per month. Target: "EEGNet explained for neuroscientists", "Why nnU-Net beats everything in medical segmentation", "How AlphaFold actually works". These posts rank on Google and build your audience.</div>
+            <div class="card-tags"><span class="pill">Writing</span><span class="pill">Audience</span></div>
+          </div>
+          <div class="card card-accent theme-violet">
+            <div class="card-title">Open Source Contributions</div>
+            <div class="card-body">Contribute to MONAI, MNE-Python, Braindecode, nilearn, or scispaCy. Even documentation fixes matter. Open source contributions show technical initiative, collaboration, and domain fluency to anyone who checks your GitHub.</div>
+            <div class="card-tags"><span class="pill">GitHub</span><span class="pill">MONAI</span><span class="pill">MNE</span></div>
+          </div>
+          <div class="card card-accent theme-violet">
+            <div class="card-title">Preprint on arXiv / medRxiv</div>
+            <div class="card-body">Your first paper does not need to be in Nature. A well-written preprint on arXiv/bioRxiv with novel results is enough to establish you as a researcher. Preprints are indexed, cited, and read. Write one.</div>
+            <div class="card-tags"><span class="pill">arXiv</span><span class="pill">Research</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<hr class="fancy">
+
+<!-- ════════════════════════════════ PHASE 5 ════════════════════════════════ -->
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Phase Five</div>
+    <div class="section-title">Become the Go-To Person —<br>Advanced Mastery</div>
+  </div>
+
+  <div class="phase-grid phase-block theme-green">
+    <div class="phase-sidebar">
+      <div class="phase-number">05</div>
+      <div class="phase-label">Mastery</div>
+      <div class="phase-duration">Month 18 → ∞</div>
+      <div class="phase-tagline">"At this level, you stop consuming knowledge and start producing it."</div>
+    </div>
+
+    <div class="phase-body">
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">5.1</span> Foundation Models & Generalist Healthcare AI
+        </div>
+        <div class="module-group-desc">The next wave of healthcare AI is large, general, multimodal foundation models. Know their architecture, limitations, and potential.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-green">
+            <div class="card-title">Medical Vision-Language Models</div>
+            <div class="card-body">BioViL-T, CheXagent, LLaVA-Med, MedFlamingo — models that understand both images and clinical text. Trained on radiology reports + images. Contrastive learning (BioViL), instruction tuning. The radiology report generation pipeline.</div>
+            <div class="card-tags"><span class="pill">VLM</span><span class="pill">Radiology</span><span class="pill">CLIP</span></div>
+          </div>
+          <div class="card card-accent theme-green">
+            <div class="card-title">Medical Foundation Models, Multimodal LLMs & Clinical Agents</div>
+            <div class="card-body">USMLE performance benchmarks, clinical QA, chain-of-thought medical reasoning. Fine-tuning on clinical guidelines. Evaluating hallucination in medical contexts — a critical safety problem. Retrieval augmented generation for clinical accuracy.</div>
+            <div class="card-tags"><span class="pill">LLM</span><span class="pill">Safety</span><span class="pill">RAG</span></div>
+          </div>
+          <div class="card card-accent theme-green">
+            <div class="card-title">Federated Learning for Healthcare</div>
+            <div class="card-body">Training on distributed hospital data without data leaving institutions. PySyft, Flower, NVIDIA FLARE. The primary solution to privacy-preserving multi-site training — essential for any global health AI deployment.</div>
+            <div class="card-tags"><span class="pill">Federated</span><span class="pill">Privacy</span><span class="pill">FLARE</span></div>
+          </div>
+          <div class="card card-accent theme-green">
+            <div class="card-title">Synthetic Medical Data Generation</div>
+            <div class="card-body">Diffusion models for synthetic chest X-rays (RoentGen), synthetic EHR (CTGAN, synthea), privacy-preserving data augmentation. Solving the rare disease data problem. FDA guidance on synthetic data for regulatory submissions.</div>
+            <div class="card-tags"><span class="pill">Diffusion</span><span class="pill">Synthetic</span><span class="pill">Augmentation</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">5.2</span> Advanced Neuro AI — The Cutting Edge
+        </div>
+        <div class="module-group-desc">The papers being published today in this domain. Read them, understand them, and eventually contribute to them.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-green">
+            <div class="card-title">Brain Decoding at Scale</div>
+            <div class="card-body">MindEye2 (reconstructing images seen by subjects from fMRI), semantic speech decoding from ECoG. The challenge of generalising across subjects. Large-scale contrastive learning between brain and semantic space. Meta and Chang Lab's latest results.</div>
+            <div class="card-tags"><span class="pill">Decoding</span><span class="pill">fMRI</span><span class="pill">Frontier</span></div>
+          </div>
+          <div class="card card-accent theme-green">
+            <div class="card-title">Neural Manifolds & Geometry</div>
+            <div class="card-body">Population activity lives in low-dimensional manifolds. GPFA, LFADS (Latent Factor Analysis via Dynamical Systems), CEBRA (state-of-the-art self-supervised neural representation learning). The geometry of thought.</div>
+            <div class="card-tags"><span class="pill">Manifolds</span><span class="pill">LFADS</span><span class="pill">CEBRA</span></div>
+          </div>
+          <div class="card card-accent theme-green">
+            <div class="card-title">Organoids & Biological Neural Networks</div>
+            <div class="card-body">Brain-on-a-chip, cortical organoids playing Pong (DishBrain). AI models trained on organoid activity. The intersection of synthetic biology and AI. An emerging, speculative, but scientifically serious frontier.</div>
+            <div class="card-tags"><span class="pill">Organoids</span><span class="pill">Emerging</span><span class="pill">DishBrain</span></div>
+          </div>
+          <div class="card card-accent theme-green">
+            <div class="card-title">AI Neuroscience — What AI Tells Us About Brains</div>
+            <div class="card-body">Using DNNs as models of the visual cortex. Neural network units matching V1/V4/IT responses. Representational Similarity Analysis (RSA). The reverse project: using AI to understand biology, not just apply it.</div>
+            <div class="card-tags"><span class="pill">RSA</span><span class="pill">Visual Cortex</span><span class="pill">Neuro-AI</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-group">
+        <div class="module-group-title">
+          <span class="module-num">5.3</span> Explainability, Safety & Clinical Validation
+        </div>
+        <div class="module-group-desc">The best model is useless if a clinician cannot trust it and a regulator cannot approve it. Explainability is not optional — it is the job.</div>
+        <div class="card-grid">
+          <div class="card card-accent theme-green">
+            <div class="card-title">XAI for Medical Images</div>
+            <div class="card-body">Grad-CAM, GradCAM++, SHAP for image models, Integrated Gradients. Attention rollout for Vision Transformers. Concept-based explanations (TCAV). Your visualisations should make clinical sense — not just numerical sense.</div>
+            <div class="card-tags"><span class="pill">Grad-CAM</span><span class="pill">SHAP</span><span class="pill">Attention</span></div>
+          </div>
+          <div class="card card-accent theme-green">
+            <div class="card-title">Model Calibration & Uncertainty</div>
+            <div class="card-body">Temperature scaling, conformal prediction, Monte Carlo Dropout for uncertainty estimation. A model that says "70% confident" should be right 70% of the time. In medicine, poorly calibrated confidence is dangerous.</div>
+            <div class="card-tags"><span class="pill">Calibration</span><span class="pill">Uncertainty</span><span class="pill">Conformal</span></div>
+          </div>
+          <div class="card card-accent theme-green">
+            <div class="card-title">Clinical Validation Methodology</div>
+            <div class="card-body">Prospective vs retrospective studies, TRIPOD reporting guidelines (for clinical prediction models), AUC, sensitivity/specificity trade-offs in clinical context, net benefit curves (decision curve analysis). The language that clinicians and regulators speak.</div>
+            <div class="card-tags"><span class="pill">TRIPOD</span><span class="pill">Validation</span><span class="pill">Statistics</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<hr class="fancy">
+
+<!-- ════════════════════════════════ SIGNAL SECTION ════════════════════════════════ -->
+<div class="container" id="signal">
+  <div class="section-header">
+    <div class="section-eyebrow">Visibility Strategy</div>
+    <div class="section-title">Signal to the World That<br>You Are the Expert</div>
+  </div>
+
+  <div class="pullquote">
+    "The world cannot hire you if it does not know you exist. Expertise without visibility is a private collection. Make it public."
+  </div>
+
+  <div class="signal-grid">
+    <div class="signal-cell">
+      <div class="signal-num">01</div>
+      <div class="signal-title">Build in Public</div>
+      <div class="signal-body">Every project, every paper, every insight goes public. Your GitHub is your portfolio. Your blog is your reputation.</div>
+      <ul class="signal-items">
+        <li>GitHub: clean repos, great READMEs</li>
+        <li>Medium/Substack: 1 post/month</li>
+        <li>LinkedIn: weekly project updates</li>
+        <li>Hugging Face: upload your models</li>
+        <li>Kaggle: compete in medical datasets</li>
+      </ul>
+    </div>
+    <div class="signal-cell">
+      <div class="signal-num">02</div>
+      <div class="signal-title">Speak the Language of Two Worlds</div>
+      <div class="signal-body">You are the bridge between AI engineers and clinicians/neuroscientists. Write for both. Translate for both.</div>
+      <ul class="signal-items">
+        <li>Write technical posts for engineers</li>
+        <li>Write accessible posts for doctors</li>
+        <li>Present at AI meetups AND hospital grand rounds</li>
+        <li>Collaborate with a clinical co-author</li>
+        <li>Get your name on a clinical AI paper</li>
+      </ul>
+    </div>
+    <div class="signal-cell">
+      <div class="signal-num">03</div>
+      <div class="signal-title">Join the Community</div>
+      <div class="signal-body">Healthcare AI is a small world. The people in it talk to each other. Be in those conversations.</div>
+      <ul class="signal-items">
+        <li>MICCAI society membership</li>
+        <li>IEEE EMBS (biomedical engineers)</li>
+        <li>Society for Neuroscience (SFN)</li>
+        <li>Neuromatch Conference</li>
+        <li>Twitter/X #NeuroAI #MedAI</li>
+        <li>Discord: Medical AI & Neuro servers</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="signal-grid" style="margin-top: 16px;">
+    <div class="signal-cell">
+      <div class="signal-num">04</div>
+      <div class="signal-title">Your LinkedIn Bio — The Exact Signal</div>
+      <div class="signal-body">Your headline should be precise and bold. Not "AI student." Something like:</div>
+      <ul class="signal-items">
+        <li><em>"AI Engineer | Healthcare & Neuroscience"</em></li>
+        <li><em>"Building AI for the Brain & Medicine"</em></li>
+        <li><em>"ML for Neurological Disease & BCI"</em></li>
+      </ul>
+    </div>
+    <div class="signal-cell">
+      <div class="signal-num">05</div>
+      <div class="signal-title">The Research Network</div>
+      <div class="signal-body">Cold email professors. Most say yes to a well-prepared M.Tech student with good work.</div>
+      <ul class="signal-items">
+        <li>Email BCI lab PIs with a project idea</li>
+        <li>Offer to reproduce a paper for free</li>
+        <li>Apply to summer schools (Neuromatch, MLSS)</li>
+        <li>Reach out to healthcare AI startups</li>
+        <li>Apply for remote research collaborations</li>
+      </ul>
+    </div>
+    <div class="signal-cell">
+      <div class="signal-num">06</div>
+      <div class="signal-title">Teach to Learn</div>
+      <div class="signal-body">Teaching cements mastery and builds an audience simultaneously. Start a study group, post tutorials, host workshops.</div>
+      <ul class="signal-items">
+        <li>YouTube: "EEG BCI with Python" series</li>
+        <li>Run a medical AI reading group</li>
+        <li>Create Jupyter notebooks as tutorials</li>
+        <li>Present your work at your university</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr class="fancy">
+
+<!-- ════════════════════════════════ MILESTONES TIMELINE ════════════════════════════════ -->
+<div class="container" id="milestones">
+  <div class="section-header">
+    <div class="section-eyebrow">Execution Timeline</div>
+    <div class="section-title">Month-by-Month<br>Milestones</div>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot">M1</div>
+      <div class="timeline-content">
+        <div class="timeline-month">Month 1–2</div>
+        <div class="timeline-title">Biological Fluency — Sprint</div>
+        <div class="timeline-desc">Complete Khan Academy biology + Coursera Medical Neuroscience. Learn DICOM handling with pydicom. Install and run MNE-Python on a public EEG dataset. Read 10 foundational healthcare AI papers.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">M3</div>
+      <div class="timeline-content">
+        <div class="timeline-month">Month 3–4</div>
+        <div class="timeline-title">First Project Live on GitHub</div>
+        <div class="timeline-desc">Complete Project 1 (EEG Motor Imagery BCI) end-to-end. Push to GitHub with a detailed README. Write and publish your first blog post: "How I Built a Brain-Computer Interface with Python."</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">M6</div>
+      <div class="timeline-content">
+        <div class="timeline-month">Month 5–6</div>
+        <div class="timeline-title">Medical Imaging Mastery Begins</div>
+        <div class="timeline-desc">Complete BraTS segmentation project with nnU-Net. Reproduce one MICCAI paper in your area. Deploy a Streamlit demo. Present your work at a local AI/tech meetup — even a small one.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">M9</div>
+      <div class="timeline-content">
+        <div class="timeline-month">Month 7–9</div>
+        <div class="timeline-title">Clinical NLP Pipeline & MIMIC</div>
+        <div class="timeline-desc">Complete clinical NLP project on MIMIC-III. Complete Alzheimer's multimodal prediction project. Apply for PhysioNet access and ADNI access (both free but require application). 15+ papers read and summarised.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">M12</div>
+      <div class="timeline-content">
+        <div class="timeline-month">Month 10–12</div>
+        <div class="timeline-title">Seizure Detection + First Preprint Draft</div>
+        <div class="timeline-desc">Complete seizure detection project on TUH EEG. Begin drafting your first research paper — an extension or novel application from one of your projects. Submit to arXiv or bioRxiv. LinkedIn profile updated, 6 blog posts published.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">M18</div>
+      <div class="timeline-content">
+        <div class="timeline-month">Month 13–18</div>
+        <div class="timeline-title">Research Submission & Neuro Deep Dive</div>
+        <div class="timeline-desc">Submit to MICCAI, EMBC, or Journal of Neural Engineering. Complete GNN drug discovery project. Begin Neuromatch Computational Neuroscience course. Contribute a PR to MONAI, MNE-Python, or Braindecode. Reach 500+ LinkedIn followers in healthcare AI niche.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">M24</div>
+      <div class="timeline-content">
+        <div class="timeline-month">Month 19–24</div>
+        <div class="timeline-title">Published Researcher. Known Expert.</div>
+        <div class="timeline-desc">At least 1 peer-reviewed publication. 6 complete portfolio projects. Active presence in MICCAI / Neuromatch communities. Collaborations with at least one clinical or research partner. Ready to apply to top PhD programmes, healthcare AI companies, or BCI startups.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">∞</div>
+      <div class="timeline-content">
+        <div class="timeline-month">Year 3 and Beyond</div>
+        <div class="timeline-title">Irreplaceable — The Compounding Returns</div>
+        <div class="timeline-desc">At this point, your network, publications, domain knowledge, and engineering skills form a compound advantage that almost no one else can replicate. You are not competing on "machine learning skills." You are competing on a decade-shaped identity: the AI engineer who understands the brain.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="fancy">
+
+<!-- ════════════════════════════════ READING CHECKLIST ════════════════════════════════ -->
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Canonical Reading</div>
+    <div class="section-title">The 20 Papers That Define<br>Your Two Domains</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; padding: 48px 0;">
+    <div>
+      <div style="font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 20px;">Healthcare AI</div>
+      <div class="check-row">Rajpurkar et al. — CheXNet (2017): chest X-ray pneumonia detection</div>
+      <div class="check-row">Esteva et al. — Dermatologist-level classification (Nature 2017)</div>
+      <div class="check-row">Isensee et al. — nnU-Net: self-configuring segmentation (Nature Methods 2021)</div>
+      <div class="check-row">Lee et al. — BioBERT (2020): biomedical text mining</div>
+      <div class="check-row">Topol — High-performance medicine: convergence of human and AI (Nature 2019)</div>
+      <div class="check-row">Jumper et al. — AlphaFold 2 (Nature 2021)</div>
+      <div class="check-row">Singhal et al. — Large language models encode clinical knowledge (Med-PaLM, Nature 2023)</div>
+      <div class="check-row">Wornow et al. — Shaky foundations of foundation models in healthcare (2023)</div>
+      <div class="check-row">Johnson et al. — MIMIC-IV clinical database (2023)</div>
+      <div class="check-row">Bommasani et al. — Opportunities and risks of foundation models (2021)</div>
+    </div>
+    <div>
+      <div style="font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 20px;">Neuro AI & BCI</div>
+      <div class="check-row">Lawhern et al. — EEGNet: compact CNN for EEG (J Neural Eng 2018)</div>
+      <div class="check-row">Willett et al. — High-performance handwriting BCI (Nature 2021)</div>
+      <div class="check-row">Willett et al. — Speech neuroprosthesis (Nature 2023)</div>
+      <div class="check-row">Kriegeskorte — Deep neural networks: model of the visual system? (Annu Rev Vision 2015)</div>
+      <div class="check-row">Pandarinath et al. — LFADS: inferring latent dynamics (Nature Methods 2018)</div>
+      <div class="check-row">Schneider et al. — CEBRA: self-supervised neural embeddings (Nature 2023)</div>
+      <div class="check-row">Yamins et al. — Performance-optimised hierarchical models of cortex (PNAS 2014)</div>
+      <div class="check-row">Chaure et al. — Improved spike sorting with deep learning (J Neural Eng 2023)</div>
+      <div class="check-row">Scotti et al. — MindEye2: image reconstruction from fMRI (2024)</div>
+      <div class="check-row">Dayan & Abbott — Theoretical Neuroscience (textbook: read chs 1, 3, 7, 8)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ FOOTER ════════════════════════════════ -->
+<footer class="footer">
+  <div>
+    <div class="footer-title">AI Healthcare Engineer</div>
+    <div style="font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-faint); margin-top: 6px;">Mastery Roadmap — Sapath</div>
+  </div>
+  <div class="footer-meta">
+    <div>Built for a singular purpose:</div>
+    <div>to become irreplaceable.</div>
+    <div style="margin-top: 8px;">Techno India University — M.Tech CSE/AI-ML</div>
+    <div style="margin-top: 8px;">2026 Frontier Edition · reviewed Aug 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
