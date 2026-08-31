@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Month 1 Content Calendar — 150 Ideas</title>
+<style>
+  :root{
+    --bg:#0b0c10; --panel:rgba(255,255,255,0.045); --panel-strong:rgba(255,255,255,0.08);
+    --border:rgba(255,255,255,0.09); --border-soft:rgba(255,255,255,0.05);
+    --text:#edeff5; --text-dim:#8b90a3; --text-dimmer:#565b70;
+    --accent:#6d7bff; --accent-soft:rgba(109,123,255,0.15);
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(109,123,255,0.10), transparent 60%),
+      var(--bg);
+    color:var(--text); font-family:var(--sans); line-height:1.5;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 26px;}
+  header{padding:44px 0 24px;}
+  .kicker{font-family:var(--mono); font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:12px;}
+  h1{font-size:32px; margin:0 0 10px; letter-spacing:-0.01em;}
+  header p{color:var(--text-dim); font-size:14.5px; max-width:640px; margin:0;}
+
+  nav{position:sticky; top:0; z-index:20; background:rgba(11,12,16,0.82); backdrop-filter:blur(14px); border-bottom:1px solid var(--border-soft); padding:14px 0;}
+  .tabs{display:flex; gap:8px; flex-wrap:wrap;}
+  .tab{font-family:var(--mono); font-size:12.5px; padding:9px 15px; border-radius:9px; border:1px solid var(--border); background:rgba(255,255,255,0.03); color:var(--text-dim); cursor:pointer;}
+  .tab .n{color:var(--text-dimmer); margin-left:5px;}
+  .tab.active{background:var(--accent-soft); border-color:rgba(109,123,255,.4); color:var(--accent);}
+  .toolbar{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;}
+  .search{flex:1; min-width:220px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:9px; padding:9px 13px; color:var(--text); font-size:13px;}
+  .search:focus{outline:none; border-color:var(--accent);}
+
+  main{padding:30px 0 70px;}
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(310px,1fr)); gap:16px;}
+  .card{border:1px solid var(--border); border-radius:13px; background:var(--panel); padding:17px 18px; display:flex; flex-direction:column; gap:10px;}
+  .card .fmt{font-family:var(--mono); font-size:10px; color:var(--text-dimmer); text-transform:uppercase; letter-spacing:.05em;}
+  .card h3{margin:0; font-size:15px; line-height:1.35;}
+  .card .concept{font-size:13px; color:var(--text-dim); margin:0;}
+  .task-chip{align-self:flex-start; font-size:11px; font-family:var(--mono); color:var(--accent); background:var(--accent-soft); padding:3px 10px; border-radius:20px;}
+  .copy-btn{align-self:flex-start; font-family:var(--mono); font-size:11px; border:1px solid var(--border); background:transparent; color:var(--text-dim); padding:6px 12px; border-radius:8px; cursor:pointer;}
+  .copy-btn:hover{border-color:var(--accent); color:var(--accent);}
+  .copy-btn.copied{border-color:var(--accent); color:var(--accent);}
+  .empty{text-align:center; color:var(--text-dimmer); font-size:13.5px; padding:50px 0;}
+  footer{padding:30px 0 60px; text-align:center; color:var(--text-dimmer); font-family:var(--mono); font-size:11.5px;}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="kicker">Month 1 · Quantum Computing Career Track</div>
+  <h1>150 content ideas, written from your actual roadmap</h1>
+  <p>Every idea below is tied to a specific task from your Month 1 dashboard — 25 each for YouTube, Instagram Reels, Instagram Carousels, LinkedIn, X, and Reddit. No duplicates, no filler. Click "Copy" to grab the title + concept for your notes app.</p>
+</header>
+
+<nav>
+  <div class="wrap">
+    <div class="tabs" id="tabs"></div>
+    <div class="toolbar">
+      <input class="search" id="search" type="text" placeholder="Search ideas… (e.g. Qiskit, entanglement, README)">
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="empty" style="display:none;">No ideas match that search.</p>
+</main>
+
+<footer class="wrap">150 ideas · 6 platforms · 18 roadmap tasks · Month 1 Quantum Computing Career Track</footer>
+
+<script>
+const IDEAS = [
+/* ============ YOUTUBE (25) ============ */
+{p:"youtube", title:"I Spent a Week Just on Linear Algebra Before Touching a Single Qubit — Here's Why", concept:"A video justifying the math-first order, showing real diagonalization drills on camera.", task:"Complex Vector Spaces & Linear Algebra for QC"},
+{p:"youtube", title:"The Math Prerequisite Every Quantum Computing Course Skips", concept:"Breaking down eigen-decomposition and change of basis the way I wish someone had for me.", task:"Complex Vector Spaces & Linear Algebra for QC"},
+{p:"youtube", title:"Bra-Ket Notation Explained By Someone Who Just Learned It", concept:"A beginner's plain-English translation of Dirac notation into ordinary vector math.", task:"Dirac (Bra–Ket) Notation & Inner Products"},
+{p:"youtube", title:"How Two Qubits Become Four Numbers (Tensor Products, Visually)", concept:"A hand-drawn walkthrough of building 2-qubit states from single qubits.", task:"Tensor Products & Multi-Qubit Hilbert Spaces"},
+{p:"youtube", title:"Why Measuring a Qubit Is Just... Probability? (Born's Rule Explained)", concept:"Deriving measurement probabilities from a real state vector, step by step.", task:"Probability, Born's Rule & Measurement Statistics"},
+{p:"youtube", title:"I Finally Understand the Bloch Sphere (And Why It Took Me So Long)", concept:"Plotting real single-qubit states on a Bloch sphere and explaining what superposition actually is.", task:"Qubits, Superposition & the Bloch Sphere"},
+{p:"youtube", title:"Entanglement Isn't Magic — Here's the Actual Math", concept:"Building all four Bell states by hand and proving why they're inseparable.", task:"Entanglement, Bell States & the No-Cloning Theorem"},
+{p:"youtube", title:"The No-Cloning Theorem: Why You Literally Can't Copy a Qubit", concept:"A proof-driven explainer of quantum information's strangest rule.", task:"Entanglement, Bell States & the No-Cloning Theorem"},
+{p:"youtube", title:"Every Quantum Gate You Need to Know in One Video", concept:"Walking through Pauli, Hadamard, CNOT, T, and S gates with hand-traced examples.", task:"Core Quantum Gates & Circuit Composition"},
+{p:"youtube", title:"I Built 10 Quantum Circuits This Week — Here's What I Learned", concept:"A rapid-fire breakdown of ten textbook circuits and what each one teaches.", task:"Core Quantum Gates & Circuit Composition"},
+{p:"youtube", title:"Setting Up My Quantum Computing Dev Environment From Scratch", concept:"A real screen-recorded setup of NumPy, SciPy, Matplotlib, and Jupyter for quantum work.", task:"Python Scientific Stack"},
+{p:"youtube", title:"I Committed My First Quantum Computing Notes to GitHub — Here's Why That Matters", concept:"Explaining why a visible commit history matters more than people think for a beginner.", task:"Git & GitHub Proficiency"},
+{p:"youtube", title:"My First Quantum Circuit in Qiskit (Live Coding, No Cuts)", concept:"Installing Qiskit and running a real circuit on the Aer simulator, unscripted.", task:"Qiskit Installation, Circuits & the Aer Simulator"},
+{p:"youtube", title:"Simulator vs. Reality: Testing My Bell State Circuit in Qiskit", concept:"Comparing hand-derived predictions against actual Qiskit simulation output.", task:"Qiskit Installation, Circuits & the Aer Simulator"},
+{p:"youtube", title:"I Ran My Circuit on an Actual Quantum Computer (Not a Simulator)", concept:"Queuing and running a real job on IBM Quantum hardware, and reacting to the result live.", task:"Running Circuits on Real IBM Quantum Hardware"},
+{p:"youtube", title:"Simulator Said This. Real Quantum Hardware Said Something Else. Why?", concept:"A side-by-side comparison explaining noise and decoherence using my own data.", task:"Running Circuits on Real IBM Quantum Hardware"},
+{p:"youtube", title:"Can I Diagonalize a Matrix Without Notes? (Testing Myself)", concept:"An unscripted, timed hand-calculation challenge based on my daily drill habit.", task:"Daily Hand-Calculation Drills"},
+{p:"youtube", title:"Quantum Computing in 2026: What's Real and What's Hype", concept:"An honest breakdown of where IBM, Google, IonQ, and others actually stand right now.", task:"Market Enhancement — Quantum Industry Literacy"},
+{p:"youtube", title:"Why I'm Learning Quantum Computing in Public (And You Should Too)", concept:"Explaining the reasoning behind building a visible GitHub/LinkedIn presence from day one.", task:"Market Enhancement — Learning-in-Public Presence"},
+{p:"youtube", title:"The README Mistake That Makes Your GitHub Projects Look Amateur", concept:"Rewriting my own project READMEs live and explaining what changed.", task:"Market Enhancement — README & Documentation Discipline"},
+{p:"youtube", title:"I Built a True Random Number Generator Using Quantum Physics", concept:"A full build video of the Quantum Random Number Generator project, start to finish.", task:"Quantum Random Number Generator"},
+{p:"youtube", title:"Pseudo-Random vs. Quantum-Random: I Tested Both", concept:"Comparing classical randomness to my QRNG output and explaining the actual difference.", task:"Quantum Random Number Generator"},
+{p:"youtube", title:"I Built Quantum Teleportation From Scratch (Yes, Really)", concept:"A full walkthrough of implementing the 3-qubit teleportation protocol in Qiskit.", task:"Quantum Teleportation Demo"},
+{p:"youtube", title:"Quantum Teleportation, Step by Step, With Visuals", concept:"Showing the Bloch-sphere state at each stage of the protocol so it's actually visible.", task:"Quantum Teleportation Demo"},
+{p:"youtube", title:"I Published My First Quantum Computing Notebook — Here's What's In It", concept:"A walkthrough of my Bell State & Entanglement explainer notebook and why I wrote it this way.", task:"Bell State & Entanglement Explainer Notebook"},
+
+/* ============ INSTAGRAM REELS (25) ============ */
+{p:"reels", title:"POV: You Decided to Learn Quantum Computing and Day 1 Is All Math", concept:"A relatable, fast-cut reel about starting with linear algebra instead of code.", task:"Complex Vector Spaces & Linear Algebra for QC"},
+{p:"reels", title:"The Matrix Trick That Makes Quantum Math Make Sense", concept:"One quick visual reframe of eigen-decomposition that made it click.", task:"Complex Vector Spaces & Linear Algebra for QC"},
+{p:"reels", title:"This Weird Notation Is Actually Just Vectors (Bra-Ket Explained Fast)", concept:"A 20-second reframe of Dirac notation for total beginners.", task:"Dirac (Bra–Ket) Notation & Inner Products"},
+{p:"reels", title:"How 2 Qubits Turn Into 4 Numbers — 20 Second Version", concept:"A rapid visual explainer of tensor products for multi-qubit states.", task:"Tensor Products & Multi-Qubit Hilbert Spaces"},
+{p:"reels", title:"Why a Qubit's 'Answer' Is Just a Coin Flip (Kind Of)", concept:"A quick, punchy explainer of Born's rule using a coin-flip analogy.", task:"Probability, Born's Rule & Measurement Statistics"},
+{p:"reels", title:"The Sphere That Explains Quantum Superposition", concept:"A visual reel showing the Bloch sphere and what points on it actually mean.", task:"Qubits, Superposition & the Bloch Sphere"},
+{p:"reels", title:"Entanglement Explained Before You Finish Scrolling", concept:"A fast, no-jargon take on what entanglement actually is.", task:"Entanglement, Bell States & the No-Cloning Theorem"},
+{p:"reels", title:"You Can't Copy a Qubit. Here's Why in 15 Seconds.", concept:"A quick visual proof-sketch of the no-cloning theorem.", task:"Entanglement, Bell States & the No-Cloning Theorem"},
+{p:"reels", title:"5 Quantum Gates You'll See Everywhere", concept:"A rapid-fire visual rundown of Pauli, Hadamard, and CNOT gates.", task:"Core Quantum Gates & Circuit Composition"},
+{p:"reels", title:"Watch Me Build a Quantum Circuit in Real Time", concept:"A sped-up screen-record reel of assembling a circuit from scratch.", task:"Core Quantum Gates & Circuit Composition"},
+{p:"reels", title:"My Quantum Coding Setup in Under a Minute", concept:"A quick, satisfying setup-tour reel of the Python/Jupyter environment.", task:"Python Scientific Stack"},
+{p:"reels", title:"First GitHub Commit of My Quantum Journey", concept:"A short, honest reel marking the first real commit to a public repo.", task:"Git & GitHub Proficiency"},
+{p:"reels", title:"My First Line of Qiskit Code Ever", concept:"A genuine reaction reel to a first working Qiskit circuit.", task:"Qiskit Installation, Circuits & the Aer Simulator"},
+{p:"reels", title:"Simulator Says Yes. Reality Says... Let's See.", concept:"A cliffhanger-style reel building suspense before comparing simulator vs. hardware.", task:"Qiskit Installation, Circuits & the Aer Simulator"},
+{p:"reels", title:"I Just Ran Code on an Actual Quantum Computer", concept:"An excited, in-the-moment reel from queuing a real IBM Quantum job.", task:"Running Circuits on Real IBM Quantum Hardware"},
+{p:"reels", title:"Why My Quantum Result Wasn't Perfect (And That's Normal)", concept:"A short, honest explainer reel on noise in real quantum hardware.", task:"Running Circuits on Real IBM Quantum Hardware"},
+{p:"reels", title:"Daily Quantum Math Drill — Day Whatever", concept:"A quick, repeatable format documenting the daily hand-calculation habit.", task:"Daily Hand-Calculation Drills"},
+{p:"reels", title:"Is Quantum Computing Actually a Real Career Yet?", concept:"A punchy, opinionated reel on where the quantum job market really stands.", task:"Market Enhancement — Quantum Industry Literacy"},
+{p:"reels", title:"Documenting Month 1 of My Quantum Computing Career", concept:"A montage-style progress reel summarizing the first month.", task:"Market Enhancement — Learning-in-Public Presence"},
+{p:"reels", title:"Before vs. After: My GitHub README Glow-Up", concept:"A satisfying before/after reel showing a rewritten README.", task:"Market Enhancement — README & Documentation Discipline"},
+{p:"reels", title:"I Made True Randomness Using Physics, Not Code", concept:"A quick, intriguing reel teasing the Quantum Random Number Generator build.", task:"Quantum Random Number Generator"},
+{p:"reels", title:"Quantum Random vs. Computer Random — Can You Tell?", concept:"An interactive-feeling reel comparing two types of 'random' outputs.", task:"Quantum Random Number Generator"},
+{p:"reels", title:"I Built Quantum Teleportation. No, Really.", concept:"A hook-first reel teasing the teleportation project build.", task:"Quantum Teleportation Demo"},
+{p:"reels", title:"Watch a Qubit 'Teleport' State to State", concept:"A visual, satisfying reel showing the teleportation protocol animated.", task:"Quantum Teleportation Demo"},
+{p:"reels", title:"My First Published Quantum Notebook — Swipe Up Energy", concept:"A short, proud reel announcing the Bell State notebook is live.", task:"Bell State & Entanglement Explainer Notebook"},
+
+/* ============ INSTAGRAM CAROUSELS (25) ============ */
+{p:"carousels", title:"5 Linear Algebra Concepts You Need Before Learning Quantum Computing", concept:"A swipeable list of the core math prerequisites, explained simply.", task:"Complex Vector Spaces & Linear Algebra for QC"},
+{p:"carousels", title:"How I Learned Eigen-Decomposition in One Week (Swipe Through)", concept:"A step-by-step carousel of the exact drills that made it click.", task:"Complex Vector Spaces & Linear Algebra for QC"},
+{p:"carousels", title:"Bra-Ket Notation: A Beginner's Cheat Sheet", concept:"A reference-style carousel translating Dirac notation into plain vector math.", task:"Dirac (Bra–Ket) Notation & Inner Products"},
+{p:"carousels", title:"Tensor Products Explained in 6 Slides", concept:"A slide-by-slide build-up from single qubits to multi-qubit states.", task:"Tensor Products & Multi-Qubit Hilbert Spaces"},
+{p:"carousels", title:"Born's Rule, Broken Down Slide by Slide", concept:"A carousel deriving measurement probability from a state vector, one step per slide.", task:"Probability, Born's Rule & Measurement Statistics"},
+{p:"carousels", title:"Everything the Bloch Sphere Actually Tells You", concept:"A visual reference carousel mapping states to points on the sphere.", task:"Qubits, Superposition & the Bloch Sphere"},
+{p:"carousels", title:"The 4 Bell States, Explained Simply", concept:"A carousel walking through each Bell state and what makes it entangled.", task:"Entanglement, Bell States & the No-Cloning Theorem"},
+{p:"carousels", title:"Why You Can't Clone a Qubit — A Visual Proof", concept:"A slide-by-slide sketch of the no-cloning theorem's proof.", task:"Entanglement, Bell States & the No-Cloning Theorem"},
+{p:"carousels", title:"The Only Quantum Gate Cheat Sheet You Need", concept:"A save-worthy reference carousel of the six core gates.", task:"Core Quantum Gates & Circuit Composition"},
+{p:"carousels", title:"10 Circuits Every Beginner Should Build First", concept:"A carousel listing the textbook circuits worth building early, with what each teaches.", task:"Core Quantum Gates & Circuit Composition"},
+{p:"carousels", title:"My Exact Python Setup for Quantum Computing", concept:"A step-by-step carousel of the tools and install order used.", task:"Python Scientific Stack"},
+{p:"carousels", title:"Git & GitHub for Complete Beginners (Quantum Edition)", concept:"A beginner-friendly carousel covering the basics of committing and pushing.", task:"Git & GitHub Proficiency"},
+{p:"carousels", title:"Getting Started With Qiskit: A Step-by-Step Guide", concept:"A carousel walking through install, first circuit, and simulator run.", task:"Qiskit Installation, Circuits & the Aer Simulator"},
+{p:"carousels", title:"Simulator vs. Hardware: What's the Difference, Really?", concept:"A comparison carousel explaining noise, decoherence, and shot counts.", task:"Qiskit Installation, Circuits & the Aer Simulator"},
+{p:"carousels", title:"How to Run Your First Circuit on Real Quantum Hardware", concept:"A practical, step-by-step carousel for accessing IBM's free cloud QPU.", task:"Running Circuits on Real IBM Quantum Hardware"},
+{p:"carousels", title:"5 Things Nobody Tells You About Quantum Noise", concept:"A carousel of surprising, practical lessons from running on real hardware.", task:"Running Circuits on Real IBM Quantum Hardware"},
+{p:"carousels", title:"My Daily Quantum Math Drill Routine", concept:"A carousel breaking down the daily hand-calculation habit and why it matters.", task:"Daily Hand-Calculation Drills"},
+{p:"carousels", title:"Quantum Computing 2026: The Real Players, Explained", concept:"A carousel mapping IBM, Google, IonQ, Quantinuum, and others at a glance.", task:"Market Enhancement — Quantum Industry Literacy"},
+{p:"carousels", title:"How I'm Building a Quantum Career in Public (Month 1)", concept:"A carousel documenting the reasoning and first steps of a public learning journey.", task:"Market Enhancement — Learning-in-Public Presence"},
+{p:"carousels", title:"How to Write a README That Doesn't Embarrass You", concept:"A practical carousel of what a good project README actually needs.", task:"Market Enhancement — README & Documentation Discipline"},
+{p:"carousels", title:"How I Built a Quantum Random Number Generator (Full Breakdown)", concept:"A step-by-step build carousel of the QRNG project.", task:"Quantum Random Number Generator"},
+{p:"carousels", title:"3 Things I Learned Building My QRNG Project", concept:"A reflective carousel on lessons from shipping the first project.", task:"Quantum Random Number Generator"},
+{p:"carousels", title:"Quantum Teleportation Explained Slide by Slide", concept:"A carousel walking through the 3-qubit protocol one concept per slide.", task:"Quantum Teleportation Demo"},
+{p:"carousels", title:"Building Quantum Teleportation: My Step-by-Step Process", concept:"A behind-the-build carousel of how the project actually came together.", task:"Quantum Teleportation Demo"},
+{p:"carousels", title:"Everything Inside My Bell State Explainer Notebook", concept:"A preview carousel of the notebook's structure and key derivations.", task:"Bell State & Entanglement Explainer Notebook"},
+
+/* ============ LINKEDIN (25) ============ */
+{p:"linkedin", title:"Why I Started My Quantum Computing Journey With Pure Math, Not Code", concept:"A reflective post on choosing foundations over shortcuts, with the reasoning laid out.", task:"Complex Vector Spaces & Linear Algebra for QC"},
+{p:"linkedin", title:"The Unsexy Skill Behind Every Quantum Algorithm: Linear Algebra", concept:"An argument for why this foundational skill deserves more attention than it gets.", task:"Complex Vector Spaces & Linear Algebra for QC"},
+{p:"linkedin", title:"What Learning Dirac Notation Taught Me About Reading Research Papers", concept:"A career-insight post connecting a notation skill to research literacy.", task:"Dirac (Bra–Ket) Notation & Inner Products"},
+{p:"linkedin", title:"Tensor Products: The Concept That Makes Multi-Qubit Systems Click", concept:"An architecture-style breakdown of how single-qubit states combine.", task:"Tensor Products & Multi-Qubit Hilbert Spaces"},
+{p:"linkedin", title:"How Probability Theory Quietly Powers Quantum Computing", concept:"A research-summary style post connecting classical statistics to quantum measurement.", task:"Probability, Born's Rule & Measurement Statistics"},
+{p:"linkedin", title:"What a Qubit Actually Is (Without the Buzzwords)", concept:"A plain-language post cutting through common misconceptions about superposition.", task:"Qubits, Superposition & the Bloch Sphere"},
+{p:"linkedin", title:"Entanglement, Explained Without the Mysticism", concept:"A case-study post walking through Bell states as concrete math, not metaphor.", task:"Entanglement, Bell States & the No-Cloning Theorem"},
+{p:"linkedin", title:"The No-Cloning Theorem and Why It Matters for Quantum Security", concept:"An industry-analysis post connecting a theory concept to real security implications.", task:"Entanglement, Bell States & the No-Cloning Theorem"},
+{p:"linkedin", title:"The Six Gates That Power Nearly Every Quantum Circuit", concept:"An architecture breakdown post of the core gate set and how it composes.", task:"Core Quantum Gates & Circuit Composition"},
+{p:"linkedin", title:"What Building 10 Quantum Circuits Taught Me in One Week", concept:"A lessons-learned post reflecting on hands-on circuit practice.", task:"Core Quantum Gates & Circuit Composition"},
+{p:"linkedin", title:"Setting Up a Proper Dev Environment Before Writing a Line of Quantum Code", concept:"A practical, process-oriented post on tooling discipline.", task:"Python Scientific Stack"},
+{p:"linkedin", title:"Why I Started Documenting My Quantum Learning Publicly on GitHub", concept:"A career-insight post on the value of a visible learning trail.", task:"Git & GitHub Proficiency"},
+{p:"linkedin", title:"My First Week With Qiskit: A Case Study", concept:"A structured case-study post on ramping up with a new framework.", task:"Qiskit Installation, Circuits & the Aer Simulator"},
+{p:"linkedin", title:"What Simulator vs. Hardware Results Taught Me About Quantum Noise", concept:"A research-style post analyzing the gap between ideal and real results.", task:"Qiskit Installation, Circuits & the Aer Simulator"},
+{p:"linkedin", title:"I Ran a Circuit on Real Quantum Hardware — Here's What Changed", concept:"A project-showcase post marking the shift from simulator-only to hands-on hardware experience.", task:"Running Circuits on Real IBM Quantum Hardware"},
+{p:"linkedin", title:"Why Every Beginner Should Get Off the Simulator Early", concept:"A career-insight post arguing for early real-hardware exposure.", task:"Running Circuits on Real IBM Quantum Hardware"},
+{p:"linkedin", title:"The Habit Behind My Quantum Computing Progress: Daily Hand Drills", concept:"A weekly-reflection post on the underrated value of manual calculation practice.", task:"Daily Hand-Calculation Drills"},
+{p:"linkedin", title:"Quantum Computing in 2026: Separating Signal From Noise", concept:"An industry-analysis post distinguishing real progress from hype.", task:"Market Enhancement — Quantum Industry Literacy"},
+{p:"linkedin", title:"Why I'm Building My Quantum Career in Public, Starting Month 1", concept:"A career-insight post explaining the reasoning behind visible, early progress-sharing.", task:"Market Enhancement — Learning-in-Public Presence"},
+{p:"linkedin", title:"Documentation Is a Skill: What I Learned Rewriting My READMEs", concept:"A lesson-learned post on the professional value of clear documentation.", task:"Market Enhancement — README & Documentation Discipline"},
+{p:"linkedin", title:"Case Study: Building a Quantum Random Number Generator", concept:"A structured case-study post on the QRNG project's problem, approach, and result.", task:"Quantum Random Number Generator"},
+{p:"linkedin", title:"What a Small Quantum Project Taught Me About Shipping Real Work", concept:"A reflective post on the difference between tutorials and shipped projects.", task:"Quantum Random Number Generator"},
+{p:"linkedin", title:"Architecture Breakdown: How Quantum Teleportation Actually Works", concept:"A step-by-step architecture post explaining the 3-qubit protocol mechanism.", task:"Quantum Teleportation Demo"},
+{p:"linkedin", title:"Lessons From Building My First Quantum Teleportation Demo", concept:"A lessons-learned post reflecting on the flagship Month 1 project.", task:"Quantum Teleportation Demo"},
+{p:"linkedin", title:"Research Summary: What I Learned Writing My Bell State Notebook", concept:"A research-summary post distilling the notebook's key derivations for a professional audience.", task:"Bell State & Entanglement Explainer Notebook"},
+
+/* ============ X / TWITTER (25) ============ */
+{p:"x", title:"🧵 Everything I learned relearning linear algebra for quantum computing", concept:"A thread walking through the key math concepts covered in week one.", task:"Complex Vector Spaces & Linear Algebra for QC"},
+{p:"x", title:"Diagonalizing matrices by hand > watching another YouTube explainer", concept:"A single tweet making a case for active practice over passive tutorials.", task:"Complex Vector Spaces & Linear Algebra for QC"},
+{p:"x", title:"Bra-ket notation finally clicked. Here's the one reframe that did it.", concept:"A short, high-value tweet sharing the specific insight that unlocked the notation.", task:"Dirac (Bra–Ket) Notation & Inner Products"},
+{p:"x", title:"Tensor products in one tweet: two qubits, four numbers, no magic.", concept:"A compact research-nugget tweet demystifying multi-qubit state spaces.", task:"Tensor Products & Multi-Qubit Hilbert Spaces"},
+{p:"x", title:"Born's rule is just probability wearing a physics costume.", concept:"A punchy single tweet reframing measurement probability simply.", task:"Probability, Born's Rule & Measurement Statistics"},
+{p:"x", title:"The Bloch sphere is the best diagram in all of quantum computing. Fight me.", concept:"An opinionated tweet inviting engagement around a favorite visualization.", task:"Qubits, Superposition & the Bloch Sphere"},
+{p:"x", title:"Entanglement isn't spooky. It's just math you haven't seen yet.", concept:"A hot-take style tweet reframing entanglement without the mysticism.", task:"Entanglement, Bell States & the No-Cloning Theorem"},
+{p:"x", title:"You cannot copy a qubit. Here's the actual proof, not the meme version.", concept:"A mini-tutorial thread walking through the no-cloning theorem properly.", task:"Entanglement, Bell States & the No-Cloning Theorem"},
+{p:"x", title:"6 gates. That's it. That's most of quantum computing.", concept:"A punchy tweet summarizing the core gate set beginners actually need.", task:"Core Quantum Gates & Circuit Composition"},
+{p:"x", title:"Built 10 circuits today. Day 1 of actually understanding this stuff.", concept:"A project-log tweet marking hands-on circuit practice.", task:"Core Quantum Gates & Circuit Composition"},
+{p:"x", title:"NumPy + Jupyter + coffee = quantum computing dev setup, day 1.", concept:"A lighthearted progress-update tweet on environment setup.", task:"Python Scientific Stack"},
+{p:"x", title:"First commit to my quantum-portfolio repo. Small, but it's real.", concept:"A project-log tweet marking the start of a public GitHub trail.", task:"Git & GitHub Proficiency"},
+{p:"x", title:"My first Qiskit circuit ran. I may have yelled.", concept:"A genuine, celebratory progress-update tweet.", task:"Qiskit Installation, Circuits & the Aer Simulator"},
+{p:"x", title:"Simulator vs. real hardware: they don't agree, and that's the whole point.", concept:"A research-nugget tweet on why the discrepancy is actually the interesting part.", task:"Qiskit Installation, Circuits & the Aer Simulator"},
+{p:"x", title:"Just ran a circuit on an actual quantum computer. Not a simulator. Real hardware.", concept:"A milestone progress-update tweet.", task:"Running Circuits on Real IBM Quantum Hardware"},
+{p:"x", title:"Noise is not a bug. It's the entire reason NISQ-era quantum computing is hard.", concept:"A hot-take tweet backed by direct hardware-run evidence.", task:"Running Circuits on Real IBM Quantum Hardware"},
+{p:"x", title:"Day whatever of hand-calculating quantum math before touching Qiskit.", concept:"A recurring project-log format documenting the daily drill habit.", task:"Daily Hand-Calculation Drills"},
+{p:"x", title:"Genuine question about the quantum industry — how do you all separate hype from real progress?", concept:"A question-post tweet inviting community perspective.", task:"Market Enhancement — Quantum Industry Literacy"},
+{p:"x", title:"Building my quantum career in public. Month 1, day 1.", concept:"A build-in-public announcement tweet kicking off the public journey.", task:"Market Enhancement — Learning-in-Public Presence"},
+{p:"x", title:"Rewrote my README today. It went from 'trust me' to 'here's proof.'", concept:"A short before/after style tweet on documentation improvement.", task:"Market Enhancement — README & Documentation Discipline"},
+{p:"x", title:"Built a random number generator using actual quantum superposition. Not pseudo-random. Real.", concept:"A project-log tweet announcing the QRNG build.", task:"Quantum Random Number Generator"},
+{p:"x", title:"Quantum randomness vs. your OS's random() function — not the same thing.", concept:"A mini-tutorial tweet explaining the actual technical difference.", task:"Quantum Random Number Generator"},
+{p:"x", title:"Quantum teleportation isn't sci-fi. I built it. Thread.", concept:"A thread walking through the teleportation build for a general audience.", task:"Quantum Teleportation Demo"},
+{p:"x", title:"Unpopular opinion: teleportation is the best beginner project in quantum computing.", concept:"A hot-take tweet making the case for this specific project choice.", task:"Quantum Teleportation Demo"},
+{p:"x", title:"Published my Bell state notebook today. Small, but it's mine.", concept:"A quiet, proud project-log tweet marking a shipped artifact.", task:"Bell State & Entanglement Explainer Notebook"},
+
+/* ============ REDDIT (25) ============ */
+{p:"reddit", title:"Is it actually necessary to relearn linear algebra before starting quantum computing, or can I skip ahead?", concept:"A genuine question post inviting the community's take on sequencing.", task:"Complex Vector Spaces & Linear Algebra for QC"},
+{p:"reddit", title:"Finally diagonalized matrices by hand without looking anything up — small win", concept:"A low-key show-and-tell post celebrating a foundational milestone.", task:"Complex Vector Spaces & Linear Algebra for QC"},
+{p:"reddit", title:"Bra-ket notation finally made sense once I stopped treating it as new math", concept:"A resource-share style post explaining the mental shift that helped.", task:"Dirac (Bra–Ket) Notation & Inner Products"},
+{p:"reddit", title:"Can someone sanity-check my tensor product calculation for a 2-qubit state?", concept:"A genuine question post inviting correction and discussion.", task:"Tensor Products & Multi-Qubit Hilbert Spaces"},
+{p:"reddit", title:"How much probability theory do you actually need before quantum computing clicks?", concept:"A discussion post probing how much stats background is really required.", task:"Probability, Born's Rule & Measurement Statistics"},
+{p:"reddit", title:"The Bloch sphere finally clicked for me — sharing what helped", concept:"A resource-share post passing along what made the concept click.", task:"Qubits, Superposition & the Bloch Sphere"},
+{p:"reddit", title:"Struggling to intuitively grasp entanglement beyond the textbook definition — how did you all get it?", concept:"A genuine discussion post inviting others' explanations and analogies.", task:"Entanglement, Bell States & the No-Cloning Theorem"},
+{p:"reddit", title:"TIL you genuinely cannot clone a qubit — here's the proof that convinced me", concept:"A resource-share post walking through the no-cloning proof.", task:"Entanglement, Bell States & the No-Cloning Theorem"},
+{p:"reddit", title:"What's the actual minimum gate set I need to know as a beginner?", concept:"A question post seeking community consensus on essential gates.", task:"Core Quantum Gates & Circuit Composition"},
+{p:"reddit", title:"Built 10 basic circuits this week — anyone else find the textbook examples harder than expected?", concept:"A discussion post comparing notes on common beginner circuit struggles.", task:"Core Quantum Gates & Circuit Composition"},
+{p:"reddit", title:"What's your actual Python setup for quantum computing work?", concept:"A question post crowdsourcing tooling preferences.", task:"Python Scientific Stack"},
+{p:"reddit", title:"Starting a public GitHub repo to document my quantum computing learning — good idea or overkill?", concept:"A discussion post weighing the value of public documentation this early.", task:"Git & GitHub Proficiency"},
+{p:"reddit", title:"Just installed Qiskit and ran my first circuit — small win, sharing anyway", concept:"A show-and-tell post celebrating a first working circuit.", task:"Qiskit Installation, Circuits & the Aer Simulator"},
+{p:"reddit", title:"Why does my Aer simulator output differ slightly from the textbook expected value?", concept:"A genuine technical question post inviting troubleshooting help.", task:"Qiskit Installation, Circuits & the Aer Simulator"},
+{p:"reddit", title:"Ran my first circuit on real IBM quantum hardware today — AMA about the process", concept:"An AMA-style post offering to share the real-hardware access process.", task:"Running Circuits on Real IBM Quantum Hardware"},
+{p:"reddit", title:"Is the gap between simulator and real hardware results normal for beginners?", concept:"A discussion post normalizing a common early confusion.", task:"Running Circuits on Real IBM Quantum Hardware"},
+{p:"reddit", title:"Anyone else do daily hand-calculation drills instead of jumping straight to code?", concept:"A discussion post comparing study habits with the community.", task:"Daily Hand-Calculation Drills"},
+{p:"reddit", title:"Genuinely asking: is quantum computing worth the career bet in 2026, or is it still too early?", concept:"A question post inviting honest, experienced perspectives.", task:"Market Enhancement — Quantum Industry Literacy"},
+{p:"reddit", title:"Is 'building in public' actually worth it this early in a quantum computing journey?", concept:"A discussion post weighing the value of early public visibility.", task:"Market Enhancement — Learning-in-Public Presence"},
+{p:"reddit", title:"What actually makes a good README for a small quantum computing project?", concept:"A question post seeking concrete documentation standards.", task:"Market Enhancement — README & Documentation Discipline"},
+{p:"reddit", title:"Built a quantum random number generator — feedback on the approach welcome", concept:"A show-and-tell post inviting constructive critique of the QRNG build.", task:"Quantum Random Number Generator"},
+{p:"reddit", title:"Is quantum randomness actually meaningfully different from a good PRNG for most use cases?", concept:"A discussion post probing the practical significance of the project.", task:"Quantum Random Number Generator"},
+{p:"reddit", title:"Built quantum teleportation as a beginner project — happy to answer questions", concept:"An AMA-style post sharing the teleportation build experience.", task:"Quantum Teleportation Demo"},
+{p:"reddit", title:"One month into quantum computing — here's what I got wrong building teleportation", concept:"An honest retrospective post on mistakes made during the flagship project.", task:"Quantum Teleportation Demo"},
+{p:"reddit", title:"Published a beginner-friendly Bell state notebook — would appreciate feedback", concept:"A show-and-tell post inviting review of the published notebook.", task:"Bell State & Entanglement Explainer Notebook"}
+];
+
+const PLATFORM_META = {
+  youtube:   { label:"YouTube" },
+  reels:     { label:"IG Reels" },
+  carousels: { label:"IG Carousels" },
+  linkedin:  { label:"LinkedIn" },
+  x:         { label:"X / Twitter" },
+  reddit:    { label:"Reddit" }
+};
+
+let activeTab = "all";
+let query = "";
+
+function renderTabs(){
+  const wrap = document.getElementById("tabs");
+  const platforms = ["all", ...Object.keys(PLATFORM_META)];
+  wrap.innerHTML = "";
+  platforms.forEach(p=>{
+    const count = p === "all" ? IDEAS.length : IDEAS.filter(i=>i.p===p).length;
+    const label = p === "all" ? "All" : PLATFORM_META[p].label;
+    const btn = document.createElement("button");
+    btn.className = "tab" + (activeTab===p ? " active" : "");
+    btn.innerHTML = `${label}<span class="n">${count}</span>`;
+    btn.addEventListener("click", ()=>{ activeTab = p; renderTabs(); renderGrid(); });
+    wrap.appendChild(btn);
+  });
+}
+
+function renderGrid(){
+  const grid = document.getElementById("grid");
+  const empty = document.getElementById("empty");
+  const items = IDEAS.filter(i=>{
+    if(activeTab !== "all" && i.p !== activeTab) return false;
+    if(query){
+      const hay = (i.title+" "+i.concept+" "+i.task).toLowerCase();
+      if(!hay.includes(query.toLowerCase())) return false;
+    }
+    return true;
+  });
+  grid.innerHTML = "";
+  empty.style.display = items.length ? "none" : "block";
+  items.forEach((idea, idx)=>{
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <span class="fmt">${PLATFORM_META[idea.p].label}</span>
+      <h3>${idea.title}</h3>
+      <p class="concept">${idea.concept}</p>
+      <span class="task-chip">${idea.task}</span>
+      <button class="copy-btn" data-idx="${idx}">Copy</button>
+    `;
+    card.querySelector(".copy-btn").addEventListener("click", (e)=>{
+      const text = `${idea.title}\n\n${idea.concept}\n\nBased on: ${idea.task}`;
+      navigator.clipboard.writeText(text).then(()=>{
+        const btn = e.target;
+        btn.textContent = "Copied ✓";
+        btn.classList.add("copied");
+        setTimeout(()=>{ btn.textContent = "Copy"; btn.classList.remove("copied"); }, 1500);
+      });
+    });
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById("search").addEventListener("input", (e)=>{
+  query = e.target.value;
+  renderGrid();
+});
+
+renderTabs();
+renderGrid();
+</script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quantum Computing | Roadmaps</title>
+
+    <meta
+        name="description"
+        content="Quantum computing learning roadmaps, study systems, and content resources."
+    >
+
+    <style>
+
+        :root {
+            --bg: #07070b;
+            --surface: #0d0e14;
+            --surface-2: #11131c;
+            --text: #f5f7ff;
+            --muted: #9298aa;
+            --dim: #5f6575;
+            --line: rgba(255,255,255,.09);
+
+            --quantum: #73e7ff;
+            --quantum-2: #9d7cff;
+            --quantum-soft: rgba(115,231,255,.10);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 80% 10%,
+                    rgba(115,231,255,.08),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 20% 80%,
+                    rgba(157,124,255,.07),
+                    transparent 32%
+                ),
+                var(--bg);
+
+            color: var(--text);
+
+            font-family:
+                Inter,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page {
+            width: min(1180px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 70px 0;
+        }
+
+        .eyebrow {
+            color: var(--quantum);
+
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 12px 0 0;
+
+            font-size: clamp(42px, 7vw, 78px);
+            line-height: .95;
+            letter-spacing: -.055em;
+        }
+
+        .intro {
+            max-width: 720px;
+
+            margin-top: 22px;
+
+            color: var(--muted);
+
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .quantum-line {
+            height: 1px;
+            margin: 42px 0;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    var(--quantum),
+                    var(--quantum-2),
+                    transparent
+                );
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .card {
+            position: relative;
+
+            min-height: 260px;
+            padding: 30px;
+
+            overflow: hidden;
+
+            border: 1px solid var(--line);
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(115,231,255,.08),
+                    rgba(255,255,255,.02) 55%,
+                    rgba(157,124,255,.06)
+                );
+
+            transition:
+                transform .25s ease,
+                border-color .25s ease,
+                box-shadow .25s ease;
+        }
+
+        .card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 260px;
+            height: 260px;
+
+            right: -130px;
+            top: -130px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(115,231,255,.15),
+                    transparent 68%
+                );
+
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+
+            border-color:
+                rgba(115,231,255,.45);
+
+            box-shadow:
+                0 25px 70px rgba(0,0,0,.38),
+                0 0 45px rgba(115,231,255,.08);
+        }
+
+        .number {
+            color: var(--dim);
+
+            font-family: monospace;
+            font-size: 9px;
+            letter-spacing: .14em;
+        }
+
+        .icon {
+            margin-top: 28px;
+
+            color: var(--quantum);
+
+            font-size: 30px;
+        }
+
+        h2 {
+            margin: 15px 0 0;
+
+            font-size: 24px;
+            letter-spacing: -.035em;
+        }
+
+        .description {
+            margin-top: 12px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .open {
+            position: absolute;
+
+            right: 28px;
+            bottom: 25px;
+
+            color: var(--quantum);
+
+            font-family: monospace;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 45px;
+
+            color: var(--muted);
+
+            font-family: monospace;
+            font-size: 9px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .back:hover {
+            color: var(--quantum);
+        }
+
+        @media (max-width: 700px) {
+
+            .page {
+                width: min(100% - 28px, 1180px);
+                padding: 45px 0;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                min-height: 240px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <main class="page">
+
+        <a class="back" href="../">
+            ← Back to Roadmaps
+        </a>
+
+        <div class="eyebrow">
+            Quantum Computing · Domain 05
+        </div>
+
+        <h1>
+            Quantum<br>
+            Computing
+        </h1>
+
+        <p class="intro">
+            A dedicated quantum-computing learning system spanning
+            mathematical foundations, quantum mechanics, quantum
+            information, algorithms, circuits, hardware, simulation,
+            and emerging quantum technologies.
+        </p>
+
+        <div class="quantum-line"></div>
+
+        <section class="grid">
+
+            <a
+                class="card"
+                href="QUANTUM-COMPUTING-ROADMAP/"
+            >
+
+                <div class="number">
+                    QNT / 01
+                </div>
+
+                <div class="icon">
+                    ⟨ψ|U|ψ⟩
+                </div>
+
+                <h2>
+                    Quantum Computing Roadmap
+                </h2>
+
+                <p class="description">
+                    The primary learning path for developing deep
+                    quantum-computing foundations and progressing
+                    toward algorithms, systems, research, and
+                    practical quantum engineering.
+                </p>
+
+                <div class="open">
+                    Open roadmap →
+                </div>
+
+            </a>
+
+
+            <a
+                class="card"
+                href="CONTENT-IDEAS/"
+            >
+
+                <div class="number">
+                    QNT / 02
+                </div>
+
+                <div class="icon">
+                    ◇
+                </div>
+
+                <h2>
+                    Quantum Content Ideas
+                </h2>
+
+                <p class="description">
+                    Content planning resources for documenting,
+                    explaining, and communicating the quantum
+                    computing learning journey.
+                </p>
+
+                <div class="open">
+                    Open resources →
+                </div>
+
+            </a>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

@@ -749,7 +749,63 @@
             }
         }
 
-    </style>
+    
+        /* =========================================================
+           QUANTUM COMPUTING DOMAIN
+           Scoped theme — does not alter existing domain cards
+        ========================================================= */
+
+        .quantum-domain-card {
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(115,231,255,.11),
+                    rgba(255,255,255,.025) 50%,
+                    rgba(157,124,255,.09)
+                );
+        }
+
+        .quantum-domain-card::before {
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(115,231,255,.20),
+                    transparent 70%
+                );
+        }
+
+        .quantum-domain-card:hover {
+            border-color:
+                rgba(115,231,255,.55);
+
+            box-shadow:
+                0 25px 80px rgba(0,0,0,.40),
+                0 0 50px rgba(115,231,255,.12);
+        }
+
+        .quantum-domain-icon {
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(115,231,255,.14),
+                    rgba(157,124,255,.13)
+                );
+
+            border-color:
+                rgba(115,231,255,.28);
+        }
+
+        .quantum-domain-label {
+            color: #73e7ff;
+        }
+
+        .quantum-tag {
+            border-color:
+                rgba(115,231,255,.16);
+        }
+
+
+</style>
 </head>
 
 
@@ -1123,6 +1179,73 @@
             </div>
 
         </a>
+
+
+        <!-- =====================================================
+             QUANTUM COMPUTING
+        ====================================================== -->
+
+        <a
+            href="QUANTUM-COMPUTING/"
+            class="domain-card quantum-domain-card"
+        >
+
+            <div class="domain-arrow">
+                →
+            </div>
+
+            <div class="domain-header">
+
+                <div class="domain-icon quantum-domain-icon">
+                    ⚛
+                </div>
+
+                <div>
+
+                    <div class="domain-label quantum-domain-label">
+                        Domain 05 · Active
+                    </div>
+
+                    <div class="domain-title">
+                        Quantum Computing
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p class="domain-description">
+
+                Deep roadmaps for quantum information, quantum
+                algorithms, quantum circuits, simulation, hardware,
+                error correction, and the engineering foundations
+                of practical quantum computing.
+
+            </p>
+
+            <div class="tags">
+
+                <span class="tag quantum-tag">
+                    Quantum Algorithms
+                </span>
+
+                <span class="tag quantum-tag">
+                    Quantum Information
+                </span>
+
+                <span class="tag quantum-tag">
+                    Qiskit
+                </span>
+
+                <span class="tag quantum-tag">
+                    Quantum Hardware
+                </span>
+
+            </div>
+
+        </a>
+
+
 
 
         <!-- =====================================================

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Wire — Phase 1 Quantum Roadmap → 150 Platform Ideas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0c0f; --bg2:#111318; --surface:#15181e; --surface2:#1b1f27;
+    --border:#262b34; --text:#e9eaee; --dim:#9aa0ac; --muted:#5c6270;
+    --paper:#ecebe4;
+    --yt:#ff4d4d; --reels:#ff5fa8; --carousel:#ffb648; --li:#4fa8ff; --x:#e9eaee; --threads:#b48cff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--text); font-family:'Inter',sans-serif;
+    min-height:100vh;
+  }
+  ::selection{background:var(--carousel); color:#1a1300;}
+
+  /* MASTHEAD */
+  .masthead{
+    border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg, var(--bg2), var(--bg));
+    padding:2.4rem 2rem 1.6rem;
+    position:sticky; top:0; z-index:50;
+  }
+  .masthead-inner{max-width:1320px; margin:0 auto;}
+  .kicker{
+    font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--carousel); display:flex; align-items:center; gap:0.6rem;
+    margin-bottom:0.9rem;
+  }
+  .kicker::before{content:'●'; color:var(--yt); animation:pulse 1.8s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.25;}}
+  h1.wire-title{
+    font-family:'Fraunces',serif; font-weight:600; font-style:italic;
+    font-size:clamp(1.9rem, 3.6vw, 3rem); line-height:1.05; letter-spacing:-0.01em;
+    max-width:900px;
+  }
+  .wire-sub{
+    font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--dim);
+    margin-top:0.9rem; max-width:760px; line-height:1.6;
+  }
+  .stat-row{display:flex; gap:1.6rem; margin-top:1.4rem; flex-wrap:wrap;}
+  .stat{
+    font-family:'IBM Plex Mono',monospace; font-size:0.7rem; color:var(--muted);
+    border-left:2px solid var(--border); padding-left:0.6rem;
+  }
+  .stat b{color:var(--text); font-size:0.95rem; display:block; font-family:'Fraunces',serif; font-style:normal;}
+
+  /* CONTROLS */
+  .controls{
+    max-width:1320px; margin:1.6rem auto 0; padding:0 2rem 1.4rem;
+    display:flex; gap:0.9rem; flex-wrap:wrap; align-items:center;
+  }
+  .search-box{
+    flex:1; min-width:220px;
+    background:var(--surface); border:1px solid var(--border); border-radius:3px;
+    padding:0.55rem 0.8rem; color:var(--text); font-family:'IBM Plex Mono',monospace; font-size:0.78rem;
+  }
+  .search-box:focus{outline:none; border-color:var(--carousel);}
+  .platform-tabs{display:flex; gap:0.4rem; flex-wrap:wrap;}
+  .ptab{
+    font-family:'IBM Plex Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em;
+    padding:0.5rem 0.85rem; border-radius:3px; border:1px solid var(--border);
+    background:var(--surface); color:var(--dim); cursor:pointer; transition:all .15s; white-space:nowrap;
+  }
+  .ptab:hover{border-color:var(--muted); color:var(--text);}
+  .ptab.active{color:#0b0c0f; font-weight:600; border-color:transparent;}
+  .ptab[data-p="all"].active{background:var(--text);}
+  .ptab[data-p="youtube"].active{background:var(--yt);}
+  .ptab[data-p="reels"].active{background:var(--reels);}
+  .ptab[data-p="carousels"].active{background:var(--carousel);}
+  .ptab[data-p="linkedin"].active{background:var(--li);}
+  .ptab[data-p="x"].active{background:var(--x);}
+  .ptab[data-p="threads"].active{background:var(--threads);}
+  .count-pill{
+    font-family:'IBM Plex Mono',monospace; font-size:0.68rem; color:var(--muted);
+    border:1px dashed var(--border); border-radius:3px; padding:0.5rem 0.8rem;
+  }
+
+  /* LAYOUT */
+  .layout{max-width:1320px; margin:0 auto; padding:0 2rem 5rem; display:grid; grid-template-columns:230px 1fr; gap:2.4rem;}
+  @media (max-width:900px){.layout{grid-template-columns:1fr;} .toc{display:none;}}
+
+  .toc{position:sticky; top:220px; align-self:start; max-height:calc(100vh - 260px); overflow-y:auto; padding-right:0.4rem;}
+  .toc-label{font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:0.8rem;}
+  .toc a{
+    display:block; font-size:0.78rem; color:var(--dim); text-decoration:none; padding:0.4rem 0 0.4rem 0.7rem;
+    border-left:2px solid var(--border); margin-bottom:0.15rem; line-height:1.35; transition:all .15s;
+  }
+  .toc a:hover, .toc a.active{color:var(--text); border-left-color:var(--carousel);}
+  .toc .tnum{font-family:'IBM Plex Mono',monospace; color:var(--muted); margin-right:0.35rem;}
+
+  /* SECTIONS */
+  .section-block{margin-bottom:3.6rem; scroll-margin-top:210px;}
+  .section-head{
+    display:flex; align-items:baseline; gap:0.9rem; padding-bottom:0.9rem; margin-bottom:1.6rem;
+    border-bottom:1px solid var(--border);
+  }
+  .section-num{
+    font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--carousel); flex-shrink:0;
+  }
+  .section-head h2{
+    font-family:'Fraunces',serif; font-weight:600; font-size:1.5rem; letter-spacing:-0.01em;
+  }
+  .section-source{
+    font-family:'IBM Plex Mono',monospace; font-size:0.65rem; color:var(--muted); margin-left:auto; text-align:right;
+  }
+
+  .platform-group{margin-bottom:1.8rem;}
+  .platform-group:last-child{margin-bottom:0;}
+  .pg-label{
+    display:flex; align-items:center; gap:0.5rem; margin-bottom:0.8rem;
+    font-family:'IBM Plex Mono',monospace; font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--dim);
+  }
+  .pg-dot{width:8px; height:8px; border-radius:2px; flex-shrink:0;}
+  .pg-dot.youtube{background:var(--yt);} .pg-dot.reels{background:var(--reels);}
+  .pg-dot.carousels{background:var(--carousel);} .pg-dot.linkedin{background:var(--li);}
+  .pg-dot.x{background:var(--x);} .pg-dot.threads{background:var(--threads);}
+
+  .card-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:0.9rem;}
+
+  .idea-card{
+    background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--muted);
+    border-radius:3px; padding:1rem 1.1rem 1.1rem;
+    display:flex; flex-direction:column; gap:0.55rem;
+  }
+  .idea-card.youtube{border-left-color:var(--yt);}
+  .idea-card.reels{border-left-color:var(--reels);}
+  .idea-card.carousels{border-left-color:var(--carousel);}
+  .idea-card.linkedin{border-left-color:var(--li);}
+  .idea-card.x{border-left-color:var(--x);}
+  .idea-card.threads{border-left-color:var(--threads);}
+
+  .idea-top{display:flex; justify-content:space-between; align-items:flex-start; gap:0.6rem;}
+  .idea-ticket{font-family:'IBM Plex Mono',monospace; font-size:0.6rem; color:var(--muted);}
+  .idea-audience{
+    font-family:'IBM Plex Mono',monospace; font-size:0.58rem; text-transform:uppercase; letter-spacing:0.05em;
+    color:var(--dim); border:1px solid var(--border); border-radius:2px; padding:0.15rem 0.4rem; white-space:nowrap;
+  }
+  .idea-title{
+    font-family:'Fraunces',serif; font-weight:600; font-size:0.98rem; line-height:1.32; color:var(--text);
+  }
+  .idea-hook{
+    font-size:0.79rem; color:var(--carousel); line-height:1.5; font-style:italic;
+  }
+  .idea-hook::before{content:'🪝 '; font-style:normal;}
+  .idea-takeaway{font-size:0.79rem; color:var(--dim); line-height:1.55;}
+  .idea-takeaway b{color:var(--text); font-weight:600; font-style:normal;}
+
+  .empty-state{
+    text-align:center; padding:4rem 1rem; color:var(--muted); font-family:'IBM Plex Mono',monospace; font-size:0.8rem;
+    display:none;
+  }
+
+  footer{
+    text-align:center; padding:2.4rem 1rem 3rem; color:var(--muted); font-family:'IBM Plex Mono',monospace; font-size:0.68rem;
+    border-top:1px solid var(--border);
+  }
+
+  @media (prefers-reduced-motion: reduce){ .kicker::before{animation:none;} }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="kicker">Content Wire · Roadmap-to-Platform Feed</div>
+    <h1 class="wire-title">150 curiosity-driven content ideas, pulled straight from your Quantum Foundations roadmap.</h1>
+    <div class="wire-sub">Every idea below is traced to a specific section of "Phase 1 — Quantum Foundations Deep Dive" and written natively for the platform it's built for — no cross-posted titles, no "Introduction to..." filler.</div>
+    <div class="stat-row">
+      <div class="stat"><b>150</b>total ideas</div>
+      <div class="stat"><b>25 × 6</b>per platform</div>
+      <div class="stat"><b>10</b>roadmap sections covered</div>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <input class="search-box" id="searchBox" type="text" placeholder="Search titles, hooks, sections… (e.g. 'Bell', 'no-cloning', 'Simon')">
+  <div class="platform-tabs" id="platformTabs">
+    <button class="ptab active" data-p="all">All</button>
+    <button class="ptab" data-p="youtube">YouTube</button>
+    <button class="ptab" data-p="reels">IG Reels</button>
+    <button class="ptab" data-p="carousels">IG Carousels</button>
+    <button class="ptab" data-p="linkedin">LinkedIn</button>
+    <button class="ptab" data-p="x">X</button>
+    <button class="ptab" data-p="threads">Threads</button>
+  </div>
+  <div class="count-pill" id="countPill">150 shown</div>
+</div>
+
+<div class="layout">
+  <nav class="toc" id="toc"></nav>
+  <main id="main">
+    <div class="empty-state" id="emptyState">No ideas match that search. Try a different keyword or platform.</div>
+  </main>
+</div>
+
+<footer>Generated for the Phase 1 — Quantum Foundations Deep Dive roadmap · Ideas are prompts for creators, not final scripts</footer>
+
+<script>
+const PLATFORM_LABEL = { youtube:'YouTube (Long-Form)', reels:'Instagram Reels', carousels:'Instagram Carousels', linkedin:'LinkedIn Posts', x:'X (Twitter)', threads:'Threads' };
+const PLATFORM_ORDER = ['youtube','reels','carousels','linkedin','x','threads'];
+
+const SECTIONS = [
+{
+  id:'overview', num:'01', title:'Phase Overview — Mindset & the 10-Hour Weekly System',
+  source:'Section 01 — Phase Overview',
+  ideas:{
+    youtube:[
+      {title:"I Spent 6 Months Rewiring My Brain for Quantum Computing (Here's the 10-Hour Roadmap)", hook:"The math wasn't the hard part. The real bottleneck shows up at minute 4, and almost nobody warns you about it.", takeaway:"The hardest part of learning quantum computing isn't the equations — it's replacing probability-thinking with amplitude-thinking.", audience:"Beginner"}
+    ],
+    reels:[
+      {title:"Why 90% of People Quit Quantum Computing in Month 2", hook:"It's not the math that kills momentum. It's this one scheduling mistake.", takeaway:"Structured, consistent weekly practice beats binge-learning theory for building real intuition.", audience:"Beginner"}
+    ],
+    carousels:[
+      {title:"The 7-Day Quantum Study Schedule That Actually Works (Steal This)", hook:"Swipe to see the exact day-by-day split between theory, code, labs, and writing that built real intuition in 6 months.", takeaway:"Splitting hours across theory, coding, lab work, and writing — not just reading — is what makes concepts stick.", audience:"Beginner / Intermediate"}
+    ],
+    linkedin:[
+      {title:"I Mapped a 6-Month Quantum Computing Curriculum as an AI/ML Grad Student — Here's What Surprised Me", hook:"I assumed my ML linear algebra background would carry me. It carried me about 20% of the way.", takeaway:"AI/ML skills give you a head start on the math, but quantum computing demands a genuinely new mental model — plan for that gap explicitly.", audience:"Intermediate"}
+    ],
+    x:[
+      {title:"Unpopular opinion: you don't need a physics PhD to understand quantum computing. You need to unlearn classical intuition first. 🧵", hook:"The prerequisite nobody lists on the syllabus.", takeaway:"Mindset shift, not credentials, is the real gatekeeper to understanding quantum computing.", audience:"Beginner"}
+    ],
+    threads:[
+      {title:"the real reason quantum computing 'clicks' for some people and not others (it's not IQ)", hook:"it's a specific mental habit you can actually train", takeaway:"Understanding quantum computing is a trainable skill of re-framing probability as amplitude, not an innate aptitude.", audience:"Beginner"}
+    ]
+  }
+},
+{
+  id:'math', num:'02', title:'Mathematics Foundations — Linear Algebra & Dirac Notation',
+  source:'Section 03 — Core Topics · Mathematics Foundations',
+  ideas:{
+    youtube:[
+      {title:"Why Quantum Linear Algebra Breaks Everything You Learned in ML", hook:"Your ML linear algebra didn't lie to you exactly — it just left out an entire dimension.", takeaway:"Quantum states live in complex Hilbert spaces with Hermitian inner products — a genuinely different geometry from the real-valued vectors used in ML.", audience:"Intermediate"},
+      {title:"Dirac Notation in 20 Minutes: The Secret Language Every Quantum Paper Uses", hook:"Every paper you've avoided because it 'looked too advanced' uses one notation system — and it's simpler than the equations it replaces.", takeaway:"Fluency in bra-ket notation (kets, bras, inner/outer products) unlocks the ability to read real quantum papers without translation.", audience:"Beginner"}
+    ],
+    reels:[
+      {title:"POV: you realize a 'ket' is just a column vector wearing a costume", hook:"The notation that intimidates beginners is secretly just linear algebra in disguise.", takeaway:"Dirac notation isn't new math — it's compact packaging for vectors and matrices you already know.", audience:"Beginner"},
+      {title:"The 1 Property Every Quantum Gate Must Have (Or Your Computer Breaks)", hook:"Break this one rule and your quantum computer literally stops making physical sense.", takeaway:"Unitarity (U†U = I) is what guarantees quantum gates are reversible and preserve probability.", audience:"Beginner / Intermediate"}
+    ],
+    carousels:[
+      {title:"5 Linear Algebra Concepts You Must Unlearn for Quantum Computing", hook:"Swipe through the side-by-side comparison of 'ML version' vs 'quantum version' for each concept.", takeaway:"Complex vector spaces, Hermitian operators, tensor products, unitarity, and spectral decomposition each work differently than their ML counterparts.", audience:"Intermediate"},
+      {title:"Bra-Ket Notation Cheat Sheet: Ket, Bra, Inner Product, Outer Product, Expectation Value", hook:"Screenshot this before your next quantum computing paper makes you feel like you forgot how to read.", takeaway:"A single-page visual reference that maps each Dirac notation symbol to what it actually computes.", audience:"Beginner"}
+    ],
+    linkedin:[
+      {title:"The Math Prerequisite Nobody Tells AI/ML Engineers About Before They Touch Quantum Computing", hook:"There's a hidden math gap between 'good at ML linear algebra' and 'ready for quantum computing' — and it's rarely discussed openly.", takeaway:"Complex Hilbert space math is a distinct, plannable skill investment for ML engineers moving into quantum — not an automatic carryover.", audience:"Intermediate"},
+      {title:"Why Hermitian Operators Guarantee Real Measurement Outcomes (And Why That Matters for Quantum ML)", hook:"One structural property of an operator is the entire reason your measurement results aren't imaginary numbers.", takeaway:"Hermitian operators (H† = H) mathematically guarantee real eigenvalues, which is why physical observables always yield real measurement outcomes.", audience:"Advanced"}
+    ],
+    x:[
+      {title:"Tensor products are just Kronecker products with a physics costume on. Thread on why this trips up every ML person learning quantum 🧵", hook:"The operation you already know from ML, renamed and slightly reframed.", takeaway:"Recognizing tensor products as a familiar operation removes one of the biggest early stumbling blocks in quantum computing.", audience:"Intermediate"},
+      {title:"Hot take: if you can compute eigenvalues, you already understand 60% of what makes quantum measurement 'weird'", hook:"The 'mysterious' part of quantum measurement is math you did in your second linear algebra course.", takeaway:"Eigenvalue decomposition directly underlies how quantum measurement outcomes and probabilities are computed.", audience:"Intermediate"}
+    ],
+    threads:[
+      {title:"the day complex numbers stopped being 'imaginary' and started being the whole point", hook:"turns out the number your calculus teacher called 'not real' is doing all the physical work", takeaway:"Complex amplitudes aren't a mathematical convenience in quantum mechanics — they're physically essential to how interference works.", audience:"Beginner"},
+      {title:"unpopular opinion: Dirac notation is easier than matrix notation once you stop fighting it", hook:"the notation everyone fears is actually the shortcut, not the obstacle", takeaway:"Bra-ket notation compresses matrix operations into a form that's faster to read and write once it's internalized.", audience:"Beginner"}
+    ]
+  }
+},
+{
+  id:'qubits', num:'03', title:'Qubits & the Bloch Sphere',
+  source:'Section 03 — Core Topics · Quantum Physics Core',
+  ideas:{
+    youtube:[
+      {title:"A Classical Bit Has 2 States. A Qubit Has Infinite. Here's the Sphere That Proves It.", hook:"Every point on this sphere's surface is a valid, physically real state — and there are infinitely many of them.", takeaway:"The Bloch sphere shows a qubit's state space is continuous, not binary — a single qubit can point anywhere on the sphere's surface.", audience:"Beginner"},
+      {title:"Global Phase vs Relative Phase: The Distinction That Confuses Everyone", hook:"One type of phase is completely invisible to any measurement. The other one changes the entire outcome of your algorithm.", takeaway:"Global phase has no physical consequence, but relative phase directly drives interference effects — mixing the two up derails algorithm intuition.", audience:"Intermediate"},
+      {title:"I Coded Every Rotation on the Bloch Sphere in Qiskit — Here's What Each Gate Actually Does", hook:"Watching the state vector move in real time is the fastest way to stop memorizing gates and start understanding them.", takeaway:"Mapping each single-qubit gate to its geometric rotation on the Bloch sphere builds durable circuit intuition, not memorized rules.", audience:"Intermediate"}
+    ],
+    reels:[
+      {title:"This sphere contains every possible state of a single qubit", hook:"One 3D shape. Infinite valid quantum states. Mind = blown.", takeaway:"The Bloch sphere is a complete geometric map of every pure state a single qubit can be in.", audience:"Beginner"},
+      {title:"Why 'superposition' does NOT mean 50/50", hook:"The sphere proves the '50/50' explanation you've heard is only one special case out of infinite possibilities.", takeaway:"Superposition covers a continuous range of amplitude splits, not just an even 50/50 mix.", audience:"Beginner"},
+      {title:"Watch a Hadamard gate rotate a qubit in real time", hook:"The most-used gate in quantum computing is just a 180° flip — here's what that looks like.", takeaway:"Seeing the Hadamard gate as a physical rotation makes its effect on |0⟩ and |1⟩ intuitive instead of abstract.", audience:"Beginner"}
+    ],
+    carousels:[
+      {title:"The Bloch Sphere Explained in 6 Slides (No Physics Degree Required)", hook:"Swipe through the exact mental model that made single-qubit states finally make sense.", takeaway:"A step-by-step visual build-up from '2D bit' to 'point on a sphere' that removes the intimidation factor.", audience:"Beginner"},
+      {title:"Qubit State Formula Breakdown: What θ and φ Actually Control", hook:"Two angles. One formula. Every possible qubit state. Here's what each variable is doing.", takeaway:"θ controls the north-south position (basis mix) and φ controls the relative phase — decoupling these makes the formula readable.", audience:"Intermediate"},
+      {title:"Mixed States vs Pure States: Why One Lives Inside the Sphere", hook:"Not every valid quantum state sits on the surface — here's what's happening in the interior.", takeaway:"Pure states occupy the sphere's surface while mixed states (classical uncertainty about the quantum state) live inside it.", audience:"Intermediate"}
+    ],
+    linkedin:[
+      {title:"What the Bloch Sphere Taught Me About Representing Uncertainty (A Lesson for ML Engineers)", hook:"A single geometric object separates 'I don't know the state' from 'the state is genuinely undetermined' — a distinction ML rarely forces you to make.", takeaway:"The pure-vs-mixed-state distinction on the Bloch sphere maps to a broader lesson about modeling uncertainty rigorously.", audience:"Intermediate"},
+      {title:"Pure States vs Mixed States: A Concept Every Quantum-Curious Data Scientist Should Know", hook:"This one distinction is the first place classical probabilistic intuition actively misleads people.", takeaway:"Understanding when a system needs a density matrix instead of a state vector is foundational before touching noise modeling.", audience:"Intermediate"},
+      {title:"Why I Spent a Full Week Just on Single-Qubit Geometry Before Touching Any Algorithm", hook:"Skipping this step is why so many self-taught learners hit a wall the moment algorithms get introduced.", takeaway:"Investing early in geometric intuition for single qubits pays off directly when reasoning through multi-qubit algorithms later.", audience:"Beginner / Intermediate"}
+    ],
+    x:[
+      {title:"A qubit isn't '0 and 1 at the same time.' It's a point on a sphere. Thread on why this framing changes everything 🧵", hook:"The most common explanation of a qubit is also the most misleading one.", takeaway:"Reframing a qubit as a point on the Bloch sphere replaces a vague analogy with an exact, usable geometric model.", audience:"Beginner"},
+      {title:"Global phase: invisible. Relative phase: everything. This distinction breaks more beginners than any equation.", hook:"Two words that sound identical, physics that couldn't be more different.", takeaway:"Distinguishing global from relative phase resolves a huge share of early confusion in quantum computing.", audience:"Intermediate"},
+      {title:"Mixed states live inside the Bloch sphere. Pure states live on the surface. One sentence, huge implications.", hook:"A single geometric rule that tells you everything about a qubit's certainty.", takeaway:"Surface vs interior position on the Bloch sphere directly encodes how 'pure' or 'mixed' a quantum state is.", audience:"Intermediate"}
+    ],
+    threads:[
+      {title:"the moment the Bloch sphere finally clicked for me", hook:"it wasn't a lecture — it was watching one gate move one point", takeaway:"Visualizing a single gate's effect on the Bloch sphere is often the fastest path to genuine intuition.", audience:"Beginner"},
+      {title:"why I stopped saying 'qubit is 0 and 1 at once' (it's wrong and here's why)", hook:"a more accurate one-liner that actually holds up under scrutiny", takeaway:"Replacing the '0 and 1 at once' cliché with 'a point on the Bloch sphere' is more accurate and more useful.", audience:"Beginner"},
+      {title:"a Hadamard gate is just a 180° flip on the sphere. that's it. that's the whole mystery.", hook:"the gate that shows up in every textbook, reduced to one geometric move", takeaway:"The Hadamard gate's effect is a simple rotation, not an inherently mysterious operation.", audience:"Beginner"}
+    ]
+  }
+},
+{
+  id:'superposition', num:'04', title:'Superposition & Quantum Interference',
+  source:'Section 03 — Core Topics · Quantum Physics Core',
+  ideas:{
+    youtube:[
+      {title:"Superposition Isn't 'Both States at Once' — Here's What It Actually Is", hook:"The one-line explanation you've heard in every pop-science video is the exact reason quantum algorithms confuse people later.", takeaway:"Superposition is a linear combination of basis states with complex amplitudes, not a state of simultaneous existence.", audience:"Beginner"},
+      {title:"How Quantum Interference Makes Algorithms Faster Than Classical Computers", hook:"Quantum computers don't check every answer at once — they do something stranger and more precise.", takeaway:"Quantum speedup comes from amplitudes interfering constructively for right answers and destructively for wrong ones.", audience:"Intermediate"},
+      {title:"The Double-Slit Experiment Is the Key to Understanding Every Quantum Algorithm", hook:"A 200-year-old physics demo is secretly the design blueprint behind every quantum algorithm you'll ever study.", takeaway:"The double-slit interference pattern is the same mechanism quantum algorithms exploit to boost correct answers.", audience:"Beginner / Intermediate"}
+    ],
+    reels:[
+      {title:"Quantum computers don't 'try everything at once' — they do THIS instead", hook:"The most common explanation of quantum speedup is actually backwards.", takeaway:"Speedup comes from interference cancelling wrong answers, not from parallel brute-force checking.", audience:"Beginner"},
+      {title:"Watch wrong answers cancel themselves out", hook:"Quantum interference in 15 seconds — no equations required.", takeaway:"Destructive interference is what actively removes incorrect outcomes from a quantum computation.", audience:"Beginner"},
+      {title:"The Hadamard gate trick every quantum algorithm secretly uses", hook:"One gate, applied at the start of almost every algorithm — here's why.", takeaway:"The Hadamard gate creates the uniform superposition needed to set up interference-based algorithms.", audience:"Intermediate"}
+    ],
+    carousels:[
+      {title:"Amplitudes vs Probabilities: The Difference That Explains Quantum Speedup", hook:"Swipe to see why one of these numbers can go negative — and why that changes everything.", takeaway:"Amplitudes are complex and can cancel each other out; probabilities can't — this is the root of quantum advantage.", audience:"Intermediate"},
+      {title:"Constructive vs Destructive Interference — Visualized in 5 Slides", hook:"The same math your headphones use to cancel noise is running inside a quantum computer.", takeaway:"A visual breakdown of how amplitude addition and cancellation shape final measurement probabilities.", audience:"Beginner / Intermediate"},
+      {title:"The Double-Slit Experiment Explained for People Who Skipped Physics Class", hook:"No lab equipment, no jargon — just the experiment that broke classical intuition forever.", takeaway:"A jargon-free walkthrough of the double-slit setup as the intuition pump for quantum interference.", audience:"Beginner"}
+    ],
+    linkedin:[
+      {title:"The Most Misunderstood Concept in Quantum Computing (And Why Getting It Wrong Costs You Later)", hook:"A single misconception, repeated in most intro content, quietly sabotages understanding of every algorithm that follows.", takeaway:"Correctly framing superposition and interference early prevents compounding confusion when learning quantum algorithms.", audience:"Intermediate"},
+      {title:"How I Explain Quantum Interference to Non-Physicists in Under 90 Seconds", hook:"After failing to explain this to colleagues a dozen times, I found the framing that finally lands.", takeaway:"A concise, jargon-free explanation of interference that works for technical non-physicists in a professional setting.", audience:"Beginner"},
+      {title:"What Grover's Algorithm Taught Me About Designing for Signal Over Noise", hook:"An algorithm designed to amplify the right answer offers a surprisingly transferable lesson for any search or ranking system.", takeaway:"The interference-based amplification principle behind quantum search has a conceptual parallel in classical signal design.", audience:"Advanced"}
+    ],
+    x:[
+      {title:"Quantum computers are not 'faster classical computers that check every answer at once.' They're interference engines. 🧵", hook:"The most repeated explanation of quantum computing is also the least accurate one.", takeaway:"Interference, not brute-force parallelism, is the actual mechanism behind quantum speedup.", audience:"Intermediate"},
+      {title:"If you understand constructive/destructive interference, you understand 80% of why quantum algorithms work.", hook:"One concept does most of the explanatory heavy lifting in this entire field.", takeaway:"Interference is the single most load-bearing concept for understanding quantum algorithm design.", audience:"Intermediate"},
+      {title:"Amplitudes can be negative. Probabilities can't. This one fact explains quantum speedup.", hook:"A three-word math fact with outsized consequences.", takeaway:"The ability of amplitudes to be negative (unlike probabilities) is what enables cancellation-driven speedup.", audience:"Beginner / Intermediate"}
+    ],
+    threads:[
+      {title:"quantum superposition demystified in one sentence", hook:"no it's not 'both states at once' — here's the actual one-liner", takeaway:"Superposition is precisely a weighted, complex-valued combination of basis states.", audience:"Beginner"},
+      {title:"the double-slit experiment finally made quantum computing make sense to me", hook:"a 200-year-old physics demo did what three textbooks couldn't", takeaway:"Historical physics experiments can be more effective teaching tools than modern algorithm walkthroughs.", audience:"Beginner"},
+      {title:"wrong answers don't get filtered out in quantum computing — they get cancelled out. different mechanism entirely", hook:"the distinction that separates real understanding from pop-science understanding", takeaway:"Cancellation via destructive interference is mechanically different from filtering, and the difference matters.", audience:"Intermediate"}
+    ]
+  }
+},
+{
+  id:'entanglement', num:'05', title:"Entanglement — EPR Paradox & Bell's Inequalities",
+  source:'Section 03 — Core Topics · Quantum Physics Core',
+  ideas:{
+    youtube:[
+      {title:"I Ran a Bell Inequality Test on a Real Quantum Computer — Einstein Was Wrong", hook:"The result came back exceeding a bound Einstein believed nature could never cross.", takeaway:"Live Bell test results on real hardware exceed the classical CHSH bound, empirically confirming quantum non-locality.", audience:"Intermediate"},
+      {title:"The EPR Paradox Explained: Why Einstein Called Quantum Mechanics 'Spooky'", hook:"One of history's greatest physicists thought this phenomenon was proof quantum mechanics was broken. He was wrong — but not for the reason you'd guess.", takeaway:"The EPR paradox argued quantum mechanics was incomplete; Bell later proved the 'spookiness' was real, not a gap in the theory.", audience:"Beginner"},
+      {title:"Bell States 101: Building and Verifying All Four on IBM's Real Hardware", hook:"Four specific states power quantum cryptography, teleportation, and superdense coding — and you can build all of them for free.", takeaway:"Constructing and verifying all four Bell states on real hardware turns entanglement from an abstract idea into a hands-on result.", audience:"Intermediate"}
+    ],
+    reels:[
+      {title:"Einstein thought this was impossible. IBM's quantum computer proved it real.", hook:"A thought experiment from the 1930s just got confirmed on hardware you can access for free.", takeaway:"Modern quantum hardware lets anyone empirically test a debate that started with Einstein nearly a century ago.", audience:"Beginner"},
+      {title:"Two qubits, one measurement, instant correlation — no signal sent", hook:"It looks like magic. It isn't. Here's the actual explanation in one breath.", takeaway:"Entangled qubit correlations appear instant but carry no usable signal, so no law of physics is broken.", audience:"Beginner"},
+      {title:"The math behind 'spooky action at a distance' in 30 seconds", hook:"The phrase Einstein coined as an insult became the name for one of physics' most tested phenomena.", takeaway:"A rapid-fire explanation of what entanglement correlation actually measures.", audience:"Beginner / Intermediate"}
+    ],
+    carousels:[
+      {title:"The 4 Bell States Explained (And Why |Ψ−⟩ Powers Quantum Cryptography)", hook:"One of these four states is the workhorse behind real quantum key distribution protocols.", takeaway:"Each Bell state has a distinct role — the antisymmetric |Ψ−⟩ state specifically underpins E91 quantum key distribution.", audience:"Intermediate"},
+      {title:"CHSH Inequality Breakdown: Classical Limit vs Quantum Limit", hook:"Classical physics caps out at 2. Quantum reaches 2.828. Swipe to see why that gap is the whole argument.", takeaway:"The CHSH inequality's classical bound of 2 versus the quantum (Tsirelson) bound of 2√2 is the measurable proof of non-locality.", audience:"Intermediate"},
+      {title:"EPR Paradox Timeline: From Einstein's Objection to Bell's Proof", hook:"A 30-year scientific argument, condensed into 6 slides.", takeaway:"A chronological walkthrough from Einstein's 1935 objection to Bell's 1964 theorem clarifies why the debate mattered.", audience:"Beginner"}
+    ],
+    linkedin:[
+      {title:"Why Entanglement Isn't 'Faster-Than-Light Communication' (A Common Misconception, Debunked)", hook:"This misconception shows up in mainstream coverage constantly — and it fundamentally misrepresents what entanglement can and can't do.", takeaway:"Entanglement produces correlated outcomes but cannot transmit usable information faster than light.", audience:"Beginner / Intermediate"},
+      {title:"What Running a Bell Test on Real Quantum Hardware Taught Me About Scientific Skepticism", hook:"Verifying a result yourself, on real hardware, changes how you evaluate claims you can't personally test.", takeaway:"Hands-on experimental verification builds a different, more durable kind of confidence than reading about a result.", audience:"Intermediate"},
+      {title:"Entanglement as a Resource: The Concept Underpinning Quantum Cryptography and Teleportation", hook:"Treating entanglement as a consumable 'resource' — like bandwidth or compute — reframes half of quantum information theory.", takeaway:"Entanglement functions as a resource that quantum protocols consume to achieve teleportation, cryptography, and superdense coding.", audience:"Advanced"}
+    ],
+    x:[
+      {title:"Entanglement does NOT let you send information faster than light. Thread on why this myth won't die 🧵", hook:"The most persistent misconception in pop-science quantum coverage.", takeaway:"Random measurement outcomes prevent entanglement from being used for faster-than-light signaling.", audience:"Beginner"},
+      {title:"Classical correlation caps out at |S|≤2. Quantum reaches 2√2. That gap is the entire debate Einstein lost.", hook:"Two numbers. One settled a decades-long argument about the nature of reality.", takeaway:"The measurable gap between the classical and quantum CHSH bounds is the empirical resolution of the EPR debate.", audience:"Intermediate"},
+      {title:"I verified a Bell inequality violation on real IBM hardware. Here's the CHSH value I got.", hook:"Ran the experiment myself instead of taking the textbook's word for it.", takeaway:"Sharing a real, reproducible CHSH result demonstrates entanglement empirically rather than theoretically.", audience:"Intermediate"}
+    ],
+    threads:[
+      {title:"einstein called it spooky. bell proved it real. here's the 60-second version", hook:"one of the biggest physics arguments in history, compressed", takeaway:"A quick narrative arc from Einstein's skepticism to Bell's experimental proof.", audience:"Beginner"},
+      {title:"the biggest misconception about entanglement (no, you can't use it to text faster than light)", hook:"clearing up the sci-fi version vs the real version", takeaway:"Distinguishing entanglement's real capabilities from common sci-fi misrepresentations.", audience:"Beginner"},
+      {title:"running my first Bell test on real quantum hardware was more nerve-wracking than I expected", hook:"turns out verifying physics yourself hits different", takeaway:"First-hand experimental verification of a foundational quantum result is more impactful than reading about it.", audience:"Intermediate"}
+    ]
+  }
+},
+{
+  id:'gates', num:'06', title:'Quantum Gates & Circuit Universality',
+  source:'Section 03 — Core Topics · Quantum Physics Core',
+  ideas:{
+    youtube:[
+      {title:"I Built Every Quantum Gate From Scratch in Qiskit (No Shortcuts) — Here's What I Learned", hook:"Skipping the built-in functions and writing every gate's matrix by hand exposed exactly what I didn't actually understand.", takeaway:"Implementing gates from raw matrices instead of built-in methods reveals gaps in understanding that using pre-built gates hides.", audience:"Intermediate"},
+      {title:"Why {H, T, CNOT} Can Build ANY Quantum Circuit", hook:"Three gates. Every possible quantum algorithm ever devised. Here's the proof, not just the claim.", takeaway:"The universality theorem shows that {H, T, CNOT} can approximate any unitary transformation to arbitrary precision.", audience:"Intermediate"},
+      {title:"Pauli-X vs Hadamard: The Two Gates You'll Use in Every Quantum Circuit, Explained Geometrically", hook:"Two gates, two completely different rotations — confusing them is one of the most common beginner mistakes.", takeaway:"Pauli-X flips a qubit's basis state while Hadamard creates superposition — visually distinct rotations on the Bloch sphere.", audience:"Beginner"}
+    ],
+    reels:[
+      {title:"3 gates. Infinite possible quantum circuits. Here's why.", hook:"A minimal toolkit that somehow builds everything.", takeaway:"A small universal gate set can approximate any quantum operation, however complex.", audience:"Beginner / Intermediate"},
+      {title:"This gate is the ONLY non-Clifford gate you need", hook:"Remove this one gate and quantum computers lose their advantage entirely.", takeaway:"The T gate's non-Clifford property is what makes the {H, T, CNOT} gate set genuinely universal.", audience:"Intermediate"},
+      {title:"CNOT gate explained in the time it takes to read this caption", hook:"The gate that creates entanglement, summarized in one sentence.", takeaway:"CNOT is a conditional flip that, combined with Hadamard, generates entangled Bell states.", audience:"Beginner"}
+    ],
+    carousels:[
+      {title:"Every Quantum Gate You Need for Phase 1, In One Cheat Sheet", hook:"Bookmark this before your next Qiskit session — every gate, symbol, and function in one place.", takeaway:"A consolidated visual reference covering Pauli, Hadamard, S, T, CNOT, Toffoli, and SWAP gates.", audience:"Beginner"},
+      {title:"Single-Qubit vs Two-Qubit vs Three-Qubit Gates — Visually Explained", hook:"Swipe through to see exactly how gate complexity scales with qubit count.", takeaway:"Organizing gates by how many qubits they act on clarifies which building blocks compose which algorithms.", audience:"Beginner / Intermediate"},
+      {title:"Why the T Gate Is the Most Important 'Boring' Gate in Quantum Computing", hook:"It doesn't look impressive on a circuit diagram. It's also non-negotiable for universal computation.", takeaway:"The T gate's unglamorous appearance hides its critical role in enabling universal quantum computation.", audience:"Intermediate"}
+    ],
+    linkedin:[
+      {title:"What Building Every Gate From Scratch Taught Me About Quantum Circuit Design", hook:"Bypassing the abstraction layer that most tutorials rely on changed how I read circuit diagrams permanently.", takeaway:"Hands-on matrix-level gate construction builds a deeper, more transferable understanding than relying on library abstractions.", audience:"Intermediate"},
+      {title:"Circuit Depth vs Circuit Width: The Two Resources That Define NISQ-Era Constraints", hook:"On today's noisy quantum hardware, one of these two resources matters far more than people assume.", takeaway:"Minimizing circuit depth is critical on NISQ devices because decoherence limits how long a circuit can run before errors dominate.", audience:"Advanced"},
+      {title:"The Universality Theorem: Why 3 Gates Are Enough to Build Any Quantum Algorithm", hook:"A small, provable theorem underlies the entire practical viability of quantum computing hardware design.", takeaway:"Universality means quantum hardware only needs to implement a small, fixed gate set to be fully general-purpose.", audience:"Advanced"}
+    ],
+    x:[
+      {title:"You only need 3 gates to build ANY quantum circuit. Thread on why {H, T, CNOT} is enough 🧵", hook:"A minimal toolkit with maximal reach.", takeaway:"Universality proves a tiny gate set is sufficient for arbitrary quantum computation.", audience:"Intermediate"},
+      {title:"Circuit depth is the silent killer of NISQ-era quantum algorithms. Here's why it matters more than qubit count.", hook:"More qubits get the headlines. Depth is what actually breaks your results.", takeaway:"On current noisy hardware, circuit depth constraints from decoherence often matter more than raw qubit count.", audience:"Advanced"},
+      {title:"Built every quantum gate from scratch today instead of using Qiskit's built-ins. Here's what broke my brain.", hook:"Turns out the 'easy' built-in functions were hiding a lot of the actual learning.", takeaway:"Manual gate construction surfaces conceptual gaps that library shortcuts conceal.", audience:"Intermediate"}
+    ],
+    threads:[
+      {title:"the gate set that can build literally any quantum circuit (just 3 gates)", hook:"minimal toolkit, maximal power", takeaway:"A three-gate universal set is all that's theoretically required for any quantum computation.", audience:"Beginner"},
+      {title:"why circuit depth matters more than people think on real quantum hardware", hook:"it's not about how many qubits you have", takeaway:"Circuit depth, not qubit count alone, is often the binding constraint on NISQ-era hardware.", audience:"Intermediate"},
+      {title:"building gates from scratch taught me more than any tutorial did", hook:"skipping the built-in shortcuts was the actual lesson", takeaway:"Manual, from-scratch implementation is a more effective learning method than following pre-built tutorials.", audience:"Intermediate"}
+    ]
+  }
+},
+{
+  id:'measurement', num:'07', title:'Measurement, Collapse & the No-Cloning Theorem',
+  source:'Section 03 — Core Topics · Quantum Physics Core',
+  ideas:{
+    youtube:[
+      {title:"The No-Cloning Theorem: Why You Can Never Copy a Quantum State (Proof in 3 Lines)", hook:"A proof so short you can memorize it in one viewing — and it explains why quantum cryptography actually works.", takeaway:"A short linearity-based proof shows no unitary operation can copy an arbitrary unknown quantum state.", audience:"Intermediate"},
+      {title:"What Actually Happens When You 'Measure' a Qubit?", hook:"The word 'measure' undersells what's actually a violent, irreversible event in the quantum state.", takeaway:"Born's rule (P = |⟨m|ψ⟩|²) governs measurement outcomes, and measurement collapses superposition into a single eigenstate.", audience:"Beginner"}
+    ],
+    reels:[
+      {title:"You cannot copy-paste a quantum state. Here's the 3-line proof.", hook:"No workaround, no exception — this is a hard law of physics.", takeaway:"The no-cloning theorem is a provable, absolute restriction on quantum information.", audience:"Intermediate"},
+      {title:"Measuring a qubit destroys its superposition — here's what that really means", hook:"The act of looking is what changes the answer.", takeaway:"Measurement forces a quantum state to collapse into a definite classical outcome, irreversibly ending superposition.", audience:"Beginner"}
+    ],
+    carousels:[
+      {title:"No-Cloning Theorem: Proof Sketch + Why It's a Feature, Not a Bug", hook:"Swipe to see why physicists celebrate a limitation instead of trying to break it.", takeaway:"No-cloning underpins quantum cryptography's security guarantee — it's a foundational feature, not a flaw.", audience:"Intermediate"},
+      {title:"Projective Measurement vs POVM: What's the Difference?", hook:"Most intro courses only teach half of how quantum measurement actually works.", takeaway:"POVMs generalize projective measurement, allowing more flexible and realistic measurement scenarios.", audience:"Advanced"}
+    ],
+    linkedin:[
+      {title:"Why 'You Can't Copy a Qubit' Is the Foundation of Quantum Cryptography's Security Guarantee", hook:"A physical limitation most people would assume is a downside is actually the entire security model of quantum key distribution.", takeaway:"The impossibility of cloning an unknown quantum state is what makes eavesdropping detectable in quantum cryptography.", audience:"Intermediate"},
+      {title:"The Quantum Zeno Effect: How Frequent Measurement Can Freeze a System (And Why Error Correction Cares)", hook:"Measuring something too often can stop it from changing at all — a strange effect with real engineering applications.", takeaway:"The quantum Zeno effect has practical implications for how quantum error correction schemes are designed.", audience:"Advanced"}
+    ],
+    x:[
+      {title:"You cannot clone an unknown quantum state. This one theorem is why quantum cryptography works. Thread 🧵", hook:"A restriction that became a security feature.", takeaway:"No-cloning directly enables detectable eavesdropping in quantum key distribution protocols.", audience:"Intermediate"},
+      {title:"The quantum Zeno effect: measure something often enough and it stops evolving. Wild but true.", hook:"Watching something too closely can freeze it in place — literally.", takeaway:"Frequent measurement can suppress a quantum system's natural evolution, a real and testable effect.", audience:"Intermediate"}
+    ],
+    threads:[
+      {title:"why quantum states can't be copied (and why that's actually a security feature)", hook:"a 'limitation' that turned into the backbone of quantum cryptography", takeaway:"No-cloning is reframed from a restriction into a deliberate security advantage.", audience:"Intermediate"},
+      {title:"measurement doesn't just observe a qubit — it changes it. that's the part people skip", hook:"the detail that separates casual explanations from accurate ones", takeaway:"Measurement is an active, state-altering event, not passive observation.", audience:"Beginner"}
+    ]
+  }
+},
+{
+  id:'algorithms', num:'08', title:"First Quantum Algorithms — Deutsch-Jozsa, Bernstein-Vazirani & Simon's",
+  source:'Section 03 — Core Topics · Phase 1 Algorithms',
+  ideas:{
+    youtube:[
+      {title:"Deutsch-Jozsa: The First Algorithm to PROVE Quantum Computers Are Faster", hook:"Classically this problem needs up to 2^(n-1)+1 tries. Quantum needs exactly 1. Here's the trick that makes it possible.", takeaway:"Deutsch-Jozsa is the first algorithm with a provable, exact (not probabilistic) quantum speedup over the best classical approach.", audience:"Intermediate"},
+      {title:"Bernstein-Vazirani: How Quantum Computers Extract an Entire Hidden Code in ONE Query", hook:"A hidden n-bit secret, recovered in a single measurement — classically that takes n separate tries.", takeaway:"Bernstein-Vazirani shows how superposition lets a single query extract global structure that classically requires n queries.", audience:"Intermediate"},
+      {title:"Simon's Algorithm: The Forgotten Algorithm That Made Shor's Algorithm Possible", hook:"Almost nobody outside academia has heard of this algorithm — but without it, Shor never breaks RSA.", takeaway:"Simon's period-finding structure is the direct conceptual precursor to Shor's factoring algorithm.", audience:"Advanced"},
+      {title:"I Compared Deutsch-Jozsa, Bernstein-Vazirani, and Simon's Side-by-Side", hook:"Same circuit skeleton, three completely different speedup guarantees — which one is actually the most impressive?", takeaway:"Comparing the three algorithms' query complexities reveals the different flavors of quantum advantage: exact, structural, and exponential.", audience:"Advanced"}
+    ],
+    reels:[
+      {title:"Classical: 2^(n-1)+1 queries. Quantum: 1 query.", hook:"The algorithm that proves quantum computers aren't just marginally faster.", takeaway:"Deutsch-Jozsa demonstrates an exponential query-count gap over the best classical algorithm.", audience:"Intermediate"},
+      {title:"This algorithm finds a hidden password in ONE shot", hook:"Classically it takes n tries. Quantum does it in one.", takeaway:"Bernstein-Vazirani recovers an entire hidden bit-string with a single quantum query.", audience:"Beginner / Intermediate"},
+      {title:"The algorithm that quietly led to Shor breaking RSA encryption", hook:"Nobody warns you this 'toy problem' is the reason your encryption keys aren't safe forever.", takeaway:"Simon's algorithm's period-finding approach directly inspired Shor's factoring algorithm.", audience:"Intermediate"},
+      {title:"Phase kickback: the trick that makes quantum oracles work", hook:"One clever setup step powers three of the field's most important algorithms.", takeaway:"Phase kickback (via an ancilla in the |−⟩ state) is the shared mechanism behind DJ, BV, and Grover's algorithm.", audience:"Advanced"}
+    ],
+    carousels:[
+      {title:"Deutsch-Jozsa Explained Step-by-Step (With the Circuit Diagram)", hook:"Every gate, every step, no skipped math — swipe through the full circuit walkthrough.", takeaway:"A complete visual trace of the H⊗n → Oracle → H⊗n → Measure circuit and why measuring |0⟩ⁿ signals a constant function.", audience:"Intermediate"},
+      {title:"Bernstein-Vazirani vs Deutsch-Jozsa: Same Circuit, Different Superpower", hook:"They look identical on paper — swipe to see exactly where they diverge.", takeaway:"Both algorithms share circuit structure, but different oracle interpretations produce very different guarantees.", audience:"Intermediate"},
+      {title:"Simon's Algorithm: How Quantum Computers Find Hidden Periods", hook:"The quantum circuit doesn't hand you the answer directly — it hands you clues you decode with classical math.", takeaway:"Simon's algorithm produces vectors orthogonal to a hidden string s, which classical Gaussian elimination then decodes.", audience:"Advanced"},
+      {title:"3 Algorithms, 3 Types of Quantum Speedup — Compared Side by Side", hook:"Not all 'quantum speedup' means the same thing — swipe to see the real differences.", takeaway:"DJ (exact), BV (query-efficient), and Simon's (exponential) represent three distinct categories of quantum advantage.", audience:"Advanced"}
+    ],
+    linkedin:[
+      {title:"What Implementing Deutsch-Jozsa Taught Me About 'Provable' vs 'Probabilistic' Speedups", hook:"Not every quantum advantage claim is created equal — this algorithm forces you to be precise about what 'faster' actually means.", takeaway:"Deutsch-Jozsa's guarantee is exact, not probabilistic, which is a meaningfully stronger and rarer type of quantum advantage claim.", audience:"Advanced"},
+      {title:"The Algorithm That Started It All: Why Simon's Problem Matters More Than People Realize", hook:"It rarely gets the spotlight Shor's algorithm does, despite being the conceptual bridge that made Shor's possible.", takeaway:"Simon's algorithm deserves more credit as the historical and conceptual precursor to practically significant quantum algorithms.", audience:"Advanced"},
+      {title:"Oracle Models Explained: The Abstraction Every Quantum Algorithm Course Assumes You Already Understand", hook:"Most courses use this concept on day one without ever properly defining it — here's the gap filled in.", takeaway:"A quantum oracle Uf mapping |x⟩|y⟩ → |x⟩|y⊕f(x)⟩ is the foundational abstraction underlying nearly every early quantum algorithm.", audience:"Intermediate"},
+      {title:"From Bernstein-Vazirani to RSA: Tracing the Line From Toy Problems to Real-World Cryptographic Risk", hook:"A classroom exercise about hidden bit-strings sits at the start of a chain that ends at modern encryption vulnerability.", takeaway:"Simple oracle-based algorithms form the conceptual foundation that eventually connects to real cryptographic risk via Shor's algorithm.", audience:"Advanced"}
+    ],
+    x:[
+      {title:"Deutsch-Jozsa: 1 query beats 2^(n-1)+1 classical queries. Here's the oracle trick that makes it work 🧵", hook:"An exponential gap, explained gate by gate.", takeaway:"Understanding the oracle and phase kickback mechanism explains exactly how DJ achieves its speedup.", audience:"Intermediate"},
+      {title:"Simon's algorithm is the reason Shor's algorithm exists. Nobody talks about this enough.", hook:"The under-appreciated link in quantum computing history.", takeaway:"Simon's period-finding approach directly inspired the structure of Shor's factoring algorithm.", audience:"Intermediate"},
+      {title:"Phase kickback is the single trick behind DJ, BV, and Grover's. Understand it once, understand 3 algorithms.", hook:"One mechanism, three headline algorithms.", takeaway:"Phase kickback is a reusable concept that unlocks understanding across multiple foundational quantum algorithms.", audience:"Advanced"},
+      {title:"Bernstein-Vazirani extracts an entire n-bit secret in 1 query. Classical needs n queries. Thread 🧵", hook:"An n-times speedup, explained without hand-waving.", takeaway:"Superposition lets Bernstein-Vazirani query all input bits simultaneously to recover a hidden string in one shot.", audience:"Intermediate"}
+    ],
+    threads:[
+      {title:"the algorithm that proved quantum computers aren't just hype (Deutsch-Jozsa)", hook:"the first hard, provable evidence — not a promise", takeaway:"Deutsch-Jozsa was historically significant as the first algorithm with a rigorously provable quantum advantage.", audience:"Intermediate"},
+      {title:"simon's algorithm doesn't get enough credit — it's literally the blueprint for Shor's", hook:"the overlooked algorithm behind the famous one", takeaway:"Simon's algorithm's structure is the direct precursor that shaped Shor's factoring algorithm.", audience:"Intermediate"},
+      {title:"phase kickback explained without the jargon", hook:"the trick behind three famous algorithms, in plain language", takeaway:"A jargon-free framing of phase kickback makes it accessible without losing the mechanism.", audience:"Beginner / Intermediate"},
+      {title:"implementing these 3 algorithms back to back finally made 'quantum speedup' click for me", hook:"reading about it never worked — building it did", takeaway:"Hands-on implementation of DJ, BV, and Simon's back-to-back is more effective for building intuition than reading alone.", audience:"Intermediate"}
+    ]
+  }
+},
+{
+  id:'teleportation', num:'09', title:'Quantum Teleportation & the Phase 1 Capstone',
+  source:'Section 02 — Monthly Breakdown · Month 6',
+  ideas:{
+    youtube:[
+      {title:"Quantum Teleportation Explained: Why It Doesn't Break the No-Cloning Theorem", hook:"It sounds like it should violate one of the field's hardest rules. It doesn't — and the loophole is elegant.", takeaway:"Teleportation destroys the original state during measurement, so no copy ever exists — fully compatible with no-cloning.", audience:"Intermediate"},
+      {title:"I Built a Full Quantum Computing Capstone Project — Here's Everything Inside It", hook:"Six months of study compressed into one public GitHub repo — here's exactly what's in it and why.", takeaway:"A capstone combining Deutsch-Jozsa, Bernstein-Vazirani, and Simon's implementations demonstrates end-to-end mastery of Phase 1 material.", audience:"Intermediate"}
+    ],
+    reels:[
+      {title:"Quantum teleportation doesn't send matter — it sends THIS instead", hook:"No particles travel anywhere. Something else does — and it's more interesting.", takeaway:"Teleportation transmits quantum state information via entanglement and classical communication, not physical matter.", audience:"Beginner"},
+      {title:"Why you still need classical communication even with quantum teleportation", hook:"The 'instant' part of teleportation isn't actually instant — here's the catch nobody mentions.", takeaway:"A classical channel is required to send correction instructions, which caps teleportation at light-speed communication.", audience:"Intermediate"}
+    ],
+    carousels:[
+      {title:"Quantum Teleportation Protocol, Step by Step (No Sci-Fi Required)", hook:"Swipe through the real protocol — entanglement, measurement, and classical correction, in order.", takeaway:"A precise step-by-step breakdown of the teleportation protocol replaces sci-fi assumptions with the actual mechanism.", audience:"Intermediate"},
+      {title:"6 Months, 6 Deliverables: My Phase 1 Quantum Computing Capstone Breakdown", hook:"Swipe to see exactly what a completed 6-month self-study quantum computing roadmap actually produces.", takeaway:"A concrete deliverables list (report, notebook, GitHub repo) shows what 'finishing' a self-study phase looks like in practice.", audience:"Beginner / Intermediate"}
+    ],
+    linkedin:[
+      {title:"What 'Quantum Teleportation' Actually Means (Hint: Nothing Physically Teleports)", hook:"The name is arguably the most misleading in all of physics — here's what's actually happening.", takeaway:"Teleportation transfers quantum information, not matter or energy, correcting a widespread public misconception.", audience:"Beginner / Intermediate"},
+      {title:"Why I Published My Quantum Computing Learning Journey Publicly — And What It's Already Gotten Me", hook:"Documenting a 6-month self-study process in public turned out to have returns beyond just accountability.", takeaway:"Publicly documenting technical self-study (via reports, GitHub repos, blog posts) builds visible credibility during an early-stage field.", audience:"Intermediate"}
+    ],
+    x:[
+      {title:"Quantum teleportation doesn't violate no-cloning. Here's the loophole: the original state is destroyed. Thread 🧵", hook:"The two concepts that seem to contradict each other, reconciled in one thread.", takeaway:"Destruction of the source state during measurement is what keeps teleportation consistent with no-cloning.", audience:"Intermediate"},
+      {title:"Just shipped my Phase 1 quantum computing capstone — a public GitHub repo with 3 algorithms and full docs", hook:"6 months of study, distilled into one public deliverable.", takeaway:"A documented, public capstone repository is a concrete, shareable proof of completed self-study.", audience:"Intermediate"}
+    ],
+    threads:[
+      {title:"quantum teleportation, explained without the sci-fi baggage", hook:"what actually gets transmitted (spoiler: not matter)", takeaway:"A grounded explanation of teleportation strips away sci-fi assumptions in favor of the real information-transfer mechanism.", audience:"Beginner"},
+      {title:"6 months into quantum computing, here's what I actually shipped", hook:"not a highlight reel — the real list of deliverables", takeaway:"A transparent account of concrete outputs from a structured self-study period.", audience:"Intermediate"}
+    ]
+  }
+},
+{
+  id:'milestones', num:'10', title:'Milestones, Study Resources & the Self-Assessment Gauntlet',
+  source:'Sections 04–06 — Milestones · Study Resources · Self-Assessment',
+  ideas:{
+    youtube:[
+      {title:"The 5 Milestones You Must Pass to Actually Know Quantum Computing", hook:"Most self-taught learners never define what 'done' even looks like — here are 5 concrete gates that do.", takeaway:"Concrete, verifiable milestones (Bell states, Bell test, algorithms, technical report, capstone) replace vague self-assessment with real proof of progress.", audience:"Beginner / Intermediate"},
+      {title:"16 Questions That Separate 'I Watched a YouTube Video' From 'I Actually Understand Quantum Computing'", hook:"A PhD interviewer could ask you these — could you answer even half without notes?", takeaway:"A rigorous 16-question self-check reveals the real gap between passive content consumption and working understanding.", audience:"Intermediate / Advanced"}
+    ],
+    reels:[
+      {title:"Can you answer this quantum computing question in under 90 seconds?", hook:"Most people who've 'studied' quantum computing for months freeze on this one.", takeaway:"Timed, notes-free recall is a far harsher and more honest test of understanding than recognition-based quizzes.", audience:"Intermediate"},
+      {title:"The free tool that lets you run code on a REAL quantum computer", hook:"Most beginners don't realize this exists — or that it's free.", takeaway:"IBM's free-tier quantum hardware access lets learners observe real hardware noise, not just simulated results.", audience:"Beginner"}
+    ],
+    carousels:[
+      {title:"5 Milestones to Prove You've Actually Learned Quantum Computing (Not Just Watched Videos About It)", hook:"Swipe through the exact checklist that separates passive learners from people who can build and verify results.", takeaway:"Hands-on deliverables (real hardware runs, written reports, working code) are a stronger progress signal than hours watched.", audience:"Beginner / Intermediate"},
+      {title:"The Free Quantum Computing Toolkit Nobody Told You About", hook:"Qiskit, IBM Quantum, and Quirk — three free tools that cover almost everything a beginner needs.", takeaway:"A curated set of free, accessible tools (Qiskit, IBM Quantum Experience, Quirk) is sufficient to start real quantum computing practice.", audience:"Beginner"}
+    ],
+    linkedin:[
+      {title:"The Self-Assessment Test I Used to Know I Was Actually Ready for Phase 2 of Quantum Computing", hook:"Confidence without a real test is just a feeling — here's the structured check I used instead.", takeaway:"A rigorous, PhD-level self-assessment is a more reliable readiness signal than subjective confidence.", audience:"Intermediate"},
+      {title:"Free Resources That Rival Paid Quantum Computing Courses (A Curated List From 6 Months of Learning)", hook:"After 6 months of self-study, these are the resources that actually mattered — and none of them cost money.", takeaway:"A well-curated set of free textbooks, courses, and platforms can substitute for expensive paid programs in early quantum computing study.", audience:"Beginner / Intermediate"}
+    ],
+    x:[
+      {title:"16 questions. If you can't answer all of them in under 90 seconds each, you don't know quantum computing yet. Thread 🧵", hook:"A real diagnostic, not a vanity quiz.", takeaway:"Timed recall of foundational questions is a rigorous way to expose real gaps in quantum computing understanding.", audience:"Intermediate / Advanced"},
+      {title:"You can run circuits on IBM's real 127-qubit quantum computer for free. Most people don't know this.", hook:"Free access to actual quantum hardware, sitting largely unused.", takeaway:"Free-tier access to real quantum hardware is an underused resource for hands-on learning.", audience:"Beginner"}
+    ],
+    threads:[
+      {title:"the self-assessment quiz that humbled me after 6 months of quantum computing study", hook:"thought I knew this stuff cold. I didn't.", takeaway:"A structured self-assessment can reveal blind spots even after months of consistent study.", audience:"Intermediate"},
+      {title:"free tools I wish I knew about on day 1 of learning quantum computing", hook:"would have saved weeks of confusion", takeaway:"Early awareness of the right free tools (Qiskit, IBM Quantum, Quirk) accelerates the learning curve significantly.", audience:"Beginner"}
+    ]
+  }
+}
+];
+
+// ---- render ----
+const mainEl = document.getElementById('main');
+const tocEl = document.getElementById('toc');
+const emptyState = document.getElementById('emptyState');
+let activePlatform = 'all';
+let searchTerm = '';
+
+function buildTOC(){
+  let html = '<div class="toc-label">Roadmap Sections</div>';
+  SECTIONS.forEach(s=>{
+    html += `<a href="#${s.id}" data-target="${s.id}"><span class="tnum">${s.num}</span>${s.title}</a>`;
+  });
+  tocEl.innerHTML = html;
+}
+
+function countAll(){
+  let n = 0;
+  SECTIONS.forEach(s=>{
+    PLATFORM_ORDER.forEach(p=>{ n += (s.ideas[p]||[]).length; });
+  });
+  return n;
+}
+
+function matchesSearch(idea, section){
+  if(!searchTerm) return true;
+  const hay = (idea.title+' '+idea.hook+' '+idea.takeaway+' '+section.title).toLowerCase();
+  return hay.includes(searchTerm);
+}
+
+function render(){
+  let html = '';
+  let shown = 0;
+  SECTIONS.forEach(section=>{
+    let sectionHTML = '';
+    let sectionCount = 0;
+    PLATFORM_ORDER.forEach(p=>{
+      if(activePlatform !== 'all' && activePlatform !== p) return;
+      const ideas = (section.ideas[p]||[]).filter(i=>matchesSearch(i, section));
+      if(ideas.length === 0) return;
+      sectionCount += ideas.length;
+      let cards = ideas.map((idea, idx)=>`
+        <div class="idea-card ${p}">
+          <div class="idea-top">
+            <span class="idea-ticket">${section.num}-${p.slice(0,2).toUpperCase()}-${String(idx+1).padStart(2,'0')}</span>
+            <span class="idea-audience">${idea.audience}</span>
+          </div>
+          <div class="idea-title">${idea.title}</div>
+          <div class="idea-hook">${idea.hook}</div>
+          <div class="idea-takeaway"><b>Takeaway:</b> ${idea.takeaway}</div>
+        </div>`).join('');
+      sectionHTML += `
+        <div class="platform-group">
+          <div class="pg-label"><span class="pg-dot ${p}"></span>${PLATFORM_LABEL[p]} · ${ideas.length}</div>
+          <div class="card-grid">${cards}</div>
+        </div>`;
+    });
+    if(sectionCount === 0) return;
+    shown += sectionCount;
+    html += `
+      <div class="section-block" id="${section.id}">
+        <div class="section-head">
+          <span class="section-num">${section.num}</span>
+          <h2>${section.title}</h2>
+          <span class="section-source">${section.source}</span>
+        </div>
+        ${sectionHTML}
+      </div>`;
+  });
+  mainEl.innerHTML = html;
+  emptyState.style.display = shown === 0 ? 'block' : 'none';
+  document.getElementById('countPill').textContent = shown + ' shown';
+}
+
+document.getElementById('platformTabs').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.ptab');
+  if(!btn) return;
+  document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  activePlatform = btn.dataset.p;
+  render();
+});
+
+document.getElementById('searchBox').addEventListener('input', (e)=>{
+  searchTerm = e.target.value.trim().toLowerCase();
+  render();
+});
+
+buildTOC();
+render();
+
+// active TOC highlight on scroll
+const sectionEls = () => Array.from(document.querySelectorAll('.section-block'));
+window.addEventListener('scroll', ()=>{
+  let current = '';
+  sectionEls().forEach(s=>{
+    if(window.scrollY >= s.offsetTop - 260) current = s.id;
+  });
+  document.querySelectorAll('.toc a').forEach(a=>{
+    a.classList.toggle('active', a.dataset.target === current);
+  });
+});
+</script>
+</body>
+</html>
