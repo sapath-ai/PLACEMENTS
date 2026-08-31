@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07090c">
+  <meta name="description" content="Premium AI-First Backend Developer roadmap — backend systems, RAG, agents, model serving and AI infrastructure.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>AI-First Backend Developer — Complete Roadmap 2026+</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
@@ -445,20 +449,583 @@
   .vs-col { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
   .vs-col-title { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
   @media(max-width: 700px) { .vs-row { flex-direction: column; } }
+
+/* =========================================================
+   PREMIUM BACKEND ENGINEERING VISUAL SYSTEM
+   ========================================================= */
+:root{
+  --bg:#07090c;
+  --surface:#0d1117;
+  --surface2:#121821;
+  --surface3:#171e27;
+  --border:rgba(148,163,184,.16);
+  --border-strong:rgba(148,163,184,.28);
+  --accent:#8b7cff;
+  --accent2:#28e6c3;
+  --accent3:#ff667a;
+  --accent4:#a8b3c2;
+  --accent5:#54d6ff;
+  --text:#e8edf3;
+  --muted:#8290a3;
+  --heading:#f8fafc;
+  --shadow:0 24px 80px rgba(0,0,0,.38);
+}
+
+html{scroll-behavior:smooth;background:var(--bg)}
+body{
+  background:
+    radial-gradient(circle at 15% 0%,rgba(40,230,195,.045),transparent 30rem),
+    radial-gradient(circle at 85% 10%,rgba(139,124,255,.055),transparent 34rem),
+    var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.18;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:linear-gradient(to bottom,#000,transparent 78%);
+}
+body > *{position:relative;z-index:1}
+
+/* Boot / loading screen */
+.boot-screen{
+  position:fixed;inset:0;z-index:9999;background:#05070a;
+  display:grid;place-items:center;padding:24px;
+  transition:opacity .65s ease,visibility .65s ease;
+}
+.boot-screen.is-done{opacity:0;visibility:hidden;pointer-events:none}
+.boot-shell{
+  width:min(720px,100%);border:1px solid rgba(84,214,255,.2);
+  background:rgba(8,12,17,.92);box-shadow:0 30px 100px rgba(0,0,0,.65);
+  border-radius:14px;overflow:hidden;
+}
+.boot-top{
+  display:flex;align-items:center;gap:8px;padding:12px 16px;
+  border-bottom:1px solid var(--border);background:#0b1016;
+  font:11px 'IBM Plex Mono',monospace;color:#738196;letter-spacing:1.5px;
+}
+.boot-dot{width:8px;height:8px;border-radius:50%;background:#28e6c3;box-shadow:0 0 14px rgba(40,230,195,.8)}
+.boot-body{padding:30px;font:12px/1.9 'IBM Plex Mono',monospace;color:#9eacbd}
+.boot-title{font-size:18px;color:#f5f7fa;margin-bottom:18px;letter-spacing:1px}
+.boot-line{opacity:0;transform:translateY(4px);animation:bootLine .35s forwards}
+.boot-line:nth-child(2){animation-delay:.18s}.boot-line:nth-child(3){animation-delay:.36s}
+.boot-line:nth-child(4){animation-delay:.54s}.boot-line:nth-child(5){animation-delay:.72s}
+.boot-line:nth-child(6){animation-delay:.90s}
+.boot-ok{color:var(--accent2)}
+.boot-bar{height:3px;background:#17202a;margin-top:22px;overflow:hidden}
+.boot-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent2),var(--accent5),var(--accent));animation:bootProgress 1.8s .3s forwards}
+@keyframes bootLine{to{opacity:1;transform:none}}
+@keyframes bootProgress{to{width:100%}}
+
+/* Reading progress */
+.read-progress{position:fixed;top:0;left:0;width:100%;height:2px;z-index:10001;background:transparent}
+.read-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent2),var(--accent5),var(--accent));box-shadow:0 0 14px rgba(40,230,195,.35)}
+
+/* Hero */
+.hero{
+  min-height:620px;padding:92px 40px 74px;
+  display:flex;align-items:flex-end;
+  background:
+    linear-gradient(90deg,rgba(5,8,12,.98) 0%,rgba(5,8,12,.86) 43%,rgba(5,8,12,.38) 72%,rgba(5,8,12,.72) 100%),
+    linear-gradient(180deg,rgba(5,8,12,.25),rgba(5,8,12,.95)),
+    url("https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2200&q=86") center/cover;
+  border-bottom:1px solid var(--border);
+}
+.hero::before{
+  width:700px;height:700px;top:-35%;left:-12%;
+  background:radial-gradient(circle,rgba(40,230,195,.13),transparent 68%);
+  animation:ambientFloat 9s ease-in-out infinite;
+}
+.hero::after{
+  width:620px;height:620px;bottom:-45%;right:-4%;
+  background:radial-gradient(circle,rgba(139,124,255,.16),transparent 68%);
+  animation:ambientFloat 12s ease-in-out infinite reverse;
+}
+.hero .hero-tag{color:var(--accent2);text-shadow:0 0 18px rgba(40,230,195,.18)}
+.hero h1{font-size:clamp(42px,6.4vw,82px);letter-spacing:-2.8px;text-shadow:0 10px 40px rgba(0,0,0,.5)}
+.hero h1 span{
+  background:linear-gradient(110deg,#fff,var(--accent5),var(--accent2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p{max-width:720px;color:#aab6c5}
+.hero-meta{gap:10px}
+.hero-badge{
+  border-color:rgba(255,255,255,.12);background:rgba(7,11,16,.55);
+  backdrop-filter:blur(12px);border-radius:999px;padding:7px 13px;
+}
+.badge-v{color:#b5aaff;border-color:rgba(139,124,255,.3)}
+.badge-t{color:#67f0d8;border-color:rgba(40,230,195,.3)}
+.badge-r{color:#ff91a0;border-color:rgba(255,102,122,.25)}
+.badge-y{color:#b9c6d6;border-color:rgba(168,179,194,.25)}
+
+.hero::marker{display:none}
+
+/* Nav */
+nav{
+  background:rgba(7,10,14,.72);border-bottom:1px solid var(--border);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+nav a{padding:17px 18px;transition:color .25s,border-color .25s,transform .25s}
+nav a:hover{color:var(--accent2);border-bottom-color:var(--accent2);transform:translateY(-1px)}
+nav a.active{color:var(--accent2);border-bottom-color:var(--accent2)}
+
+/* Sections */
+section{padding:88px 0;border-bottom-color:var(--border)}
+.section-tag{color:var(--accent2)}
+h2{letter-spacing:-1px}
+.section-desc{color:#8996a8}
+
+/* Cards */
+.card,.phase-block,.vs-col{
+  background:linear-gradient(145deg,rgba(17,23,31,.94),rgba(11,15,21,.96));
+  border-color:var(--border);
+  box-shadow:0 12px 40px rgba(0,0,0,.12);
+}
+.card{
+  border-radius:16px;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,box-shadow .35s;
+}
+.card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(84,214,255,.28);
+  box-shadow:var(--shadow);
+}
+.card-accent{border-top-color:var(--accent)}
+.card-green{border-top-color:var(--accent2)}
+.card-red{border-top-color:var(--accent3)}
+.card-yellow{border-top-color:var(--accent4)}
+.card-teal{border-top-color:var(--accent5)}
+
+.phase-block{border-radius:18px;box-shadow:0 18px 60px rgba(0,0,0,.18);transition:transform .35s,border-color .35s}
+.phase-block:hover{border-color:rgba(84,214,255,.22);transform:translateY(-3px)}
+.phase-header{
+  background:linear-gradient(90deg,rgba(255,255,255,.025),transparent);
+  border-bottom-color:var(--border);padding:22px 28px;
+}
+.phase-num{border:1px solid rgba(255,255,255,.08);border-radius:999px}
+.pn-1{background:rgba(139,124,255,.11);color:#b4aaff}
+.pn-2{background:rgba(40,230,195,.09);color:#6ef1db}
+.pn-3{background:rgba(168,179,194,.09);color:#c4cfdb}
+.pn-4{background:rgba(255,102,122,.09);color:#ff98a8}
+
+/* Tables */
+.skill-table th,.salary-table th,.cal-table th{color:#718094}
+.skill-table td,.salary-table td,.cal-table td{border-bottom-color:rgba(148,163,184,.08)}
+.skill-table tr:hover td,.salary-table tr:hover td,.cal-table tr:hover td{background:rgba(84,214,255,.025)}
+
+/* Pills / tags */
+.pill{
+  border-radius:999px;background:rgba(255,255,255,.025);
+  border-color:rgba(148,163,184,.15);transition:transform .2s,border-color .2s,color .2s,background .2s;
+}
+.pill:hover{transform:translateY(-2px);border-color:rgba(40,230,195,.5);color:var(--accent2);background:rgba(40,230,195,.05)}
+.pill-hot{border-color:rgba(139,124,255,.3);color:#b7adff;background:rgba(139,124,255,.07)}
+.pill-warm{border-color:rgba(40,230,195,.3);color:#6ef1db;background:rgba(40,230,195,.06)}
+.pill-red{border-color:rgba(255,102,122,.3);color:#ff9baa;background:rgba(255,102,122,.06)}
+.pill-yellow{border-color:rgba(168,179,194,.25);color:#bcc7d4;background:rgba(168,179,194,.05)}
+
+.stag{border-radius:999px}
+.stag-core{background:rgba(139,124,255,.12);color:#b8afff}
+.stag-tool{background:rgba(40,230,195,.1);color:#72efdc}
+.stag-infra{background:rgba(84,214,255,.09);color:#7ddfff}
+.stag-agent{background:rgba(255,102,122,.09);color:#ff9aaa}
+.stag-ml{background:rgba(168,179,194,.09);color:#c1ccd9}
+
+/* Callouts */
+.callout{box-shadow:inset 0 0 0 1px rgba(255,255,255,.025)}
+.callout-warn{background:rgba(168,179,194,.045);border-color:#9aa6b4;color:#c2ccd7}
+.callout-info{background:rgba(40,230,195,.045);border-color:var(--accent2);color:#92f4e4}
+.callout-danger{background:rgba(255,102,122,.045);border-color:var(--accent3);color:#ffadb9}
+.callout-purple{background:rgba(139,124,255,.045);border-color:var(--accent);color:#c1b9ff}
+
+/* Premium image strip */
+.engineering-strip{
+  padding:28px 0 0;
+}
+.engineering-grid{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:14px;
+}
+.engineering-shot{
+  min-height:180px;border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  position:relative;background-size:cover;background-position:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  transition:transform .45s cubic-bezier(.2,.8,.2,1),filter .45s;
+}
+.engineering-shot:hover{transform:translateY(-6px) scale(1.01);filter:saturate(1.12)}
+.engineering-shot::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 25%,rgba(4,7,10,.9) 100%);
+}
+.engineering-shot .shot-copy{
+  position:absolute;z-index:2;left:18px;right:18px;bottom:16px;
+}
+.shot-kicker{font:10px 'IBM Plex Mono',monospace;letter-spacing:2px;text-transform:uppercase;color:var(--accent2)}
+.shot-title{font-family:'Syne',sans-serif;font-weight:700;color:#fff;margin-top:4px}
+.shot-1{background-image:url("https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1400&q=82")}
+.shot-2{background-image:url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=82")}
+.shot-3{background-image:url("https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=82")}
+
+/* Reveal motion */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.is-visible{opacity:1;transform:none}
+.reveal.delay-1{transition-delay:.08s}.reveal.delay-2{transition-delay:.16s}.reveal.delay-3{transition-delay:.24s}
+
+/* Section number rail */
+.section-anchor{
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:12px;
+  font:10px 'IBM Plex Mono',monospace;letter-spacing:2px;color:#637084;
+}
+.section-anchor::before{content:"";width:28px;height:1px;background:var(--accent2)}
+
+/* Floating back-to-top */
+.back-top{
+  position:fixed;right:22px;bottom:22px;z-index:500;
+  width:44px;height:44px;border:1px solid var(--border-strong);border-radius:50%;
+  background:rgba(9,13,18,.78);backdrop-filter:blur(14px);
+  color:var(--accent2);cursor:pointer;opacity:0;visibility:hidden;
+  transform:translateY(10px);transition:.3s;
+}
+.back-top.show{opacity:1;visibility:visible;transform:none}
+.back-top:hover{border-color:var(--accent2);box-shadow:0 0 24px rgba(40,230,195,.12)}
+
+/* Footer */
+footer{background:#080b0f;border-top-color:var(--border)}
+
+  /* Recruitment Operating System */
+  .recruitment-readiness{overflow:hidden}
+  .readiness-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+  .readiness-meter{min-width:240px}
+  .readiness-meter span{display:block;text-align:right;font:11px 'IBM Plex Mono',monospace;color:var(--accent2);margin-bottom:7px}
+  .readiness-track{height:6px;background:rgba(148,163,184,.08);border-radius:99px;overflow:hidden}
+  .readiness-track span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent5),var(--accent2));transition:width .45s ease}
+  .readiness-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+  .readiness-card{appearance:none;border:1px solid var(--border);background:rgba(255,255,255,.018);color:var(--text);border-radius:12px;padding:14px;text-align:left;cursor:pointer;transition:.25s}
+  .readiness-card:hover{transform:translateY(-3px);border-color:rgba(40,230,195,.35)}
+  .readiness-card.active{border-color:var(--accent2);background:rgba(40,230,195,.06);box-shadow:inset 0 0 0 1px rgba(40,230,195,.08)}
+  .readiness-level{font:10px 'IBM Plex Mono',monospace;color:var(--accent2);letter-spacing:2px;display:block;margin-bottom:6px}
+  .readiness-card strong{display:block;font-size:13px}
+  .readiness-card small{display:block;color:var(--muted);font-size:11px;line-height:1.5;margin-top:4px}
+  .funnel-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:16px}
+  .funnel-step{min-height:105px;border:1px solid var(--border);border-radius:10px;padding:12px;background:linear-gradient(145deg,rgba(17,23,31,.9),rgba(11,15,21,.95))}
+  .funnel-step span{font:10px 'IBM Plex Mono',monospace;color:var(--accent2)}
+  .funnel-step strong{display:block;font-size:13px;margin-top:8px}
+  .funnel-step small{display:block;color:var(--muted);font-size:11px;line-height:1.5;margin-top:4px}
+  .followup-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .followup-row div{padding:10px;border-right:1px solid var(--border)}
+  .followup-row div:last-child{border-right:none}
+  .followup-row strong{display:block;color:var(--accent2);font:10px 'IBM Plex Mono',monospace}
+  .followup-row span{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+  .pipeline-targets{display:grid;gap:8px;margin-top:10px}
+  .pipeline-targets label{display:flex;justify-content:space-between;gap:12px;align-items:center;padding-bottom:8px;border-bottom:1px solid rgba(148,163,184,.07);font-size:12px}
+  .pipeline-targets label span{color:var(--muted);display:flex;align-items:center;gap:7px}
+  .pipeline-targets input{width:64px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:7px;padding:6px 7px}
+  .pipeline-total{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px}
+  .pipeline-total span{color:var(--muted);font-size:12px}
+  .pipeline-total strong{font:18px 'IBM Plex Mono',monospace;color:var(--accent2)}
+  .tracker-form{display:grid;grid-template-columns:1.3fr 1.7fr .9fr auto;gap:8px;margin-top:14px}
+  .tracker-form input,.tracker-form select{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px 12px;font-size:12px}
+  .tracker-form button{border:1px solid rgba(40,230,195,.35);background:rgba(40,230,195,.08);color:var(--accent2);border-radius:8px;padding:10px 14px;cursor:pointer;font:11px 'IBM Plex Mono',monospace}
+  .tracker-form button:hover{background:rgba(40,230,195,.14)}
+  .tracker-summary{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .tracker-stat{border:1px solid var(--border);border-radius:999px;padding:6px 10px;font:10px 'IBM Plex Mono',monospace;color:var(--muted)}
+  .tracker-stat strong{color:var(--text)}
+  .job-tracker{display:grid;gap:8px;margin-top:12px}
+  .job-row{display:grid;grid-template-columns:1.2fr 1.5fr .8fr 1fr auto;gap:10px;align-items:center;padding:12px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.012)}
+  .job-company{font-weight:600;font-size:13px}
+  .job-role{color:var(--muted);font-size:12px}
+  .job-tier{font:9px 'IBM Plex Mono',monospace;color:var(--accent2);text-transform:uppercase}
+  .job-status{display:flex;gap:5px;flex-wrap:wrap}
+  .job-status button{border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:999px;padding:5px 8px;font:9px 'IBM Plex Mono',monospace;cursor:pointer}
+  .job-status button.active{border-color:var(--accent2);color:var(--accent2);background:rgba(40,230,195,.06)}
+  .job-remove{border:1px solid rgba(255,102,122,.2);background:transparent;color:#ff91a0;border-radius:7px;padding:6px 8px;cursor:pointer;font-size:11px}
+  .tracker-empty{margin-top:12px;color:var(--muted);font-size:12px;text-align:center;padding:18px;border:1px dashed var(--border);border-radius:10px}
+  @media(max-width:1000px){
+    .readiness-grid{grid-template-columns:1fr 1fr}
+    .funnel-grid{grid-template-columns:repeat(4,1fr)}
+    .tracker-form{grid-template-columns:1fr 1fr}
+    .job-row{grid-template-columns:1fr 1fr}
+    .job-status{grid-column:1/-1}
+  }
+  @media(max-width:700px){
+    .readiness-head{align-items:flex-start;flex-direction:column}
+    .readiness-meter{min-width:0;width:100%}
+    .readiness-meter span{text-align:left}
+    .readiness-grid{grid-template-columns:1fr}
+    .funnel-grid{grid-template-columns:1fr 1fr}
+    .followup-row{grid-template-columns:1fr 1fr}
+    .followup-row div{border-right:none;border-bottom:1px solid var(--border)}
+    .tracker-form{grid-template-columns:1fr}
+    .job-row{grid-template-columns:1fr}
+    .job-status{grid-column:auto}
+  }
+
+/* Reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}
+  .reveal{opacity:1;transform:none}
+}
+
+/* Responsive image strip */
+@media(max-width:900px){
+  .engineering-grid{grid-template-columns:1fr}
+  .engineering-shot{min-height:150px}
+  .hero{min-height:560px;padding:72px 28px 58px}
+}
+@media(max-width:600px){
+  .hero h1{letter-spacing:-1.7px}
+  .hero{background-position:62% center}
+  .boot-body{padding:22px}
+}
+@keyframes ambientFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(20px,16px,0)}}
+
+
+/* HERO RECOMPOSITION — explicit editorial grid */
+.hero{
+  min-height:610px;
+  padding:0 40px;
+  display:block;
+  background:
+    linear-gradient(90deg,rgba(5,8,12,.97) 0%,rgba(5,8,12,.86) 42%,rgba(5,8,12,.48) 68%,rgba(5,8,12,.76) 100%),
+    linear-gradient(180deg,rgba(5,8,12,.08),rgba(5,8,12,.96)),
+    url("https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2200&q=86") center/cover;
+}
+.hero-inner{
+  width:min(1240px,100%);
+  min-height:610px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,1.18fr) minmax(340px,.82fr);
+  gap:clamp(50px,7vw,120px);
+  align-items:center;
+  position:relative;
+  z-index:2;
+}
+.hero-left{min-width:0;padding-top:8px}
+.hero-index{
+  font:10px 'IBM Plex Mono',monospace;
+  letter-spacing:2.5px;
+  color:#667487;
+  margin-bottom:34px;
+}
+.hero-tag{font-size:10px;letter-spacing:3px;margin-bottom:17px;color:var(--accent2)}
+.hero h1{
+  max-width:none;
+  margin:0;
+  font-size:clamp(54px,6.7vw,94px);
+  line-height:.92;
+  letter-spacing:-4px;
+}
+.hero-right{
+  min-width:0;
+  max-width:500px;
+  justify-self:end;
+  padding-top:46px;
+}
+.hero-kicker{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font:10px 'IBM Plex Mono',monospace;
+  letter-spacing:2.5px;
+  color:#738195;
+  margin-bottom:22px;
+}
+.hero-kicker-line{width:28px;height:1px;background:var(--accent2)}
+.hero-description{
+  margin:0;
+  max-width:470px;
+  font-size:17px;
+  line-height:1.7;
+  color:#b5c0ce;
+}
+.hero-meta{
+  margin-top:34px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+.hero-badge{
+  min-height:58px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:2px;
+  border-radius:9px;
+  padding:9px 13px;
+  line-height:1.25;
+}
+.hero-badge b{font:11px 'IBM Plex Mono',monospace;letter-spacing:1px;font-weight:500}
+.hero-badge span{font:10px/1.4 'IBM Plex Mono',monospace;color:#7e8b9d}
+.badge-v b{color:#b7adff}.badge-t b{color:#6ef1db}
+.badge-r b{color:#ff9aaa}.badge-y b{color:#c3cedb}
+.hero-signal{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-top:28px;
+  color:#5e6b7c;
+  font:9px 'IBM Plex Mono',monospace;
+  letter-spacing:1.8px;
+}
+.signal-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent2);
+  box-shadow:0 0 12px rgba(40,230,195,.75);
+  flex:0 0 auto;
+}
+.signal-rule{height:1px;flex:1;background:linear-gradient(90deg,rgba(40,230,195,.4),transparent)}
+@media(max-width:900px){
+  .hero{min-height:640px;padding:0 28px}
+  .hero-inner{min-height:640px;grid-template-columns:1fr;gap:25px;align-content:center}
+  .hero-right{justify-self:start;max-width:620px;padding-top:0}
+  .hero h1{font-size:clamp(48px,11vw,76px)}
+}
+@media(max-width:600px){
+  .hero{min-height:700px;padding:0 22px}
+  .hero-inner{min-height:700px}
+  .hero-index{margin-bottom:24px}
+  .hero h1{letter-spacing:-2.5px}
+  .hero-meta{grid-template-columns:1fr}
+  .hero-description{font-size:15px}
+}
+
+
+/* Clickable engineering imagery — visual affordance + accessible keyboard state */
+.engineering-shot{
+  display:block;
+  color:inherit;
+  text-decoration:none;
+  cursor:pointer;
+}
+.engineering-shot::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(180deg,transparent 10%,rgba(4,7,10,.16) 45%,rgba(4,7,10,.72) 100%);
+  opacity:.45;
+  transition:opacity .35s ease;
+}
+.engineering-shot:hover::before,
+.engineering-shot:focus-visible::before{opacity:.78}
+.engineering-shot:focus-visible{
+  outline:2px solid var(--accent2);
+  outline-offset:4px;
+}
+.engineering-shot .shot-copy{z-index:3}
+.shot-action{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-top:9px;
+  font:9px 'IBM Plex Mono',monospace;
+  letter-spacing:.7px;
+  text-transform:uppercase;
+  color:#aab6c5;
+  opacity:0;
+  transform:translateY(5px);
+  transition:opacity .3s ease,transform .3s ease,color .3s ease;
+}
+.engineering-shot:hover .shot-action,
+.engineering-shot:focus-visible .shot-action{
+  opacity:1;
+  transform:none;
+}
+.shot-action span{
+  color:var(--accent2);
+  font-size:12px;
+  transition:transform .25s ease;
+}
+.engineering-shot:hover .shot-action span,
+.engineering-shot:focus-visible .shot-action span{
+  transform:translate(2px,-2px);
+}
+@media(max-width:900px){
+  /* On touch devices the action is always visible; there is no hover dependency. */
+  .shot-action{opacity:1;transform:none}
+}
+
 </style>
 </head>
 <body>
 
+<div class="read-progress" aria-hidden="true"><span></span></div>
+
+<div class="boot-screen" id="bootScreen" aria-label="Loading roadmap">
+  <div class="boot-shell">
+    <div class="boot-top"><span class="boot-dot"></span> BACKEND.RUNTIME / BOOT SEQUENCE</div>
+    <div class="boot-body">
+      <div class="boot-title">Initializing Engineering Roadmap</div>
+      <div class="boot-line"><span class="boot-ok">[ OK ]</span> mounting system-design modules</div>
+      <div class="boot-line"><span class="boot-ok">[ OK ]</span> loading API / database architecture</div>
+      <div class="boot-line"><span class="boot-ok">[ OK ]</span> linking RAG / agent / inference layers</div>
+      <div class="boot-line"><span class="boot-ok">[ OK ]</span> indexing projects, hiring signals &amp; execution plan</div>
+      <div class="boot-line"><span class="boot-ok">[ OK ]</span> backend runtime ready</div>
+      <div class="boot-bar"><span></span></div>
+    </div>
+  </div>
+</div>
+
+
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-tag">// Engineering Career Roadmap 2026+</div>
-  <h1>The <span>AI-First</span><br>Backend Developer</h1>
-  <p>A complete 12-month path from backend foundations to production AI systems — covering skills, projects, salary benchmarks, and exactly when to apply.</p>
-  <div class="hero-meta">
-    <div class="hero-badge badge-v">12-month roadmap</div>
-    <div class="hero-badge badge-t">9 portfolio projects</div>
-    <div class="hero-badge badge-r">₹15L–₹50L+ target CTC</div>
-    <div class="hero-badge badge-y">Generative AI · Agents · MLOps</div>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-index">01 / CAREER SYSTEM</div>
+      <div class="hero-tag">// Engineering Career Roadmap 2026+</div>
+      <h1>The <span>AI-First</span><br>Backend Developer</h1>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-kicker"><span class="hero-kicker-line"></span> SYSTEM PROFILE</div>
+      <p class="hero-description">A complete 12-month path from backend foundations to production AI systems — covering skills, projects, salary benchmarks, and exactly when to apply.</p>
+
+      <div class="hero-meta">
+        <div class="hero-badge badge-v"><b>12</b><span>month roadmap</span></div>
+        <div class="hero-badge badge-t"><b>09</b><span>portfolio projects</span></div>
+        <div class="hero-badge badge-r"><b>₹15L–₹50L+</b><span>target CTC</span></div>
+        <div class="hero-badge badge-y"><b>AI STACK</b><span>Generative AI · Agents · MLOps</span></div>
+      </div>
+
+      <div class="hero-signal">
+        <span class="signal-dot"></span>
+        <span>BACKEND → AI → INFRASTRUCTURE</span>
+        <span class="signal-rule"></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<div class="engineering-strip">
+  <div class="container">
+    <div class="engineering-grid">
+      <a class="engineering-shot shot-1 reveal" href="#roadmap" aria-label="Open the roadmap and explore infrastructure and model serving">
+        <div class="shot-copy">
+          <div class="shot-kicker">Infrastructure · → Roadmap</div>
+          <div class="shot-title">Systems that stay alive under load.</div>
+          <div class="shot-action">Explore Model Serving &amp; AI Infrastructure <span>↗</span></div>
+        </div>
+      </a>
+      <a class="engineering-shot shot-2 reveal delay-1" href="#skills" aria-label="Open the skill tree and explore compute and infrastructure skills">
+        <div class="shot-copy">
+          <div class="shot-kicker">Compute · → Skill Tree</div>
+          <div class="shot-title">Hardware underneath the abstraction.</div>
+          <div class="shot-action">Explore GPU, serving &amp; cloud skills <span>↗</span></div>
+        </div>
+      </a>
+      <a class="engineering-shot shot-3 reveal delay-2" href="#projects" aria-label="Open the projects section and explore engineering projects">
+        <div class="shot-copy">
+          <div class="shot-kicker">Engineering · → Projects</div>
+          <div class="shot-title">Build. Measure. Ship.</div>
+          <div class="shot-action">Explore the portfolio projects <span>↗</span></div>
+        </div>
+      </a>
+    </div>
   </div>
 </div>
 
@@ -470,14 +1037,14 @@
     <a href="#skills">Skill Tree</a>
     <a href="#projects">Projects</a>
     <a href="#companies">Companies</a>
-    <a href="#calendar">Hiring Calendar</a>
+    <a href="#calendar">Recruitment OS</a>
     <a href="#salaries">Salaries</a>
     <a href="#execution">Execution Plan</a>
   </div>
 </nav>
 
 <!-- WHAT IS AN AI-FIRST BACKEND DEV -->
-<section id="what">
+<section id="what" class="reveal-section">
   <div class="container">
     <div class="section-tag">// role definition</div>
     <h2>What Is an AI-First Backend Developer?</h2>
@@ -541,7 +1108,7 @@
 </section>
 
 <!-- ROADMAP -->
-<section id="roadmap">
+<section id="roadmap" class="reveal-section">
   <div class="container">
     <div class="section-tag">// 12-month structured path</div>
     <h2>The Roadmap</h2>
@@ -553,63 +1120,136 @@
         <div class="phase-num pn-1">Phase 01 · Month 1–2</div>
         <div>
           <div class="phase-title">Core Backend Foundation</div>
-          <div class="phase-subtitle">Production-grade APIs, databases, deployment — before touching AI</div>
+          <div class="phase-subtitle">Production-grade APIs, runtime behavior, data systems, networking, resilience, testing and deployment — before layering in AI</div>
         </div>
       </div>
       <div class="phase-body">
         <div class="callout callout-purple" style="margin-top:0;">
           <strong>📌 Phase Goal</strong>
-          Build and deploy a production-ready REST API with JWT auth, Redis caching, PostgreSQL, background jobs, and a GitHub Actions CI/CD pipeline. Internalize clean architecture before layering in AI — the chaos compounds otherwise.
+          Build and operate a production-ready backend rather than a framework demo: async APIs, PostgreSQL, Redis, background workers, authentication, rate limiting, retries, idempotency, observability, tests, load testing, Docker and CI/CD. By the end of Phase 1, you should be able to explain what happens from an incoming HTTP request to database access, queueing, worker execution and response — and diagnose where the system breaks under load.
         </div>
+
+        <h4>Backend Engineering Curriculum</h4>
         <table class="skill-table">
           <tr><th>Skill</th><th>Key Topics</th><th>Type</th><th>Resources</th></tr>
+          <tr><td><span class="skill-name">FastAPI & Async Python</span></td><td style="color:var(--muted);">Async/await, event loop, dependency injection, middleware, lifespan hooks, background tasks, WebSockets, Pydantic v2, cancellation, timeouts, concurrency limits</td><td><span class="stag stag-core">Core</span></td><td style="color:var(--muted); font-size:12px;">FastAPI docs · Python asyncio docs · TalkPython</td></tr>
+          <tr><td><span class="skill-name">PostgreSQL Architecture</span></td><td style="color:var(--muted);">Schema design, constraints, normalization, transactions, MVCC, isolation levels, locks, deadlocks, WAL, indexes, EXPLAIN ANALYZE, query planner, connection pooling</td><td><span class="stag stag-core">Core</span></td><td style="color:var(--muted); font-size:12px;">PostgreSQL docs · Use The Index, Luke · DDIA</td></tr>
+          <tr><td><span class="skill-name">SQLAlchemy & Data Access</span></td><td style="color:var(--muted);">ORM vs SQL, async sessions, transaction boundaries, eager/lazy loading, N+1 avoidance, migrations with Alembic, repository patterns, query profiling</td><td><span class="stag stag-core">Core</span></td><td style="color:var(--muted); font-size:12px;">SQLAlchemy docs · Alembic docs</td></tr>
+          <tr><td><span class="skill-name">Redis & Distributed Caching</span></td><td style="color:var(--muted);">Cache-aside, TTLs, eviction, cache stampede prevention, pub/sub, streams, consumer groups, distributed locks, persistence, replication, rate limiting</td><td><span class="stag stag-tool">Tool</span></td><td style="color:var(--muted); font-size:12px;">Redis docs · Redis University</td></tr>
+          <tr><td><span class="skill-name">HTTP, Networking & APIs</span></td><td style="color:var(--muted);">HTTP/1.1, HTTP/2, HTTP/3 concepts, TCP/IP, DNS, TLS, keep-alive, connection pooling, REST semantics, pagination, idempotency, SSE, WebSockets, gRPC basics</td><td><span class="stag stag-core">Core</span></td><td style="color:var(--muted); font-size:12px;">MDN HTTP · Cloudflare learning · gRPC docs</td></tr>
+          <tr><td><span class="skill-name">Background Jobs & Queues</span></td><td style="color:var(--muted);">Celery workers, retries, exponential backoff, idempotent jobs, dead-letter handling, scheduling, concurrency controls, Redis/RabbitMQ patterns</td><td><span class="stag stag-infra">Infra</span></td><td style="color:var(--muted); font-size:12px;">Celery docs · RabbitMQ tutorials</td></tr>
+          <tr><td><span class="skill-name">Resilience Engineering</span></td><td style="color:var(--muted);">Timeouts, retries, circuit breakers, bulkheads, rate limiting, backpressure, load shedding, graceful degradation, health checks, readiness/liveness</td><td><span class="stag stag-infra">Infra</span></td><td style="color:var(--muted); font-size:12px;">Google SRE book · AWS Builders' Library</td></tr>
+          <tr><td><span class="skill-name">Testing & Performance</span></td><td style="color:var(--muted);">Unit, integration, contract and API tests; pytest fixtures; Testcontainers; property-based testing; Locust/k6; p50/p95/p99 latency; profiling</td><td><span class="stag stag-core">Core</span></td><td style="color:var(--muted); font-size:12px;">pytest docs · Locust docs · k6 docs</td></tr>
+          <tr><td><span class="skill-name">Auth & Application Security</span></td><td style="color:var(--muted);">JWT, OAuth2, OIDC basics, API keys, RBAC, password hashing, secrets management, CORS/CSRF, input validation, secure headers, audit logging</td><td><span class="stag stag-core">Core</span></td><td style="color:var(--muted); font-size:12px;">OWASP ASVS · OAuth / OIDC docs</td></tr>
+          <tr><td><span class="skill-name">Docker & Delivery</span></td><td style="color:var(--muted);">Multi-stage builds, image hardening, health checks, environment management, GitHub Actions, artifact promotion, rollback strategy, reproducible builds</td><td><span class="stag stag-infra">Infra</span></td><td style="color:var(--muted); font-size:12px;">Docker docs · GitHub Actions docs</td></tr>
+          
           <tr>
-            <td><span class="skill-name">FastAPI & Async Python</span></td>
-            <td style="color:var(--muted);">Async/await, dependency injection, middleware, background tasks, Pydantic v2</td>
-            <td><span class="stag stag-core">Core</span></td>
-            <td style="color:var(--muted); font-size:12px;">FastAPI docs · TalkPython course</td>
-          </tr>
-          <tr>
-            <td><span class="skill-name">PostgreSQL + SQLAlchemy</span></td>
-            <td style="color:var(--muted);">Schema design, indexing, connection pooling, async ORM, migrations with Alembic</td>
-            <td><span class="stag stag-core">Core</span></td>
-            <td style="color:var(--muted); font-size:12px;">Use The Index, Luke · SQLAlchemy docs</td>
-          </tr>
-          <tr>
-            <td><span class="skill-name">Redis & Caching</span></td>
-            <td style="color:var(--muted);">Cache patterns, pub/sub, rate limiting, session management, Redis Streams</td>
-            <td><span class="stag stag-tool">Tool</span></td>
-            <td style="color:var(--muted); font-size:12px;">Redis University (free)</td>
-          </tr>
-          <tr>
-            <td><span class="skill-name">Docker & CI/CD</span></td>
-            <td style="color:var(--muted);">Containerization, multi-stage builds, docker-compose, GitHub Actions, env management</td>
+            <td><span class="skill-name">Event-Driven Architecture</span></td>
+            <td style="color:var(--muted);">Kafka / Redpanda, topics, partitions, producers, consumers, consumer groups, offsets, ordering, retention, replay, delivery semantics</td>
             <td><span class="stag stag-infra">Infra</span></td>
-            <td style="color:var(--muted); font-size:12px;">Docker docs · GH Actions docs</td>
+            <td style="color:var(--muted); font-size:12px;">Kafka docs · Redpanda docs · DDIA</td>
           </tr>
           <tr>
-            <td><span class="skill-name">System Design Basics</span></td>
-            <td style="color:var(--muted);">Load balancing, caching layers, rate limiting, API gateway patterns, HLD vs LLD</td>
-            <td><span class="stag stag-core">Core</span></td>
-            <td style="color:var(--muted); font-size:12px;">ByteByteGo · Designing Data-Intensive Apps</td>
+            <td><span class="skill-name">Reliable Messaging &amp; Workflows</span></td>
+            <td style="color:var(--muted);">Idempotent consumers, duplicate delivery, dead-letter queues, retry topics, poison messages, backoff, outbox pattern, schema evolution, event versioning</td>
+            <td><span class="stag stag-infra">Infra</span></td>
+            <td style="color:var(--muted); font-size:12px;">Kafka docs · AWS Builders' Library · DDIA</td>
           </tr>
+          <tr>
+            <td><span class="skill-name">Distributed Systems Fundamentals</span></td>
+            <td style="color:var(--muted);">Replication, consistency, partitioning, leader/follower, quorum concepts, failure domains, network partitions, clocks, eventual consistency, CAP trade-offs</td>
+            <td><span class="stag stag-core">Core</span></td>
+            <td style="color:var(--muted); font-size:12px;">Designing Data-Intensive Applications</td>
+          </tr>
+<tr><td><span class="skill-name">System Design Foundations</span></td><td style="color:var(--muted);">Load balancing, caching layers, reverse proxies, API gateways, consistency, replication basics, failure domains, HLD vs LLD, capacity estimation</td><td><span class="stag stag-core">Core</span></td><td style="color:var(--muted); font-size:12px;">ByteByteGo · Designing Data-Intensive Applications</td></tr>
         </table>
-        <div style="margin-top:20px;">
-          <h4>Tech Stack</h4>
-          <div class="pill-cloud">
-            <span class="pill pill-hot">Python 3.12+</span>
-            <span class="pill pill-hot">FastAPI</span>
-            <span class="pill pill-warm">PostgreSQL</span>
-            <span class="pill pill-warm">Redis</span>
-            <span class="pill">SQLAlchemy</span>
-            <span class="pill">Alembic</span>
-            <span class="pill">Docker</span>
-            <span class="pill">GitHub Actions</span>
-            <span class="pill">JWT / OAuth2</span>
-            <span class="pill">Celery</span>
+
+        <div class="callout callout-info" style="margin-top:20px;">
+          <strong>🧠 Backend Depth Standard</strong>
+          Do not treat Phase 1 as "learn FastAPI." You should be able to trace a request through DNS → TCP/TLS → reverse proxy → API process → dependency layer → database/cache → background queue → worker → response, identify bottlenecks, explain failure behavior, and test the system under concurrency before moving into AI workloads.
+        </div>
+
+        <h4>Production Backend Checklist</h4>
+        <div class="pill-cloud">
+          <span class="pill pill-hot">Async I/O</span>
+          <span class="pill pill-hot">HTTP / Networking</span>
+          <span class="pill pill-warm">PostgreSQL</span>
+          <span class="pill pill-warm">Redis</span>
+          <span class="pill">Celery</span>
+          <span class="pill">JWT / OAuth2</span>
+          <span class="pill">pytest</span>
+          <span class="pill">Locust</span>
+          <span class="pill">Docker</span>
+          <span class="pill">GitHub Actions</span>
+          <span class="pill">OpenAPI</span>
+          <span class="pill">WebSockets / SSE</span>
+          <span class="pill">Retries + Backoff</span>
+          <span class="pill">Circuit Breakers</span>
+          <span class="pill">Idempotency</span>
+          <span class="pill">Rate Limiting</span>
+          <span class="pill">Load Testing</span>
+          <span class="pill">Profiling</span>
+        <div class="grid-2" style="margin-top:24px;">
+          <div class="card card-accent">
+            <h3>Database Engineering Lab</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Treat the database as an engineered subsystem, not a CRUD detail.</p>
+            <ul class="plain">
+              <li><strong>Query plans:</strong> use EXPLAIN ANALYZE to locate scans, joins and index bottlenecks.</li>
+              <li><strong>Transactions:</strong> prove atomic multi-step writes and rollback behavior.</li>
+              <li><strong>Concurrency:</strong> reproduce a race condition and resolve it with isolation/locking.</li>
+              <li><strong>Performance:</strong> benchmark indexed vs unindexed workloads and document latency gains.</li>
+              <li><strong>Migration safety:</strong> execute a backwards-compatible schema migration without downtime.</li>
+            </ul>
+          </div>
+          <div class="card card-green">
+            <h3>Backend Production Drill</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Turn P01 into a reliability and performance exercise, not a CRUD demo.</p>
+            <ul class="plain">
+              <li><strong>Load:</strong> sustain concurrent traffic and record p50/p95/p99 latency.</li>
+              <li><strong>Failure:</strong> kill Redis, delay PostgreSQL and force worker retries.</li>
+              <li><strong>Recovery:</strong> prove health checks, backoff, idempotency and graceful degradation.</li>
+              <li><strong>Evidence:</strong> commit benchmarks, architecture diagram and failure notes.</li>
+              <li><strong>Interview:</strong> explain the bottleneck, trade-off and remediation in five minutes.</li>
+            </ul>
           </div>
         </div>
+        
+        <div class="grid-2" style="margin-top:24px;">
+          <div class="card card-yellow">
+            <h3>Event-Driven Backend Lab</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Build an asynchronous backend where work can be queued, replayed, retried and recovered without corrupting state.</p>
+            <ul class="plain">
+              <li><strong>01 · Produce:</strong> publish typed events for task creation, completion, failure and retry.</li>
+              <li><strong>02 · Consume:</strong> use consumer groups and explicit offset handling.</li>
+              <li><strong>03 · Reliability:</strong> make consumers idempotent and safely re-process duplicates.</li>
+              <li><strong>04 · Recovery:</strong> route poison messages to a DLQ and replay them after remediation.</li>
+              <li><strong>05 · Evolution:</strong> change an event schema without breaking existing consumers.</li>
+            </ul>
+          </div>
+          <div class="card card-teal">
+            <h3>Distributed Systems Drill</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Prove that you understand failure, not just the happy path.</p>
+            <ul class="plain">
+              <li><strong>Partition:</strong> simulate a broker/worker outage and observe recovery behavior.</li>
+              <li><strong>Ordering:</strong> document where ordering is guaranteed and where it is not.</li>
+              <li><strong>Consistency:</strong> explain at least one eventual-consistency trade-off in your system.</li>
+              <li><strong>Replay:</strong> rebuild derived state from events without double-applying side effects.</li>
+              <li><strong>Design:</strong> draw the data flow, failure domains and retry paths in the README.</li>
+            </ul>
+          </div>
+        </div>
+
+<div class="callout callout-info" style="margin-bottom:0;">
+          <strong>🧪 Phase 01 Exit Gate</strong>
+          You are ready for Phase 2 only when you can design a relational schema; explain MVCC and transaction isolation; diagnose a slow query with EXPLAIN ANALYZE; implement cache invalidation; build an idempotent background job; publish and consume events; explain partitions, consumer groups, offsets and replay; design retries and dead-letter handling; describe a consistency trade-off; load-test an API; explain p95/p99 latency; recover from a dependency failure; and deploy the service reproducibly.
+        </div>
+</div>
       </div>
+    </div>
+
+    <div class="callout callout-danger" style="margin:8px 0 28px;">
+      <strong>🚦 Phase 01 Exit Gate</strong>
+      Do not move to RAG because the calendar says Month 3. You pass Phase 1 only when you can: (1) explain async request handling and the HTTP lifecycle, (2) design a PostgreSQL schema and diagnose a slow query, (3) implement cache + invalidation safely, (4) build an idempotent background job with retry/backoff behavior, (5) secure an API with authentication + authorization, (6) run a reproducible load test, (7) interpret p50/p95/p99 latency, (8) identify a bottleneck with profiling, (9) ship the service through CI/CD, and (10) recover from at least one intentionally injected failure.
     </div>
 
     <!-- Phase 2 -->
@@ -618,59 +1258,79 @@
         <div class="phase-num pn-2">Phase 02 · Month 3–5</div>
         <div>
           <div class="phase-title">LLM Integration & RAG Engineering</div>
-          <div class="phase-subtitle">Inference APIs, embeddings, retrieval-augmented generation, structured output</div>
+          <div class="phase-subtitle">Production LLM APIs, structured generation, context budgets, routing, caching and retrieval-augmented generation</div>
         </div>
       </div>
       <div class="phase-body">
         <div class="callout callout-info" style="margin-top:0;">
           <strong>📌 Phase Goal</strong>
-          Build a complete, production-quality RAG system on a real dataset. Understand every component: chunking strategy → embedding model → vector search → reranking → response generation → evaluation. Integrate it into a FastAPI backend with streaming.
+          Build a production AI application around a FastAPI backend. Understand provider abstraction, streaming, structured outputs, token/context budgets, retries, timeouts, fallbacks, semantic caching, model routing, retrieval, reranking and evaluation—not just how to call an LLM API.
         </div>
         <table class="skill-table">
           <tr><th>Skill</th><th>Key Topics</th><th>Type</th><th>Resources</th></tr>
-          <tr>
-            <td><span class="skill-name">LLM API Integration</span></td>
-            <td style="color:var(--muted);">OpenAI, Anthropic, Gemini SDKs, streaming, token budgets, error handling, retries</td>
-            <td><span class="stag stag-core">Core</span></td>
-            <td style="color:var(--muted); font-size:12px;">Anthropic docs · OpenAI cookbook</td>
-          </tr>
-          <tr>
-            <td><span class="skill-name">Embeddings & Vector DBs</span></td>
-            <td style="color:var(--muted);">Embedding models (BGE, E5, Cohere), Qdrant, pgvector, FAISS, ANN algorithms, cosine sim</td>
-            <td><span class="stag stag-tool">Tool</span></td>
-            <td style="color:var(--muted); font-size:12px;">Qdrant docs · ANN Benchmarks</td>
-          </tr>
-          <tr>
-            <td><span class="skill-name">RAG Pipeline Design</span></td>
-            <td style="color:var(--muted);">Chunking strategies, hybrid search (BM25 + dense), reranking (Cohere, Jina), contextual compression</td>
-            <td><span class="stag stag-core">Core</span></td>
-            <td style="color:var(--muted); font-size:12px;">LlamaIndex docs · RAG survey paper</td>
-          </tr>
-          <tr>
-            <td><span class="skill-name">Prompt Engineering</span></td>
-            <td style="color:var(--muted);">System prompts, few-shot, CoT, structured output (JSON mode, tool use), DSPy</td>
-            <td><span class="stag stag-core">Core</span></td>
-            <td style="color:var(--muted); font-size:12px;">Anthropic PE guide · DSPy docs</td>
-          </tr>
-          <tr>
-            <td><span class="skill-name">RAG Evaluation</span></td>
-            <td style="color:var(--muted);">RAGAS metrics (faithfulness, answer relevancy, context recall), LLM-as-judge, human eval</td>
-            <td><span class="stag stag-ml">Eval</span></td>
-            <td style="color:var(--muted); font-size:12px;">RAGAS library · DeepEval</td>
-          </tr>
+          <tr><td><span class="skill-name">LLM API & Provider Engineering</span></td><td style="color:var(--muted);">OpenAI, Anthropic, Gemini and other providers; SDKs, streaming, provider adapters, retries, timeouts, rate-limit handling, error normalization</td><td><span class="stag stag-core">Core</span></td><td style="color:var(--muted); font-size:12px;">OpenAI docs · Anthropic docs · Gemini docs</td></tr>
+          <tr><td><span class="skill-name">Structured Generation</span></td><td style="color:var(--muted);">JSON Schema, typed outputs, Pydantic validation, tool schemas, malformed-output recovery, schema versioning, deterministic post-processing</td><td><span class="stag stag-core">Core</span></td><td style="color:var(--muted); font-size:12px;">Provider structured-output docs · Pydantic docs</td></tr>
+          <tr><td><span class="skill-name">Streaming & Async AI APIs</span></td><td style="color:var(--muted);">SSE/WebSockets, token streaming, cancellation, partial results, backpressure, client disconnects, timeout budgets, long-running job handoff</td><td><span class="stag stag-infra">Infra</span></td><td style="color:var(--muted); font-size:12px;">FastAPI docs · SSE / WebSocket docs</td></tr>
+          <tr><td><span class="skill-name">Token, Context & Cost Engineering</span></td><td style="color:var(--muted);">Input/output budgets, context-window planning, token estimation, cost per request, quotas, truncation, prioritization, model selection by budget</td><td><span class="stag stag-core">Core</span></td><td style="color:var(--muted); font-size:12px;">Provider docs / pricing · tokenization docs</td></tr>
+          <tr><td><span class="skill-name">AI Reliability & Fallbacks</span></td><td style="color:var(--muted);">Exponential backoff, jitter, circuit breakers, provider health, fallback chains, degraded modes, idempotency, error classification</td><td><span class="stag stag-infra">Infra</span></td><td style="color:var(--muted); font-size:12px;">Google SRE · AWS Builders' Library</td></tr>
+          <tr><td><span class="skill-name">Model Routing & Semantic Caching</span></td><td style="color:var(--muted);">Capability routing, quality/latency/cost routing, provider selection, cache keys, semantic invalidation, cache hit-rate measurement</td><td><span class="stag stag-tool">Tool</span></td><td style="color:var(--muted); font-size:12px;">LiteLLM docs · Redis docs</td></tr>
+          <tr><td><span class="skill-name">Embeddings & Vector Search</span></td><td style="color:var(--muted);">Dense/sparse embeddings, similarity metrics, exact vs ANN search, HNSW, IVFFlat, vector lifecycle, metadata/payload design, index tuning</td><td><span class="stag stag-tool">Tool</span></td><td style="color:var(--muted); font-size:12px;">Qdrant docs · pgvector docs</td></tr>
+          <tr><td><span class="skill-name">RAG Pipeline Engineering</span></td><td style="color:var(--muted);">Ingestion, chunking, metadata, hybrid retrieval, query rewriting, reranking, contextual retrieval, citations, freshness, access-controlled retrieval</td><td><span class="stag stag-core">Core</span></td><td style="color:var(--muted); font-size:12px;">Qdrant hybrid search · RAG literature</td></tr>
+          <tr><td><span class="skill-name">AI Evaluation</span></td><td style="color:var(--muted);">Golden datasets, retrieval metrics, answer quality, faithfulness, LLM-as-judge, human review, regression thresholds, online feedback</td><td><span class="stag stag-ml">Eval</span></td><td style="color:var(--muted); font-size:12px;">RAGAS · DeepEval · evaluation papers</td></tr>
+          <tr><td><span class="skill-name">Production AI Service Design</span></td><td style="color:var(--muted);">Request lifecycle, auth, quotas, caching, queues, observability hooks, tenant isolation, retention, versioned prompts/config and failure boundaries</td><td><span class="stag stag-infra">Infra</span></td><td style="color:var(--muted); font-size:12px;">Production AI architecture case studies</td></tr>
         </table>
         <div style="margin-top:20px;">
           <h4>Tech Stack</h4>
           <div class="pill-cloud">
-            <span class="pill pill-hot">LangChain / LlamaIndex</span>
-            <span class="pill pill-hot">Qdrant</span>
-            <span class="pill pill-warm">pgvector</span>
-            <span class="pill pill-warm">OpenAI API</span>
-            <span class="pill">Anthropic API</span>
-            <span class="pill">Cohere Rerank</span>
-            <span class="pill">RAGAS</span>
-            <span class="pill">BM25s</span>
-            <span class="pill">DSPy</span>
+            <span class="pill pill-hot">OpenAI / Anthropic / Gemini</span><span class="pill pill-hot">FastAPI</span>
+            <span class="pill pill-warm">Qdrant</span><span class="pill pill-warm">pgvector</span>
+            <span class="pill">LiteLLM</span><span class="pill">Pydantic</span><span class="pill">Redis</span>
+            <span class="pill">LlamaIndex</span><span class="pill">RAGAS</span><span class="pill">DeepEval</span>
+            <span class="pill">BM25</span><span class="pill">SSE / WebSockets</span>
+          </div>
+        </div>
+<div class="grid-2" style="margin-top:24px;">
+          <div class="card card-accent">
+            <h3>Production LLM Service Lab</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Build an AI endpoint that behaves like a backend service, not a demo wrapper.</p>
+            <ul class="plain">
+              <li><strong>Provider abstraction:</strong> normalize multiple provider request, response and error contracts.</li>
+              <li><strong>Reliability:</strong> timeouts, backoff, circuit breaking and fallback providers.</li>
+              <li><strong>Streaming:</strong> incremental output, cancellation and disconnect handling.</li>
+              <li><strong>Budget:</strong> token/cost limits, quotas and model downgrade policies.</li>
+              <li><strong>Routing:</strong> choose models using quality, latency and cost constraints.</li>
+            </ul>
+          </div>
+          <div class="card card-green">
+            <h3>AI Application Failure Drill</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Deliberately break dependencies and prove the application remains controlled.</p>
+            <ul class="plain">
+              <li><strong>Malformed output:</strong> validate and recover without returning unsafe data.</li>
+              <li><strong>Timeout:</strong> activate a fallback or degraded response.</li>
+              <li><strong>Rate limit:</strong> back off without creating a retry storm.</li>
+              <li><strong>Budget breach:</strong> reject, truncate or downgrade deterministically.</li>
+              <li><strong>Traceability:</strong> record enough metadata to explain why a model was selected.</li>
+            </ul>
+          </div>
+        </div>
+<div class="card card-yellow" style="margin-top:24px;">
+          <h3>Retrieval Engineering Lab</h3>
+          <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Treat retrieval as its own information-retrieval system with measurable recall, precision, latency and access-control behavior.</p>
+          <div class="grid-2">
+            <ul class="plain">
+              <li><strong>01 · Baseline:</strong> compare exact search with ANN and document recall/latency.</li>
+              <li><strong>02 · Hybrid:</strong> combine dense + sparse retrieval and compare against dense-only.</li>
+              <li><strong>03 · Query intelligence:</strong> test rewriting, decomposition and multi-query strategies.</li>
+              <li><strong>04 · Reranking:</strong> measure precision gains against added latency.</li>
+              <li><strong>05 · Filtering:</strong> enforce metadata and tenant filters before generation.</li>
+            </ul>
+            <ul class="plain">
+              <li><strong>06 · Freshness:</strong> support incremental ingestion, updates and deletion.</li>
+              <li><strong>07 · Versioning:</strong> track document/index versions and reproduce results.</li>
+              <li><strong>08 · Context:</strong> control which chunks enter the model context.</li>
+              <li><strong>09 · Citations:</strong> return source identifiers and detect unsupported answers.</li>
+              <li><strong>10 · Benchmark:</strong> publish recall/precision, latency and cost results.</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -682,61 +1342,210 @@
         <div class="phase-num pn-3">Phase 03 · Month 6–9</div>
         <div>
           <div class="phase-title">Agentic Systems & Orchestration</div>
-          <div class="phase-subtitle">Multi-agent workflows, tool use, memory systems, observability</div>
+          <div class="phase-subtitle">Production agent runtimes, durable workflows, MCP/A2A interoperability, tool use, memory, recovery and observability</div>
         </div>
       </div>
       <div class="phase-body">
         <div class="callout callout-warn" style="margin-top:0;">
           <strong>📌 Phase Goal</strong>
-          Ship a multi-agent system that autonomously plans, executes, and self-corrects using tool use. It must be fully observable via traces, evaluated by an LLM judge, and handle failure gracefully without human intervention.
+          Ship a production-oriented agent runtime that plans, executes, checkpoints, retries, resumes and self-corrects across tool calls and interoperable agent boundaries. It must use current MCP/A2A patterns, be observable, permissioned, evaluated, cost-bounded and able to recover from partial failure without corrupting state.
         </div>
         <table class="skill-table">
           <tr><th>Skill</th><th>Key Topics</th><th>Type</th><th>Resources</th></tr>
           <tr>
-            <td><span class="skill-name">Agent Frameworks</span></td>
-            <td style="color:var(--muted);">LangGraph state machines, CrewAI orchestration, AutoGen conversations, ReAct loop</td>
+            <td><span class="skill-name">Agent Runtime Architecture</span></td>
+            <td style="color:var(--muted);">State machines, execution graphs, run IDs, task lifecycle, checkpoints, durable state, resumability, deterministic boundaries, termination conditions</td>
             <td><span class="stag stag-agent">Agent</span></td>
-            <td style="color:var(--muted); font-size:12px;">LangGraph academy · CrewAI docs</td>
+            <td style="color:var(--muted); font-size:12px;">LangGraph docs · workflow/orchestration literature</td>
           </tr>
           <tr>
-            <td><span class="skill-name">Tool & Function Calling</span></td>
-            <td style="color:var(--muted);">OpenAI tool use, Anthropic tool blocks, MCP protocol, parallel tool calls, tool schemas</td>
+            <td><span class="skill-name">Tool & Function Execution</span></td>
+            <td style="color:var(--muted);">Function calling, tool schemas, validation, timeouts, parallel tool calls, cancellation, tool result normalization, retry-safe side effects and capability boundaries</td>
             <td><span class="stag stag-agent">Agent</span></td>
-            <td style="color:var(--muted); font-size:12px;">MCP spec · Anthropic tool-use guide</td>
+            <td style="color:var(--muted); font-size:12px;">Provider tool-use docs · MCP specification</td>
           </tr>
           <tr>
-            <td><span class="skill-name">Memory Systems</span></td>
-            <td style="color:var(--muted);">Short-term (context window), long-term episodic (Mem0, Zep), semantic memory (vector), procedural</td>
+            <td><span class="skill-name">MCP &amp; A2A Interoperability</span></td>
+            <td style="color:var(--muted);">MCP tools/resources/prompts, stateless requests, discovery, authorization, Tasks/extensions, cacheable catalogs; A2A agent discovery, capability negotiation, task delegation, artifacts and secure cross-agent handoffs</td>
             <td><span class="stag stag-agent">Agent</span></td>
-            <td style="color:var(--muted); font-size:12px;">Mem0 docs · Letta / MemGPT paper</td>
+            <td style="color:var(--muted); font-size:12px;">MCP 2026-07-28 specification · A2A v0.3 specification</td>
           </tr>
-          <tr>
-            <td><span class="skill-name">AI Observability</span></td>
-            <td style="color:var(--muted);">LangSmith traces, Langfuse, Arize Phoenix, token cost tracking, latency profiling, alert rules</td>
+<tr>
+            <td><span class="skill-name">Durable Execution & Checkpointing</span></td>
+            <td style="color:var(--muted);">Checkpoint frequency, persisted state, resume-after-failure, exactly-once business effects, idempotency keys, recovery boundaries</td>
             <td><span class="stag stag-infra">Infra</span></td>
-            <td style="color:var(--muted); font-size:12px;">LangSmith docs · Langfuse quickstart</td>
+            <td style="color:var(--muted); font-size:12px;">Durable workflow architecture references</td>
           </tr>
           <tr>
-            <td><span class="skill-name">Guardrails & Safety</span></td>
-            <td style="color:var(--muted);">Input/output filtering, NeMo Guardrails, prompt injection defense, content moderation APIs</td>
+            <td><span class="skill-name">Concurrency & Parallel Agents</span></td>
+            <td style="color:var(--muted);">Parallel tool calls, worker pools, concurrency limits, race conditions, shared-state protection, fan-out/fan-in, cancellation propagation</td>
+            <td><span class="stag stag-agent">Agent</span></td>
+            <td style="color:var(--muted); font-size:12px;">Async Python docs · distributed systems references</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Retries, Recovery & Compensation</span></td>
+            <td style="color:var(--muted);">Retry classification, exponential backoff, partial failure, compensation actions, rollback strategy, dead-lettering, resumable runs</td>
+            <td><span class="stag stag-infra">Infra</span></td>
+            <td style="color:var(--muted); font-size:12px;">AWS Builders' Library · Google SRE</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Agent Memory & State</span></td>
+            <td style="color:var(--muted);">Short-term context, long-term memory, episodic records, semantic memory, state versioning, memory retrieval and write policies</td>
+            <td><span class="stag stag-agent">Agent</span></td>
+            <td style="color:var(--muted); font-size:12px;">Memory-system documentation · agent architecture literature</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Human-in-the-Loop & Approvals</span></td>
+            <td style="color:var(--muted);">Approval gates, escalation, pause/resume, review queues, risk-based intervention, audit trails and operator controls</td>
+            <td><span class="stag stag-agent">Agent</span></td>
+            <td style="color:var(--muted); font-size:12px;">Workflow patterns · safety engineering references</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Agent Observability</span></td>
+            <td style="color:var(--muted);">Run traces, step timelines, tool latency, token usage, cost, retries, state transitions, failure reasons and replayable diagnostics</td>
+            <td><span class="stag stag-infra">Infra</span></td>
+            <td style="color:var(--muted); font-size:12px;">OpenTelemetry concepts · Langfuse / LangSmith docs</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Agent Guardrails & Permissions</span></td>
+            <td style="color:var(--muted);">Tool allowlists, scoped credentials, action policies, output validation, sandbox boundaries, rate limits, budgets and kill switches</td>
             <td><span class="stag stag-ml">Safety</span></td>
-            <td style="color:var(--muted); font-size:12px;">NVIDIA NeMo Guardrails · Lakera</td>
+            <td style="color:var(--muted); font-size:12px;">OWASP AI/LLM security guidance · provider safety docs</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">AI Backend Security</span></td>
+            <td style="color:var(--muted);">Prompt injection, indirect injection, excessive agency, sensitive-information disclosure, insecure output handling, supply-chain risk, vector/embedding weaknesses and unbounded consumption</td>
+            <td><span class="stag stag-ml">Safety</span></td>
+            <td style="color:var(--muted); font-size:12px;">OWASP LLM Top 10 · OWASP Agentic Top 10 2026</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Agent Identity &amp; Tool Authorization</span></td>
+            <td style="color:var(--muted);">Least privilege, scoped tokens, capability-based access, user vs agent identity, delegated authorization, tool allowlists, credential isolation and audit trails</td>
+            <td><span class="stag stag-ml">Safety</span></td>
+            <td style="color:var(--muted); font-size:12px;">OWASP Agentic Security · OAuth/OIDC guidance</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">RAG &amp; Data Security</span></td>
+            <td style="color:var(--muted);">Document poisoning, retrieval authorization, tenant isolation, ACL-aware filtering, context injection, data exfiltration and retention controls</td>
+            <td><span class="stag stag-ml">Safety</span></td>
+            <td style="color:var(--muted); font-size:12px;">OWASP GenAI Security guidance</td>
+          </tr>
+<tr>
+            <td><span class="skill-name">Evaluation Engineering</span></td>
+            <td style="color:var(--muted);">Golden datasets, deterministic checks, LLM-as-judge calibration, pairwise comparison, human review, confidence intervals, significance testing, evaluator drift and reproducible regression suites</td>
+            <td><span class="stag stag-ml">Eval</span></td>
+            <td style="color:var(--muted); font-size:12px;">DeepEval · RAGAS · evaluation methodology</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Online AI Evaluation</span></td>
+            <td style="color:var(--muted);">Production sampling, annotation queues, failure clustering, prompt/model version comparison, shadow evaluation and quality/cost/latency monitoring</td>
+            <td><span class="stag stag-ml">Eval</span></td>
+            <td style="color:var(--muted); font-size:12px;">Evaluation ops · observability patterns</td>
+          </tr>
+<tr>
+            <td><span class="skill-name">Agent Evaluation</span></td>
+            <td style="color:var(--muted);">Task completion, trajectory quality, tool-use correctness, recovery rate, policy compliance, cost/latency and regression benchmarks</td>
+            <td><span class="stag stag-ml">Eval</span></td>
+            <td style="color:var(--muted); font-size:12px;">DeepEval · custom trajectory evaluators</td>
           </tr>
         </table>
         <div style="margin-top:20px;">
           <h4>Tech Stack</h4>
           <div class="pill-cloud">
-            <span class="pill pill-hot">LangGraph</span>
-            <span class="pill pill-hot">CrewAI</span>
-            <span class="pill pill-warm">LangSmith</span>
-            <span class="pill pill-warm">Langfuse</span>
-            <span class="pill">Mem0</span>
-            <span class="pill">MCP</span>
-            <span class="pill">AutoGen</span>
-            <span class="pill">NeMo Guardrails</span>
-            <span class="pill">Celery + Redis</span>
+            <span class="pill pill-hot">LangGraph</span><span class="pill pill-hot">MCP</span><span class="pill pill-hot">A2A</span>
+            <span class="pill pill-warm">LangSmith / Langfuse</span><span class="pill pill-warm">Redis</span>
+            <span class="pill">Mem0</span><span class="pill">PostgreSQL</span><span class="pill">Pydantic</span>
+            <span class="pill">OpenTelemetry</span><span class="pill">Celery / Workers</span><span class="pill">DeepEval</span>
           </div>
         </div>
+<div class="grid-2" style="margin-top:24px;">
+          <div class="card card-yellow">
+            <h3>Agent Runtime Failure Lab</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Break the workflow at every unsafe boundary and make the runtime recover predictably.</p>
+            <ul class="plain">
+              <li><strong>Mid-run crash:</strong> resume from a checkpoint without repeating completed business effects.</li>
+              <li><strong>Tool timeout:</strong> retry safely, then route to a fallback or human approval path.</li>
+              <li><strong>Duplicate delivery:</strong> prove idempotency for side-effecting tools.</li>
+              <li><strong>Infinite loop:</strong> enforce step, time, token and cost budgets.</li>
+              <li><strong>Partial success:</strong> compensate or explicitly mark incomplete state.</li>
+            </ul>
+          </div>
+          <div class="card card-teal">
+            <h3>Agent Operations Drill</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Operate the agent like a backend workflow, not a chat transcript.</p>
+            <ul class="plain">
+              <li><strong>Trace:</strong> visualize every state transition and tool call.</li>
+              <li><strong>Policy:</strong> restrict tools by role, action and credential scope.</li>
+              <li><strong>Approval:</strong> pause risky actions and resume after human review.</li>
+              <li><strong>Replay:</strong> reproduce a failed run from recorded state and inputs.</li>
+              <li><strong>Budget:</strong> terminate runs that exceed latency/token/cost thresholds.</li>
+            </ul>
+          </div>
+        </div>
+
+<div class="card card-accent" style="margin-top:24px;">
+          <h3>Protocol Interoperability Lab</h3>
+          <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Build explicit protocol boundaries so agents are interoperable, routable and independently deployable.</p>
+          <div class="grid-2">
+            <ul class="plain">
+              <li><strong>MCP server:</strong> expose typed tools/resources with validation and scoped authorization.</li>
+              <li><strong>Stateless boundary:</strong> make MCP requests routable across multiple instances while application state remains external.</li>
+              <li><strong>Discovery:</strong> cache tool catalogs safely and handle capability changes.</li>
+              <li><strong>Long-running work:</strong> model task lifecycle, cancellation and recovery.</li>
+              <li><strong>Auth:</strong> enforce caller identity, scope and least privilege.</li>
+            </ul>
+            <ul class="plain">
+              <li><strong>A2A agent:</strong> publish capabilities and accept delegated tasks.</li>
+              <li><strong>Handoff:</strong> exchange structured task context and artifacts between agents.</li>
+              <li><strong>Isolation:</strong> avoid coupling to another agent's hidden memory/tools.</li>
+              <li><strong>Failure:</strong> handle unreachable peers, timeouts and partial task completion.</li>
+              <li><strong>Proof:</strong> include protocol traces and a compatibility matrix in the README.</li>
+            </ul>
+          </div>
+        </div>
+
+<div class="card card-red" style="margin-top:24px;">
+          <h3>AI Backend Security Lab</h3>
+          <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Threat-model the AI backend as an application, data plane and agent runtime.</p>
+          <div class="grid-2">
+            <ul class="plain">
+              <li><strong>01 · Injection:</strong> test direct and indirect prompt injection from users and retrieved content.</li>
+              <li><strong>02 · Tool abuse:</strong> enforce tool allowlists, least privilege and action boundaries.</li>
+              <li><strong>03 · Identity:</strong> separate user identity, agent identity and downstream credentials.</li>
+              <li><strong>04 · Secrets:</strong> keep credentials out of prompts, context and model-visible output.</li>
+              <li><strong>05 · Output safety:</strong> validate model output before SQL, code, shell or API execution.</li>
+            </ul>
+            <ul class="plain">
+              <li><strong>06 · RAG poisoning:</strong> detect malicious documents before they reach generation.</li>
+              <li><strong>07 · Tenant isolation:</strong> prove retrieval cannot cross authorization boundaries.</li>
+              <li><strong>08 · Exfiltration:</strong> test tool, log and response paths for sensitive-data leakage.</li>
+              <li><strong>09 · Supply chain:</strong> inventory models, tools, MCP servers and dependencies by trust boundary.</li>
+              <li><strong>10 · Audit:</strong> record security-relevant agent actions and make an incident reproducible.</li>
+            </ul>
+          </div>
+        </div>
+
+<div class="card card-accent" style="margin-top:24px;">
+          <h3>Evaluation Engineering Lab</h3>
+          <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Treat AI evaluation like software testing: repeatable, versioned, measurable and capable of blocking bad releases.</p>
+          <div class="grid-2">
+            <ul class="plain">
+              <li><strong>01 · Golden set:</strong> curate representative prompts, retrieval cases and agent tasks.</li>
+              <li><strong>02 · Deterministic checks:</strong> schemas, citations, tool arguments and policy constraints.</li>
+              <li><strong>03 · Judge calibration:</strong> compare automated judges with human labels.</li>
+              <li><strong>04 · Regression:</strong> fail releases when critical quality drops beyond threshold.</li>
+              <li><strong>05 · Experiments:</strong> compare models, prompts and routing policies reproducibly.</li>
+            </ul>
+            <ul class="plain">
+              <li><strong>06 · Online review:</strong> sample production traces for human/automated evaluation.</li>
+              <li><strong>07 · Failure clustering:</strong> group errors by retrieval, generation, tool or policy cause.</li>
+              <li><strong>08 · Statistics:</strong> report uncertainty and effect size, not a naked score.</li>
+              <li><strong>09 · Versioning:</strong> link data, prompts, evaluators and model versions.</li>
+              <li><strong>10 · Release gate:</strong> block deployment on critical quality or safety regression.</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -745,69 +1554,282 @@
       <div class="phase-header">
         <div class="phase-num pn-4">Phase 04 · Month 10–12</div>
         <div>
-          <div class="phase-title">Model Serving & AI Infrastructure</div>
-          <div class="phase-subtitle">GPU inference, self-hosted LLMs, fine-tuning, distributed scaling</div>
+          <div class="phase-title">AI Platform Engineering, Model Serving & Production Engineering</div>
+          <div class="phase-subtitle">Model adaptation, efficient fine-tuning, inference, observability, reliability and distributed scaling</div>
         </div>
       </div>
       <div class="phase-body">
         <div class="callout callout-danger" style="margin-top:0;">
           <strong>📌 Phase Goal</strong>
-          Deploy a quantized open-source LLM (Mistral, Llama 3, Qwen) via vLLM with a FastAPI inference wrapper, load balancer, and cost dashboard. Implement LoRA fine-tuning on a domain dataset. Profile and optimize TTFT under load.
+          Take a base model through a reproducible adaptation-to-production pipeline: curate/version data, establish a baseline, run efficient fine-tuning (LoRA/QLoRA), evaluate against the base model, package/version the adapter/model artifact, and deploy the approved result behind a production inference service. Profile quality, latency, memory and cost.
         </div>
         <table class="skill-table">
           <tr><th>Skill</th><th>Key Topics</th><th>Type</th><th>Resources</th></tr>
+          <tr><td><span class="skill-name">Inference Engine Architecture</span></td><td style="color:var(--muted);">vLLM, SGLang, Triton, scheduler architecture, OpenAI-compatible APIs, request lifecycle, engine workers, batching and admission control</td><td><span class="stag stag-infra">Infra</span></td><td style="color:var(--muted); font-size:12px;">vLLM docs · SGLang docs · Triton docs</td></tr>
+          <tr><td><span class="skill-name">Continuous Batching &amp; Scheduling</span></td><td style="color:var(--muted);">Continuous batching, chunked prefill, token budgets, queueing, concurrency limits, fairness, preemption concepts, throughput/latency trade-offs</td><td><span class="stag stag-infra">Infra</span></td><td style="color:var(--muted); font-size:12px;">vLLM scheduler/inference docs</td></tr>
+          <tr><td><span class="skill-name">KV Cache &amp; Prefix Caching</span></td><td style="color:var(--muted);">KV-cache memory, cache blocks, prefix reuse, cache hit rate, memory pressure, eviction, multi-tenant cache isolation and timing side-channel awareness</td><td><span class="stag stag-infra">Infra</span></td><td style="color:var(--muted); font-size:12px;">vLLM prefix caching + security docs</td></tr>
+          <tr><td><span class="skill-name">Inference Optimization</span></td><td style="color:var(--muted);">Prefill vs decode, TTFT, TPOT, throughput, speculative decoding, prefix reuse, kernel bottlenecks, CPU/GPU/network diagnosis</td><td><span class="stag stag-infra">Infra</span></td><td style="color:var(--muted); font-size:12px;">vLLM performance docs · inference systems literature</td></tr>
+          <tr><td><span class="skill-name">Quantization for Serving</span></td><td style="color:var(--muted);">FP8, INT8, INT4, AWQ, GPTQ, GGUF, KV-cache quantization, memory savings, accuracy/performance trade-offs and validation</td><td><span class="stag stag-ml">ML</span></td><td style="color:var(--muted); font-size:12px;">vLLM quantization docs · model quantization references</td></tr>
+          <tr><td><span class="skill-name">Model Routing &amp; Gateway Design</span></td><td style="color:var(--muted);">Capability/quality/latency/cost routing, provider health, fallbacks, traffic splitting, canary/shadow inference, quotas and admission policies</td><td><span class="stag stag-core">Core</span></td><td style="color:var(--muted); font-size:12px;">Gateway and routing architecture patterns</td></tr>
+          <tr><td><span class="skill-name">Kubernetes AI Inference</span></td><td style="color:var(--muted);">KServe, GPU scheduling, KEDA, custom LLM metrics, queue-aware scaling, KV-cache-aware scaling, scale-to-zero trade-offs, canary deployment</td><td><span class="stag stag-infra">Infra</span></td><td style="color:var(--muted); font-size:12px;">KServe docs · KEDA docs · Kubernetes docs</td></tr>
+          <tr><td><span class="skill-name">Distributed Inference</span></td><td style="color:var(--muted);">Tensor parallelism, pipeline parallelism, data/expert/context parallelism awareness, NCCL concepts, multi-GPU communication and topology effects</td><td><span class="stag stag-infra">Infra</span></td><td style="color:var(--muted); font-size:12px;">vLLM parallelism docs · NVIDIA NCCL docs</td></tr>
+          <tr><td><span class="skill-name">Inference Performance Engineering</span></td><td style="color:var(--muted);">Benchmark design, warm-up, concurrency sweeps, saturation curves, p50/p95/p99, tokens/sec, GPU utilization, memory utilization and cost/request</td><td><span class="stag stag-infra">Infra</span></td><td style="color:var(--muted); font-size:12px;">Load-testing tools · GPU profiling docs</td></tr>
+          <tr><td><span class="skill-name">Model Lifecycle &amp; Rollouts</span></td><td style="color:var(--muted);">Model/adapter versioning, registry promotion, compatibility checks, canary releases, shadow traffic, rollback, cache invalidation and incident recovery</td><td><span class="stag stag-infra">Infra</span></td><td style="color:var(--muted); font-size:12px;">MLflow · KServe rollout patterns</td></tr>
+          <tr><td><span class="skill-name">GPU Systems Fundamentals</span></td><td style="color:var(--muted);">GPU memory hierarchy, tensor cores, streams, utilization vs occupancy, VRAM budgeting, PCIe/NVLink awareness, profiling basics</td><td><span class="stag stag-infra">Infra</span></td><td style="color:var(--muted); font-size:12px;">NVIDIA CUDA docs · Nsight docs</td></tr>
           <tr>
-            <td><span class="skill-name">Model Serving</span></td>
-            <td style="color:var(--muted);">vLLM, TGI (HuggingFace), Triton Inference Server, BentoML, batching, continuous batching</td>
+            <td><span class="skill-name">AI Platform Architecture</span></td>
+            <td style="color:var(--muted);">Shared model gateway, model registry, prompt/config registry, evaluation service, observability plane, policy service, tenant boundaries, API contracts and control-plane/data-plane separation</td>
+            <td><span class="stag stag-infra">Platform</span></td>
+            <td style="color:var(--muted); font-size:12px;">Platform engineering patterns · ML platform architecture references</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Model &amp; Prompt Lifecycle Platform</span></td>
+            <td style="color:var(--muted);">Model versions/aliases, prompt templates, config versions, lineage, approval states, rollback, compatibility, environment promotion and reproducible releases</td>
+            <td><span class="stag stag-infra">Platform</span></td>
+            <td style="color:var(--muted); font-size:12px;">MLflow Model Registry · GitOps patterns</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">AI Governance &amp; Policy Controls</span></td>
+            <td style="color:var(--muted);">Policy-as-code, model/tool allowlists, data retention, PII handling, tenant isolation, spend quotas, auditability, approval gates and environment separation</td>
+            <td><span class="stag stag-ml">Governance</span></td>
+            <td style="color:var(--muted); font-size:12px;">AI governance patterns · security engineering</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">Platform APIs &amp; Developer Experience</span></td>
+            <td style="color:var(--muted);">Self-service APIs, SDKs, templates, service catalog, standardized config, onboarding, golden paths, secrets integration and developer-facing documentation</td>
+            <td><span class="stag stag-core">Core</span></td>
+            <td style="color:var(--muted); font-size:12px;">Internal developer platform patterns</td>
+          </tr>
+          <tr>
+            <td><span class="skill-name">GitOps &amp; Release Automation</span></td>
+            <td style="color:var(--muted);">Argo CD, declarative environments, promotion pipelines, automated validation/evals, canaries, rollback, drift detection and environment parity</td>
             <td><span class="stag stag-infra">Infra</span></td>
-            <td style="color:var(--muted); font-size:12px;">vLLM docs · TGI docs</td>
-          </tr>
-          <tr>
-            <td><span class="skill-name">Quantization & Compression</span></td>
-            <td style="color:var(--muted);">GGUF (llama.cpp), AWQ, GPTQ, bitsandbytes int4/int8, model distillation basics</td>
-            <td><span class="stag stag-ml">ML</span></td>
-            <td style="color:var(--muted); font-size:12px;">AutoAWQ · llama.cpp wiki</td>
-          </tr>
-          <tr>
-            <td><span class="skill-name">Fine-tuning (LoRA / QLoRA)</span></td>
-            <td style="color:var(--muted);">PEFT, LoRA rank/alpha, dataset formatting, training loop, evaluation, merging adapters</td>
-            <td><span class="stag stag-ml">ML</span></td>
-            <td style="color:var(--muted); font-size:12px;">Unsloth · HuggingFace PEFT docs</td>
-          </tr>
-          <tr>
-            <td><span class="skill-name">Kubernetes for ML</span></td>
-            <td style="color:var(--muted);">GPU node scheduling, resource limits, Helm charts for ML, auto-scaling, GPU operators</td>
-            <td><span class="stag stag-infra">Infra</span></td>
-            <td style="color:var(--muted); font-size:12px;">KServe docs · NVIDIA GPU operator</td>
-          </tr>
-          <tr>
-            <td><span class="skill-name">MLflow & Experiment Tracking</span></td>
-            <td style="color:var(--muted);">Run tracking, model registry, artifact storage, comparison dashboards, reproducibility</td>
-            <td><span class="stag stag-infra">Infra</span></td>
-            <td style="color:var(--muted); font-size:12px;">MLflow docs · W&B quickstart</td>
-          </tr>
+            <td style="color:var(--muted); font-size:12px;">Argo CD docs · GitOps patterns</td>
+          </tr><tr><td><span class="skill-name">Inference Security</span></td><td style="color:var(--muted);">Multi-tenant isolation, prefix-cache side channels, model endpoint auth, rate limits, request budgets, artifact provenance and safe model loading</td><td><span class="stag stag-ml">Safety</span></td><td style="color:var(--muted); font-size:12px;">vLLM security docs · OWASP AI security guidance</td></tr>
         </table>
         <div style="margin-top:20px;">
           <h4>Tech Stack</h4>
           <div class="pill-cloud">
-            <span class="pill pill-hot">vLLM</span>
-            <span class="pill pill-hot">HuggingFace TGI</span>
-            <span class="pill pill-warm">Unsloth / PEFT</span>
-            <span class="pill pill-warm">llama.cpp</span>
-            <span class="pill">Triton</span>
-            <span class="pill">MLflow</span>
-            <span class="pill">Kubernetes</span>
-            <span class="pill">Weights & Biases</span>
-            <span class="pill">BentoML</span>
+            <span class="pill pill-hot">MLflow</span><span class="pill pill-hot">Kubernetes</span><span class="pill pill-hot">Argo CD</span>
+            <span class="pill pill-hot">vLLM</span><span class="pill pill-warm">KServe</span><span class="pill pill-warm">OpenTelemetry</span>
+            <span class="pill">Prometheus</span><span class="pill">Grafana</span><span class="pill">KEDA</span>
+            <span class="pill">Terraform</span><span class="pill">GitHub Actions</span><span class="pill">Policy-as-Code</span>
           </div>
         </div>
+<div class="grid-2" style="margin-top:24px;">
+          <div class="card card-accent">
+            <h3>AI Observability Lab</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Instrument one AI request end-to-end so an engineer can explain latency, tokens, failures and spend from telemetry alone.</p>
+            <ul class="plain">
+              <li><strong>Trace:</strong> API → router → retrieval → model → tool → persistence.</li>
+              <li><strong>Latency:</strong> TTFT, generation latency, retrieval latency and p50/p95/p99.</li>
+              <li><strong>Tokens:</strong> input/output token usage plus model/provider metadata.</li>
+              <li><strong>Cost:</strong> calculate cost/request and route-level spend.</li>
+              <li><strong>Alerts:</strong> actionable thresholds for latency, errors, queueing and spend.</li>
+            </ul>
+          </div>
+          <div class="card card-green">
+            <h3>Production Debugging Drill</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Diagnose a degraded request using telemetry rather than guesswork.</p>
+            <ul class="plain">
+              <li><strong>Slow retrieval:</strong> separate vector/database latency from model time.</li>
+              <li><strong>Slow model:</strong> distinguish TTFT from token-generation throughput.</li>
+              <li><strong>Provider error:</strong> correlate failure with route/model/version.</li>
+              <li><strong>Cost spike:</strong> identify context or token growth.</li>
+              <li><strong>Replay:</strong> preserve enough metadata to reproduce the incident safely.</li>
+            </ul>
+          </div>
+        </div>
+
+<div class="grid-2" style="margin-top:24px;">
+          <div class="card card-yellow">
+            <h3>AI Reliability Lab</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Turn reliability from a claim into measurable operating behavior.</p>
+            <ul class="plain">
+              <li><strong>SLOs:</strong> define availability, p95/p99 latency and error-rate objectives for an AI endpoint.</li>
+              <li><strong>Error budget:</strong> define what amount of failure is acceptable before deployment is paused.</li>
+              <li><strong>Graceful degradation:</strong> downgrade models, disable expensive tools or serve cached answers under pressure.</li>
+              <li><strong>Load shedding:</strong> reject or defer work when queues and concurrency exceed safe limits.</li>
+              <li><strong>Incident:</strong> write a postmortem with timeline, impact, root cause and corrective actions.</li>
+            </ul>
+          </div>
+          <div class="card card-red">
+            <h3>AI Failure Injection Drill</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Intentionally break the system and prove the failure stays bounded.</p>
+            <ul class="plain">
+              <li><strong>Provider outage:</strong> force a primary model failure and trigger a controlled fallback.</li>
+              <li><strong>Latency:</strong> inject slow responses and verify timeout/circuit-breaker behavior.</li>
+              <li><strong>Retry storm:</strong> simulate dependency errors and prove exponential backoff contains load.</li>
+              <li><strong>Queue saturation:</strong> exceed worker capacity and verify admission control/load shedding.</li>
+              <li><strong>Recovery:</strong> restore dependencies and verify the system returns to the SLO target.</li>
+            </ul>
+          </div>
+        </div>
+
+<div class="card card-accent" style="margin-top:24px;">
+          <h3>Model Adaptation Lab</h3>
+          <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Prove that you can improve a model for a backend product requirement without blindly fine-tuning everything.</p>
+          <div class="grid-2">
+            <ul class="plain">
+              <li><strong>01 · Decision:</strong> justify prompting vs RAG vs fine-tuning for the task.</li>
+              <li><strong>02 · Dataset:</strong> curate, clean, deduplicate, split and version an instruction dataset.</li>
+              <li><strong>03 · Template:</strong> use the correct chat/instruction template and verify formatted samples.</li>
+              <li><strong>04 · Baseline:</strong> evaluate the base model before training on a held-out benchmark.</li>
+              <li><strong>05 · Train:</strong> run SFT with LoRA or QLoRA; record hyperparameters and checkpoints.</li>
+            </ul>
+            <ul class="plain">
+              <li><strong>06 · Compare:</strong> measure adapted vs base quality on held-out and regression sets.</li>
+              <li><strong>07 · Safety:</strong> test capability regressions, harmful-output cases and prompt-injection resilience.</li>
+              <li><strong>08 · Package:</strong> version the adapter/model artifact and record its lineage/hash.</li>
+              <li><strong>09 · Gate:</strong> approve only when quality improves without violating latency/cost/safety limits.</li>
+              <li><strong>10 · Serve:</strong> deploy the approved artifact and prove rollback to the prior version.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-info" style="margin-top:20px; margin-bottom:0;">
+          <strong>🧪 Phase 04 Adaptation Exit Gate</strong>
+          You should be able to explain when fine-tuning is actually warranted; build a versioned dataset; run an SFT LoRA/QLoRA experiment; compare base vs adapted models on held-out data; detect overfitting/regression; package and version the resulting artifact; and promote or roll it back through a production serving path.
+        </div>
+<div class="grid-2" style="margin-top:24px;">
+          <div class="card card-accent">
+            <h3>Inference Engineering Lab</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Treat model serving as a performance-engineering problem with measurable bottlenecks.</p>
+            <ul class="plain">
+              <li><strong>01 · Baseline:</strong> benchmark concurrency, TTFT, TPOT and throughput across prompt/output sizes.</li>
+              <li><strong>02 · Batching:</strong> compare continuous batching behavior and plot latency/throughput trade-offs.</li>
+              <li><strong>03 · KV cache:</strong> measure memory pressure and prefix-cache hit-rate impact.</li>
+              <li><strong>04 · Speculation:</strong> test speculative decoding where supported and quantify workload sensitivity.</li>
+              <li><strong>05 · Quantization:</strong> compare quality, memory, throughput and latency across quantization strategies.</li>
+            </ul>
+          </div>
+          <div class="card card-green">
+            <h3>Inference Production Drill</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Operate a serving cluster instead of merely starting a model process.</p>
+            <ul class="plain">
+              <li><strong>Autoscale:</strong> scale from queue/LLM metrics rather than CPU alone.</li>
+              <li><strong>Routing:</strong> use a health-aware model gateway with fallback.</li>
+              <li><strong>Rollout:</strong> canary a new model and preserve rollback.</li>
+              <li><strong>Isolation:</strong> validate tenant boundaries and prefix-cache security posture.</li>
+              <li><strong>Cost:</strong> report cost/request, cost/quality and GPU utilization under load.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="callout callout-info" style="margin-top:20px; margin-bottom:0;">
+          <strong>🧪 Phase 04 Inference Exit Gate</strong>
+          You should be able to explain prefill vs decode; benchmark TTFT/TPOT/throughput; reason about KV-cache memory; explain continuous batching and prefix caching; apply and validate quantization; configure a model gateway; scale inference using workload-aware metrics; perform a safe rollout/rollback; and diagnose a serving bottleneck from telemetry.
+        </div>
+      </div>
+    </div>
+
+
+<div class="grid-2" style="margin-top:24px;">
+          <div class="card card-accent">
+            <h3>AI Platform Engineering Lab</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Build the shared control plane that makes multiple AI services easier to ship, govern and operate.</p>
+            <ul class="plain">
+              <li><strong>01 · Gateway:</strong> expose one internal API for model selection, auth, quotas and routing.</li>
+              <li><strong>02 · Registry:</strong> register model versions and approved aliases with lineage metadata.</li>
+              <li><strong>03 · Prompt/config:</strong> version prompts and runtime configuration separately from application code.</li>
+              <li><strong>04 · Evaluation gate:</strong> block promotion when quality/safety thresholds regress.</li>
+              <li><strong>05 · Observability:</strong> standardize traces, metrics and AI request metadata across services.</li>
+            </ul>
+          </div>
+          <div class="card card-green">
+            <h3>Platform Golden Path Drill</h3>
+            <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">A new AI backend should be deployable through the platform without reinventing the infrastructure each time.</p>
+            <ul class="plain">
+              <li><strong>Bootstrap:</strong> generate a service from a standard template with secure defaults.</li>
+              <li><strong>Promote:</strong> move dev → staging → production through GitOps-controlled environments.</li>
+              <li><strong>Policy:</strong> enforce model, tool, data and spend controls automatically.</li>
+              <li><strong>Rollback:</strong> revert application, model or prompt versions independently.</li>
+              <li><strong>Evidence:</strong> document developer time saved and which controls became standardized.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-info" style="margin-top:20px; margin-bottom:0;">
+          <strong>🧪 Phase 04 Platform Exit Gate</strong>
+          You should be able to design a shared AI control plane; separate control-plane and data-plane responsibilities; expose a reusable model gateway; manage model/prompt/config versions; automate evaluation and promotion gates; enforce policy and tenant boundaries; deploy through GitOps; and provide a reproducible golden path for new AI backend services.
+        </div>
+
+<div class="card card-accent" style="margin-top:26px;">
+          <h3>🏁 AI-First Backend Graduation Capstone</h3>
+          <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">One system must prove that every phase can work together as a single production AI backend.</p>
+
+          <div class="grid-2">
+            <div>
+              <h4 style="margin-top:0;">System Requirements</h4>
+              <ul class="plain">
+                <li><strong>Backend:</strong> FastAPI, PostgreSQL, Redis, async workers and authenticated APIs.</li>
+                <li><strong>Distributed:</strong> event-driven workflow, idempotency, replay, DLQ and failure recovery.</li>
+                <li><strong>AI:</strong> provider abstraction, structured output, retrieval, model routing and context controls.</li>
+                <li><strong>Agent:</strong> durable workflow state, MCP tool boundary, A2A handoff and approval path.</li>
+                <li><strong>Security:</strong> tenant isolation, scoped credentials, prompt-injection defenses and audit trail.</li>
+                <li><strong>Platform:</strong> model/prompt versioning, evaluation gate, GitOps deployment and policy controls.</li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="margin-top:0;">Proof Required</h4>
+              <ul class="plain">
+                <li><strong>Reliability:</strong> SLOs, error budget, graceful degradation and failure-injection results.</li>
+                <li><strong>Performance:</strong> p50/p95/p99, TTFT, TPOT, throughput, queueing and cost/request.</li>
+                <li><strong>Evaluation:</strong> versioned golden set, regression threshold, effect size and uncertainty.</li>
+                <li><strong>Observability:</strong> end-to-end traces, metrics, logs, token/model metadata and alerts.</li>
+                <li><strong>Operations:</strong> runbook, incident postmortem, rollback procedure and recovery drill.</li>
+                <li><strong>Career evidence:</strong> architecture diagram, benchmark report, demo and technical write-up.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-green" style="margin-top:20px;">
+          <h3>🎓 AI-First Backend Engineer Graduation Gate</h3>
+          <div class="grid-3">
+            <div>
+              <h4>Build</h4>
+              <ul class="plain">
+                <li>Can design a backend architecture from requirements.</li>
+                <li>Can model data, transactions and concurrency.</li>
+                <li>Can build distributed/event-driven workflows.</li>
+                <li>Can integrate and route multiple AI providers.</li>
+                <li>Can build retrieval + agent workflows.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Operate</h4>
+              <ul class="plain">
+                <li>Can define and measure reliability SLOs.</li>
+                <li>Can debug from traces/metrics/logs.</li>
+                <li>Can benchmark inference bottlenecks.</li>
+                <li>Can roll forward and roll back safely.</li>
+                <li>Can handle incidents and document recovery.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Secure &amp; Prove</h4>
+              <ul class="plain">
+                <li>Can threat-model AI/agent backends.</li>
+                <li>Can enforce least-privilege tool access.</li>
+                <li>Can build evaluation/release gates.</li>
+                <li>Can explain cost/quality/latency trade-offs.</li>
+                <li>Can defend architecture in a system-design interview.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="callout callout-danger" style="margin-bottom:0; margin-top:18px;">
+            <strong>NO HAND-WAVING RULE</strong>
+            A technology only counts as mastered when you can build it, break it, measure it, secure it, recover it, explain the trade-offs, and show evidence in a public portfolio.
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
 
 <!-- SKILL TREE -->
-<section id="skills">
+<section id="skills" class="reveal-section">
   <div class="container">
     <div class="section-tag">// complete skill map</div>
     <h2>Skill Tree</h2>
@@ -817,41 +1839,116 @@
       <div class="card card-accent">
         <h3>🔧 Backend Engineering</h3>
         <ul class="plain" style="margin-top:12px;">
-          <li><strong>FastAPI / Async Python:</strong> Middleware, DI, background tasks, WebSockets</li>
-          <li><strong>Database mastery:</strong> PostgreSQL (indexing, EXPLAIN ANALYZE), Redis patterns</li>
-          <li><strong>API design:</strong> REST semantics, versioning, rate limiting, pagination</li>
-          <li><strong>Message queues:</strong> Celery, RQ, Kafka basics for async AI jobs</li>
-          <li><strong>Auth:</strong> JWT, OAuth2, API keys, row-level security</li>
-        </ul>
-      </div>
-      <div class="card card-green">
-        <h3>🤖 LLM & RAG</h3>
-        <ul class="plain" style="margin-top:12px;">
-          <li><strong>LLM APIs:</strong> OpenAI, Anthropic, Gemini, Groq, together.ai</li>
-          <li><strong>Embeddings:</strong> BGE-M3, E5-mistral, Cohere Embed v3</li>
-          <li><strong>Vector DBs:</strong> Qdrant, Weaviate, pgvector, Pinecone</li>
-          <li><strong>RAG patterns:</strong> Naive → Advanced → Modular → Agentic RAG</li>
-          <li><strong>Reranking:</strong> Cross-encoder, Cohere Rerank, ColBERT</li>
+          <li><strong>Python / Async:</strong> asyncio, event loops, concurrency, cancellation, timeouts, profiling</li>
+          <li><strong>API engineering:</strong> REST, SSE, WebSockets, gRPC basics, versioning, idempotency, pagination</li>
+          <li><strong>Database mastery:</strong> PostgreSQL schema design, transactions, MVCC, isolation, locks, indexes, EXPLAIN ANALYZE</li>
+          <li><strong>Data access:</strong> SQLAlchemy sessions, N+1 avoidance, migrations, query profiling, pooling</li>
+          <li><strong>Caching:</strong> cache-aside, invalidation, TTLs, stampede control, Redis Streams, distributed locks</li>
+          <li><strong>Async jobs:</strong> Celery, queues, retries, idempotent workers, DLQ patterns</li>
+          <li><strong>Resilience:</strong> timeouts, backoff, circuit breakers, backpressure, graceful degradation</li>
+          <li><strong>Testing:</strong> unit/integration/contract tests, Testcontainers, load testing, p95/p99 analysis</li>
+          <li><strong>Security:</strong> OAuth2/OIDC, JWT, RBAC, secrets, secure API boundaries, audit logging</li>
+          <li><strong>Delivery:</strong> Docker hardening, CI/CD, health checks, reproducible builds and rollback</li>
         </ul>
       </div>
       <div class="card card-yellow">
-        <h3>🧩 Agentic Systems</h3>
+        <h3>🌐 Distributed Systems</h3>
         <ul class="plain" style="margin-top:12px;">
-          <li><strong>Orchestration:</strong> LangGraph, CrewAI, AutoGen, Semantic Kernel</li>
-          <li><strong>Tool use:</strong> Function calling, MCP servers, tool schemas</li>
-          <li><strong>Memory:</strong> Short-term context, Mem0, Zep, episodic + semantic</li>
-          <li><strong>Planning:</strong> ReAct, ToT, Monte Carlo Tree Search for agents</li>
-          <li><strong>Evaluation:</strong> Agent benchmarks, task completion rate, hallucination rate</li>
+          <li><strong>Messaging:</strong> Kafka / Redpanda, topics, partitions, offsets, consumer groups, retention</li>
+          <li><strong>Delivery:</strong> at-most-once, at-least-once, idempotency and duplicate handling</li>
+          <li><strong>Reliability:</strong> retries, backoff, DLQs, poison messages, replay and recovery</li>
+          <li><strong>Data flow:</strong> event schemas, versioning, ordering and outbox pattern</li>
+          <li><strong>Distributed data:</strong> replication, partitioning, quorum concepts and consistency trade-offs</li>
+          <li><strong>Failure thinking:</strong> network partitions, failure domains, partial failure and graceful degradation</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🧠 Context Engineering</h3>
+        <ul class="plain" style="margin-top:12px;">
+          <li><strong>Budgeting:</strong> allocate tokens across system instructions, history, retrieval and tools</li>
+          <li><strong>Selection:</strong> relevance, recency, priority and memory-driven selection</li>
+          <li><strong>Compression:</strong> summarization, deduplication and long-context reduction</li>
+          <li><strong>Assembly:</strong> deterministic context construction, ordering and versioning</li>
+          <li><strong>Failure modes:</strong> overflow, stale context, poisoning and lost-in-the-middle</li>
+          <li><strong>Caching:</strong> prefix/context reuse and invalidation strategies</li>
+        </ul>
+      </div>
+      <div class="card card-green">
+        <h3>🤖 AI Application Engineering</h3>
+        <ul class="plain" style="margin-top:12px;">
+          <li><strong>LLM APIs:</strong> provider SDKs, streaming, adapters, retries, timeouts and rate limits</li>
+          <li><strong>Structured generation:</strong> JSON Schema, Pydantic, typed outputs and recovery</li>
+          <li><strong>Context engineering:</strong> token budgets, truncation, prioritization and compression</li>
+          <li><strong>Model routing:</strong> quality/latency/cost routing, health checks, fallbacks and caching</li>
+          <li><strong>Retrieval:</strong> dense/sparse search, HNSW/IVFFlat, hybrid retrieval and reranking</li>
+          <li><strong>RAG:</strong> query rewriting, contextual retrieval, freshness, citations and ACL-aware access</li>
+          <li><strong>Evaluation:</strong> golden datasets, retrieval metrics, LLM judges and regression gates</li>
+        </ul>
+      </div>
+      <div class="card card-yellow">
+        <h3>🧩 Agentic Systems &amp; Security</h3>
+        <ul class="plain" style="margin-top:12px;">
+          <li><strong>Runtime:</strong> state, durable execution, checkpoints, resumability and termination policies</li>
+          <li><strong>Protocols:</strong> MCP tools/resources/tasks; A2A discovery, delegation and handoffs</li>
+          <li><strong>Tooling:</strong> schemas, validation, permissions, retries, cancellation and side-effect safety</li>
+          <li><strong>Memory:</strong> context, episodic/semantic state, read/write policy and isolation</li>
+          <li><strong>Security:</strong> prompt injection, tool poisoning, excessive agency, least privilege and credential isolation</li>
+          <li><strong>Evaluation:</strong> task completion, trajectory quality, policy compliance, recovery and cost</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🛡️ AI Backend Security</h3>
+        <ul class="plain" style="margin-top:12px;">
+          <li><strong>LLM risks:</strong> prompt injection, information disclosure, output handling, supply chain and unbounded consumption</li>
+          <li><strong>Agent risks:</strong> excessive agency, tool poisoning, privilege abuse and malicious peer agents</li>
+          <li><strong>RAG security:</strong> document poisoning, ACL-aware retrieval, tenant isolation and exfiltration controls</li>
+          <li><strong>Identity:</strong> user vs agent identity, delegated authorization and capability-based permissions</li>
+          <li><strong>Runtime:</strong> sandboxing, secrets isolation, egress control, audit logs and kill switches</li>
+          <li><strong>Testing:</strong> threat modeling, red-team scenarios, attack replay and security regression tests</li>
         </ul>
       </div>
       <div class="card card-red">
-        <h3>⚙️ ML Infra & Serving</h3>
+        <h3>🧬 Model Adaptation</h3>
         <ul class="plain" style="margin-top:12px;">
-          <li><strong>Model serving:</strong> vLLM, TGI, Triton, BentoML</li>
-          <li><strong>Quantization:</strong> GGUF, AWQ, GPTQ, int4/int8</li>
-          <li><strong>Fine-tuning:</strong> LoRA, QLoRA, PEFT, full fine-tune basics</li>
-          <li><strong>GPU compute:</strong> CUDA basics, VRAM budgeting, multi-GPU</li>
-          <li><strong>Observability:</strong> LangSmith, Langfuse, Arize, cost tracking</li>
+          <li><strong>Decision:</strong> prompting vs RAG vs fine-tuning; optimize for product outcome, not novelty</li>
+          <li><strong>Data:</strong> instruction datasets, quality filters, deduplication, splits, leakage checks and lineage</li>
+          <li><strong>Efficient training:</strong> LoRA, QLoRA, PEFT, SFT, gradient accumulation and checkpointing</li>
+          <li><strong>Post-training:</strong> preference data, DPO concepts, reward/grader design and distillation awareness</li>
+          <li><strong>Evaluation:</strong> base-vs-adapted benchmarks, capability regression, safety and cost gates</li>
+          <li><strong>Lifecycle:</strong> artifacts, hashes, model cards, registry promotion, compatibility and rollback</li>
+        </ul>
+      </div>
+      <div class="card card-teal">
+        <h3>🏗️ AI Platform Engineering</h3>
+        <ul class="plain" style="margin-top:12px;">
+          <li><strong>Control plane:</strong> model gateway, registry, prompt/config registry, policy and evaluation services</li>
+          <li><strong>Lifecycle:</strong> model/prompt/config versioning, lineage, aliases, approvals and rollback</li>
+          <li><strong>Developer platform:</strong> service templates, SDKs, golden paths, standardized config and self-service APIs</li>
+          <li><strong>Governance:</strong> policy-as-code, tenant isolation, quotas, data retention and auditability</li>
+          <li><strong>Delivery:</strong> GitOps, promotion pipelines, canary releases, drift detection and environment parity</li>
+          <li><strong>Platform economics:</strong> shared infrastructure, cost allocation, quotas and chargeback/showback awareness</li>
+        </ul>
+      </div>
+      <div class="card card-red">
+        <h3>⚙️ AI Infrastructure &amp; Observability</h3>
+        <ul class="plain" style="margin-top:12px;">
+          <li><strong>Serving:</strong> vLLM, SGLang, Triton, KServe, batching and model gateways</li>
+          <li><strong>Inference:</strong> prefill/decode, TTFT, TPOT, throughput, continuous batching, KV cache, prefix caching, speculative decoding, quantization and scheduling</li>
+          <li><strong>GPU:</strong> utilization, memory, multi-GPU basics and inference bottlenecks</li>
+          <li><strong>Telemetry:</strong> OpenTelemetry traces, metrics, logs and AI-specific spans</li>
+          <li><strong>AI signals:</strong> token usage, model/provider, retrieval/tool time, errors, queue depth and cost</li>
+          <li><strong>Operations:</strong> Prometheus, Grafana, alerting, debugging, incident evidence and trace correlation</li>
+          <li><strong>Reliability:</strong> latency SLOs, saturation signals, failure correlation and production diagnosis</li>
+        </ul>
+      </div>
+      <div class="card card-yellow">
+        <h3>🧯 AI Reliability / SRE</h3>
+        <ul class="plain" style="margin-top:12px;">
+          <li><strong>SLIs/SLOs:</strong> availability, p50/p95/p99 latency, error rate, throughput and saturation</li>
+          <li><strong>Error budgets:</strong> define release/deploy policy from observed reliability</li>
+          <li><strong>Resilience:</strong> timeouts, retries, circuit breakers, fallbacks, load shedding and admission control</li>
+          <li><strong>AI failures:</strong> provider outage, tool failure, retrieval failure, context overflow and token/cost explosion</li>
+          <li><strong>Operations:</strong> incident response, postmortems, runbooks, recovery testing and capacity planning</li>
         </ul>
       </div>
       <div class="card card-teal">
@@ -876,6 +1973,25 @@
       </div>
     </div>
 
+    <div class="card card-accent" style="margin-top:22px;">
+        <h3>🏆 AI-First Backend Mastery</h3>
+        <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">The finish line is not a tool list. It is independent ownership of the complete AI-backend lifecycle.</p>
+        <div class="grid-3">
+          <ul class="plain">
+            <li><strong>Architecture:</strong> HLD/LLD, APIs, data, queues and failure domains</li>
+            <li><strong>AI Systems:</strong> RAG, agents, context, model routing and evaluation</li>
+          </ul>
+          <ul class="plain">
+            <li><strong>Production:</strong> serving, inference, platform, GitOps and observability</li>
+            <li><strong>Reliability:</strong> SLOs, resilience, incident response and recovery</li>
+          </ul>
+          <ul class="plain">
+            <li><strong>Security:</strong> identity, tool permissions, tenant isolation and AI threats</li>
+            <li><strong>Evidence:</strong> benchmarks, traces, demos, architecture docs and write-ups</li>
+          </ul>
+        </div>
+      </div>
+
     <div class="callout callout-info" style="margin-top:28px;">
       <strong>💡 Stack Priority Order</strong>
       Master FastAPI + PostgreSQL + Redis first (weeks 1–4). Then LLM APIs + Qdrant + RAG (weeks 5–12). Then LangGraph + LangSmith (weeks 13–20). Then vLLM + fine-tuning (weeks 21–28). Doing it in reverse order produces engineers who can fine-tune a model but can't run it in production.
@@ -884,11 +2000,11 @@
 </section>
 
 <!-- PROJECTS -->
-<section id="projects">
+<section id="projects" class="reveal-section">
   <div class="container">
     <div class="section-tag">// portfolio projects</div>
-    <h2>9 Portfolio Projects</h2>
-    <p class="section-desc">Every project here is designed to be: (a) immediately deployable, (b) differentiated from tutorials, (c) directly nameable in interviews. Build them in order.</p>
+    <h2>13 Portfolio Projects</h2>
+    <p class="section-desc">Every project here is designed to be: (a) immediately deployable, (b) differentiated from tutorials, (c) directly nameable in interviews. Build them in order; P10 is the distributed-systems bridge into production AI backends.</p>
 
     <div class="grid-2">
       <div class="card card-accent">
@@ -897,7 +2013,7 @@
           <div class="proj-num">P01</div>
           <div>
             <div class="proj-title">Production Task API with Auth & Queue</div>
-            <div class="proj-desc">A full-featured REST API with JWT auth, role-based access, PostgreSQL, Redis caching, and Celery background jobs for async processing. Deployed on Railway or Render with full CI/CD.</div>
+            <div class="proj-desc">A production-style REST API with JWT/OAuth2-aware authorization, PostgreSQL transactions and indexing, Redis caching and rate limiting, Celery jobs, idempotency keys, structured error handling, health checks, integration tests, load tests, Docker packaging and CI/CD. Document latency and failure behavior.</div>
             <div class="proj-stack">
               <span class="stag stag-core">FastAPI</span><span class="stag stag-tool">PostgreSQL</span><span class="stag stag-tool">Redis</span><span class="stag stag-infra">Celery</span><span class="stag stag-infra">Docker</span>
             </div>
@@ -907,7 +2023,7 @@
           <div class="proj-num">P02</div>
           <div>
             <div class="proj-title">Real-Time Notification Service</div>
-            <div class="proj-desc">WebSocket-based notification backend with pub/sub via Redis Streams, fan-out to multiple subscribers, and persistent message history. Tests at 1000+ concurrent connections.</div>
+            <div class="proj-desc">WebSocket + SSE notification backend with Redis Streams, consumer groups, fan-out, connection lifecycle management, retry/backoff, backpressure, persistent history and graceful disconnect handling. Load-test concurrent connections and record p50/p95/p99 latency.</div>
             <div class="proj-stack">
               <span class="stag stag-core">FastAPI</span><span class="stag stag-tool">WebSockets</span><span class="stag stag-tool">Redis Streams</span><span class="stag stag-infra">Locust</span>
             </div>
@@ -921,7 +2037,7 @@
           <div class="proj-num">P03</div>
           <div>
             <div class="proj-title">Research Paper RAG System</div>
-            <div class="proj-desc">Ingest 500+ arXiv papers into Qdrant with hybrid search (BM25 + dense). Streaming API with reranking, citation extraction, and RAGAS evaluation dashboard. Deployed publicly.</div>
+            <div class="proj-desc">Ingest 500+ arXiv papers into Qdrant with dense + sparse hybrid retrieval, query rewriting, reranking, metadata filtering, citation extraction and RAGAS/DeepEval evaluation. Add incremental ingestion, document versioning, freshness handling and a public retrieval benchmark.</div>
             <div class="proj-stack">
               <span class="stag stag-core">LlamaIndex</span><span class="stag stag-tool">Qdrant</span><span class="stag stag-tool">Cohere Rerank</span><span class="stag stag-ml">RAGAS</span>
             </div>
@@ -955,7 +2071,7 @@
           <div class="proj-num">P06</div>
           <div>
             <div class="proj-title">Autonomous Research Agent</div>
-            <div class="proj-desc">LangGraph-based agent that searches the web, reads papers, synthesizes findings, and produces structured reports. Has persistent memory across sessions and a LangSmith trace dashboard.</div>
+            <div class="proj-desc">LangGraph-based agent runtime that searches the web, reads papers, synthesizes findings and produces structured reports. Add persistent state, checkpoints, retry-safe tools, step/cost budgets, traceable execution, resumability and evaluation of task trajectories.</div>
             <div class="proj-stack">
               <span class="stag stag-agent">LangGraph</span><span class="stag stag-tool">Tavily</span><span class="stag stag-tool">LangSmith</span><span class="stag stag-ml">Mem0</span>
             </div>
@@ -965,7 +2081,7 @@
           <div class="proj-num">P07</div>
           <div>
             <div class="proj-title">Multi-Agent Code Review System</div>
-            <div class="proj-desc">CrewAI system with specialized agents: Reviewer (logic), Security Auditor (vulns), Style Checker (PEP8). Agents debate findings and produce a consensus report. Integrates with GitHub webhooks.</div>
+            <div class="proj-desc">Multi-agent code review backend with specialized reviewers for logic, security and style. Agents operate through scoped GitHub permissions, validated tools and isolated credentials; the system must defend against prompt injection, tool abuse and excessive agency, enforce least-privilege authorization, validate outputs before side effects, recover from workflow failure and preserve traceable security-relevant decisions before producing a consensus report. <strong>Acceptance:</strong> prompt-injection test + tool-permission test + isolated credential test + output-validation test.</div>
             <div class="proj-stack">
               <span class="stag stag-agent">CrewAI</span><span class="stag stag-infra">FastAPI</span><span class="stag stag-tool">GitHub API</span><span class="stag stag-ml">Langfuse</span>
             </div>
@@ -979,7 +2095,7 @@
           <div class="proj-num">P08</div>
           <div>
             <div class="proj-title">Self-Hosted LLM Inference Server</div>
-            <div class="proj-desc">Deploy Mistral-7B or Llama-3-8B on a GPU instance via vLLM with an OpenAI-compatible API. Includes quantization (AWQ), load balancing, rate limiting, and a cost-per-token dashboard.</div>
+            <div class="proj-desc">Deploy Mistral-7B or Llama-3-8B on a GPU instance via vLLM with an OpenAI-compatible API. Includes quantization (AWQ), load balancing, rate limiting, and a cost-per-token dashboard. <strong>Reliability:</strong> define SLOs, run a failure-injection test and document fallback/recovery behavior. <strong>Serving evidence:</strong> benchmark TTFT/TPOT/throughput across concurrency levels, measure KV-cache/prefix-cache behavior, compare quantization, and document an autoscaling/rollback drill.</div>
             <div class="proj-stack">
               <span class="stag stag-infra">vLLM</span><span class="stag stag-ml">AWQ</span><span class="stag stag-infra">Nginx</span><span class="stag stag-tool">Grafana</span>
             </div>
@@ -989,24 +2105,83 @@
           <div class="proj-num">P09</div>
           <div>
             <div class="proj-title">Domain-Specific Fine-Tuned Model API</div>
-            <div class="proj-desc">LoRA fine-tune a 7B model on a domain dataset (medical, legal, code), evaluate against base model on custom benchmark, merge adapters, and serve via BentoML with A/B routing vs GPT-4o.</div>
+            <div class="proj-desc">Choose a justified domain task, version a high-quality instruction dataset, establish a base-model benchmark, run SFT with LoRA/QLoRA, compare against the base model on held-out quality and safety tests, version the adapter/model artifact, register it, and serve the approved version with rollback/A/B capability.</div>
             <div class="proj-stack">
-              <span class="stag stag-ml">Unsloth</span><span class="stag stag-ml">PEFT</span><span class="stag stag-infra">BentoML</span><span class="stag stag-tool">MLflow</span>
+              <span class="stag stag-ml">Transformers</span><span class="stag stag-ml">PEFT / Unsloth</span><span class="stag stag-ml">TRL</span><span class="stag stag-infra">BentoML</span><span class="stag stag-tool">MLflow</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="callout callout-warn" style="margin-top:8px;">
+    
+    <div class="card card-yellow" style="margin-top:20px;">
+      <h4 style="color:var(--accent4); margin-top:0;">Distributed Systems Project · Event-Driven AI Backend</h4>
+      <div class="project-item">
+        <div class="proj-num">P10</div>
+        <div>
+          <div class="proj-title">Event-Driven AI Job Platform</div>
+          <div class="proj-desc">Build an asynchronous AI backend where requests become durable events, workers process them, results are persisted, and failures can be retried or replayed safely. Include Kafka/Redpanda, PostgreSQL, Redis, idempotent consumers, DLQ handling, schema versioning and traceable workflow boundaries.</div>
+          <div class="proj-stack">
+            <span class="stag stag-infra">Kafka / Redpanda</span><span class="stag stag-core">FastAPI</span><span class="stag stag-tool">PostgreSQL</span><span class="stag stag-tool">Redis</span><span class="stag stag-infra">Workers</span><span class="stag stag-ml">Observability</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="card card-red" style="margin-top:20px;">
+      <h4 style="color:var(--accent3); margin-top:0;">Agent Systems Project · Production Runtime</h4>
+      <div class="project-item">
+        <div class="proj-num">P11</div>
+        <div>
+          <div class="proj-title">Durable AI Agent Runtime</div>
+          <div class="proj-desc">Build a backend runtime that executes long-running agent workflows with checkpoints, resumability, MCP/A2A protocol boundaries, tool permissions, retries, cancellation, human approval gates, state persistence, trajectory tracing, versioned evaluation and hard token/time/cost budgets. The runtime must expose at least one MCP tool boundary and demonstrate an A2A task handoff between independently running agents. Demonstrate recovery from worker crashes and duplicate tool delivery. <strong>Acceptance:</strong> MCP tool boundary + A2A handoff + checkpoint/resume test + duplicate-side-effect test.</div>
+          <div class="proj-stack">
+            <span class="stag stag-agent">LangGraph</span><span class="stag stag-agent">MCP</span><span class="stag stag-tool">PostgreSQL</span><span class="stag stag-tool">Redis</span><span class="stag stag-infra">Workers</span><span class="stag stag-ml">Eval / Tracing</span>
+          </div>
+          </div>
+        </div>
+      </div>
+
+
+<div class="card card-teal" style="margin-top:20px;">
+      <h4 style="color:var(--accent5); margin-top:0;">Platform Engineering Project · Internal AI Developer Platform</h4>
+      <div class="project-item">
+        <div class="proj-num">P12</div>
+        <div>
+          <div class="proj-title">Internal AI Backend Platform</div>
+          <div class="proj-desc">Build a reusable internal platform for AI services: a model gateway, model registry integration, versioned prompt/config management, standardized OpenTelemetry instrumentation, evaluation gates, policy controls, tenant/quota management and GitOps-based environment promotion. A developer should be able to bootstrap a new AI backend from a golden template instead of rebuilding the infrastructure.</div>
+          <div class="proj-stack">
+            <span class="stag stag-infra">Kubernetes</span><span class="stag stag-infra">Argo CD</span><span class="stag stag-tool">MLflow</span><span class="stag stag-core">FastAPI</span><span class="stag stag-ml">Eval Gates</span><span class="stag stag-infra">OpenTelemetry</span>
+          </div>
+        </div>
+        </div>
+      </div>
+
+
+<div class="card card-accent" style="margin-top:20px;">
+      <h4 style="color:var(--accent); margin-top:0;">Final Capstone · End-to-End AI-First Backend</h4>
+      <div class="project-item">
+        <div class="proj-num">P13</div>
+        <div>
+          <div class="proj-title">Production AI Backend Platform</div>
+          <div class="proj-desc">Integrate the roadmap into one independently operated system: authenticated FastAPI APIs, PostgreSQL/Redis, Kafka-driven jobs, RAG, provider/model routing, durable agent workflows with MCP/A2A, AI security controls, versioned evaluation, OpenTelemetry, SLOs, model serving and GitOps-based platform delivery. The final artifact must include a public architecture diagram, benchmark report, threat model, evaluation report, runbook, incident postmortem and deployment/rollback evidence.</div>
+          <div class="proj-stack">
+            <span class="stag stag-core">FastAPI</span><span class="stag stag-tool">PostgreSQL</span><span class="stag stag-tool">Redis</span><span class="stag stag-infra">Kafka</span><span class="stag stag-agent">MCP/A2A</span><span class="stag stag-ml">Eval</span><span class="stag stag-infra">OpenTelemetry</span><span class="stag stag-infra">Kubernetes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="callout callout-warn" style="margin-top:8px;">
       <strong>⚠ Portfolio Rule</strong>
-      Every project must have: (1) a live public URL or demo, (2) a GitHub repo with a real README including architecture diagram, (3) documented evaluation metrics — not just "it works." Recruiters at AI companies look at GitHub within 30 seconds of seeing your resume. Make the repo land.
+      Every project must have: (1) a live public URL or demo, (2) a GitHub repo with a real README including architecture diagram, (3) documented evaluation and reliability metrics, (4) architecture/operational evidence — not just "it works." Recruiters at AI companies look at GitHub within 30 seconds of seeing your resume. Make the repo land.
     </div>
   </div>
 </section>
 
 <!-- COMPANY TYPES -->
-<section id="companies">
+<section id="companies" class="reveal-section">
   <div class="container">
     <div class="section-tag">// who hires these engineers</div>
     <h2>Companies That Hire AI-First Backend Engineers</h2>
@@ -1167,153 +2342,221 @@
 </section>
 
 <!-- HIRING CALENDAR -->
-<section id="calendar">
+<section id="calendar" class="reveal-section">
   <div class="container">
-    <div class="section-tag">// when to apply</div>
-    <h2>Recruitment Calendar</h2>
-    <p class="section-desc">AI hiring does not follow a strict "season" like traditional SWE — it's rolling. But there are patterns. This calendar maps when different company types are most active.</p>
+    <div class="section-tag">// recruitment operating system</div>
+    <h2>Recruitment Operating System</h2>
+    <p class="section-desc">Treat hiring like an engineering system: know when to target each market, when you are ready, how far ahead to apply, what evidence to ship, and exactly how the pipeline is moving.</p>
 
     <div class="callout callout-warn">
-      <strong>⚠ Key Insight</strong>
-      AI engineering roles at top companies get filled 60–70% faster than general SWE roles because the talent pool is smaller. Apply when you're 80% ready — don't wait for 100%. A live project portfolio outweighs a polished resume.
+      <strong>⚠ Operating Principle</strong>
+      Do not wait for a "perfect season." AI hiring is rolling. This calendar is a planning model, not a guarantee of openings. Team timing varies by company, geography, budget and role.
     </div>
 
-    <table class="cal-table" style="margin-top:24px;">
+    <div class="card card-accent recruitment-readiness" style="margin-top:24px;">
+      <div class="readiness-head">
+        <div>
+          <div class="section-tag" style="margin-bottom:4px;">// your readiness</div>
+          <h3 style="margin-bottom:4px;">Application Readiness Level</h3>
+          <p style="color:var(--muted); font-size:12px; margin:0;">Let your evidence decide when you apply.</p>
+        </div>
+        <div class="readiness-meter">
+          <span id="readinessScore">0 / 100</span>
+          <div class="readiness-track"><span id="readinessFill"></span></div>
+        </div>
+      </div>
+
+      <div class="readiness-grid">
+        <button class="readiness-card" type="button" data-score="25">
+          <span class="readiness-level">L1</span>
+          <strong>Startup Ready</strong>
+          <small>P01–P03 · deployed backend · basic evals</small>
+        </button>
+        <button class="readiness-card" type="button" data-score="50">
+          <span class="readiness-level">L2</span>
+          <strong>AI Backend Ready</strong>
+          <small>P01–P05 · RAG · production API · evaluation</small>
+        </button>
+        <button class="readiness-card" type="button" data-score="75">
+          <span class="readiness-level">L3</span>
+          <strong>Production AI Ready</strong>
+          <small>P06–P10 · agents · security · observability · reliability</small>
+        </button>
+        <button class="readiness-card" type="button" data-score="100">
+          <span class="readiness-level">L4</span>
+          <strong>Elite Target Ready</strong>
+          <small>P11–P13 · platform · inference · capstone evidence</small>
+        </button>
+      </div>
+
+      <div class="callout callout-info readiness-advice" id="readinessAdvice">
+        <strong>START HERE</strong>
+        Choose the highest level your actual portfolio evidence supports. Then use the corresponding application strategy below.
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Annual Hiring Windows</h3>
+    <p style="color:var(--muted); font-size:12px; max-width:760px;">Use these windows to increase or decrease intensity. "Slow" never means "stop" for niche roles.</p>
+
+    <table class="cal-table" style="margin-top:18px;">
       <tr>
-        <th style="width:110px;">Period</th>
-        <th>Hiring Activity</th>
-        <th>Who's Hiring</th>
-        <th>What To Do</th>
+        <th style="width:105px;">Period</th>
+        <th>Market Signal</th>
+        <th>Best Targets</th>
+        <th>Operator Move</th>
       </tr>
       <tr>
         <td><div class="cal-month">Jan – Feb</div></td>
-        <td>
-          <div class="cal-activity">🟢 Peak Season — New Budget Unlocked</div>
-          <div class="cal-desc">Q1 headcount approved. Most companies open reqs in January. Highest volume of job postings of the year.</div>
-        </td>
-        <td>
-          <div class="cal-who">
-            <span class="pill pill-hot">Big Tech (Google, Microsoft, Amazon)</span>
-            <span class="pill pill-warm">AI-Native Startups</span>
-            <span class="pill pill-hot">Remote-First AI Companies</span>
-          </div>
-        </td>
-        <td style="font-size:12px; color:var(--muted);">Apply aggressively. Refresh resume. Update GitHub. Cold email hiring managers on LinkedIn. Referrals are gold here.</td>
+        <td><div class="cal-activity">🟢 High-Intent Window</div><div class="cal-desc">Useful period for teams opening new-year headcount and rebuilding recruiting pipelines.</div></td>
+        <td><div class="cal-who"><span class="pill pill-hot">Product AI</span><span class="pill pill-warm">AI-native startups</span><span class="pill">Remote-first</span></div></td>
+        <td style="font-size:12px;color:var(--muted);">Run your highest application volume. Refresh resume, GitHub, portfolio evidence and referral outreach together.</td>
       </tr>
       <tr>
         <td><div class="cal-month">Mar – Apr</div></td>
-        <td>
-          <div class="cal-activity">🟡 Active — Campus + Experienced Hiring</div>
-          <div class="cal-desc">Campus placement season ends. Experienced hire cycle continues. Good for first-time applicants with strong projects.</div>
-        </td>
-        <td>
-          <div class="cal-who">
-            <span class="pill pill-warm">AI-Adopting Startups</span>
-            <span class="pill">IT Consulting (AI CoE)</span>
-            <span class="pill pill-warm">Fintech / HealthTech AI</span>
-          </div>
-        </td>
-        <td style="font-size:12px; color:var(--muted);">Hackathons and AI challenges (Kaggle, Devfolio) spike here. Winning one is a strong signal. Focus on take-home projects.</td>
+        <td><div class="cal-activity">🟡 Active — Mixed Hiring</div><div class="cal-desc">Useful for experienced hiring, startup hiring and project-driven selection.</div></td>
+        <td><div class="cal-who"><span class="pill">AI-adopting startups</span><span class="pill pill-warm">Fintech / HealthTech</span><span class="pill">Enterprise AI</span></div></td>
+        <td style="font-size:12px;color:var(--muted);">Push take-homes, OSS evidence, hackathons and technical writing. Improve conversion, not just application count.</td>
       </tr>
       <tr>
         <td><div class="cal-month">May – Jun</div></td>
-        <td>
-          <div class="cal-activity">🟢 Internship Conversion + New Grads</div>
-          <div class="cal-desc">Internship season peaks. Summer intern offers convert to FTE. New grad openings from big tech surge.</div>
-        </td>
-        <td>
-          <div class="cal-who">
-            <span class="pill pill-hot">Google, Microsoft, Amazon (new grad)</span>
-            <span class="pill pill-warm">Sarvam AI, Krutrim</span>
-            <span class="pill">Series B–C Startups</span>
-          </div>
-        </td>
-        <td style="font-size:12px; color:var(--muted);">If interning, over-deliver for conversion. If job searching, target new grad roles. Apply to remote-first companies for higher comp.</td>
+        <td><div class="cal-activity">🟢 Internship / Graduate Flow</div><div class="cal-desc">Useful window for graduate roles, internship conversion and summer pipelines.</div></td>
+        <td><div class="cal-who"><span class="pill pill-hot">New-grad teams</span><span class="pill pill-warm">AI startups</span><span class="pill">GCC / enterprise</span></div></td>
+        <td style="font-size:12px;color:var(--muted);">Lead with demonstrable projects, assessments and clean interview fundamentals. Track every outcome.</td>
       </tr>
       <tr>
         <td><div class="cal-month">Jul – Aug</div></td>
-        <td>
-          <div class="cal-activity">🔵 Moderate — Mid-Year Backfill</div>
-          <div class="cal-desc">Slower but steady. Backfill roles from H1 exits. AI companies continue rolling hiring. Good time to apply for startups.</div>
-        </td>
-        <td>
-          <div class="cal-who">
-            <span class="pill">AI Startups (Series A–B)</span>
-            <span class="pill pill-warm">Remote AI Companies</span>
-            <span class="pill">Enterprise AI Teams</span>
-          </div>
-        </td>
-        <td style="font-size:12px; color:var(--muted);">Build projects during this window if not applying. Attend AI conferences (NeurIPS workshops, AI community meetups). Write technical blogs.</td>
+        <td><div class="cal-activity">🔵 Build + Backfill</div><div class="cal-desc">Rolling hiring continues while some teams recruit for replacement or mid-year needs.</div></td>
+        <td><div class="cal-who"><span class="pill">Series A–B startups</span><span class="pill pill-warm">Remote AI</span><span class="pill">Platform teams</span></div></td>
+        <td style="font-size:12px;color:var(--muted);">Finish missing portfolio evidence, sharpen system design and pre-load the next major outreach wave.</td>
       </tr>
       <tr>
         <td><div class="cal-month">Sep – Oct</div></td>
-        <td>
-          <div class="cal-activity">🟢 Second Peak — H2 Budget Spend</div>
-          <div class="cal-desc">Companies rush to hire before year-end budget freeze. Second largest hiring wave. Especially strong for AI roles post-conference season.</div>
-        </td>
-        <td>
-          <div class="cal-who">
-            <span class="pill pill-hot">All tiers — broad activity</span>
-            <span class="pill pill-warm">Post-NeurIPS / ICLR hype hires</span>
-            <span class="pill">Global remote roles</span>
-          </div>
-        </td>
-        <td style="font-size:12px; color:var(--muted);">Most competitive time of year. Have your portfolio polished by August. This is your best shot if you have 6+ months of experience on resume.</td>
+        <td><div class="cal-activity">🟢 High-Competition Window</div><div class="cal-desc">A useful H2 push period across many product and startup teams; competition can rise with volume.</div></td>
+        <td><div class="cal-who"><span class="pill pill-hot">Product companies</span><span class="pill pill-warm">AI-native</span><span class="pill">Global remote</span></div></td>
+        <td style="font-size:12px;color:var(--muted);">Enter with the portfolio already polished. Use direct applications + referrals + recruiter/manager outreach and follow up systematically.</td>
       </tr>
       <tr>
         <td><div class="cal-month">Nov – Dec</div></td>
-        <td>
-          <div class="cal-activity">🔴 Slow — Budget Freeze</div>
-          <div class="cal-desc">Most large companies freeze hiring. Startups continue but slowly. Offers made in October/November start in January.</div>
-        </td>
-        <td>
-          <div class="cal-who">
-            <span class="pill">Early-stage startups</span>
-            <span class="pill">Remote freelance gigs</span>
-            <span class="pill pill-yellow">Prep for Jan surge</span>
-          </div>
-        </td>
-        <td style="font-size:12px; color:var(--muted);">Don't stop applying — just lower expectations on response rate. Use this time to sharpen DSA, update portfolio, and build the network for January outreach.</td>
+        <td><div class="cal-activity">🔴 Lower Volume — Still Open</div><div class="cal-desc">Large-company activity can slow while startups, replacements and evergreen roles remain open.</div></td>
+        <td><div class="cal-who"><span class="pill">Early-stage startups</span><span class="pill">Evergreen roles</span><span class="pill pill-yellow">Next-cycle prep</span></div></td>
+        <td style="font-size:12px;color:var(--muted);">Apply selectively, improve response quality, refresh the portfolio and pre-build the next quarter's target list.</td>
       </tr>
     </table>
 
     <div class="divider"></div>
 
-    <h3>Application Strategy by Experience Level</h3>
-    <div class="grid-3" style="margin-top:16px;">
-      <div class="card card-accent">
-        <h3>0–1 Year Experience</h3>
-        <ul class="plain" style="margin-top:8px;">
-          <li><strong>Primary target:</strong> AI startups (Series A–B), IT consulting AI CoE</li>
-          <li><strong>Portfolio minimum:</strong> 2–3 live projects on GitHub with real evals</li>
-          <li><strong>Differentiator:</strong> Kaggle / hackathon wins, open-source PRs to LangChain / LlamaIndex</li>
-          <li><strong>Avoid:</strong> Applying to Google/Anthropic cold without referral — low hit rate</li>
-        </ul>
-      </div>
+    <div class="grid-3">
       <div class="card card-green">
-        <h3>1–3 Years Experience</h3>
-        <ul class="plain" style="margin-top:8px;">
-          <li><strong>Primary target:</strong> AI-native companies, Big Tech AI divisions, remote-first</li>
-          <li><strong>Portfolio minimum:</strong> 1 production AI system used by real users</li>
-          <li><strong>Differentiator:</strong> Measurable impact metrics (latency reduction %, eval scores), technical writing</li>
-          <li><strong>Apply to:</strong> Sarvam AI, Weights & Biases, Hugging Face, remote roles</li>
+        <h3>Role-Specific Targets</h3>
+        <ul class="plain">
+          <li><strong>AI-First Backend:</strong> APIs, data, async systems, RAG, production AI.</li>
+          <li><strong>GenAI Engineer:</strong> LLM apps, retrieval, evaluation, agents.</li>
+          <li><strong>AI Platform:</strong> model lifecycle, gateways, observability, GitOps.</li>
+          <li><strong>ML Infrastructure:</strong> serving, GPU inference, scaling, performance.</li>
+          <li><strong>Agent Engineer:</strong> durable workflows, MCP/A2A, tool security, evals.</li>
         </ul>
       </div>
       <div class="card card-yellow">
-        <h3>3+ Years Experience</h3>
-        <ul class="plain" style="margin-top:8px;">
-          <li><strong>Primary target:</strong> AI labs (Anthropic, OpenAI), Staff/Principal roles at AI-native companies</li>
-          <li><strong>Portfolio minimum:</strong> Led an AI product end-to-end, or published paper / major OSS contribution</li>
-          <li><strong>Differentiator:</strong> Thought leadership, conference talks, niche domain expertise</li>
-          <li><strong>Realistic CTC:</strong> ₹50L–₹1.2Cr India, $150K–$350K remote/US</li>
+        <h3>Application Lead Time</h3>
+        <ul class="plain">
+          <li><strong>T−8 weeks:</strong> identify target companies and missing evidence.</li>
+          <li><strong>T−6 weeks:</strong> finish portfolio, resume and architecture write-ups.</li>
+          <li><strong>T−4 weeks:</strong> begin referrals, recruiter outreach and applications.</li>
+          <li><strong>T−2 weeks:</strong> follow up, run mock interviews, close obvious gaps.</li>
+          <li><strong>T+0:</strong> treat interview outcomes as pipeline data and iterate.</li>
         </ul>
       </div>
+      <div class="card card-accent">
+        <h3>Channel Mix</h3>
+        <ul class="plain">
+          <li><strong>Direct:</strong> targeted applications to role-fit openings.</li>
+          <li><strong>Referral:</strong> employees who can validate your engineering signal.</li>
+          <li><strong>Recruiter:</strong> concise evidence-led outreach.</li>
+          <li><strong>Manager:</strong> project/architecture message with one strong proof point.</li>
+          <li><strong>Community:</strong> OSS, technical writing, hackathons and events.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Application Funnel &amp; Follow-Up Protocol</h3>
+    <div class="funnel-grid">
+      <div class="funnel-step"><span>01</span><strong>Found</strong><small>Role enters target list.</small></div>
+      <div class="funnel-step"><span>02</span><strong>Applied</strong><small>Tailored application submitted.</small></div>
+      <div class="funnel-step"><span>03</span><strong>Contacted</strong><small>Referral/recruiter/manager touch.</small></div>
+      <div class="funnel-step"><span>04</span><strong>Screen</strong><small>Recruiter/OA/take-home.</small></div>
+      <div class="funnel-step"><span>05</span><strong>Technical</strong><small>Coding/backend/AI round.</small></div>
+      <div class="funnel-step"><span>06</span><strong>Final</strong><small>System design / hiring manager.</small></div>
+      <div class="funnel-step"><span>07</span><strong>Offer</strong><small>Negotiation + decision.</small></div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <div class="followup-row">
+        <div><strong>Day 0</strong><span>Apply</span></div>
+        <div><strong>Day 3–5</strong><span>Referral / recruiter touch</span></div>
+        <div><strong>Day 10–14</strong><span>Follow up once</span></div>
+        <div><strong>Day 21</strong><span>Final follow up</span></div>
+        <div><strong>Day 30</strong><span>Archive / recycle</span></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="grid-2">
+      <div class="card card-teal">
+        <h3>Weekly Pipeline Targets</h3>
+        <div class="pipeline-targets">
+          <label>Tier A <span><input type="number" min="0" id="tierA" value="5"> applications</span></label>
+          <label>Tier B <span><input type="number" min="0" id="tierB" value="8"> applications</span></label>
+          <label>Startups <span><input type="number" min="0" id="startupApps" value="12"> applications</span></label>
+          <label>Remote / Global <span><input type="number" min="0" id="remoteApps" value="5"> applications</span></label>
+          <label>Referral asks <span><input type="number" min="0" id="referralAsks" value="5"> / week</span></label>
+        </div>
+        <div class="pipeline-total"><span>Total weekly target</span><strong id="weeklyTotal">35</strong></div>
+      </div>
+      <div class="card card-red">
+        <h3>Portfolio Deadline System</h3>
+        <ul class="plain">
+          <li><strong>Before a peak:</strong> portfolio must already be public and stable.</li>
+          <li><strong>2 weeks before:</strong> freeze major UI refactors; fix evidence, demos and README quality.</li>
+          <li><strong>1 week before:</strong> test every link, architecture image and benchmark claim.</li>
+          <li><strong>During peak:</strong> stop hiding behind "one more project" and apply.</li>
+          <li><strong>After interviews:</strong> feed failures back into projects and interview preparation.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-accent" style="margin-top:22px;">
+      <h3>Live Hiring Pipeline Tracker</h3>
+      <p style="color:var(--muted); font-size:12px;">Local-only tracker. Add a target, move it through the funnel, and use the counts to diagnose where the pipeline is leaking.</p>
+      <div class="tracker-form">
+        <input id="jobCompany" type="text" placeholder="Company">
+        <input id="jobRole" type="text" placeholder="Role">
+        <select id="jobTier">
+          <option>Tier A</option>
+          <option>Tier B</option>
+          <option>Startup</option>
+          <option>Remote</option>
+        </select>
+        <button id="addJob" type="button">+ Add role</button>
+      </div>
+      <div class="tracker-summary" id="trackerSummary"></div>
+      <div id="jobTracker" class="job-tracker"></div>
+      <div class="tracker-empty" id="trackerEmpty">No roles tracked yet. Add your first target above.</div>
+    </div>
+
+    <div class="callout callout-info" style="margin-top:26px;">
+      <strong>🎯 Recruitment Rule</strong>
+      Never judge the strategy from one rejection. Judge it from funnel data. High applications + low screens means positioning needs work. High screens + low technical conversions means skills need work. Strong finals + low offers means system design, communication or negotiation needs work.
     </div>
   </div>
 </section>
 
 <!-- SALARIES -->
-<section id="salaries">
+<section id="salaries" class="reveal-section">
   <div class="container">
     <div class="section-tag">// compensation data</div>
     <h2>Salary Benchmarks — 2026</h2>
@@ -1438,7 +2681,7 @@
 </section>
 
 <!-- EXECUTION PLAN -->
-<section id="execution">
+<section id="execution" class="reveal-section">
   <div class="container">
     <div class="section-tag">// month-by-month execution</div>
     <h2>12-Month Execution Plan</h2>
@@ -1470,23 +2713,23 @@
     <ol class="numbered-list">
       <li>
         <strong>Month 1–2 · Backend Foundation</strong>
-        <span>Set up dev environment (Docker, Postgres, Redis locally). Master FastAPI async patterns. Build P01 (Task API). Deploy it live. Reach 30 LeetCode problems. Read "Designing Data-Intensive Applications" intro + Chapter 1–3.</span>
+        <span>Set up Docker, PostgreSQL and Redis locally. Learn Python concurrency and the HTTP request lifecycle. Build P01 with authentication, idempotency, caching, retries, health checks, integration tests and CI/CD. Load-test it and document p50/p95/p99 latency plus failure modes. Build P02 while learning WebSockets/SSE, Redis Streams and backpressure. Reach 30 LeetCode problems. Read "Designing Data-Intensive Applications" intro + Chapters 1–3.</span>
       </li>
       <li>
         <strong>Month 3 · LLM Integration Begins</strong>
-        <span>Get API access to OpenAI + Anthropic. Build first streaming LLM endpoint in FastAPI. Understand token limits, cost management. Set up a Qdrant instance. Read "Attention Is All You Need" paper. Reach 50 LeetCode.</span>
+        <span>Integrate two LLM providers behind an adapter layer. Build a streaming FastAPI endpoint with structured-output validation, timeout/retry logic, token/cost budgets and fallback behavior. Set up Qdrant and benchmark dense vs hybrid retrieval. Read "Attention Is All You Need" plus one modern retrieval paper. Reach 50 LeetCode.</span>
       </li>
       <li>
         <strong>Month 4–5 · RAG Mastery</strong>
-        <span>Build P03 (Research Paper RAG). Implement hybrid search, reranking, RAGAS evaluation. Deploy publicly. Build P04 (Structured Extraction). Write your first LinkedIn technical article about what you built and what you learned. Reach 80 LeetCode.</span>
+        <span>Build P03 (Research Paper RAG) with hybrid retrieval, query rewriting, reranking, filtering, citations, freshness/versioning and RAGAS/DeepEval regression tests. Build P04 with schema recovery and provider fallbacks. Publish retrieval benchmarks and write your first technical article. Reach 80 LeetCode.</span>
       </li>
       <li>
         <strong>Month 6 · Agent Framework Introduction</strong>
-        <span>Work through LangGraph academy fully. Build a simple ReAct agent. Instrument with LangSmith. Build P05 (LLM Router). Start applying to Tier C startups with your 3 live projects. Reach 100 LeetCode.</span>
+        <span>Work through LangGraph fundamentals. Build a ReAct workflow, then add explicit state, tool schemas, execution budgets and trace instrumentation. Implement one MCP server and one MCP client integration. Harden P05 (LLM Router) with health checks and fallbacks. Start applying to Tier C startups with your live projects. Reach 100 LeetCode.</span>
       </li>
       <li>
         <strong>Month 7–8 · Agentic Systems</strong>
-        <span>Build P06 (Research Agent) and P07 (Multi-Agent Code Review). Make both publicly accessible. Submit to one AI hackathon. Start contributing to LlamaIndex or LangChain GitHub — even small docs or bug fixes. Reach 130 LeetCode. Begin applying to Tier A companies.</span>
+        <span>Build P06 (Research Agent) and P07 (Multi-Agent Code Review) as durable workflows with checkpoints, resumability, tool permissions, failure recovery and trajectory evaluation. Implement an A2A handoff between two independently running agents and complete the AI Backend Security Lab threat model. Build P11 (Durable AI Agent Runtime) as the production capstone for this phase. Submit to one AI hackathon and start contributing to an AI OSS project. Reach 130 LeetCode. Begin applying to Tier A companies.</span>
       </li>
       <li>
         <strong>Month 9 · Consolidate & Evaluate</strong>
@@ -1498,16 +2741,28 @@
       </li>
       <li>
         <strong>Month 12 · Ship, Apply, Negotiate</strong>
-        <span>Complete P09 (Fine-tuned Model API). Apply aggressively to Tier A and B companies. Aim for 10+ active applications. Do 3 mock system design interviews per week. Target Jan hiring surge. Negotiate offers — use competing offers as leverage. Final goal: ₹25L+ India or $90K+ remote.</span>
+        <span>Complete P09 and P13 (Production AI Backend Platform). Run the full graduation gate: architecture review, benchmark/evaluation report, threat model, observability dashboard, SLO/failure drill, rollback drill and public technical write-up. Apply aggressively to Tier A and B companies. Aim for 10+ active applications. Do 3 mock system design interviews per week. Negotiate offers using competing offers when available.</span>
       </li>
     </ol>
 
-    <div class="callout callout-danger" style="margin-top:28px;">
+    <div class="card card-accent" style="margin-top:26px;">
+      <h3>🏁 Graduation Week — Final Readiness Checklist</h3>
+      <div class="grid-4">
+        <div><strong>Architecture</strong><p style="color:var(--muted);font-size:12px;">HLD + LLD + capacity estimate + failure domains.</p></div>
+        <div><strong>Production</strong><p style="color:var(--muted);font-size:12px;">SLOs + traces + alerts + runbook + rollback.</p></div>
+        <div><strong>AI Proof</strong><p style="color:var(--muted);font-size:12px;">Eval set + benchmark + security tests + cost report.</p></div>
+        <div><strong>Career Proof</strong><p style="color:var(--muted);font-size:12px;">Public repo + demo + write-up + interview story.</p></div>
+      </div>
+    </div>
+
+<div class="callout callout-danger" style="margin-top:28px;">
       <strong>🚨 The Most Common Mistake</strong>
       Spending 80% of time learning and 20% building. It should be the reverse. No recruiter has ever hired someone for reading LangChain docs — they hire for things you shipped. After Month 2, every week must produce something: a deployed endpoint, a GitHub commit, a blog post, or a Kaggle submission. Learning in isolation is procrastination with better aesthetics.
     </div>
   </div>
 </section>
+
+<button class="back-top" id="backTop" type="button" aria-label="Back to top">↑</button>
 
 <footer>
   <div style="max-width:800px; margin:0 auto;">
@@ -1518,10 +2773,193 @@
       <span>·</span>
       <span>Update salary data every 6 months — AI compensation moves fast</span>
       <span>·</span>
-      <span style="color:var(--accent2);">Built for Sapath — M.Tech CS, Techno India University</span>
+      <span style="color:var(--accent2);"></span>
     </div>
   </div>
 </footer>
+
+
+<script>
+(function(){
+  const boot = document.getElementById('bootScreen');
+  const progress = document.querySelector('.read-progress span');
+  const backTop = document.getElementById('backTop');
+
+  // Boot screen: cinematic but short. Never blocks the roadmap for long.
+  const finishBoot = () => {
+    if (boot) boot.classList.add('is-done');
+  };
+  window.setTimeout(finishBoot, 2050);
+
+  // Reading progress.
+  const updateProgress = () => {
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - doc.clientHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    if (progress) progress.style.width = Math.min(100, Math.max(0, pct)) + '%';
+    if (backTop) backTop.classList.toggle('show', window.scrollY > 700);
+  };
+  window.addEventListener('scroll', updateProgress, {passive:true});
+  updateProgress();
+
+  if (backTop) {
+    backTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+  }
+
+  // Scroll reveals with a safe static fallback.
+  const revealTargets = document.querySelectorAll(
+    '.card,.phase-block,.callout,.vs-row,.company-tier,.project-item,.skill-table,.salary-table,.cal-table,.reveal'
+  );
+  revealTargets.forEach(el => el.classList.add('reveal'));
+
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.08, rootMargin:'0px 0px -40px 0px'});
+    revealTargets.forEach(el => observer.observe(el));
+  } else {
+    revealTargets.forEach(el => el.classList.add('is-visible'));
+  }
+
+  // Active navigation state.
+  const navLinks = [...document.querySelectorAll('nav a[href^="#"]')];
+  const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    const navObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, {rootMargin:'-30% 0px -60% 0px', threshold:0});
+    sections.forEach(s => navObserver.observe(s));
+  }
+
+  // Small keyboard affordance: "/" returns to roadmap navigation.
+  document.addEventListener('keydown', e => {
+    if (e.key === '/' && !/input|textarea|select/i.test(document.activeElement?.tagName || '')) {
+      e.preventDefault();
+      document.querySelector('nav a[href="#roadmap"]')?.focus();
+    }
+  });
+
+  // Recruitment readiness selector
+  const readinessCards = document.querySelectorAll('.readiness-card');
+  const readinessScore = document.getElementById('readinessScore');
+  const readinessFill = document.getElementById('readinessFill');
+  const readinessAdvice = document.getElementById('readinessAdvice');
+  const readinessCopy = {
+    25: 'Startup Ready — start applying to strong-fit startups while you continue building.',
+    50: 'AI Backend Ready — apply broadly to product teams while deepening AI application evidence.',
+    75: 'Production AI Ready — actively target product, platform and AI-native teams.',
+    100: 'Elite Target Ready — prioritize high-bar roles and make the capstone evidence the center of your application.'
+  };
+  readinessCards.forEach(card => {
+    card.addEventListener('click', () => {
+      readinessCards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      const score = Number(card.dataset.score || 0);
+      if (readinessScore) readinessScore.textContent = score + ' / 100';
+      if (readinessFill) readinessFill.style.width = score + '%';
+      if (readinessAdvice) readinessAdvice.innerHTML = '<strong>READINESS SIGNAL</strong>' + readinessCopy[score];
+      localStorage.setItem('aiFirstRecruitmentReadiness', String(score));
+    });
+  });
+  const savedReadiness = Number(localStorage.getItem('aiFirstRecruitmentReadiness') || 0);
+  if (savedReadiness) {
+    const saved = document.querySelector('.readiness-card[data-score="' + savedReadiness + '"]');
+    if (saved) saved.click();
+  }
+
+  // Weekly application calculator
+  const weeklyIds = ['tierA','tierB','startupApps','remoteApps','referralAsks'];
+  const weeklyTotal = document.getElementById('weeklyTotal');
+  const updateWeeklyTotal = () => {
+    const total = weeklyIds.reduce((sum,id) => sum + (Number(document.getElementById(id)?.value) || 0), 0);
+    if (weeklyTotal) weeklyTotal.textContent = total;
+    const values = {};
+    weeklyIds.forEach(id => { values[id] = document.getElementById(id)?.value || '0'; });
+    localStorage.setItem('aiFirstRecruitmentTargets', JSON.stringify(values));
+  };
+  try {
+    const savedTargets = JSON.parse(localStorage.getItem('aiFirstRecruitmentTargets') || 'null');
+    if (savedTargets) weeklyIds.forEach(id => {
+      if (document.getElementById(id) && savedTargets[id] != null) document.getElementById(id).value = savedTargets[id];
+    });
+  } catch(e) {}
+  weeklyIds.forEach(id => document.getElementById(id)?.addEventListener('input', updateWeeklyTotal));
+  updateWeeklyTotal();
+
+  // Local-only live hiring pipeline tracker
+  const trackerKey = 'aiFirstRecruitmentPipeline';
+  const jobTracker = document.getElementById('jobTracker');
+  const trackerSummary = document.getElementById('trackerSummary');
+  const trackerEmpty = document.getElementById('trackerEmpty');
+  const stages = ['Found','Applied','Contacted','Screen','Technical','Final','Offer'];
+  let jobs = [];
+  try { jobs = JSON.parse(localStorage.getItem(trackerKey) || '[]'); } catch(e) { jobs = []; }
+
+  const escapeHTMLRecruitment = (value) => String(value).replace(/[&<>"']/g, ch => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+  }[ch]));
+
+  const saveJobs = () => localStorage.setItem(trackerKey, JSON.stringify(jobs));
+  const renderJobs = () => {
+    if (!jobTracker || !trackerSummary || !trackerEmpty) return;
+    trackerEmpty.style.display = jobs.length ? 'none' : 'block';
+    jobTracker.innerHTML = '';
+    const counts = Object.fromEntries(stages.map(stage => [stage,0]));
+    jobs.forEach(job => counts[job.stage] = (counts[job.stage] || 0) + 1);
+    trackerSummary.innerHTML =
+      '<span class="tracker-stat">TOTAL <strong>' + jobs.length + '</strong></span>' +
+      stages.map(stage => '<span class="tracker-stat">' + stage.toUpperCase() + ' <strong>' + (counts[stage] || 0) + '</strong></span>').join('');
+
+    jobs.forEach((job, index) => {
+      const row = document.createElement('div');
+      row.className = 'job-row';
+      row.innerHTML =
+        '<div class="job-company">' + escapeHTMLRecruitment(job.company) + '</div>' +
+        '<div class="job-role">' + escapeHTMLRecruitment(job.role) + '</div>' +
+        '<div class="job-tier">' + escapeHTMLRecruitment(job.tier) + '</div>' +
+        '<div class="job-status">' +
+          stages.map(stage => '<button type="button" class="' + (job.stage === stage ? 'active' : '') + '" data-stage="' + stage + '">' + stage + '</button>').join('') +
+        '</div>' +
+        '<button class="job-remove" type="button" aria-label="Remove role">×</button>';
+
+      row.querySelectorAll('[data-stage]').forEach(btn => btn.addEventListener('click', () => {
+        job.stage = btn.dataset.stage;
+        saveJobs();
+        renderJobs();
+      }));
+      row.querySelector('.job-remove')?.addEventListener('click', () => {
+        jobs.splice(index, 1);
+        saveJobs();
+        renderJobs();
+      });
+      jobTracker.appendChild(row);
+    });
+  };
+
+  document.getElementById('addJob')?.addEventListener('click', () => {
+    const company = document.getElementById('jobCompany')?.value.trim();
+    const role = document.getElementById('jobRole')?.value.trim();
+    const tier = document.getElementById('jobTier')?.value;
+    if (!company || !role) return;
+    jobs.unshift({company, role, tier, stage:'Found', addedAt:new Date().toISOString()});
+    saveJobs();
+    renderJobs();
+    document.getElementById('jobCompany').value = '';
+    document.getElementById('jobRole').value = '';
+  });
+  renderJobs();
+
+})();
+</script>
 
 </body>
 </html>
