@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Grand Unified Curriculum — From Zero to Quantum Gravity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['\\[', '\\]']],
+      processEscapes: true
+    },
+    options: {
+      skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+<style>
+/* ============================================================
+   DESIGN TOKENS — Dark-matter aesthetic
+   ============================================================ */
+:root{
+  --bg: #0A0A0F;
+  --bg-elev-1: #101018;
+  --bg-elev-2: #16161f;
+  --bg-elev-3: #1c1c28;
+  --border: #26263a;
+  --border-soft: #1c1c2a;
+  --text-primary: #E8E8F0;
+  --text-secondary: #9494ab;
+  --text-tertiary: #63637a;
+
+  --c-math: #4ADE80;      /* phase 0: math prereqs, green */
+  --c-classical: #94A3B8; /* phase 1: classical mechanics, silver */
+  --c-em: #38BDF8;        /* phase 2: EM/SR, sky-blue */
+  --c-qm: #00D4FF;        /* phase 3-5: quantum blue */
+  --c-qm2: #0EA5E9;       /* phase 5: deep cyan */
+  --c-gr: #FFB830;        /* phase 6: GR amber */
+  --c-gr2: #F59E0B;       /* phase 7: amber deep */
+  --c-qft: #A78BFA;       /* phase 8: violet */
+  --c-string: #C084FC;    /* phase 9: string violet */
+  --c-toe: #E879F9;       /* phase 10: magenta */
+  --c-qc: #34D399;        /* phase 11: emerald */
+  --c-ai: #6EE7B7;        /* phase 12: teal */
+
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow-glow: 0 0 40px -10px currentColor;
+}
+
+html[data-theme="light"]{
+  --bg: #F7F7FB;
+  --bg-elev-1: #FFFFFF;
+  --bg-elev-2: #EEEEF5;
+  --bg-elev-3: #E4E4EF;
+  --border: #D8D8E6;
+  --border-soft: #E4E4EF;
+  --text-primary: #14141f;
+  --text-secondary: #4a4a5e;
+  --text-tertiary: #7a7a94;
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin:0;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  transition: background .3s ease, color .3s ease;
+  min-height:100vh;
+}
+body::before{
+  content:"";
+  position: fixed; inset:0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20px 30px, rgba(255,255,255,0.35), transparent),
+    radial-gradient(1px 1px at 90px 120px, rgba(255,255,255,0.25), transparent),
+    radial-gradient(1.5px 1.5px at 160px 60px, rgba(255,255,255,0.2), transparent),
+    radial-gradient(1px 1px at 230px 200px, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1.5px 1.5px at 300px 90px, rgba(255,255,255,0.2), transparent);
+  background-repeat: repeat;
+  background-size: 340px 340px;
+  opacity: .5;
+  pointer-events: none;
+  z-index:0;
+  transition: opacity .3s ease;
+}
+html[data-theme="light"] body::before{ opacity: 0; }
+code, .mono{ font-family: var(--font-mono); }
+a{ color: inherit; }
+::selection{ background: rgba(0,212,255,0.3); }
+
+/* ============================================================
+   LAYOUT SHELL
+   ============================================================ */
+.app{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns: 280px 1fr;
+  min-height:100vh;
+}
+@media (max-width: 900px){
+  .app{ grid-template-columns: 1fr; }
+}
+
+/* ---- Sidebar ---- */
+.sidebar{
+  position: sticky;
+  top:0;
+  align-self: start;
+  height:100vh;
+  overflow-y:auto;
+  border-right:1px solid var(--border);
+  padding: 20px 16px 40px;
+  background: var(--bg-elev-1);
+  scrollbar-width: thin;
+}
+@media (max-width: 900px){
+  .sidebar{
+    position: fixed;
+    left:0; top:0;
+    width: 280px;
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    box-shadow: 20px 0 60px rgba(0,0,0,.5);
+  }
+  .sidebar.open{ transform: translateX(0); }
+}
+.sidebar-brand{
+  display:flex; align-items:center; gap:10px;
+  font-family: var(--font-mono);
+  font-weight:700;
+  font-size: 13px;
+  letter-spacing:.06em;
+  color: var(--text-secondary);
+  padding: 4px 6px 18px;
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: 16px;
+}
+.sidebar-brand .dot{
+  width:9px; height:9px; border-radius:50%;
+  background: var(--c-qm);
+  box-shadow: 0 0 12px 2px var(--c-qm);
+}
+.progress-block{ padding: 0 6px 20px; border-bottom: 1px solid var(--border-soft); margin-bottom: 16px; }
+.progress-label{
+  display:flex; justify-content:space-between; align-items:baseline;
+  font-size:12px; color: var(--text-secondary); margin-bottom:8px;
+  font-family: var(--font-mono);
+}
+.progress-label b{ color: var(--text-primary); font-size:15px; }
+.progress-track{
+  height:8px; border-radius:6px; background: var(--bg-elev-3);
+  overflow:hidden; border:1px solid var(--border);
+}
+.progress-fill{
+  height:100%; border-radius:6px;
+  background: linear-gradient(90deg, var(--c-qm), var(--c-qc));
+  transition: width .4s ease;
+  box-shadow: 0 0 10px var(--c-qm);
+}
+.nav-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px; }
+.nav-item{
+  display:flex; align-items:center; gap:10px;
+  padding:8px 8px;
+  border-radius: var(--radius-sm);
+  cursor:pointer;
+  font-size: 13px;
+  color: var(--text-secondary);
+  border:1px solid transparent;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.nav-item:hover{ background: var(--bg-elev-2); color: var(--text-primary); }
+.nav-item.active{
+  background: var(--bg-elev-2);
+  border-color: var(--nav-color, var(--border));
+  color: var(--text-primary);
+}
+.nav-num{
+  font-family: var(--font-mono); font-size:11px;
+  width:20px; height:20px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  border: 1.5px solid var(--nav-color, var(--text-tertiary));
+  color: var(--nav-color, var(--text-tertiary));
+}
+.nav-title{ flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.nav-check{ font-size:10px; color: var(--c-qc); font-family: var(--font-mono); flex-shrink:0; }
+
+.sidebar-controls{ display:flex; gap:8px; margin-top:18px; padding: 0 6px; }
+.icon-btn{
+  flex:1;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  background: var(--bg-elev-2);
+  border:1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  padding: 8px 6px;
+  font-size:12px;
+  font-family: var(--font-body);
+  cursor:pointer;
+  transition: all .15s ease;
+}
+.icon-btn:hover{ color: var(--text-primary); border-color: var(--text-tertiary); }
+
+.mobile-nav-toggle{
+  display:none;
+  position: fixed; top:14px; left:14px; z-index:50;
+  background: var(--bg-elev-2); border:1px solid var(--border);
+  color: var(--text-primary); width:42px; height:42px;
+  border-radius:10px; font-size:18px; cursor:pointer;
+}
+@media (max-width:900px){ .mobile-nav-toggle{ display:flex; align-items:center; justify-content:center; } }
+.sidebar-scrim{ display:none; }
+@media (max-width:900px){
+  .sidebar-scrim.show{
+    display:block; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:35;
+  }
+}
+
+/* ---- Main column ---- */
+.main{ padding: 0 0 120px; min-width:0; }
+
+/* ---- Hero ---- */
+.hero{
+  padding: 90px 48px 60px;
+  position:relative;
+  overflow:hidden;
+  border-bottom: 1px solid var(--border-soft);
+}
+@media (max-width:700px){ .hero{ padding: 80px 22px 44px; } }
+.hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(600px 300px at 15% 0%, rgba(0,212,255,.14), transparent 60%),
+    radial-gradient(500px 260px at 85% 30%, rgba(192,132,252,.12), transparent 60%),
+    radial-gradient(500px 300px at 50% 100%, rgba(52,211,153,.08), transparent 60%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  position:relative;
+  font-family: var(--font-mono);
+  font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+  color: var(--c-qm);
+  margin-bottom: 18px;
+  display:flex; align-items:center; gap:10px;
+}
+.hero-eyebrow .line{ width:32px; height:1px; background: var(--c-qm); opacity:.6; }
+.hero h1{
+  position:relative;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight:800;
+  line-height:1.08;
+  margin: 0 0 18px;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, #fff 10%, var(--c-qm) 45%, var(--c-string) 75%, var(--c-qc) 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+html[data-theme="light"] .hero h1{
+  background: linear-gradient(120deg, #14141f 10%, #0891b2 45%, #a855f7 75%, #059669 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero-sub{
+  position:relative;
+  font-family: var(--font-mono);
+  font-size: clamp(.95rem, 1.6vw, 1.15rem);
+  color: var(--text-secondary);
+  margin: 0 0 26px;
+}
+.hero p.lede{
+  position:relative;
+  max-width: 720px;
+  color: var(--text-secondary);
+  font-size: 1.02rem;
+  margin: 0 0 30px;
+}
+.hero-stats{
+  position:relative;
+  display:flex; flex-wrap:wrap; gap: 28px;
+  margin-bottom: 34px;
+}
+.hero-stat b{ display:block; font-size:1.5rem; font-family: var(--font-mono); color: var(--text-primary); }
+.hero-stat span{ font-size:.75rem; color: var(--text-tertiary); text-transform:uppercase; letter-spacing:.06em; }
+
+.searchbar{
+  position:relative;
+  max-width: 560px;
+  display:flex; align-items:center; gap:10px;
+  background: var(--bg-elev-2);
+  border:1px solid var(--border);
+  border-radius: 999px;
+  padding: 12px 20px;
+}
+.searchbar svg{ flex-shrink:0; opacity:.5; }
+.searchbar input{
+  flex:1; background:none; border:none; outline:none;
+  color: var(--text-primary); font-family: var(--font-body); font-size:14px;
+}
+.searchbar input::placeholder{ color: var(--text-tertiary); }
+.search-count{ font-size:12px; color: var(--text-tertiary); font-family: var(--font-mono); white-space:nowrap; }
+
+/* ---- Timeline ---- */
+.timeline{
+  position:relative;
+  padding: 50px 48px 0;
+  max-width: 1040px;
+}
+@media (max-width:700px){ .timeline{ padding: 40px 18px 0; } }
+.timeline::before{
+  content:"";
+  position:absolute;
+  left: 68px;
+  top: 10px; bottom: 40px;
+  width:2px;
+  background: linear-gradient(180deg,
+    var(--c-math), var(--c-classical), var(--c-em),
+    var(--c-qm), var(--c-qm2), var(--c-gr), var(--c-gr2),
+    var(--c-qft), var(--c-string), var(--c-toe), var(--c-qc), var(--c-ai));
+  opacity:.35;
+}
+@media (max-width:700px){ .timeline::before{ left: 26px; } }
+
+.station{
+  position:relative;
+  padding-left: 100px;
+  margin-bottom: 22px;
+  scroll-margin-top: 24px;
+}
+@media (max-width:700px){ .station{ padding-left: 52px; } }
+.station-node{
+  position:absolute;
+  left: 68px; top: 26px;
+  transform: translate(-50%,-50%);
+  width:18px; height:18px; border-radius:50%;
+  background: var(--station-color);
+  box-shadow: 0 0 0 4px var(--bg), 0 0 18px 2px var(--station-color);
+  transition: box-shadow .2s ease;
+}
+@media (max-width:700px){ .station-node{ left: 26px; width:14px; height:14px; } }
+
+.card{
+  background: var(--bg-elev-1);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--station-color);
+  border-radius: var(--radius);
+  overflow:hidden;
+  transition: border-color .2s ease, transform .15s ease;
+}
+.card.hidden{ display:none; }
+.card.match-fade{ opacity:.35; }
+
+.card-head{
+  display:flex; align-items:center; gap:16px;
+  padding: 20px 22px;
+  cursor:pointer;
+  user-select:none;
+}
+.card-badge{
+  font-family: var(--font-mono); font-size:11px; font-weight:700;
+  color: var(--station-color);
+  border: 1.5px solid var(--station-color);
+  border-radius:6px;
+  padding: 3px 8px;
+  flex-shrink:0;
+}
+.card-headings{ flex:1; min-width:0; }
+.card-title{ font-size: 1.05rem; font-weight:700; margin:0 0 3px; color: var(--text-primary); }
+.card-sub{ font-size: .8rem; color: var(--text-tertiary); font-family: var(--font-mono); }
+.card-meta{ display:flex; align-items:center; gap:10px; flex-shrink:0; }
+.hours-badge{
+  font-family: var(--font-mono); font-size:11px; color: var(--text-secondary);
+  background: var(--bg-elev-2); border:1px solid var(--border);
+  padding: 4px 9px; border-radius: 999px; white-space:nowrap;
+}
+.chevron{
+  width:26px; height:26px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  border:1px solid var(--border);
+  color: var(--text-secondary);
+  transition: transform .25s ease;
+}
+.card.expanded .chevron{ transform: rotate(180deg); }
+
+.card-body{
+  max-height:0;
+  overflow:hidden;
+  transition: max-height .35s ease;
+}
+.card.expanded .card-body{ max-height: 20000px; }
+.card-body-inner{ padding: 4px 24px 30px; border-top:1px solid var(--border-soft); }
+
+.section-block{ margin-top: 24px; }
+.section-label{
+  display:flex; align-items:center; gap:8px;
+  font-family: var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:.1em;
+  color: var(--station-color);
+  margin-bottom: 12px;
+}
+.section-label::before{ content:""; width:14px; height:1.5px; background: var(--station-color); }
+
+.core-text{ color: var(--text-secondary); font-size:.95rem; }
+
+.formula-list{ display:flex; flex-direction:column; gap:14px; }
+.formula-item{
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+.formula-eq{ overflow-x:auto; margin-bottom:6px; }
+.formula-desc{ font-size:.82rem; color: var(--text-tertiary); }
+
+.deriv-list, .mastery-list{ margin:0; padding-left: 0; list-style:none; display:flex; flex-direction:column; gap:10px; }
+.deriv-list li{
+  display:flex; gap:10px; font-size:.92rem; color: var(--text-secondary);
+  padding: 10px 14px;
+  background: var(--bg-elev-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-soft);
+}
+.deriv-num{
+  font-family: var(--font-mono); font-size:11px; color: var(--station-color);
+  flex-shrink:0; font-weight:700;
+}
+
+.books-list, .papers-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+.books-list li, .papers-list li{
+  font-size: .88rem; color: var(--text-secondary);
+  padding: 10px 14px;
+  border-left: 2px solid var(--border);
+  background: var(--bg-elev-2);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.books-list li strong, .papers-list li strong{ color: var(--text-primary); }
+
+.problems-list{ display:flex; flex-direction:column; gap:12px; }
+.problem-item{
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+.problem-text{ font-size:.92rem; color: var(--text-primary); margin-bottom:8px; }
+.problem-learn{
+  font-size:.78rem; color: var(--station-color);
+  font-family: var(--font-mono);
+  display:flex; gap:6px;
+}
+
+.mastery-list li{
+  display:flex; align-items:flex-start; gap:10px;
+  padding: 9px 12px;
+  background: var(--bg-elev-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-soft);
+  font-size:.9rem; color: var(--text-secondary);
+  cursor:pointer;
+}
+.mastery-list li.checked{ color: var(--text-primary); }
+.mastery-list li.checked .mastery-box{ background: var(--station-color); border-color: var(--station-color); }
+.mastery-list li.checked .mastery-box::after{ opacity:1; }
+.mastery-box{
+  width:18px; height:18px; border-radius:5px; flex-shrink:0; margin-top:1px;
+  border: 1.5px solid var(--text-tertiary);
+  position:relative;
+  transition: all .15s ease;
+}
+.mastery-box::after{
+  content:"✓"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:12px; color:#0A0A0F; opacity:0; transition: opacity .1s ease;
+}
+
+.limitations-block{
+  background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: .9rem;
+  color: var(--text-secondary);
+}
+
+mark{ background: #FDE047; color:#1a1a1a; border-radius:2px; padding:0 2px; }
+
+.floating-tracker{
+  position: fixed;
+  right: 22px; bottom: 22px;
+  z-index: 30;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 10px 16px 10px 12px;
+  display:flex; align-items:center; gap:10px;
+  font-family: var(--font-mono); font-size:12px;
+  color: var(--text-secondary);
+  box-shadow: 0 10px 40px rgba(0,0,0,.4);
+  backdrop-filter: blur(8px);
+  max-width: calc(100vw - 44px);
+}
+.floating-tracker .fnode{
+  width:10px; height:10px; border-radius:50%;
+  background: var(--tracker-color, var(--c-qm));
+  box-shadow: 0 0 10px 2px var(--tracker-color, var(--c-qm));
+  flex-shrink:0;
+}
+.floating-tracker b{ color: var(--text-primary); }
+.floating-tracker span.sep{ color: var(--text-tertiary); }
+
+footer.curriculum-footer{
+  text-align:center;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size:12px;
+  padding: 50px 20px 20px;
+}
+</style>
+</head>
+<body>
+<div class="mobile-nav-toggle" id="mobileNavToggle">☰</div>
+<div class="sidebar-scrim" id="sidebarScrim"></div>
+<div class="app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand"><span class="dot"></span> GRAND.UNIFIED.CURRICULUM</div>
+
+    <div class="progress-block">
+      <div class="progress-label"><span>Overall mastery</span><b id="progressPct">0%</b></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+
+    <ul class="nav-list" id="navList"></ul>
+
+    <div class="sidebar-controls">
+      <button class="icon-btn" id="themeToggle">🌓 Theme</button>
+      <button class="icon-btn" id="expandAllBtn">⤢ Expand all</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <section class="hero">
+      <div class="hero-eyebrow"><span class="line"></span> A COMPLETE SELF-STUDY PATHWAY</div>
+      <h1>The Grand Unified Curriculum</h1>
+      <div class="hero-sub">From Zero to Quantum Gravity, String Theory &amp; Beyond</div>
+      <p class="lede">This is a thirteen-station journey from your very first line integral to the frontier
+      of theoretical physics and its convergence with quantum computing and artificial intelligence. There
+      are no shortcuts encoded here — every phase demands real derivations, reproduced by your own hand,
+      not equations admired from a distance. The path is long by design: physics rewards patience with the
+      formalism far more than it rewards cleverness without it. Pick a station, expand it, and start deriving.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><b id="statPhases">13</b><span>Phases</span></div>
+        <div class="hero-stat"><b id="statHours">0</b><span>Study hours (est.)</span></div>
+        <div class="hero-stat"><b id="statChecks">0</b><span>Mastery checks</span></div>
+        <div class="hero-stat"><b id="statProblems">0</b><span>Brain-working problems</span></div>
+      </div>
+      <div class="searchbar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" placeholder="Search formulae, derivations, books, papers, phases…">
+        <span class="search-count" id="searchCount"></span>
+      </div>
+    </section>
+
+    <div class="timeline" id="timeline"></div>
+
+    <footer class="curriculum-footer">Built for the motivated self-learner — from ∂ to the multiverse. Progress is saved locally in your browser.</footer>
+  </main>
+</div>
+
+<div class="floating-tracker" id="floatingTracker" style="display:none;">
+  <span class="fnode" id="trackerNode"></span>
+  <span id="trackerLabel">—</span>
+  <span class="sep">·</span>
+  <span id="trackerPct">0%</span>
+</div>
+
+<script>
+const PHASES = [{"id": "phase-0", "num": "0", "title": "Mathematical Prerequisites", "color": "#4ADE80", "hours": 220, "core": "Every subsequent phase of this curriculum is written in the language of calculus, linear algebra, differential equations, complex analysis, group theory, differential geometry, and Fourier analysis. This phase is not optional scaffolding; it is the alphabet in which physics is written, and skipping it produces students who can recognize equations but cannot derive, manipulate, or generalize them. The goal here is fluency, not familiarity: you should be able to reach for the divergence theorem or an eigenvalue decomposition as naturally as you reach for arithmetic. Spend real time on differential geometry and Lie group theory in particular, since these are the two topics students most often shortchange and most bitterly regret shortchanging once they hit General Relativity and gauge theory. Treat every derivation below as a problem to solve cold, not a fact to memorize.", "formulae": [{"latex": "\\oint_{\\partial V} \\mathbf{F}\\cdot d\\mathbf{A} = \\int_V (\\nabla\\cdot\\mathbf{F})\\, dV", "desc": "Divergence theorem: flux through a closed surface equals the volume integral of the divergence."}, {"latex": "\\oint_{\\partial S} \\mathbf{F}\\cdot d\\mathbf{l} = \\int_S (\\nabla\\times\\mathbf{F})\\cdot d\\mathbf{A}", "desc": "Stokes' theorem: circulation around a boundary equals the flux of curl through the surface."}, {"latex": "e^{i\\theta} = \\cos\\theta + i\\sin\\theta", "desc": "Euler's formula, the bridge between exponentials and trigonometry, central to wave mechanics."}, {"latex": "\\oint_C f(z)\\,dz = 2\\pi i \\sum \\text{Res}(f, z_k)", "desc": "Cauchy residue theorem, used to evaluate real integrals and propagators via contour integration."}, {"latex": "A\\mathbf{v} = \\lambda \\mathbf{v}", "desc": "Eigenvalue equation: the defining relation for eigenvectors and eigenvalues of a linear operator."}, {"latex": "[A,B] = AB - BA", "desc": "The commutator, the algebraic object that will later encode quantum uncertainty and Lie algebra structure."}, {"latex": "\\Gamma^{\\lambda}_{\\mu\\nu} = \\tfrac{1}{2} g^{\\lambda\\sigma}(\\partial_\\mu g_{\\sigma\\nu} + \\partial_\\nu g_{\\sigma\\mu} - \\partial_\\sigma g_{\\mu\\nu})", "desc": "Christoffel symbols built from the metric; encode how coordinate basis vectors change across a manifold."}, {"latex": "\\hat f(\\xi) = \\int_{-\\infty}^{\\infty} f(x)\\, e^{-2\\pi i x \\xi}\\, dx", "desc": "The Fourier transform, decomposing a function into its frequency content."}], "derivations": ["Derive the divergence theorem and Stokes' theorem starting from the fundamental theorem of calculus generalized to multiple dimensions.", "Diagonalize a general Hermitian matrix and prove that its eigenvalues are real and eigenvectors orthogonal.", "Derive the general solution to the 1D wave equation using d'Alembert's method, and to the heat equation using separation of variables.", "Prove Euler's formula from the Taylor series of \\(e^x\\), \\(\\sin x\\), and \\(\\cos x\\), then use it to derive all trigonometric addition formulas.", "Show that the generators of SO(3) satisfy the same commutation algebra as the generators of SU(2) up to a two-to-one covering, and derive the explicit Pauli matrix representation.", "Starting from the definition of a covariant derivative on a manifold, derive the Christoffel symbols in terms of the metric tensor."], "books": ["Boas, M. — Mathematical Methods in the Physical Sciences (3rd ed.) — Ch. 1-8, 12-14 — Purpose: broad working fluency across calculus, linear algebra, and complex analysis.", "Arfken, Weber & Harris — Mathematical Methods for Physicists (7th ed.) — Ch. 1-4, 9-11, 17 — Purpose: rigorous reference depth for vector calculus, tensors, and special functions.", "Georgi, H. — Lie Algebras in Particle Physics (2nd ed.) — Ch. 1-4 — Purpose: the group theory you will need for angular momentum, QCD, and the Standard Model.", "MIT OCW 18.06 (Strang) — Linear Algebra — Purpose: free, complete video course with problem sets and solutions.", "do Carmo, M. — Differential Geometry of Curves and Surfaces — Ch. 1-4 — Purpose: geometric intuition before tackling abstract manifolds in GR."], "papers": [], "problems": [{"text": "Prove that the Pauli matrices, together with the identity, form a basis for all 2x2 Hermitian matrices, and use this to show any qubit density matrix can be written as \\(\\rho = \\tfrac12(I + \\vec r \\cdot \\vec\\sigma)\\).", "learn": "This basis reappears constantly in QM spin problems and quantum computing."}, {"text": "Derive the Green's function for the 1D Laplace equation with Dirichlet boundary conditions on \\([0,L]\\) from scratch.", "learn": "Green's functions are the backbone of scattering theory and QFT propagators."}, {"text": "Show that SU(2) is the double cover of SO(3) by explicitly constructing the 2-to-1 homomorphism and verifying it on a 180° rotation.", "learn": "This subtlety is exactly why spin-1/2 particles need a 720° rotation to return to their original state."}, {"text": "Compute \\(\\int_{-\\infty}^{\\infty} \\frac{dx}{1+x^2}\\) by contour integration and verify the elementary-calculus answer.", "learn": "Builds the contour-integration muscle needed for propagators later."}, {"text": "Derive the Riemann tensor's antisymmetry and cyclic (first Bianchi) identity directly from the definition in terms of Christoffel symbols.", "learn": "These identities are what make Einstein's equations consistent."}], "mastery": ["I can state and apply the divergence, Stokes, and Green's theorems without looking them up.", "I can diagonalize a Hermitian or unitary matrix and interpret the eigenvalues physically.", "I can solve the 1D wave, heat, and Laplace equations by separation of variables.", "I can perform contour integration to evaluate real definite integrals via residues.", "I can compute the commutator of two operators and use it to characterize simultaneous diagonalizability.", "I can explain what a Lie group and Lie algebra are, and derive the algebra of SU(2) and SO(3).", "I can compute Christoffel symbols for a given metric and explain what a covariant derivative is.", "I can compute a Fourier transform and state the convolution theorem."], "limitations": "This phase is purely formal machinery with no physical content of its own; the danger is treating it as a checklist rather than building genuine manipulative fluency. Differential geometry in particular is usually under-practiced at this stage and becomes a major bottleneck in Phase 6. There is no shortcut: the derivations must be reproduced by hand, repeatedly, until they are boring."}, {"id": "phase-1", "num": "1", "title": "Classical Mechanics", "color": "#94A3B8", "hours": 90, "core": "Classical mechanics is where physics stops being a collection of force diagrams and becomes a variational science: instead of asking \"what forces act here,\" you ask \"what path makes a certain quantity stationary.\" The Lagrangian and Hamiltonian reformulations of Newton's laws look like notational luxury at first, but they are in fact the direct ancestors of the path integral, canonical quantization, and gauge theory you'll meet in Phases 5 and 8. Phase space, Poisson brackets, and canonical transformations are the classical shadow of quantum commutators and unitary evolution — learning to see this shadow clearly now will make quantization feel inevitable rather than mysterious later. Chaos and Liouville's theorem round out the picture by showing where classical determinism becomes practically, and philosophically, limited.", "formulae": [{"latex": "\\delta \\int_{t_1}^{t_2} L(q,\\dot q, t)\\, dt = 0", "desc": "Hamilton's principle of stationary action, from which all of mechanics follows."}, {"latex": "\\frac{d}{dt}\\frac{\\partial L}{\\partial \\dot q_i} - \\frac{\\partial L}{\\partial q_i} = 0", "desc": "The Euler-Lagrange equations, the equations of motion derived from the action."}, {"latex": "H(q,p,t) = \\sum_i p_i \\dot q_i - L, \\qquad p_i = \\frac{\\partial L}{\\partial \\dot q_i}", "desc": "The Legendre transform defining the Hamiltonian from the Lagrangian and generalized momenta."}, {"latex": "\\dot q_i = \\frac{\\partial H}{\\partial p_i}, \\qquad \\dot p_i = -\\frac{\\partial H}{\\partial q_i}", "desc": "Hamilton's equations of motion, first-order and symmetric in q and p."}, {"latex": "\\{f,g\\} = \\sum_i \\left(\\frac{\\partial f}{\\partial q_i}\\frac{\\partial g}{\\partial p_i} - \\frac{\\partial f}{\\partial p_i}\\frac{\\partial g}{\\partial q_i}\\right)", "desc": "The Poisson bracket, whose algebra becomes the commutator algebra upon quantization."}, {"latex": "\\frac{\\partial \\rho}{\\partial t} + \\{\\rho, H\\} = 0", "desc": "Liouville's theorem: phase-space density is conserved along Hamiltonian flow."}], "derivations": ["Derive the Euler-Lagrange equations from Hamilton's variational principle by varying the action and requiring the variation to vanish for arbitrary boundary-fixed paths.", "Perform the Legendre transform from L(q, qdot) to H(q,p) and derive Hamilton's equations.", "State and prove Noether's theorem: every continuous symmetry of the Lagrangian implies a conserved quantity (do this explicitly for time-translation invariance giving energy conservation).", "Derive the Poisson bracket algebra for angular momentum components and show it mirrors the quantum commutator algebra you'll meet in Phase 4.", "Derive the Hamilton-Jacobi equation from the generating function of a canonical transformation to constant coordinates."], "books": ["Goldstein, Poole & Safko — Classical Mechanics (3rd ed.) — Ch. 1-3, 8-10 — Purpose: the standard graduate reference for Lagrangian/Hamiltonian mechanics.", "Landau & Lifshitz — Mechanics (Vol. 1, 3rd ed.) — Ch. 1-2, 7 — Purpose: terse, elegant derivations that build real derivational skill.", "Taylor, J.R. — Classical Mechanics — Ch. 6-7, 13 — Purpose: gentler worked examples if Goldstein feels too dense at first pass.", "MIT OCW 8.09 — Classical Mechanics III — Purpose: free lecture series covering Hamiltonian dynamics and chaos."], "papers": [], "problems": [{"text": "A bead slides frictionlessly on a rotating rigid wire in a horizontal plane. Find the Lagrangian, equation of motion, and identify the conserved quantity (if any) using Noether's theorem.", "learn": "Practice recognizing that time-dependence in constraints can break naive energy conservation."}, {"text": "Show that the Poisson bracket of the x and y components of angular momentum gives (up to a sign convention) the z component, and compare this structure directly to \\([\\hat L_x, \\hat L_y] = i\\hbar \\hat L_z\\).", "learn": "This is your first direct glimpse of quantization as promotion of Poisson brackets to commutators."}, {"text": "Derive the equations of motion for a double pendulum and numerically integrate them to demonstrate sensitive dependence on initial conditions.", "learn": "Concrete, hands-on encounter with deterministic chaos."}, {"text": "Use Hamilton-Jacobi theory to solve the 1D harmonic oscillator and recover the familiar sinusoidal solution.", "learn": "Hamilton-Jacobi theory is the classical precursor to the WKB approximation in Phase 4."}], "mastery": ["I can derive the Euler-Lagrange equations from Hamilton's principle.", "I can construct a Lagrangian for a constrained mechanical system and extract equations of motion.", "I can perform a Legendre transform and derive Hamilton's equations.", "I can state and apply Noether's theorem to identify conserved quantities from symmetries.", "I can compute Poisson brackets and relate their algebra to angular momentum.", "I can explain Liouville's theorem and its implication for phase-space volume.", "I can describe, at least qualitatively, how deterministic chaos arises in nonlinear systems."], "limitations": "Classical mechanics is exact for macroscopic, non-relativistic, non-quantum systems, but it silently assumes deterministic trajectories and simultaneous knowledge of q and p — both of which fail at the atomic scale, motivating Phase 3. Chaos theory also reveals that even a fully deterministic classical system can be practically unpredictable, a humbling result that predates and is conceptually distinct from quantum indeterminacy."}, {"id": "phase-2", "num": "2", "title": "Electromagnetism & Special Relativity", "color": "#38BDF8", "hours": 110, "core": "Maxwell's equations are the first field theory in physics and the template for every field theory that follows, including general relativity and QFT. Their deepest secret is that they are already relativistic — Einstein's 1905 postulates are not an add-on to electromagnetism, they are a discovery of what electromagnetism had been secretly saying all along. Rewriting Maxwell's equations in covariant 4-vector language using the field strength tensor F_μν is the single most important notational leap in this phase, because it is the exact template you will use for Yang-Mills gauge fields in Phase 8. Spend real effort deriving E=mc² and the relativistic energy-momentum relation from first principles rather than quoting them; the derivation is short and the payoff in genuine understanding is large.", "formulae": [{"latex": "\\nabla\\cdot\\mathbf{E} = \\rho/\\epsilon_0,\\quad \\nabla\\cdot\\mathbf{B}=0,\\quad \\nabla\\times\\mathbf{E}=-\\partial_t\\mathbf{B},\\quad \\nabla\\times\\mathbf{B}=\\mu_0\\mathbf{J}+\\mu_0\\epsilon_0\\partial_t\\mathbf{E}", "desc": "Maxwell's equations in differential form, unifying electricity, magnetism, and light."}, {"latex": "\\partial_\\mu F^{\\mu\\nu} = \\mu_0 J^\\nu, \\qquad F_{\\mu\\nu} = \\partial_\\mu A_\\nu - \\partial_\\nu A_\\mu", "desc": "Covariant Maxwell equation and the electromagnetic field strength tensor built from the 4-potential."}, {"latex": "t' = \\gamma\\left(t - \\frac{vx}{c^2}\\right), \\quad x' = \\gamma(x - vt), \\quad \\gamma = \\frac{1}{\\sqrt{1-v^2/c^2}}", "desc": "The Lorentz transformation between inertial frames."}, {"latex": "ds^2 = -c^2 dt^2 + dx^2 + dy^2 + dz^2", "desc": "The invariant spacetime interval defining Minkowski geometry."}, {"latex": "E^2 = (pc)^2 + (mc^2)^2", "desc": "The relativistic energy-momentum relation, reducing to E=mc² for a particle at rest."}, {"latex": "p^\\mu = (E/c, \\vec p), \\qquad p^\\mu p_\\mu = -m^2c^2", "desc": "The energy-momentum 4-vector and its Lorentz-invariant norm."}], "derivations": ["Derive the electromagnetic wave equation for E and B in vacuum directly from Maxwell's equations, and read off the speed of light.", "Derive the Lorentz transformation from the two postulates of special relativity (constancy of c, relativity of inertial frames) using light-clock or algebraic arguments.", "Derive the relativistic velocity addition formula and time dilation/length contraction from the Lorentz transformation.", "Derive E=mc² from the work-energy theorem applied relativistically (Einstein's 1905 argument or the modern 4-momentum argument).", "Rewrite the inhomogeneous Maxwell equations in covariant form using F^{mu nu} and verify gauge invariance under A_mu -> A_mu + partial_mu lambda."], "books": ["Griffiths, D. — Introduction to Electrodynamics (4th ed.) — Ch. 2, 7-8, 12 — Purpose: the standard, most pedagogically clear route into Maxwell's equations and relativistic E&M.", "Jackson, J.D. — Classical Electrodynamics (3rd ed.) — Ch. 6, 11-12 — Purpose: the graduate-level rigor reference, especially for covariant formulation.", "Taylor, E. & Wheeler, J. — Spacetime Physics (2nd ed.) — full text — Purpose: unparalleled geometric intuition for special relativity.", "MIT OCW 8.033 — Relativity — Purpose: free course dedicated entirely to special relativity."], "papers": ["Einstein, A. (1905) — \"Zur Elektrodynamik bewegter Körper\" (On the Electrodynamics of Moving Bodies) — arXiv translation widely available — Task: reproduce the derivation of the Lorentz transformation from the two postulates as originally presented."], "problems": [{"text": "Show that Maxwell's equations are not invariant under Galilean transformations but are invariant under Lorentz transformations.", "learn": "This is the historical crack that revealed Newtonian spacetime was wrong."}, {"text": "A muon is created in the upper atmosphere with a lifetime of 2.2 microseconds in its rest frame. Using time dilation, show quantitatively how it survives long enough to reach the surface.", "learn": "Concrete application connecting relativity to an experimentally verified everyday phenomenon (cosmic-ray muons)."}, {"text": "Derive the relativistic Doppler effect and show it reduces to the classical formula at low velocity.", "learn": "Builds facility manipulating 4-vectors and reinforces the low-velocity correspondence principle."}, {"text": "Show that F_{mu nu}F^{mu nu} and F_{mu nu} tilde F^{mu nu} are Lorentz scalars, and identify their physical meaning in terms of E and B.", "learn": "Introduces Lorentz invariants that reappear as building blocks of the QED Lagrangian in Phase 8."}], "mastery": ["I can write Maxwell's equations in both integral and differential form and derive the wave equation from them.", "I can derive the Lorentz transformation from the postulates of special relativity.", "I can compute time dilation, length contraction, and relativistic velocity addition.", "I can construct and manipulate 4-vectors, including the energy-momentum 4-vector.", "I can derive E=mc² and the relativistic energy-momentum relation.", "I can write Maxwell's equations in covariant form using F_{mu nu} and explain gauge invariance."], "limitations": "Special relativity handles only inertial (non-accelerating) frames and flat spacetime; it says nothing about gravity, which is the subject of Phase 6. Classical electrodynamics also diverges at short distances (the self-energy of a point charge is infinite), an early sign of the ultraviolet problems that QFT renormalization in Phase 8 will need to tame."}, {"id": "phase-3", "num": "3", "title": "Quantum Mechanics — Foundations", "color": "#00D4FF", "hours": 130, "core": "Quantum mechanics begins as a series of embarrassments for classical physics — black-body radiation, the photoelectric effect, Compton scattering, atomic stability — and ends as a complete reformulation of what a physical state even is. The central conceptual pivot is that a system's state lives in a Hilbert space, and measurable quantities are Hermitian operators acting on it, rather than the state being a point in phase space. Dirac notation gives you the algebraic tools to work in this space without constantly choosing a representation, and the canonical commutation relation \\([x,p]=i\\hbar\\) is the single seed from which the uncertainty principle, the harmonic oscillator spectrum, and eventually all of quantum field theory grow. Do not rush past the particle-in-a-box and harmonic oscillator; they are simple enough to solve completely and rich enough to teach you every technique (boundary conditions, operator methods, normalization) you will reuse for the rest of your physics education.", "formulae": [{"latex": "i\\hbar \\frac{\\partial}{\\partial t}\\lvert\\psi\\rangle = \\hat H \\lvert\\psi\\rangle", "desc": "The time-dependent Schrödinger equation governing quantum state evolution."}, {"latex": "\\hat H \\lvert \\psi_n \\rangle = E_n \\lvert \\psi_n \\rangle", "desc": "The time-independent Schrödinger equation, an eigenvalue problem for stationary states."}, {"latex": "[\\hat x, \\hat p] = i\\hbar", "desc": "The canonical commutation relation, the algebraic core of quantum non-commutativity."}, {"latex": "\\Delta A\\, \\Delta B \\geq \\frac{1}{2}\\left|\\langle [\\hat A,\\hat B]\\rangle\\right|", "desc": "The generalized (Robertson) uncertainty relation between any two observables."}, {"latex": "\\hat H = \\hbar\\omega\\left(\\hat a^\\dagger \\hat a + \\tfrac12\\right), \\qquad E_n = \\hbar\\omega\\left(n+\\tfrac12\\right)", "desc": "The quantum harmonic oscillator Hamiltonian in ladder-operator form and its energy spectrum."}, {"latex": "\\frac{d\\langle \\hat A\\rangle}{dt} = \\frac{1}{i\\hbar}\\langle[\\hat A,\\hat H]\\rangle + \\left\\langle\\frac{\\partial \\hat A}{\\partial t}\\right\\rangle", "desc": "Ehrenfest's theorem, showing how classical equations of motion emerge for expectation values."}], "derivations": ["Derive the Planck black-body spectrum from the assumption of quantized oscillator energies, and show it resolves the classical ultraviolet catastrophe.", "Derive the photoelectric effect threshold-frequency behavior from Einstein's photon hypothesis.", "Derive the Heisenberg uncertainty principle for x and p from the Cauchy-Schwarz inequality applied to the Robertson inequality.", "Solve the infinite square well (particle in a box) completely: quantized energies, normalized wavefunctions, and orthogonality.", "Solve the quantum harmonic oscillator using ladder operators: derive the spectrum, the ground state wavefunction, and the action of a and a-dagger on number states.", "Derive Ehrenfest's theorem from the Schrödinger equation and show that expectation values obey classical-looking equations of motion."], "books": ["Griffiths, D. & Schroeter, D. — Introduction to Quantum Mechanics (3rd ed.) — Ch. 1-3, 9 — Purpose: the clearest first pass through postulates, the box, and the oscillator.", "Sakurai & Napolitano — Modern Quantum Mechanics (3rd ed.) — Ch. 1-2 — Purpose: rigorous Dirac-notation-first treatment that scales into Phase 4/5 material.", "Shankar, R. — Principles of Quantum Mechanics (2nd ed.) — Ch. 4, 7 — Purpose: exceptionally careful math-to-physics bridge, especially for the postulates.", "MIT OCW 8.04 & 8.05 — Quantum Physics I & II — Purpose: free complete lecture and problem-set sequence."], "papers": ["Planck, M. (1900) — \"On the Theory of the Energy Distribution Law of the Normal Spectrum\" — Task: identify where energy quantization is introduced and why it was originally a mathematical trick rather than a physical claim.", "Einstein, A. (1905) — \"On a Heuristic Point of View Concerning the Production and Transformation of Light\" — Task: reproduce the photoelectric threshold-frequency argument."], "problems": [{"text": "Show that a Gaussian wave packet minimizes the uncertainty product \\(\\Delta x \\Delta p = \\hbar/2\\), and compute how it spreads in time.", "learn": "Directly connects the abstract uncertainty bound to a concrete, physically realistic state."}, {"text": "For the infinite square well, compute the time evolution of an initial state that is an equal superposition of the ground and first excited state, and describe the resulting probability density oscillation.", "learn": "First hands-on encounter with quantum beats and non-stationary state dynamics."}, {"text": "Using ladder operators, compute \\(\\langle x^2 \\rangle\\) and \\(\\langle p^2\\rangle\\) for the n-th harmonic oscillator eigenstate without ever writing down the explicit wavefunction.", "learn": "Demonstrates the power of algebraic (operator) methods over brute-force integration."}, {"text": "Derive the Compton scattering formula for the wavelength shift of a photon scattering off an electron, treating the photon relativistically.", "learn": "Connects Phase 2 relativistic kinematics directly to a quantum phenomenon."}], "mastery": ["I can state the postulates of quantum mechanics in Dirac notation.", "I can derive the Heisenberg uncertainty principle from the canonical commutation relation.", "I can solve the infinite square well and interpret its quantized spectrum.", "I can solve the quantum harmonic oscillator using ladder operators and explain why this method works.", "I can compute expectation values and apply Ehrenfest's theorem.", "I can explain the measurement problem at a basic level: what collapse means operationally.", "I can derive the photoelectric effect and Compton scattering results from quantum principles."], "limitations": "Foundational QM as presented here is non-relativistic and single-particle; it cannot describe particle creation/annihilation (needs QFT, Phase 8), and it leaves the measurement problem — what physically constitutes a 'measurement' and why collapse appears irreversible — entirely unresolved, a question revisited explicitly in Phase 10."}, {"id": "phase-4", "num": "4", "title": "Quantum Mechanics — Intermediate", "color": "#00D4FF", "hours": 150, "core": "This phase is where quantum mechanics becomes powerful enough to describe real atoms and real approximate systems, rather than idealized boxes and oscillators. The hydrogen atom is the single most important exactly-solvable problem in all of physics — its solution introduces spherical harmonics, quantum numbers, and the structure that all of atomic and condensed matter physics builds on. Angular momentum algebra and spin generalize the SU(2) structure you met in Phase 0 into genuine physical predictions (Stern-Gerlach, the Zeeman effect, fine structure), while perturbation theory and the variational method are the workhorse approximation techniques you will use whenever an exact solution is impossible — which is almost always in real physics. Fermi's golden rule and identical-particle statistics close the loop by connecting quantum mechanics to spectroscopy, chemistry, and the origin of the periodic table.", "formulae": [{"latex": "E_n = -\\frac{m_e e^4}{2(4\\pi\\epsilon_0)^2\\hbar^2 n^2} = -\\frac{13.6\\,\\text{eV}}{n^2}", "desc": "The hydrogen atom energy levels, depending only on the principal quantum number n."}, {"latex": "\\hat J^2 \\lvert j,m\\rangle = \\hbar^2 j(j+1)\\lvert j,m\\rangle, \\quad \\hat J_z\\lvert j,m\\rangle = \\hbar m \\lvert j,m\\rangle", "desc": "Eigenvalue equations for total angular momentum and its z-projection."}, {"latex": "E_n^{(1)} = \\langle \\psi_n^{(0)} \\rvert \\hat H' \\lvert \\psi_n^{(0)}\\rangle", "desc": "First-order energy correction in time-independent perturbation theory."}, {"latex": "\\Gamma_{i\\to f} = \\frac{2\\pi}{\\hbar}\\left|\\langle f\\rvert \\hat H' \\lvert i\\rangle\\right|^2 \\rho(E_f)", "desc": "Fermi's golden rule: transition rate from an initial to final state under a perturbation."}, {"latex": "\\sigma_x=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix},\\ \\sigma_y=\\begin{pmatrix}0&-i\\\\i&0\\end{pmatrix},\\ \\sigma_z=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}", "desc": "The Pauli matrices, representing spin-1/2 angular momentum operators."}, {"latex": "\\lvert\\Psi(1,2)\\rangle = \\pm \\lvert\\Psi(2,1)\\rangle", "desc": "The (anti)symmetrization requirement for bosons (+) and fermions (−) under particle exchange."}], "derivations": ["Solve the hydrogen atom Schrödinger equation completely by separation of variables in spherical coordinates: derive the angular equation (spherical harmonics) and the radial equation, and obtain the energy spectrum E_n.", "Derive the raising/lowering operator algebra for angular momentum and use it to derive the allowed values of j and m.", "Derive first- and second-order time-independent perturbation theory from an expansion of the perturbed Hamiltonian's eigenstates in the unperturbed basis.", "Derive Fermi's golden rule from time-dependent perturbation theory in the limit of a constant perturbation turned on at t=0.", "Derive the Clebsch-Gordan decomposition for the addition of two spin-1/2 angular momenta (the singlet/triplet decomposition).", "Derive the Pauli exclusion principle's consequence for the ground-state configuration of a multi-electron atom using antisymmetrization."], "books": ["Griffiths, D. & Schroeter, D. — Introduction to Quantum Mechanics (3rd ed.) — Ch. 4-7 — Purpose: full hydrogen atom, angular momentum, and perturbation theory treatment.", "Sakurai & Napolitano — Modern Quantum Mechanics (3rd ed.) — Ch. 3, 5-7 — Purpose: rigorous angular momentum algebra and perturbation theory.", "Cohen-Tannoudji, Diu & Laloë — Quantum Mechanics (Vol. 1-2) — Ch. VI-VII, XI, XIII — Purpose: the most exhaustive treatment of angular momentum and perturbation methods available.", "MIT OCW 8.06 — Quantum Physics III — Purpose: free course covering perturbation theory and identical particles."], "papers": ["Fermi, E. (1950) — Nuclear Physics (lecture notes containing the original golden rule derivation) — Task: reproduce the derivation of the transition rate formula."], "problems": [{"text": "Compute the first-order Stark effect (energy shift in a uniform electric field) for the n=2 states of hydrogen, which requires degenerate perturbation theory.", "learn": "Forces you to confront degeneracy, the case where naive non-degenerate perturbation theory breaks down."}, {"text": "Use the variational method with a trial Gaussian wavefunction to estimate the ground-state energy of the hydrogen atom, and compare it to the exact answer.", "learn": "Builds intuition for why the variational method always overestimates the true ground-state energy."}, {"text": "Derive the fine-structure correction to hydrogen energy levels from the relativistic kinetic energy correction and spin-orbit coupling (order of magnitude is sufficient; full derivation is a stretch goal).", "learn": "Connects special relativity, spin, and perturbation theory into one real physical effect."}, {"text": "Show explicitly that the two-electron ground state of helium (treated in the independent-particle approximation) must have an antisymmetric spatial part combined with the symmetric spin singlet, or vice versa.", "learn": "Concrete illustration of how exchange symmetry dictates atomic structure."}], "mastery": ["I can solve the hydrogen atom completely and explain the origin of each quantum number.", "I can derive and apply the angular momentum ladder operator algebra, including addition of angular momenta.", "I can apply non-degenerate and degenerate time-independent perturbation theory to a real system.", "I can use the variational method to bound a ground-state energy.", "I can derive and apply Fermi's golden rule.", "I can explain the difference between bosons and fermions and apply the (anti)symmetrization postulate.", "I can explain, at least qualitatively, the WKB approximation and when it applies."], "limitations": "Perturbation theory fails when the perturbation is not small, and the variational method only bounds the ground state, not excited states, without extra care. None of this machinery yet incorporates full relativistic corrections or particle creation, which is why Phase 5's relativistic QM and Phase 8's QFT are necessary for high-precision atomic physics (e.g. the Lamb shift) and particle physics."}, {"id": "phase-5", "num": "5", "title": "Quantum Mechanics — Advanced", "color": "#0EA5E9", "hours": 140, "core": "Advanced QM is the bridge phase: it takes the single-particle non-relativistic machinery of Phases 3-4 and pushes it toward the two big destinations of this curriculum — full relativistic quantum field theory (Phase 8) and the many-body/statistical machinery underlying condensed matter and quantum computing. Scattering theory generalizes bound-state thinking to unbound, \"in-and-out\" processes, which is exactly the language particle physics experiments speak. The Klein-Gordon and Dirac equations are the first honest attempts to marry quantum mechanics with special relativity, and their failure to be simple single-particle wave equations (negative energies, negative probabilities) is precisely what forces the transition to field quantization. Feynman's path integral, meanwhile, is a completely different but equivalent formulation of quantum mechanics that will become the natural language of QFT and string theory alike, and second quantization is the formal machinery that lets you create and destroy particles rather than just moving one particle around.", "formulae": [{"latex": "f(\\theta) \\approx -\\frac{m}{2\\pi\\hbar^2}\\int e^{-i\\vec k'\\cdot \\vec r'} V(\\vec r') e^{i\\vec k\\cdot\\vec r'}\\, d^3r'", "desc": "The Born approximation for the scattering amplitude in potential scattering."}, {"latex": "\\left(\\Box - \\frac{m^2c^2}{\\hbar^2}\\right)\\phi = 0", "desc": "The Klein-Gordon equation, the relativistic wave equation for spin-0 particles."}, {"latex": "(i\\hbar \\gamma^\\mu \\partial_\\mu - mc)\\psi = 0", "desc": "The Dirac equation, the relativistic wave equation for spin-1/2 particles, linear in derivatives."}, {"latex": "K(x_f,t_f;x_i,t_i) = \\int \\mathcal D[x(t)]\\, e^{iS[x(t)]/\\hbar}", "desc": "The Feynman path integral: the propagator as a sum over all paths weighted by the classical action."}, {"latex": "\\{\\hat a_{\\vec k}, \\hat a^\\dagger_{\\vec k'}\\} = \\delta_{\\vec k \\vec k'} \\text{ (fermions)}, \\quad [\\hat a_{\\vec k}, \\hat a^\\dagger_{\\vec k'}] = \\delta_{\\vec k \\vec k'}\\text{ (bosons)}", "desc": "Creation/annihilation operator (anti)commutation relations defining Fock space in second quantization."}], "derivations": ["Derive the Born approximation for scattering amplitude from the Lippmann-Schwinger equation.", "Derive the Klein-Gordon equation by relativistically generalizing the Schrödinger equation (starting from E^2=p^2c^2+m^2c^4), and show the resulting continuity equation admits negative probability densities.", "Derive the Dirac equation by factorizing the Klein-Gordon operator, obtaining the gamma matrix algebra {gamma^mu, gamma^nu} = 2 eta^{mu nu}, and show it implies a positive-definite probability density.", "Derive the non-relativistic path integral by time-slicing the propagator and taking the continuum limit, showing it reduces to the classical trajectory in the hbar -> 0 limit (stationary phase).", "Construct the Fock space for a system of identical bosons/fermions and derive the (anti)commutation relations of creation and annihilation operators from the requirement of correct exchange symmetry."], "books": ["Sakurai & Napolitano — Modern Quantum Mechanics (3rd ed.) — Ch. 5 (scattering) — Purpose: clean, standard treatment of Born approximation and partial waves.", "Bjorken & Drell — Relativistic Quantum Mechanics — Ch. 1-3 — Purpose: the classic derivation of the Dirac equation and its physical content.", "Feynman & Hibbs — Quantum Mechanics and Path Integrals (emended ed.) — Ch. 1-4 — Purpose: the original, most intuitive path integral treatment, written by its inventor.", "Fetter & Walecka — Quantum Theory of Many-Particle Systems — Ch. 1-3 — Purpose: rigorous second quantization and introduction to many-body methods."], "papers": ["Dirac, P.A.M. (1928) — \"The Quantum Theory of the Electron\" — Proc. R. Soc. A — Task: reproduce the factorization argument leading to the gamma matrices and identify where antiparticles are implicitly predicted.", "Feynman, R. (1948) — \"Space-Time Approach to Non-Relativistic Quantum Mechanics\" — Rev. Mod. Phys. — Task: reproduce the time-slicing derivation of the path integral from the standard propagator composition rule."], "problems": [{"text": "Show that a naive single-particle interpretation of the Klein-Gordon equation leads to negative probability densities, and explain physically why this signals the need for field quantization rather than a flawed wave equation.", "learn": "This is the historical pivot point from relativistic QM to QFT."}, {"text": "Derive the non-relativistic limit of the Dirac equation and show it reduces to the Pauli equation, revealing the correct gyromagnetic ratio g=2 for the electron.", "learn": "One of the most celebrated triumphs of the Dirac equation, unexplained by non-relativistic QM alone."}, {"text": "Compute the differential cross section for scattering off a Yukawa potential in the Born approximation and take the massless limit to recover Rutherford scattering.", "learn": "Connects scattering theory to the historical discovery of the nucleus and to force-carrier exchange."}, {"text": "Using the path integral, derive the free-particle propagator explicitly by performing the Gaussian path integral, and verify it matches the Schrödinger-equation result.", "learn": "Concrete proof that the two formulations of quantum mechanics agree."}], "mastery": ["I can derive the Born approximation and compute a scattering cross-section.", "I can derive the Klein-Gordon equation and explain why it fails as a single-particle theory.", "I can derive the Dirac equation and explain the physical meaning of the gamma matrices and negative-energy solutions.", "I can derive the non-relativistic path integral from time-slicing.", "I can construct Fock space and use creation/annihilation operators for bosons and fermions.", "I can explain, at a sketch level, what Hartree-Fock and BCS theory attempt to do."], "limitations": "Relativistic quantum mechanics as a single-particle theory is fundamentally inconsistent — it cannot forbid particle creation/annihilation, which experiments clearly show occurs. This inconsistency is not a technical bug to be patched; it is the primary motivation for quantum field theory in Phase 8, where particles are excitations of fields rather than fixed objects being described by wavefunctions."}, {"id": "phase-6", "num": "6", "title": "General Relativity — Foundations", "color": "#FFB830", "hours": 160, "core": "General relativity replaces the Newtonian idea of gravity as a force with the idea of gravity as geometry: mass-energy tells spacetime how to curve, and curved spacetime tells mass-energy how to move. The equivalence principle is the conceptual seed of the entire theory — the simple observation that a freely falling frame looks locally like the absence of gravity is what licenses treating gravity geometrically rather than as one force among many. Everything else in this phase is the differential-geometric machinery (metric, connection, curvature) needed to make that idea mathematically precise, culminating in the Einstein field equations, which relate the geometry of spacetime (the Einstein tensor) directly to the matter and energy within it (the stress-energy tensor). This is the single hardest conceptual and technical jump in the entire curriculum; budget real time for it, and do not proceed to Phase 7 until you can derive the geodesic equation and the Einstein-Hilbert action derivation cold.", "formulae": [{"latex": "\\frac{d^2 x^\\mu}{d\\tau^2} + \\Gamma^\\mu_{\\alpha\\beta}\\frac{dx^\\alpha}{d\\tau}\\frac{dx^\\beta}{d\\tau} = 0", "desc": "The geodesic equation: free-falling particles follow paths of extremal proper time."}, {"latex": "R^\\rho_{\\ \\sigma\\mu\\nu} = \\partial_\\mu \\Gamma^\\rho_{\\nu\\sigma} - \\partial_\\nu \\Gamma^\\rho_{\\mu\\sigma} + \\Gamma^\\rho_{\\mu\\lambda}\\Gamma^\\lambda_{\\nu\\sigma} - \\Gamma^\\rho_{\\nu\\lambda}\\Gamma^\\lambda_{\\mu\\sigma}", "desc": "The Riemann curvature tensor, measuring the failure of parallel transport to commute."}, {"latex": "R_{\\mu\\nu} = R^\\lambda_{\\ \\mu\\lambda\\nu}, \\qquad R = g^{\\mu\\nu}R_{\\mu\\nu}", "desc": "The Ricci tensor and Ricci scalar, contractions of the Riemann tensor."}, {"latex": "G_{\\mu\\nu} \\equiv R_{\\mu\\nu} - \\tfrac12 R g_{\\mu\\nu} = \\frac{8\\pi G}{c^4}T_{\\mu\\nu}", "desc": "The Einstein field equations: spacetime curvature equals matter-energy content."}, {"latex": "S = \\frac{c^4}{16\\pi G}\\int R\\sqrt{-g}\\, d^4x + S_{matter}", "desc": "The Einstein-Hilbert action, from which the field equations follow by variation."}], "derivations": ["Derive the geodesic equation from the variational principle of extremizing proper time (or equivalently the energy functional) for a curve in curved spacetime.", "Derive the Riemann curvature tensor from the commutator of covariant derivatives acting on a vector field, and verify its known symmetries (antisymmetry, first Bianchi identity).", "Show that the Newtonian limit (weak field, slow motion) of the geodesic equation reproduces Newton's law of gravity with g_{00} = -(1+2*Phi/c^2).", "Derive the Einstein field equations by varying the Einstein-Hilbert action with respect to the inverse metric.", "Derive the contracted Bianchi identity and show it implies local conservation of the stress-energy tensor, which is required for consistency of the field equations."], "books": ["Carroll, S. — Spacetime and Geometry (1st ed.) — Ch. 1-4 — Purpose: the clearest modern graduate-level derivation-first path into GR.", "Misner, Thorne & Wheeler — Gravitation — Ch. 1-8, 13-17 — Purpose: the encyclopedic classic; slower but geometrically unmatched.", "Wald, R. — General Relativity — Ch. 3-4 — Purpose: the most mathematically rigorous standard treatment, for after Carroll.", "Schutz, B. — A First Course in General Relativity (2nd ed.) — Ch. 5-7 — Purpose: gentler on-ramp if Carroll's pace is too fast at first."], "papers": ["Einstein, A. (1915) — \"Die Feldgleichungen der Gravitation\" (The Field Equations of Gravitation) — Task: identify the physical reasoning connecting curvature to matter, independent of the modern variational derivation."], "problems": [{"text": "Show explicitly that the Christoffel symbols are not tensors by working out their transformation law under a general coordinate change, and identify the inhomogeneous term.", "learn": "Clarifies exactly what 'covariant' does and does not mean, a common point of confusion."}, {"text": "Derive the weak-field metric g_{00} = -(1+2*Phi/c^2) from requiring the geodesic equation reduce to Newton's second law with the Newtonian gravitational potential Phi.", "learn": "Concretely bridges GR back to the Newtonian gravity you already know, building trust in the formalism."}, {"text": "Compute the Riemann tensor for the 2-sphere with metric ds^2 = a^2(dtheta^2 + sin^2(theta) dphi^2) and show the Ricci scalar is 2/a^2, matching the known Gaussian curvature.", "learn": "A fully tractable worked example that builds real computational fluency before tackling 4D spacetimes."}, {"text": "Show that the Einstein tensor automatically satisfies the contracted Bianchi identity, and explain why this was essential for Einstein to include the -1/2 R g_{mu nu} term rather than just setting R_{mu nu} = 8 pi G T_{mu nu}.", "learn": "Reveals why the field equations have the exact form they do, rather than a simpler guess."}], "mastery": ["I can state and explain the equivalence principle and its role in motivating a geometric theory of gravity.", "I can derive the geodesic equation from a variational principle.", "I can compute Christoffel symbols and the Riemann tensor for a given metric.", "I can state the symmetries of the Riemann tensor and derive the Ricci tensor and scalar from it.", "I can derive the Einstein field equations from the Einstein-Hilbert action.", "I can recover the Newtonian limit of GR in the weak-field, slow-motion approximation.", "I can explain what the stress-energy tensor represents and give its form for a perfect fluid."], "limitations": "GR is a purely classical field theory: it has no notion of quantization, and attempts to quantize it directly produce a non-renormalizable theory (infinities that cannot be systematically removed), which is the technical heart of the incompatibility with quantum mechanics that motivates string theory and loop quantum gravity in Phase 9. GR also predicts its own breakdown at singularities (inside black holes, at the Big Bang), signaling the limits of classical geometry itself."}, {"id": "phase-7", "num": "7", "title": "General Relativity — Solutions & Phenomena", "color": "#F59E0B", "hours": 150, "core": "With the field equations in hand, this phase is about solving them for physically important cases and confronting the results with reality. The Schwarzschild solution — the unique spherically symmetric vacuum solution — single-handedly predicts black holes, gravitational light bending, and Mercury's perihelion precession, three of the most dramatic confirmations of GR. Extending to rotating (Kerr) and charged (Reissner-Nordström) black holes, and to gravitational waves as ripples of spacetime itself, shows how rich the theory's solution space is. Cosmology, built on the FLRW metric and Friedmann equations, takes the same field equations and applies them to the entire universe, leading to the expanding universe, dark energy, and inflation. This is the phase where GR stops being an elegant formalism and becomes an experimentally vindicated description of black holes, gravitational waves detected by LIGO, and the large-scale structure of the cosmos.", "formulae": [{"latex": "ds^2 = -\\left(1-\\frac{2GM}{rc^2}\\right)c^2dt^2 + \\left(1-\\frac{2GM}{rc^2}\\right)^{-1}dr^2 + r^2 d\\Omega^2", "desc": "The Schwarzschild metric describing spacetime around a non-rotating spherical mass."}, {"latex": "\\Delta\\phi = \\frac{6\\pi GM}{c^2 a(1-e^2)}", "desc": "The GR correction to the perihelion precession per orbit, famously matching Mercury's anomalous precession."}, {"latex": "h_{\\mu\\nu} = \\bar h_{\\mu\\nu} - \\tfrac12 \\eta_{\\mu\\nu}\\bar h, \\quad \\Box \\bar h_{\\mu\\nu} = -16\\pi G T_{\\mu\\nu}/c^4", "desc": "The linearized Einstein equation in the trace-reversed, Lorenz-gauge form governing gravitational waves."}, {"latex": "\\left(\\frac{\\dot a}{a}\\right)^2 = \\frac{8\\pi G}{3}\\rho - \\frac{kc^2}{a^2} + \\frac{\\Lambda c^2}{3}", "desc": "The first Friedmann equation relating the universe's expansion rate to its energy density, curvature, and cosmological constant."}, {"latex": "P = \\frac{32G}{5c^5}\\left(\\dddot Q_{ij}\\right)^2", "desc": "The quadrupole formula for gravitational wave luminosity, the leading-order radiated power from a time-varying mass quadrupole."}], "derivations": ["Derive the Schwarzschild solution by solving the vacuum Einstein equations R_{mu nu}=0 under the ansatz of static, spherically symmetric spacetime.", "Derive the perihelion precession of Mercury by solving the geodesic equation in the Schwarzschild metric perturbatively around the Newtonian ellipse.", "Derive light bending by a massive body using the null geodesic equation in the Schwarzschild metric, and compare the GR prediction to the (wrong) Newtonian-corpuscular prediction.", "Linearize the Einstein field equations around flat spacetime (g = eta + h) and derive the wave equation for h_{mu nu} in the transverse-traceless gauge.", "Derive the quadrupole formula for gravitational wave power radiated by a binary system.", "Derive the Friedmann equations from the Einstein field equations applied to the FLRW metric with a perfect-fluid stress-energy tensor."], "books": ["Carroll, S. — Spacetime and Geometry — Ch. 5-8 — Purpose: Schwarzschild solution, black holes, and cosmology in one consistent notation.", "Misner, Thorne & Wheeler — Gravitation — Ch. 31-34, 36 — Purpose: exhaustive treatment of black holes, Penrose diagrams, and Kerr geometry.", "Maggiore, M. — Gravitational Waves, Vol. 1 — Ch. 1, 3-4 — Purpose: the standard modern reference for the quadrupole formula and wave generation.", "Ryden, B. — Introduction to Cosmology (2nd ed.) — Ch. 4, 6, 8 — Purpose: accessible derivation of the Friedmann equations and dark energy."], "papers": ["Einstein, A. (1916) — \"Näherungsweise Integration der Feldgleichungen der Gravitation\" — Task: identify the original derivation of gravitational wave radiation.", "Kerr, R. (1963) — \"Gravitational Field of a Spinning Mass as an Example of Algebraically Special Metrics\" — Phys. Rev. Lett. — Task: identify the key ansatz that made the rotating solution tractable.", "Abbott, B.P. et al. (LIGO/Virgo) (2016) — \"Observation of Gravitational Waves from a Binary Black Hole Merger\" — Phys. Rev. Lett. — Task: reproduce the order-of-magnitude estimate of the merger's peak gravitational wave strain using the quadrupole formula."], "problems": [{"text": "Derive the location of the event horizon and the photon sphere for the Schwarzschild metric, and explain physically why light can orbit at r = 3GM/c^2 but not remain there stably.", "learn": "Builds intuition for why black holes trap light and what 'unstable orbit' means geometrically."}, {"text": "Use the Kruskal-Szekeres extension to explain why the Schwarzschild r=2GM/c^2 surface is a coordinate singularity, not a physical one, while r=0 is a true curvature singularity.", "learn": "Resolves a classic point of confusion between coordinate artifacts and genuine physical singularities."}, {"text": "Estimate the strain h at Earth from a binary neutron star merger 100 Mpc away using the quadrupole formula, and compare your estimate's order of magnitude to LIGO's actual sensitivity.", "learn": "Connects abstract formalism directly to why gravitational wave detection is such an extraordinary experimental achievement."}, {"text": "Starting from the Friedmann equations, derive the condition on the equation-of-state parameter w for accelerated cosmic expansion, and identify which value of w corresponds to a cosmological constant.", "learn": "Direct route to understanding dark energy as a component with negative pressure."}], "mastery": ["I can derive the Schwarzschild solution from the vacuum Einstein equations.", "I can derive the perihelion precession and light-bending predictions of GR.", "I can explain the difference between a coordinate singularity and a curvature singularity using the Schwarzschild case.", "I can linearize the Einstein equations and derive the wave equation for gravitational waves.", "I can derive the quadrupole formula and estimate gravitational wave strain for an astrophysical source.", "I can derive the Friedmann equations from the FLRW metric and explain the role of dark energy and curvature.", "I can describe Penrose diagrams and the causal structure of a black hole spacetime at a qualitative level."], "limitations": "Classical GR solutions like Schwarzschild predict their own breakdown at r=0, a genuine curvature singularity where the theory simply stops making predictions — a strong hint that a quantum theory of gravity is needed at extremely short distances (Phase 9). Cosmology similarly runs into the unexplained nature of dark energy and dark matter, both of which are inferred purely from their gravitational effects with no confirmed microscopic description, and into the initial singularity of the Big Bang itself, which classical GR cannot resolve."}, {"id": "phase-8", "num": "8", "title": "Quantum Field Theory", "color": "#A78BFA", "hours": 220, "core": "Quantum field theory is the synthesis of special relativity and quantum mechanics that Phase 5 showed was unavoidable: particles are reinterpreted as quantized excitations of underlying fields that permeate all of spacetime, which is the only framework that naturally allows particle creation and annihilation. Canonical quantization of the scalar, Dirac, and electromagnetic fields builds the vocabulary; Feynman diagrams then give you an extraordinarily efficient bookkeeping system for computing scattering amplitudes as a perturbative sum over particle exchange processes. Renormalization is the technically hardest and philosophically strangest part of the phase — the discovery that the divergent infinities appearing in loop diagrams can be systematically absorbed into a redefinition of physical constants, which works precisely because QED, the electroweak theory, and QCD are all \"renormalizable\" in the required technical sense. By the end of this phase you will understand the Standard Model of particle physics essentially in full, from the Higgs mechanism to asymptotic freedom in QCD.", "formulae": [{"latex": "\\mathcal L_{KG} = -\\tfrac12 \\partial^\\mu\\phi\\,\\partial_\\mu\\phi - \\tfrac12 m^2\\phi^2", "desc": "The free scalar field Lagrangian density, whose Euler-Lagrange equation is the Klein-Gordon equation."}, {"latex": "\\mathcal L_{QED} = \\bar\\psi(i\\gamma^\\mu D_\\mu - m)\\psi - \\tfrac14 F_{\\mu\\nu}F^{\\mu\\nu}, \\quad D_\\mu = \\partial_\\mu + ieA_\\mu", "desc": "The QED Lagrangian: a Dirac field minimally coupled to the electromagnetic field via the gauge-covariant derivative."}, {"latex": "\\phi(x) \\to \\phi(x) + \\alpha, \\quad \\mathcal L(\\phi) = \\mathcal L(-\\phi) \\Rightarrow \\langle\\phi\\rangle = \\pm v \\neq 0", "desc": "Schematic of spontaneous symmetry breaking: a symmetric Lagrangian with an asymmetric (non-zero) vacuum expectation value."}, {"latex": "\\beta(g) = \\mu \\frac{\\partial g}{\\partial \\mu}", "desc": "The renormalization group beta function, describing how a coupling constant runs with energy scale."}, {"latex": "m_H^2 = 2\\lambda v^2, \\qquad m_W = \\tfrac12 g v", "desc": "Higgs boson and W boson masses generated via the Higgs mechanism from the vacuum expectation value v."}], "derivations": ["Canonically quantize the free real scalar (Klein-Gordon) field: promote phi and its conjugate momentum to operators, impose canonical commutation relations, and derive the mode expansion in terms of creation/annihilation operators.", "Derive the Feynman propagator for the scalar field from the vacuum expectation value of the time-ordered product of field operators.", "Derive the Feynman rules for phi^4 theory (vertex factor, propagator, symmetry factors) from the interaction Hamiltonian using the Dyson series / Wick's theorem.", "Derive the spontaneous symmetry breaking mechanism for a complex scalar field with a 'Mexican hat' potential, and show how gauging this symmetry gives mass to a gauge boson (the Higgs mechanism, abelian toy model).", "Sketch the one-loop renormalization of the electron self-energy or photon self-energy in QED, and explain conceptually how the divergence is absorbed into the renormalized mass/charge."], "books": ["Peskin & Schroeder — An Introduction to Quantum Field Theory — Ch. 2-4, 9, 12, 20 — Purpose: the standard graduate QFT text covering canonical quantization through renormalization and gauge theory.", "Srednicki, M. — Quantum Field Theory — Ch. 1-14, 82-88 — Purpose: path-integral-first approach, exceptionally clean for Feynman rule derivations.", "Schwartz, M. — Quantum Field Theory and the Standard Model — Ch. 1-9, 28-29 — Purpose: modern pedagogy with strong physical intuition, especially for the Higgs mechanism.", "Zee, A. — Quantum Field Theory in a Nutshell (2nd ed.) — Ch. I.1-I.8 — Purpose: fast, conceptual overview to read alongside a more rigorous text."], "papers": ["Feynman, R. (1949) — \"Space-Time Approach to Quantum Electrodynamics\" — Phys. Rev. — Task: reproduce the diagrammatic rules for a simple QED process (e.g. electron-electron scattering) and identify their correspondence to terms in the Dyson series.", "Weinberg, S. (1967) — \"A Model of Leptons\" — Phys. Rev. Lett. — Task: identify the specific symmetry-breaking pattern that gives the W and Z bosons mass while leaving the photon massless.", "'t Hooft, G. (1971) — \"Renormalizable Lagrangians for Massive Yang-Mills Fields\" — Nucl. Phys. B — Task: identify why proving renormalizability of the electroweak theory was considered a watershed result."], "problems": [{"text": "Derive the Feynman rules for a real scalar field with a phi^3 interaction, including the symmetry factor for the simplest one-loop diagram.", "learn": "Trains the diagrammatic bookkeeping skill needed for any perturbative QFT calculation."}, {"text": "Compute the tree-level differential cross-section for electron-muon scattering (a standard QED process) using the Feynman rules, and identify which piece of the amplitude comes from the photon propagator.", "learn": "First full, real scattering-amplitude calculation from first principles."}, {"text": "In the abelian Higgs model (a U(1) gauge field coupled to a complex scalar with spontaneous symmetry breaking), count degrees of freedom before and after symmetry breaking and show the 'eaten' Goldstone boson becomes the gauge boson's longitudinal polarization.", "learn": "This degree-of-freedom counting argument is the cleanest way to truly understand the Higgs mechanism."}, {"text": "Explain, using the running of the QCD coupling constant, why quarks behave as nearly free particles at short distances (asymptotic freedom) but are confined at long distances.", "learn": "Connects the abstract beta function to one of the most striking qualitative features of the strong force."}], "mastery": ["I can canonically quantize a free scalar field and derive its mode expansion and propagator.", "I can derive Feynman rules for a simple scalar interaction from the interaction Lagrangian.", "I can write down the QED Lagrangian and explain the role of the gauge-covariant derivative.", "I can compute a tree-level scattering amplitude and cross-section for a simple QED process.", "I can explain spontaneous symmetry breaking and derive the essentials of the Higgs mechanism.", "I can explain what renormalization does conceptually and why asymptotic freedom makes QCD special.", "I can state the particle content and gauge structure of the full Standard Model."], "limitations": "The Standard Model, despite its extraordinary predictive success, is understood to be an effective field theory valid only up to some high energy scale — it does not include gravity, cannot explain dark matter or dark energy, does not explain neutrino masses without extension, and contains ~19 seemingly arbitrary free parameters with no derivation from first principles. Most critically for this curriculum's arc, gravity itself resists the same quantization procedure used here: naively quantizing GR the way this phase quantizes QED produces a non-renormalizable theory, which is the direct motivation for Phase 9."}, {"id": "phase-9", "num": "9", "title": "String Theory & Beyond", "color": "#C084FC", "hours": 200, "core": "String theory's starting motivation is precise and technical, not mystical: point-particle quantum field theory, applied naively to gravity, produces uncontrollable infinities that renormalization cannot tame, because the graviton's interactions grow too fast at short distances. Replacing point particles with one-dimensional extended strings smooths out these short-distance divergences and, remarkably, a massless spin-2 excitation (the graviton) falls directly out of the string's vibrational spectrum without being put in by hand. This phase takes you through the technical core of bosonic and then superstring theory, the discovery that five seemingly different superstring theories are dual descriptions unified by M-theory, and the single most-cited theoretical physics result of the past three decades: the AdS/CFT correspondence, a concrete realization of the holographic principle. Loop quantum gravity and causal dynamical triangulations are presented as serious alternative approaches, because intellectual honesty requires acknowledging that string theory is not the only research program addressing quantum gravity, and none of them has yet made a distinctively testable prediction.", "formulae": [{"latex": "S_{NG} = -T\\int d^2\\sigma \\sqrt{-\\det(\\partial_a X^\\mu \\partial_b X_\\mu)}", "desc": "The Nambu-Goto action: the string's worldsheet area, generalizing the point-particle action."}, {"latex": "S_P = -\\frac{T}{2}\\int d^2\\sigma\\sqrt{-h}\\,h^{ab}\\partial_a X^\\mu \\partial_b X_\\mu", "desc": "The Polyakov action, classically equivalent to Nambu-Goto but more tractable for quantization."}, {"latex": "D = 26\\ \\text{(bosonic string)}, \\qquad D = 10\\ \\text{(superstring)}", "desc": "The critical spacetime dimensions required for Weyl anomaly cancellation (Lorentz invariance) at the quantum level."}, {"latex": "M^2 = \\frac{1}{\\alpha'}\\left(N - 1\\right)\\ \\text{(open bosonic string)}", "desc": "The open bosonic string mass spectrum; the N=0 tachyon and the N=1 massless vector are the lowest states."}, {"latex": "Z_{CFT}[\\phi_0] = Z_{string}\\big[\\phi\\rightarrow\\phi_0\\ \\text{at boundary}\\big]", "desc": "The schematic AdS/CFT dictionary: a gravitational theory in the bulk of Anti-de Sitter space equals a conformal field theory on its boundary, with no gravity."}], "derivations": ["Derive the Nambu-Goto action from requiring the string action be proportional to invariant worldsheet area, then derive the classically equivalent Polyakov action via an auxiliary worldsheet metric.", "Quantize the free bosonic string in light-cone gauge, derive the mode expansion of X^mu(sigma,tau) in terms of oscillator modes, and show the requirement of Lorentz invariance fixes the critical dimension D=26.", "Sketch the GSO projection in the RNS superstring formalism and explain how it removes the tachyon and enforces spacetime supersymmetry.", "Sketch the argument for T-duality: show that a string wrapped on a circle of radius R has the same spectrum as one on a circle of radius alpha'/R, and interpret this physically.", "Outline the basic AdS/CFT dictionary: match the isometry group of AdS5 to the conformal group of the boundary CFT4, and state the GKP-Witten relation between bulk partition function and boundary correlators."], "books": ["Zwiebach, B. — A First Course in String Theory (2nd ed.) — Ch. 6-10, 12, 21 — Purpose: by far the gentlest full on-ramp into bosonic string quantization and D-branes.", "Polchinski, J. — String Theory Vol. 1 & 2 — Vol.1 Ch. 1-4, Vol.2 Ch. 12-14 — Purpose: the standard graduate reference, especially for the Polyakov path integral and D-branes.", "Becker, Becker & Schwarz — String Theory and M-Theory — Ch. 2-4, 6, 14 — Purpose: modern treatment bridging superstrings, dualities, and AdS/CFT.", "Maldacena, J. — Perimeter Institute / PiTP lecture notes on AdS/CFT (freely available online) — Purpose: accessible entry into the correspondence directly from its discoverer.", "Rovelli, C. — Covariant Loop Quantum Gravity — Ch. 1-3 — Purpose: a serious, rigorous introduction to the leading alternative quantum-gravity program."], "papers": ["Veneziano, G. (1968) — \"Construction of a Crossing-Symmetric, Regge-Behaved Amplitude for Linearly Rising Trajectories\" — Nuovo Cimento A — Task: identify how this purely phenomenological formula for hadron scattering was later reinterpreted as the amplitude for two colliding strings.", "Green, M. & Schwarz, J. (1984) — \"Anomaly Cancellations in Supersymmetric D=10 Gauge Theory and Superstring Theory\" — Phys. Lett. B — Task: identify why this anomaly cancellation triggered the 'first superstring revolution'.", "Maldacena, J. (1997) — \"The Large N Limit of Superconformal Field Theories and Supergravity\" — Adv. Theor. Math. Phys. — Task: outline the D-brane argument connecting the near-horizon geometry of N D3-branes to N=4 super Yang-Mills theory."], "problems": [{"text": "Starting from the relativistic point-particle action, generalize it to the Nambu-Goto string action by replacing worldline length with worldsheet area, and verify both actions are reparametrization invariant.", "learn": "Shows string theory as a natural, almost forced, generalization of the relativistic point particle."}, {"text": "Show that the lowest excited state of the open bosonic string is massless and has exactly the right number of polarization states to be a gauge boson (photon-like), while the corresponding closed-string state is a massless spin-2 particle (the graviton).", "learn": "This is the single most important physical payoff of string theory: gravity is not an input, it is a prediction."}, {"text": "Explain, in your own words with supporting equations, why five apparently distinct 10-dimensional superstring theories can be dual descriptions of one underlying 11-dimensional M-theory.", "learn": "Builds genuine comfort with the idea that theories that look different can be physically identical (duality)."}, {"text": "Using the AdS/CFT dictionary, explain qualitatively why a strongly coupled gauge theory computation (hard) can sometimes be traded for a weakly coupled classical gravity computation (easy), and give one real research application of this trick.", "learn": "This is the practical payoff that makes AdS/CFT one of the most-used tools in modern theoretical physics, well beyond quantum gravity itself."}], "mastery": ["I can derive the Nambu-Goto and Polyakov actions and explain their classical equivalence.", "I can explain why quantizing the string fixes a critical spacetime dimension.", "I can describe the GSO projection's role in removing the tachyon and introducing supersymmetry.", "I can explain T-duality and S-duality at a working level.", "I can state the AdS/CFT correspondence and explain the basic bulk-boundary dictionary.", "I can explain, at a conceptual level, how the graviton emerges from the string spectrum without being postulated.", "I can describe loop quantum gravity as an alternative approach and contrast its starting assumptions with string theory's."], "limitations": "As of this curriculum's writing, string theory has produced no experimentally testable, distinctively stringy prediction — the landscape of ~10^500 possible vacua (Phase 10) makes it unclear whether the theory predicts our universe's specific parameters or merely accommodates almost anything. Loop quantum gravity, meanwhile, has struggled to cleanly recover classical GR in the appropriate limit and to incorporate matter fields as elegantly as the Standard Model requires. Neither program is currently falsifiable in any near-term experiment, which is itself an open and actively debated methodological problem in the field."}, {"id": "phase-10", "num": "10", "title": "Theory of Everything — Landscape & Limitations", "color": "#E879F9", "hours": 90, "core": "This phase is a deliberate pause for intellectual honesty. Having built up the full machinery of QM, GR, QFT, and string theory, it's essential to confront directly what \"Theory of Everything\" actually means, what it doesn't mean, and how far current physics is from having one. The Standard Model plus GR describes an enormous range of phenomena to extraordinary precision, but both are best understood as effective field theories — approximations valid in a given regime, expected to break down or be superseded at sufficiently extreme energies or distances. Black hole thermodynamics and the information paradox sit at the exact fault line between QM and GR, and remain genuinely unsolved, making them one of the best training grounds for original theoretical thinking available to a student today. Equally important is confronting the interpretational problems of QM itself (measurement, collapse) and the singularity problems of GR, since a genuine TOE would need to resolve both, not just unify the mathematics.", "formulae": [{"latex": "T_H = \\frac{\\hbar c^3}{8\\pi G M k_B}", "desc": "The Hawking temperature of a black hole, showing black holes radiate thermally and are not perfectly black."}, {"latex": "S_{BH} = \\frac{k_B c^3 A}{4 G\\hbar}", "desc": "The Bekenstein-Hawking entropy, proportional to the horizon area rather than volume — the origin of the holographic principle."}, {"latex": "S_{gen} = \\frac{A}{4G\\hbar} + S_{out}", "desc": "Generalized entropy combining horizon area and outside entanglement entropy, central to the Page curve and island-formula resolution attempts."}, {"latex": "N_{vacua} \\sim 10^{500}", "desc": "The rough estimated size of the string theory landscape of metastable vacua, the origin of the fine-tuning/multiverse debate."}], "derivations": ["Sketch the Bogoliubov transformation argument showing that a mode which is 'vacuum' in one coordinate system (Minkowski) appears as a thermal bath of particles in an accelerated or horizon-possessing coordinate system (Rindler/Schwarzschild), leading to Hawking radiation.", "Derive the Hawking temperature from dimensional analysis combined with the surface gravity of the Schwarzschild horizon.", "Outline the original information-loss argument: show that if a black hole forms from a pure state and evaporates completely via thermal Hawking radiation, the final state appears mixed, apparently violating unitarity.", "Sketch the Page curve argument: explain why entanglement entropy of the radiation must eventually decrease if the process is unitary, and why naive semiclassical calculation fails to reproduce this turnover.", "Outline the swampland distance conjecture and de Sitter conjecture at a qualitative level, and explain what it would mean for a low-energy effective field theory to be 'in the swampland'."], "books": ["Susskind, L. & Lindesay, J. — An Introduction to Black Holes, Information and the String Theory Revolution — Ch. 1-9 — Purpose: the most accessible full treatment of the information paradox aimed at exactly this stage of a curriculum.", "Wald, R. — Quantum Field Theory in Curved Spacetime and Black Hole Thermodynamics — Ch. 6-7 — Purpose: rigorous derivation of Hawking radiation via QFT in curved spacetime.", "Vafa, C. — lecture notes on the string landscape and swampland (freely available on arXiv/lecture archives) — Purpose: primary-source-adjacent introduction to swampland conjectures.", "Sean Carroll — public lectures/writings on QM interpretations (e.g. Something Deeply Hidden) — Purpose: accessible, philosophically serious overview of interpretations of quantum mechanics."], "papers": ["Hawking, S. (1974) — \"Black Hole Explosions?\" — Nature — Task: identify the core physical argument for why black holes must radiate, independent of the later, more technical derivations.", "Penrose, R. (1965) — \"Gravitational Collapse and Space-Time Singularities\" — Phys. Rev. Lett. — Task: identify the trapped-surface argument showing singularities are a generic, not fine-tuned, feature of gravitational collapse.", "Almheiri, A., Engelhardt, N., Marolf, D., Maxfield, H. (2019) — \"The entropy of bulk quantum fields and the entanglement wedge of an evaporating black hole\" — JHEP — Task: identify, at a conceptual level, how the 'island formula' modifies the naive Hawking calculation to reproduce a Page-curve-consistent entropy."], "problems": [{"text": "Estimate the Hawking temperature and evaporation lifetime of a solar-mass black hole, and compare it to the age of the universe.", "learn": "Shows quantitatively why black hole evaporation is completely irrelevant for astrophysical black holes but crucial for hypothetical primordial ones."}, {"text": "State, in precise terms, exactly what 'unitarity violation' would mean for the black hole information paradox, and explain why physicists consider it more likely that our approximations (not quantum mechanics itself) are breaking down.", "learn": "Trains the kind of careful, non-hand-wavy reasoning the paradox actually requires."}, {"text": "Compare and contrast the Copenhagen, Many-Worlds, and Pilot Wave interpretations of quantum mechanics in terms of what each says actually happens during a measurement, and identify one experimentally indistinguishable prediction shared by all three.", "learn": "Clarifies that interpretation debates are (currently) about ontology, not competing experimental predictions."}, {"text": "Explain why a positive cosmological constant (as observed) is difficult to realize as a stable string theory vacuum, and describe at a qualitative level what the swampland de Sitter conjecture claims about this tension.", "learn": "Connects Phase 7's dark energy directly to Phase 9's landscape problem, showing how open questions compound across the curriculum."}], "mastery": ["I can explain what physicists mean, and don't mean, by 'Theory of Everything'.", "I can derive the Hawking temperature from the Bogoliubov transformation argument at a sketch level.", "I can state the black hole information paradox precisely and explain why it is genuinely unresolved.", "I can explain the Page curve and, at a high level, what the island formula attempts to fix.", "I can compare at least three interpretations of quantum mechanics and state what distinguishes them.", "I can explain the string landscape and swampland conjectures at a conceptual level.", "I can list the Standard Model's and GR's known unexplained phenomena (dark matter, dark energy, hierarchy problem, singularities)."], "limitations": "This entire phase is, by definition, the frontier: there is no settled consensus on the resolution of the information paradox, no agreed interpretation of quantum mechanics, no derivation of the Standard Model's free parameters, and no experimentally confirmed theory of quantum gravity. A genuinely honest answer to 'what is not yet understood' is: most of the deepest questions in fundamental physics remain open, and a serious researcher's job at this frontier is to make precise, falsifiable progress on a narrow piece of this landscape rather than claim to have solved it."}, {"id": "phase-11", "num": "11", "title": "Convergence: Quantum Computing", "color": "#34D399", "hours": 130, "core": "Quantum computing is where the Hilbert-space formalism of Phase 3 stops being purely descriptive and becomes a resource to be engineered: superposition and entanglement, the very features that make quantum mechanics conceptually strange, are exactly the features that in principle let a quantum computer solve certain problems exponentially faster than any classical machine. A qubit is nothing more than a two-level quantum system (a spin-1/2, a photon polarization, a superconducting circuit) manipulated by unitary gates, and quantum circuits are simply sequences of these gates, so everything you learned about unitary evolution and measurement in Phases 3-4 transfers directly. Bell's inequality and its experimental violation are the sharpest possible demonstration that quantum entanglement cannot be explained by any local hidden-variable theory, and Grover's and Shor's algorithms are the two landmark results proving quantum speedup is real and not merely a mathematical curiosity. This phase closes with a candid look at the current NISQ (noisy intermediate-scale quantum) era, since a genuine understanding of the field requires knowing exactly how far current hardware is from fault-tolerant, large-scale quantum computation.", "formulae": [{"latex": "\\lvert\\psi\\rangle = \\alpha\\lvert 0\\rangle + \\beta\\lvert 1\\rangle, \\quad |\\alpha|^2+|\\beta|^2=1", "desc": "The general state of a single qubit, a normalized superposition of the two computational basis states."}, {"latex": "H = \\frac{1}{\\sqrt2}\\begin{pmatrix}1&1\\\\1&-1\\end{pmatrix}, \\quad \\text{CNOT}\\lvert a,b\\rangle = \\lvert a, b\\oplus a\\rangle", "desc": "The Hadamard gate (creates superposition) and the CNOT gate (creates entanglement between two qubits)."}, {"latex": "\\langle CHSH\\rangle = |E(a,b)-E(a,b')+E(a',b)+E(a',b')| \\leq 2\\ \\text{(classical)}, \\leq 2\\sqrt2\\ \\text{(quantum)}", "desc": "The CHSH form of Bell's inequality; quantum mechanics violates the classical bound up to Tsirelson's bound of \\(2\\sqrt2\\)."}, {"latex": "O(\\sqrt{N})\\ \\text{queries (Grover)}\\ \\text{vs.}\\ O(N)\\ \\text{classical}", "desc": "Grover's search algorithm achieves a quadratic speedup over any classical unstructured search."}, {"latex": "\\text{Shor: factor } N \\text{ in } O((\\log N)^3)\\ \\text{time via the quantum Fourier transform}", "desc": "Shor's algorithm achieves exponential speedup for integer factorization, threatening RSA-based cryptography."}], "derivations": ["Derive the CHSH inequality bound of 2 for any local hidden-variable theory, then show the quantum mechanical prediction using an entangled singlet state violates this bound, reaching 2*sqrt(2).", "Derive Grover's algorithm: construct the oracle and diffusion operators, show each iteration is a rotation in a 2D subspace, and derive the O(sqrt(N)) query complexity from the rotation angle.", "Derive the quantum Fourier transform circuit and explain its role as the core subroutine of Shor's factoring algorithm (period-finding).", "Work through the quantum teleportation protocol step by step: show how an entangled pair plus two classical bits of communication suffice to transmit an arbitrary unknown qubit state.", "Sketch the basic 3-qubit bit-flip code and show how it detects and corrects a single bit-flip error without measuring (and thus destroying) the encoded quantum information."], "books": ["Nielsen, M. & Chuang, I. — Quantum Computation and Quantum Information (10th anniversary ed.) — Ch. 1-4, 5, 10 — Purpose: the field's definitive textbook, covering everything in this phase in full rigor.", "Preskill, J. — Caltech Ph219/CS219 lecture notes (freely available) — Purpose: outstanding free graduate-level lecture notes, especially strong on error correction.", "Kitaev, Shen & Vyalyi — Classical and Quantum Computation — Ch. 1-6 — Purpose: rigorous computational-complexity-oriented treatment of Shor's and related algorithms.", "IBM Quantum / Qiskit Textbook (free online) — Purpose: hands-on companion to actually build and run the circuits described in this phase."], "papers": ["Bell, J.S. (1964) — \"On the Einstein Podolsky Rosen Paradox\" — Physics — Task: reproduce the original argument for why local hidden variables constrain correlations, setting up the inequality experiments later violated.", "Shor, P. (1994) — \"Algorithms for Quantum Computation: Discrete Logarithms and Factoring\" — Proc. 35th FOCS — Task: reproduce the reduction from factoring to period-finding and the quantum Fourier transform circuit that solves it efficiently.", "Grover, L. (1996) — \"A Fast Quantum Mechanical Algorithm for Database Search\" — Proc. 28th STOC — Task: reproduce the geometric (rotation) picture of the algorithm and its optimality proof sketch.", "Arute, F. et al. (Google) (2019) — \"Quantum Supremacy Using a Programmable Superconducting Processor\" — Nature — Task: identify what specific computational task was used to claim supremacy, and the main critiques raised about its practical significance."], "problems": [{"text": "Construct the quantum circuit that creates the Bell state (|00>+|11>)/sqrt(2) from two qubits initialized to |0>, using only a Hadamard and a CNOT gate, and verify the resulting state cannot be written as a product of two single-qubit states.", "learn": "The single most important 'hello world' of quantum computing: creating and recognizing entanglement."}, {"text": "Simulate Grover's algorithm by hand for N=4 (2 qubits) and show that exactly one iteration finds the marked item with certainty.", "learn": "Small enough to do fully by hand, building real geometric intuition for the amplitude amplification picture."}, {"text": "Explain precisely why Shor's algorithm threatens RSA encryption but does not threaten symmetric-key cryptography (like AES) to the same degree, referencing Grover's quadratic (not exponential) speedup for search-based attacks.", "learn": "Directly relevant to Sapath's own federated learning / elliptic curve cryptography research — a chance to connect coursework to active research."}, {"text": "Derive the no-cloning theorem from the linearity of quantum mechanics, and explain why it is essential for both quantum cryptography's security and for why quantum error correction cannot simply copy a qubit's state.", "learn": "One of the deepest and most consequential 'no-go' theorems in the entire field."}], "mastery": ["I can represent and manipulate single- and multi-qubit states using bra-ket notation.", "I can construct simple quantum circuits using Hadamard, CNOT, and Pauli gates.", "I can derive the CHSH inequality and explain what its quantum violation implies about local realism.", "I can walk through the quantum teleportation protocol step by step.", "I can derive the query complexity of Grover's algorithm from its geometric rotation picture.", "I can explain the role of the quantum Fourier transform in Shor's algorithm.", "I can explain the basic idea of a stabilizer/surface code and why quantum error correction is harder than classical error correction.", "I can describe at least two physical qubit implementations and the current state of the NISQ era."], "limitations": "Current quantum hardware remains firmly in the NISQ era: qubit counts are limited, gate error rates are too high for large-scale fault-tolerant computation without substantial error-correction overhead, and no quantum algorithm has yet delivered a commercially transformative advantage on a real-world problem outside of narrow, contested 'supremacy' demonstrations. Whether useful, fault-tolerant, large-scale quantum computers are a decade away or many decades away remains a genuinely open engineering and scientific question."}, {"id": "phase-12", "num": "12", "title": "Convergence: Artificial Intelligence & Physics", "color": "#6EE7B7", "hours": 120, "core": "The final phase closes the loop between the physics you've built and the machine learning methods increasingly used to do physics itself, and physics ideas increasingly used to understand machine learning. Neural networks are universal function approximators, which makes them a natural tool for solving the differential equations that pervade this entire curriculum — Physics-Informed Neural Networks embed the PDE itself into the training loss, letting a network learn a solution that respects known physical laws rather than only fitting data. Neural Quantum States go the other direction, using neural networks (originally restricted Boltzmann machines) as compact, trainable representations of many-body quantum wavefunctions whose classical description would otherwise require exponentially many parameters — a direct, practical answer to the many-body scaling problem you first encountered in Phase 5. Tensor networks provide yet another bridge, giving a graphical, physically motivated way to compress quantum states that connects directly to entanglement structure, while equivariant neural networks show that Noether's theorem-style symmetry reasoning from Phase 1 has become a first-class design principle in modern deep learning architecture.", "formulae": [{"latex": "\\mathcal L = \\mathcal L_{data} + \\lambda \\left\\| \\mathcal N[\\hat u_\\theta](x,t) \\right\\|^2", "desc": "The Physics-Informed Neural Network loss: data-fitting term plus a penalty for violating the governing PDE operator N."}, {"latex": "\\psi_\\theta(\\vec s) = \\sum_{\\{h_i\\}} e^{\\sum_i a_i s_i + \\sum_j b_j h_j + \\sum_{ij} W_{ij} s_i h_j}", "desc": "A restricted Boltzmann machine ansatz for a many-body quantum wavefunction (Carleo & Troyer's neural quantum state)."}, {"latex": "E(\\theta) = \\frac{\\langle \\psi_\\theta \\rvert \\hat H \\lvert \\psi_\\theta\\rangle}{\\langle \\psi_\\theta\\rvert\\psi_\\theta\\rangle}, \\quad \\theta^* = \\arg\\min_\\theta E(\\theta)", "desc": "The variational quantum eigensolver (VQE) objective: minimize a parametrized quantum circuit's energy expectation value."}, {"latex": "f(gx) = g f(x) \\quad \\forall g \\in G", "desc": "The equivariance condition for a neural network layer f under a symmetry group G, generalizing Noether-style symmetry constraints into architecture design."}], "derivations": ["Derive the PINN loss function for a simple PDE (e.g. the 1D heat equation) by constructing the residual of the PDE operator evaluated on the network's automatic derivatives, and explain how automatic differentiation makes this practical.", "Sketch the derivation of the universal approximation theorem for a single-hidden-layer neural network with a sigmoidal activation function.", "Derive the update rule for a variational quantum eigensolver: given a parametrized ansatz circuit, express the energy gradient with respect to circuit parameters using the parameter-shift rule.", "Explain how a matrix product state (MPS) tensor network compresses an N-qubit state from an exponential number of parameters to a number that scales linearly in N when entanglement is limited (area-law entanglement), connecting this to the entropy formulas of Phase 10.", "Sketch how convolutional neural network weight-sharing is itself an equivariance constraint under spatial translation, and generalize this argument to a network equivariant under a general Lie group."], "books": ["Raissi, M., Perdikaris, P., Karniadakis, G. — foundational PINN papers/lecture notes (available via the authors' websites and arXiv) — Purpose: primary-source route into physics-informed learning.", "Carleo, G. & Troyer, M. — lecture notes and review articles on neural quantum states — Purpose: authoritative overview connecting many-body QM to modern deep learning.", "Goodfellow, Bengio & Courville — Deep Learning — Ch. 6, 9, 20 — Purpose: standard deep learning reference for the universal approximation theorem and generative/latent-variable models underlying RBM-based ansätze.", "Orús, R. — \"A Practical Introduction to Tensor Networks\" (arXiv review) — Purpose: the standard accessible entry point into MPS/MERA tensor network methods.", "Cerezo, M. et al. — review articles on variational quantum algorithms (arXiv) — Purpose: comprehensive, current overview of VQE and quantum machine learning."], "papers": ["Carleo, G. & Troyer, M. (2017) — \"Solving the Quantum Many-Body Problem with Artificial Neural Networks\" — Science — Task: reproduce the restricted Boltzmann machine ansatz and explain how variational Monte Carlo is used to optimize its parameters against the transverse-field Ising Hamiltonian.", "Raissi, M., Perdikaris, P., Karniadakis, G. (2019) — \"Physics-Informed Neural Networks: A Deep Learning Framework for Solving Forward and Inverse Problems Involving Nonlinear PDEs\" — J. Comp. Phys. — Task: reproduce the PINN loss construction for a nonlinear PDE of your choice and identify the forward vs. inverse problem distinction.", "Jumper, J. et al. (DeepMind) (2021) — \"Highly Accurate Protein Structure Prediction with AlphaFold\" — Nature — Task: identify which architectural components (e.g. the Evoformer's attention mechanism) play a role analogous to physical constraint-encoding, as a case study in AI solving a complex physical/biological system."], "problems": [{"text": "Implement (in pseudocode or actual code) a minimal PINN for the 1D steady-state heat equation with fixed boundary conditions, and explain what happens to the solution quality if the physics loss term's weight lambda is set to zero.", "learn": "Directly hands-on demonstration of why embedding physical law into the loss changes what the network learns, versus pure data-fitting."}, {"text": "Explain why a restricted Boltzmann machine with a linear number of hidden units can, in principle, represent highly entangled quantum states that a naive mean-field ansatz cannot, connecting this back to entanglement entropy concepts from Phase 10.", "learn": "Builds a genuine bridge between deep generative models and quantum entanglement structure, rather than treating the connection as superficial."}, {"text": "Given the parameter-shift rule for a single-qubit rotation gate, derive the exact gradient expression used to train a VQE ansatz, and explain why this differs from standard backpropagation used in classical neural networks.", "learn": "Highlights a genuine technical difference between classical and quantum machine learning that is often glossed over."}, {"text": "Design (on paper) an equivariant neural network layer for a physical system with rotational symmetry (e.g. molecular property prediction), and explain what physical prediction would be guaranteed to be exactly correct regardless of training data, purely from the architecture's symmetry.", "learn": "Connects Noether's theorem (Phase 1) directly to a concrete, modern architectural design decision, closing the curriculum's full arc."}], "mastery": ["I can construct a PINN loss function for a given PDE and explain the role of automatic differentiation.", "I can explain the restricted Boltzmann machine ansatz for neural quantum states and why it can efficiently represent certain entangled many-body states.", "I can explain the VQE algorithm and the role of the parameter-shift rule in optimizing it.", "I can explain what a tensor network (MPS/MERA) is and how it connects to entanglement entropy.", "I can explain equivariant neural network design and connect it explicitly to Noether's theorem.", "I can describe AlphaFold's high-level architecture as a case study in AI solving a complex physical/structural prediction problem.", "I can explain the current scope and limitations of quantum machine learning relative to classical deep learning."], "limitations": "This convergence is genuinely nascent: PINNs often struggle to train reliably on stiff or multi-scale PDEs without extensive tuning, neural quantum states face well-known sign-problem-like optimization difficulties for certain fermionic and frustrated systems, and quantum machine learning has not yet demonstrated a clear, practically useful advantage over classical machine learning on any real-world dataset. This is presented as the current frontier, not a solved subfield — an excellent place for a student with a strong physics-plus-ML foundation (of exactly the kind this curriculum builds) to begin genuinely original research."}];
+</script>
+<script>
+(function(){
+  "use strict";
+
+  const STORAGE_KEY = "guc_mastery_v1";
+  const THEME_KEY = "guc_theme_v1";
+
+  function loadChecks(){
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+    catch(e){ return {}; }
+  }
+  function saveChecks(obj){
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); } catch(e){}
+  }
+  let checks = loadChecks();
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  // Render text that may contain \( \) or \[ \] LaTeX segments safely (escape non-math, keep math delimiters intact for MathJax)
+  function renderMixedText(s){
+    return escapeHtml(s);
+  }
+
+  function totalStats(){
+    let hours = 0, checksTotal = 0, problems = 0;
+    PHASES.forEach(p => {
+      hours += p.hours || 0;
+      checksTotal += (p.mastery || []).length;
+      problems += (p.problems || []).length;
+    });
+    return {hours, checksTotal, problems};
+  }
+
+  function checkedCount(){
+    let n = 0;
+    PHASES.forEach(p => {
+      (p.mastery||[]).forEach((m,i)=>{
+        const key = p.id + "::" + i;
+        if (checks[key]) n++;
+      });
+    });
+    return n;
+  }
+
+  function buildNav(){
+    const navList = document.getElementById("navList");
+    navList.innerHTML = "";
+    PHASES.forEach(p => {
+      const li = document.createElement("li");
+      li.className = "nav-item";
+      li.style.setProperty("--nav-color", p.color);
+      li.dataset.target = p.id;
+      const doneCount = (p.mastery||[]).filter((m,i)=>checks[p.id+"::"+i]).length;
+      const allDone = doneCount === (p.mastery||[]).length && doneCount > 0;
+      li.innerHTML = `
+        <span class="nav-num">${p.num}</span>
+        <span class="nav-title">${escapeHtml(p.title)}</span>
+        ${allDone ? '<span class="nav-check">✓</span>' : ''}
+      `;
+      li.addEventListener("click", () => {
+        const el = document.getElementById(p.id);
+        if (el){
+          el.scrollIntoView({behavior:"smooth", block:"start"});
+          expandCard(el, true);
+        }
+        closeMobileSidebar();
+      });
+      navList.appendChild(li);
+    });
+  }
+
+  function formulaBlock(f){
+    return `<div class="formula-item">
+      <div class="formula-eq">\\[${f.latex}\\]</div>
+      <div class="formula-desc">${renderMixedText(f.desc)}</div>
+    </div>`;
+  }
+
+  function derivItem(text, idx){
+    return `<li><span class="deriv-num">${String(idx+1).padStart(2,'0')}</span><span>${renderMixedText(text)}</span></li>`;
+  }
+
+  function bookItem(text){
+    const parts = text.split(" — ");
+    if (parts.length >= 2){
+      return `<li><strong>${escapeHtml(parts[0])}</strong> — ${escapeHtml(parts.slice(1).join(" — "))}</li>`;
+    }
+    return `<li>${escapeHtml(text)}</li>`;
+  }
+
+  function problemItem(p){
+    return `<div class="problem-item">
+      <div class="problem-text">${renderMixedText(p.text)}</div>
+      <div class="problem-learn">→ ${escapeHtml(p.learn)}</div>
+    </div>`;
+  }
+
+  function masteryItem(phaseId, text, idx){
+    const key = phaseId + "::" + idx;
+    const isChecked = !!checks[key];
+    return `<li class="${isChecked?'checked':''}" data-key="${key}">
+      <span class="mastery-box"></span>
+      <span>${escapeHtml(text)}</span>
+    </li>`;
+  }
+
+  function cardHTML(p){
+    const formulae = (p.formulae||[]).map(formulaBlock).join("");
+    const derivs = (p.derivations||[]).map(derivItem).join("");
+    const books = (p.books||[]).map(bookItem).join("");
+    const papers = (p.papers||[]).map(bookItem).join("");
+    const problems = (p.problems||[]).map(problemItem).join("");
+    const mastery = (p.mastery||[]).map((m,i)=>masteryItem(p.id, m, i)).join("");
+
+    return `
+    <div class="station" id="${p.id}" data-phase-id="${p.id}" style="--station-color:${p.color}">
+      <div class="station-node" style="--station-color:${p.color}"></div>
+      <article class="card" style="--station-color:${p.color}">
+        <div class="card-head">
+          <span class="card-badge">PHASE ${p.num}</span>
+          <div class="card-headings">
+            <h3 class="card-title">${escapeHtml(p.title)}</h3>
+            <div class="card-sub">${(p.mastery||[]).length} mastery checks · ${(p.problems||[]).length} problems · ${(p.books||[]).length + (p.papers||[]).length} sources</div>
+          </div>
+          <div class="card-meta">
+            <span class="hours-badge">~${p.hours}h</span>
+            <span class="chevron">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-body-inner">
+
+            <div class="section-block">
+              <div class="section-label">Core Concepts</div>
+              <p class="core-text">${renderMixedText(p.core)}</p>
+            </div>
+
+            ${formulae ? `<div class="section-block">
+              <div class="section-label">Key Formulae</div>
+              <div class="formula-list">${formulae}</div>
+            </div>` : ''}
+
+            <div class="section-block">
+              <div class="section-label">Derivations to Reproduce</div>
+              <ul class="deriv-list">${derivs}</ul>
+            </div>
+
+            <div class="section-block">
+              <div class="section-label">Books &amp; Materials</div>
+              <ul class="books-list">${books}</ul>
+            </div>
+
+            ${papers ? `<div class="section-block">
+              <div class="section-label">Papers to Read &amp; Reproduce</div>
+              <ul class="papers-list">${papers}</ul>
+            </div>` : ''}
+
+            <div class="section-block">
+              <div class="section-label">Brain-Working Problems</div>
+              <div class="problems-list">${problems}</div>
+            </div>
+
+            <div class="section-block">
+              <div class="section-label">Mastery Checklist</div>
+              <ul class="mastery-list">${mastery}</ul>
+            </div>
+
+            <div class="section-block">
+              <div class="section-label">Known Limitations &amp; Open Questions</div>
+              <div class="limitations-block">${renderMixedText(p.limitations)}</div>
+            </div>
+
+          </div>
+        </div>
+      </article>
+    </div>`;
+  }
+
+  function buildTimeline(){
+    const timeline = document.getElementById("timeline");
+    timeline.innerHTML = PHASES.map(cardHTML).join("");
+  }
+
+  function expandCard(stationEl, expand){
+    const card = stationEl.querySelector(".card");
+    if (!card) return;
+    const willExpand = (expand === undefined) ? !card.classList.contains("expanded") : expand;
+    card.classList.toggle("expanded", willExpand);
+    if (willExpand && window.MathJax && window.MathJax.typesetPromise){
+      window.MathJax.typesetPromise([card]).catch(()=>{});
+    }
+  }
+
+  function attachCardHandlers(){
+    document.querySelectorAll(".station").forEach(st => {
+      const head = st.querySelector(".card-head");
+      head.addEventListener("click", () => expandCard(st));
+    });
+    document.querySelectorAll(".mastery-list li").forEach(li => {
+      li.addEventListener("click", (e) => {
+        const key = li.dataset.key;
+        checks[key] = !checks[key];
+        li.classList.toggle("checked", !!checks[key]);
+        saveChecks(checks);
+        updateProgress();
+        buildNav();
+        rebindNavAfterRebuild();
+      });
+    });
+  }
+
+  function rebindNavAfterRebuild(){
+    // nav rebuilt by buildNav already attaches its own listeners
+  }
+
+  function updateProgress(){
+    const stats = totalStats();
+    const done = checkedCount();
+    const pct = stats.checksTotal ? Math.round((done/stats.checksTotal)*100) : 0;
+    document.getElementById("progressPct").textContent = pct + "%";
+    document.getElementById("progressFill").style.width = pct + "%";
+    document.getElementById("statHours").textContent = stats.hours.toLocaleString();
+    document.getElementById("statChecks").textContent = stats.checksTotal;
+    document.getElementById("statProblems").textContent = stats.problems;
+    document.getElementById("statPhases").textContent = PHASES.length;
+  }
+
+  // ---------- Search ----------
+  function clearHighlights(root){
+    root.querySelectorAll("mark").forEach(m => {
+      const parent = m.parentNode;
+      parent.replaceChild(document.createTextNode(m.textContent), m);
+      parent.normalize();
+    });
+  }
+
+  function highlightText(node, query){
+    if (node.nodeType === Node.TEXT_NODE){
+      const idx = node.textContent.toLowerCase().indexOf(query);
+      if (idx === -1) return false;
+      const text = node.textContent;
+      const before = text.slice(0, idx);
+      const match = text.slice(idx, idx+query.length);
+      const after = text.slice(idx+query.length);
+      const frag = document.createDocumentFragment();
+      frag.appendChild(document.createTextNode(before));
+      const mark = document.createElement("mark");
+      mark.textContent = match;
+      frag.appendChild(mark);
+      frag.appendChild(document.createTextNode(after));
+      node.parentNode.replaceChild(frag, node);
+      return true;
+    }
+    if (node.nodeType === Node.ELEMENT_NODE && !["SCRIPT","STYLE"].includes(node.tagName)){
+      let found = false;
+      // snapshot childNodes since we mutate
+      Array.from(node.childNodes).forEach(child => {
+        if (highlightText(child, query)) found = true;
+      });
+      return found;
+    }
+    return false;
+  }
+
+  function runSearch(query){
+    const stations = document.querySelectorAll(".station");
+    const searchCount = document.getElementById("searchCount");
+    query = query.trim().toLowerCase();
+
+    stations.forEach(st => clearHighlights(st));
+
+    if (!query){
+      stations.forEach(st => st.classList.remove("hidden"));
+      searchCount.textContent = "";
+      return;
+    }
+
+    let matchCount = 0;
+    stations.forEach(st => {
+      const text = st.textContent.toLowerCase();
+      const isMatch = text.includes(query);
+      st.classList.toggle("hidden", !isMatch);
+      if (isMatch){
+        matchCount++;
+        const card = st.querySelector(".card");
+        const bodyInner = st.querySelector(".card-body-inner");
+        highlightText(bodyInner, query);
+        highlightText(st.querySelector(".card-title"), query);
+        // auto-expand matches so highlights are visible
+        if (!card.classList.contains("expanded")){
+          card.classList.add("expanded");
+          if (window.MathJax && window.MathJax.typesetPromise){
+            window.MathJax.typesetPromise([card]).catch(()=>{});
+          }
+        }
+      }
+    });
+    searchCount.textContent = matchCount + (matchCount===1 ? " match" : " matches");
+  }
+
+  // ---------- Floating tracker ----------
+  function setupScrollTracker(){
+    const tracker = document.getElementById("floatingTracker");
+    const label = document.getElementById("trackerLabel");
+    const pctEl = document.getElementById("trackerPct");
+    const node = document.getElementById("trackerNode");
+
+    function update(){
+      const stations = Array.from(document.querySelectorAll(".station"));
+      if (!stations.length) return;
+      const viewportMid = window.innerHeight * 0.35;
+      let current = stations[0];
+      for (const st of stations){
+        const rect = st.getBoundingClientRect();
+        if (rect.top <= viewportMid){ current = st; }
+      }
+      const phase = PHASES.find(p => p.id === current.dataset.phaseId);
+      if (!phase) return;
+      const y = current.getBoundingClientRect().top;
+      const heroBottom = document.querySelector(".hero").getBoundingClientRect().bottom;
+      if (heroBottom > window.innerHeight * 0.6){
+        tracker.style.display = "none";
+        return;
+      }
+      tracker.style.display = "flex";
+      tracker.style.setProperty("--tracker-color", phase.color);
+      node.style.setProperty("--tracker-color", phase.color);
+      label.textContent = "Phase " + phase.num + " — " + phase.title;
+      const done = (phase.mastery||[]).filter((m,i)=>checks[phase.id+"::"+i]).length;
+      const tot = (phase.mastery||[]).length;
+      pctEl.textContent = tot ? Math.round((done/tot)*100)+"%" : "";
+    }
+    window.addEventListener("scroll", () => window.requestAnimationFrame(update), {passive:true});
+    update();
+  }
+
+  // ---------- Theme ----------
+  function setupTheme(){
+    const stored = localStorage.getItem(THEME_KEY);
+    if (stored === "light"){ document.documentElement.setAttribute("data-theme","light"); }
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      const isLight = document.documentElement.getAttribute("data-theme") === "light";
+      if (isLight){
+        document.documentElement.removeAttribute("data-theme");
+        localStorage.setItem(THEME_KEY, "dark");
+      } else {
+        document.documentElement.setAttribute("data-theme","light");
+        localStorage.setItem(THEME_KEY, "light");
+      }
+    });
+  }
+
+  // ---------- Expand all ----------
+  function setupExpandAll(){
+    let allExpanded = false;
+    document.getElementById("expandAllBtn").addEventListener("click", () => {
+      allExpanded = !allExpanded;
+      document.querySelectorAll(".station").forEach(st => expandCard(st, allExpanded));
+      document.getElementById("expandAllBtn").textContent = allExpanded ? "⤡ Collapse all" : "⤢ Expand all";
+    });
+  }
+
+  // ---------- Mobile sidebar ----------
+  function closeMobileSidebar(){
+    document.getElementById("sidebar").classList.remove("open");
+    document.getElementById("sidebarScrim").classList.remove("show");
+  }
+  function setupMobileNav(){
+    const toggle = document.getElementById("mobileNavToggle");
+    const sidebar = document.getElementById("sidebar");
+    const scrim = document.getElementById("sidebarScrim");
+    toggle.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+      scrim.classList.toggle("show");
+    });
+    scrim.addEventListener("click", closeMobileSidebar);
+  }
+
+  // ---------- Active nav highlighting on scroll ----------
+  function setupActiveNav(){
+    function update(){
+      const stations = Array.from(document.querySelectorAll(".station"));
+      if (!stations.length) return;
+      const viewportMid = window.innerHeight * 0.35;
+      let currentId = stations[0].id;
+      for (const st of stations){
+        const rect = st.getBoundingClientRect();
+        if (rect.top <= viewportMid){ currentId = st.id; }
+      }
+      document.querySelectorAll(".nav-item").forEach(li => {
+        li.classList.toggle("active", li.dataset.target === currentId);
+      });
+    }
+    window.addEventListener("scroll", () => window.requestAnimationFrame(update), {passive:true});
+    update();
+  }
+
+  // ---------- Init ----------
+  function init(){
+    buildTimeline();
+    buildNav();
+    attachCardHandlers();
+    updateProgress();
+    setupScrollTracker();
+    setupTheme();
+    setupExpandAll();
+    setupMobileNav();
+    setupActiveNav();
+
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      runSearch(e.target.value);
+    });
+
+    if (window.MathJax && window.MathJax.typesetPromise){
+      window.MathJax.typesetPromise();
+    } else {
+      window.addEventListener("load", () => {
+        if (window.MathJax && window.MathJax.typesetPromise) window.MathJax.typesetPromise();
+      });
+    }
+  }
+
+  if (document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+
+</script>
+</body>
+</html>
