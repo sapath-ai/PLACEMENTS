@@ -161,7 +161,7 @@ h1{
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-columns:repeat(2,minmax(0,1fr));
   gap:16px;
 }
 
@@ -184,8 +184,8 @@ h1{
 }
 
 .card.featured{
-  grid-column:span 2;
-  min-height:285px;
+  grid-column:span 1;
+  min-height:235px;
   border-color:rgba(255,159,67,.30);
   background:linear-gradient(145deg,rgba(255,159,67,.09),rgba(16,22,31,.95) 48%,rgba(9,13,19,.98));
 }
@@ -255,7 +255,7 @@ h1{
 
 @media(max-width:900px){
   .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .card.featured{grid-column:span 2}
+  .card.featured{grid-column:span 1}
 }
 
 @media(max-width:620px){
