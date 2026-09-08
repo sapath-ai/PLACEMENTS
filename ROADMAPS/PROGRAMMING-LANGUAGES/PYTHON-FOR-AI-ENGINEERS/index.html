@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12-Week AI Engineer Python Regimen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0f14;
+  --bg-panel:#12181f;
+  --bg-panel-2:#171f28;
+  --bg-code:#0e1319;
+  --border:#232c37;
+  --border-soft:#1a222c;
+  --text:#d7dde5;
+  --text-dim:#8592a1;
+  --text-faint:#4d5866;
+  --amber:#e3a53d;
+  --amber-dim:#7a5d2c;
+  --cyan:#59c3d6;
+  --violet:#9d8cf0;
+  --danger:#e2664f;
+  --good:#6fbf8b;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+::selection{background:var(--amber);color:#0b0f14;}
+
+.shell{display:flex;min-height:100vh;}
+.sidebar{width:258px;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--bg-panel);border-right:1px solid var(--border);padding:24px 0;}
+.sidebar::-webkit-scrollbar{width:6px;}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+.sb-brand{padding:0 20px 18px 20px;border-bottom:1px solid var(--border-soft);margin-bottom:14px;}
+.sb-brand .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;color:var(--amber);text-transform:uppercase;}
+.sb-brand h1{font-family:var(--font-display);font-size:16px;font-weight:600;margin-top:6px;line-height:1.3;}
+.progress-track{height:3px;background:var(--border-soft);border-radius:2px;margin-top:14px;overflow:hidden;}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--cyan),var(--amber),var(--danger));transition:width .15s linear;}
+.sb-nav{padding:4px 10px;}
+.sb-phase-label{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);padding:12px 10px 4px 10px;}
+.sb-nav a{display:flex;align-items:baseline;gap:8px;padding:8px 8px;border-radius:6px;color:var(--text-dim);text-decoration:none;font-size:12.5px;transition:background .15s,color .15s;}
+.sb-nav a:hover{background:var(--bg-panel-2);color:var(--text);}
+.sb-nav a.active{background:var(--bg-panel-2);color:var(--amber);}
+.sb-nav a .wk-num{font-family:var(--font-mono);font-size:10.5px;color:var(--text-faint);width:20px;flex-shrink:0;}
+.sb-nav a.active .wk-num{color:var(--amber);}
+.sb-nav .divider{height:1px;background:var(--border-soft);margin:10px 8px;}
+
+main{flex:1;min-width:0;}
+
+.hero{padding:76px 64px 52px 64px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.hero::before{content:"";position:absolute;top:-120px;right:-120px;width:420px;height:420px;background:radial-gradient(circle,rgba(227,165,61,.10) 0%,rgba(89,195,214,.05) 45%,transparent 70%);pointer-events:none;}
+.hero .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);display:flex;align-items:center;gap:10px;}
+.hero .eyebrow::before{content:"";width:20px;height:1px;background:var(--cyan);}
+.hero h1{font-family:var(--font-display);font-size:clamp(30px,3.8vw,48px);font-weight:700;line-height:1.1;margin:16px 0 18px 0;max-width:820px;}
+.hero h1 span{color:var(--amber);}
+.hero p.lede{max-width:660px;color:var(--text-dim);font-size:15.5px;line-height:1.7;}
+.hero-stats{display:flex;gap:36px;margin-top:32px;flex-wrap:wrap;}
+.hstat .n{font-family:var(--font-display);font-size:26px;font-weight:600;color:var(--text);}
+.hstat .l{font-family:var(--font-mono);font-size:10.5px;color:var(--text-faint);letter-spacing:.06em;text-transform:uppercase;margin-top:2px;}
+
+.note{margin:0 64px 40px 64px;background:linear-gradient(180deg,rgba(89,195,214,.06),transparent 60%);border:1px solid rgba(89,195,214,.3);border-radius:10px;padding:20px 26px;}
+.note .n-tag{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;}
+.note p{font-size:13.5px;color:var(--text-dim);line-height:1.65;}
+.note p+p{margin-top:10px;}
+
+.reality{margin:0 64px;background:linear-gradient(180deg,rgba(226,102,79,.07),transparent 60%);border:1px solid rgba(226,102,79,.35);border-radius:10px;padding:26px 30px;margin-bottom:56px;}
+.reality .rk-tag{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--danger);display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.reality .rk-tag::before{content:"⚠";font-size:13px;}
+.reality h2{font-family:var(--font-display);font-size:20px;margin-bottom:14px;}
+.reality ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;}
+.reality li{font-size:13.5px;color:var(--text-dim);padding-left:16px;position:relative;line-height:1.55;}
+.reality li::before{content:"—";position:absolute;left:0;color:var(--danger);}
+.reality li b{color:var(--text);font-weight:600;}
+@media(max-width:900px){.reality ul{grid-template-columns:1fr;}}
+
+.phase-divider{padding:40px 64px 0 64px;display:flex;align-items:center;gap:18px;}
+.phase-divider .pd-num{font-family:var(--font-mono);font-size:11px;color:var(--violet);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;}
+.phase-divider .pd-line{flex:1;height:1px;background:var(--border);}
+.phase-divider .pd-desc{font-size:12px;color:var(--text-faint);white-space:nowrap;}
+
+.week{padding:0 64px 60px 64px;scroll-margin-top:24px;border-bottom:1px solid var(--border-soft);}
+.week:last-of-type{border-bottom:none;}
+.week-head{display:flex;align-items:flex-start;gap:22px;padding-top:48px;margin-bottom:26px;}
+.week-head .wk-index{font-family:var(--font-display);font-size:44px;font-weight:700;color:var(--bg-panel-2);-webkit-text-stroke:1px var(--amber-dim);line-height:1;flex-shrink:0;}
+.week[data-phase="foundation"] .week-head .wk-index{-webkit-text-stroke:1px #4a4470;}
+.week-head .wk-meta .eyebrow2{font-family:var(--font-mono);font-size:11px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;}
+.week[data-phase="foundation"] .week-head .wk-meta .eyebrow2{color:var(--violet);}
+.week-head h2{font-family:var(--font-display);font-size:25px;font-weight:600;margin-top:6px;}
+.week-head p.theme-desc{color:var(--text-dim);font-size:13.5px;margin-top:8px;max-width:680px;}
+
+.block-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);margin:32px 0 14px 0;display:flex;align-items:center;gap:10px;}
+.block-label::after{content:"";flex:1;height:1px;background:var(--border-soft);}
+
+.tasklist{border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--bg-panel);}
+.task-row{display:grid;grid-template-columns:100px 1fr;gap:16px;padding:12px 18px;border-bottom:1px solid var(--border-soft);}
+.task-row:last-child{border-bottom:none;}
+.task-row .day{font-family:var(--font-mono);font-size:11.5px;color:var(--amber);padding-top:1px;}
+.week[data-phase="foundation"] .task-row .day{color:var(--violet);}
+.task-row .desc{font-size:13.3px;color:var(--text);line-height:1.6;}
+.task-row .desc b{color:var(--cyan);font-weight:500;}
+
+.deliverables{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;}
+.dcard{background:var(--bg-panel);border:1px solid var(--border);border-radius:8px;padding:15px 17px;}
+.dcard .dtitle{font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.dcard .ddesc{font-size:12px;color:var(--text-dim);line-height:1.5;}
+
+.bughunt{background:var(--bg-code);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.bughunt-head{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--bg-panel-2);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
+.bughunt-head .bh-title{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);display:flex;align-items:center;gap:10px;}
+.bh-dots{display:flex;gap:5px;}
+.bh-dots span{width:8px;height:8px;border-radius:50%;background:var(--border);}
+.bh-diff{font-size:10px;font-family:var(--font-mono);padding:3px 9px;border-radius:20px;letter-spacing:.05em;white-space:nowrap;}
+.bh-diff.band-easy{background:rgba(111,191,139,.12);color:var(--good);}
+.bh-diff.band-mid{background:rgba(227,165,61,.14);color:var(--amber);}
+.bh-diff.band-hard{background:rgba(226,102,79,.14);color:var(--danger);}
+pre.code{margin:0;padding:18px 22px;overflow-x:auto;font-family:var(--font-mono);font-size:12.3px;line-height:1.7;color:#c3cbd6;}
+pre.code .c-comment{color:var(--text-faint);}
+pre.code .c-kw{color:var(--cyan);}
+pre.code .c-str{color:var(--good);}
+pre.code .c-num{color:var(--amber);}
+.reveal-bar{padding:12px 18px;border-top:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.reveal-btn{font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;background:transparent;border:1px solid var(--amber-dim);color:var(--amber);padding:8px 16px;border-radius:6px;cursor:pointer;transition:all .15s;}
+.reveal-btn:hover{background:rgba(227,165,61,.1);}
+.reveal-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+.reveal-hint{font-size:12px;color:var(--text-faint);}
+.bug-answer{display:none;padding:0 18px 20px 18px;}
+.bug-answer.open{display:block;}
+.bug-answer .aa-block{background:rgba(226,102,79,.06);border-left:2px solid var(--danger);border-radius:0 6px 6px 0;padding:14px 16px;margin-top:6px;}
+.bug-answer .aa-label{font-family:var(--font-mono);font-size:10px;color:var(--danger);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.bug-answer p{font-size:12.8px;color:var(--text-dim);line-height:1.6;}
+.bug-answer .aa-fix{background:rgba(111,191,139,.06);border-left:2px solid var(--good);border-radius:0 6px 6px 0;padding:14px 16px;margin-top:10px;}
+.bug-answer .aa-fix .aa-label{color:var(--good);}
+
+.gate{background:var(--bg-panel);border:1px solid var(--border);border-radius:8px;padding:6px;}
+.gate-item{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;border-radius:6px;cursor:pointer;transition:background .12s;}
+.gate-item:hover{background:var(--bg-panel-2);}
+.gate-item input{display:none;}
+.checkbox{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--text-faint);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.checkbox::after{content:"";width:9px;height:5px;border-left:2px solid var(--bg);border-bottom:2px solid var(--bg);transform:rotate(-45deg) translateY(-1px);opacity:0;}
+.gate-item input:checked + .checkbox{background:var(--good);border-color:var(--good);}
+.gate-item input:checked + .checkbox::after{opacity:1;}
+.gate-item span.gtext{font-size:13.3px;color:var(--text);line-height:1.5;}
+.gate-item input:checked ~ span.gtext{color:var(--text-faint);text-decoration:line-through;}
+
+.resources{padding:60px 64px;background:var(--bg-panel);border-top:1px solid var(--border);}
+.resources .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);}
+.resources h2{font-family:var(--font-display);font-size:23px;margin:12px 0 26px 0;}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;}
+.res-card{background:var(--bg-code);border:1px solid var(--border);border-radius:8px;padding:17px 19px;transition:border-color .15s;}
+.res-card:hover{border-color:var(--amber-dim);}
+.res-card .r-num{font-family:var(--font-mono);font-size:11px;color:var(--amber);}
+.res-card h3{font-family:var(--font-display);font-size:14.5px;margin:8px 0 6px 0;}
+.res-card p{font-size:12.3px;color:var(--text-dim);line-height:1.55;}
+.res-card code{font-family:var(--font-mono);font-size:11.3px;color:var(--cyan);}
+
+footer.foot{padding:26px 64px;text-align:center;color:var(--text-faint);font-size:12px;font-family:var(--font-mono);border-top:1px solid var(--border-soft);}
+
+@media(max-width:860px){
+  .sidebar{display:none;}
+  .hero,.week,.resources,.phase-divider{padding-left:24px;padding-right:24px;}
+  .reality,.note{margin-left:24px;margin-right:24px;}
+  .week-head{flex-direction:column;gap:6px;}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <nav class="sidebar" id="sidebar">
+    <div class="sb-brand">
+      <div class="tag">Regimen · 12 weeks</div>
+      <h1>AI Engineer<br>Python Fluency</h1>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <div class="sb-nav" id="sbNav">
+      <a href="#reality" data-target="reality"><span class="wk-num">!</span>Reality check</a>
+      <div class="sb-phase-label">Phase 1 — Foundations</div>
+      <a href="#week1" data-target="week1"><span class="wk-num">01</span>Core Python fluency</a>
+      <a href="#week2" data-target="week2"><span class="wk-num">02</span>Software design</a>
+      <a href="#week3" data-target="week3"><span class="wk-num">03</span>NumPy/Pandas/data</a>
+      <a href="#week4" data-target="week4"><span class="wk-num">04</span>Modern AI stack</a>
+      <div class="sb-phase-label">Phase 2 — Senior depth</div>
+      <a href="#week5" data-target="week5"><span class="wk-num">05</span>Internals &amp; the GIL</a>
+      <a href="#week6" data-target="week6"><span class="wk-num">06</span>Performance engineering</a>
+      <a href="#week7" data-target="week7"><span class="wk-num">07</span>Concurrency &amp; DDP</a>
+      <a href="#week8" data-target="week8"><span class="wk-num">08</span>Production habits</a>
+      <a href="#week9" data-target="week9"><span class="wk-num">09</span>Testing ML code</a>
+      <a href="#week10" data-target="week10"><span class="wk-num">10</span>Systems-level review</a>
+      <a href="#week11" data-target="week11"><span class="wk-num">11</span>Security &amp; privacy correctness</a>
+      <a href="#week12" data-target="week12"><span class="wk-num">12</span>Capstone integration</a>
+      <div class="divider"></div>
+      <a href="#resources" data-target="resources"><span class="wk-num">→</span>Primary resources</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="hero">
+      <div class="eyebrow">Twelve weeks · foundations through senior-level judgment</div>
+      <h1>Not a research prep track. A <span>general AI engineer</span> track — built so week 1 doesn't assume week 8's fluency.</h1>
+      <p class="lede">Four weeks of real foundations (core Python, software design, the NumPy/Pandas/data toolkit, and the modern AI stack end to end — training and serving), then eight weeks of the senior-level judgment that separates someone who prompts an LLM to write code from someone who catches it when it's wrong. General-purpose throughout: the skills transfer to any AI engineering role, not just research.</p>
+      <div class="hero-stats">
+        <div class="hstat"><div class="n">12</div><div class="l">weeks, project-based</div></div>
+        <div class="hstat"><div class="n">4</div><div class="l">foundation weeks, no skipped steps</div></div>
+        <div class="hstat"><div class="n">12</div><div class="l">planted AI bugs, escalating</div></div>
+        <div class="hstat"><div class="n">0</div><div class="l">LeetCode-style problems</div></div>
+      </div>
+    </section>
+
+    <div class="note">
+      <div class="n-tag">What changed from the first draft</div>
+      <p>The original version front-loaded internals, profiling, and concurrency on the assumption you already had senior-level Python foundations under you — that was the wrong assumption, and it also over-indexed on your research background as the only lens. This version adds four foundation weeks so nothing in Phase 2 depends on a skill you haven't actually built yet, and it generalizes the material so it works whether you end up doing research, product AI engineering, or infra work. Your BraTS/FL background still shows up here and there as one flavor of worked example, because it's genuinely good material to practice on — but it's no longer the frame the whole regimen is built around, and Week 12's capstone gives you a choice of track rather than assuming one.</p>
+    </div>
+
+    <section class="reality" id="reality">
+      <div class="rk-tag">Scope reality check — read this before week 1</div>
+      <h2>Where even 12 weeks is genuinely tight</h2>
+      <ul>
+        <li><b>Cython</b> still only gets a "know when to reach for it and write a minimal kernel" treatment in Phase 2, not fluency — that's a multi-month track on its own regardless of how much foundation time precedes it.</li>
+        <li><b>Multi-GPU / multi-node DDP debugging</b> is still simulated on one machine with multiple processes. No amount of foundation-building substitutes for time on a real cluster — that has to come later, from actual multi-node compute access.</li>
+        <li><b>LLM-specific engineering</b> (prompt engineering depth, agent frameworks, RAG system design, eval harnesses) gets exactly one week's worth of exposure in Week 4 — enough to not be lost when a job description mentions it, not enough to be the specialist. If that's your actual target, it deserves its own follow-on track after this one.</li>
+        <li><b>Cryptographic side-channel defense</b> (Week 11) is still conceptual/review-level, not applied-cryptography-engineering-level — see Week 11 for the exact line.</li>
+        <li><b>Docker/deployment</b> in Week 4 covers enough to serve a model locally and understand what "containerize this" means in a job description — it is not a DevOps/MLOps track. If your target roles are infra-heavy, that's a legitimate reason to extend further after Week 12, not a gap this plan silently papers over.</li>
+        <li>This still assumes <b>4–5 focused hours/day, 6 days/week</b>. At 12 weeks that's roughly 300 hours total — realistic for foundations-through-senior-judgment, not for foundations-through-specialist-depth in any one area above.</li>
+      </ul>
+    </section>
+
+    <div class="phase-divider">
+      <span class="pd-num">Phase 1 · Weeks 1–4</span>
+      <span class="pd-line"></span>
+      <span class="pd-desc">Foundations — build/break/fix, not read/note</span>
+    </div>
+
+    <!-- ============ WEEK 1 ============ -->
+    <section class="week" id="week1" data-phase="foundation">
+      <div class="week-head">
+        <div class="wk-index">01</div>
+        <div class="wk-meta">
+          <div class="eyebrow2">Foundations</div>
+          <h2>Core Python fluency for AI engineering</h2>
+          <p class="theme-desc">Not variables-and-loops syntax — the fluency that everything later depends on: choosing the right data structure under pressure, writing functions that don't have hidden state bugs, handling errors like an engineer instead of hoping nothing breaks, and the git/environment hygiene that makes code collaborative instead of a personal notebook.</p>
+        </div>
+      </div>
+
+      <div class="block-label">Daily breakdown</div>
+      <div class="tasklist">
+        <div class="task-row"><div class="day">Day 1</div><div class="desc">Data structure judgment: given six small problems (deduping while preserving order, a sliding-window max, a priority queue for task scheduling, counting with defaults, a LIFO undo stack, a FIFO job queue), pick and justify <b>list vs. dict vs. set vs. deque vs. heapq</b> for each before writing any code — the justification is the actual exercise.</div></div>
+        <div class="task-row"><div class="day">Day 2</div><div class="desc">Functions as real engineering surfaces: <code>*args</code>/<code>**kwargs</code> and unpacking used correctly (not just syntax — when a flexible signature is the right call vs. a code smell), closures and why they capture variables by reference not value, and comprehensions pushed to their actual readability limit — write one nested comprehension, then rewrite it as a loop, and decide which is actually clearer.</div></div>
+        <div class="task-row"><div class="day">Day 3</div><div class="desc">Error handling like an engineer: custom exception hierarchies (not just <code>except Exception</code> everywhere), exception chaining with <code>raise ... from ...</code> so root causes survive a re-raise, and the specific discipline of catching only what you can actually handle at that call site.</div></div>
+        <div class="task-row"><div class="day">Day 4</div><div class="desc"><code>pathlib</code> over string path manipulation for every file operation this regimen will use going forward, plus working with external data over HTTP: the <code>requests</code> library, handling a paginated JSON API response, and parsing/writing CSV and JSON correctly (encoding issues, missing keys, malformed rows) instead of assuming clean input.</div></div>
+        <div class="task-row"><div class="day">Day 5</div><div class="desc">Git for real collaborative code, not just <code>commit</code>/<code>push</code>: branching strategy, resolving a merge conflict you create on purpose, interactive rebase to clean up a messy commit history, and writing a commit message that would actually help a reviewer. Environment hygiene: virtual environments, <code>pip freeze</code> vs. a real lockfile, and why "works on my machine" happens.</div></div>
+        <div class="task-row"><div class="day">Day 6</div><div class="desc"><b>Build day</b> — a small CLI tool (a log-file analyzer, or a batch file renamer/organizer — your choice) that exercises everything above: proper data structures, custom exceptions, pathlib, and a clean git history with meaningful commits from a fresh repo.</div></div>
+      </div>
+
+      <div class="block-label">Deliverables</div>
+      <div class="deliverables">
+        <div class="dcard"><div class="dtitle">Data-structure decision log</div><div class="ddesc">Six problems, your structure choice for each, and the one-line reason — written before the code, not after.</div></div>
+        <div class="dcard"><div class="dtitle">A real CLI tool</div><div class="ddesc">Built from a clean git history, using custom exceptions and pathlib throughout, not a single script.</div></div>
+        <div class="dcard"><div class="dtitle">Resolved merge conflict</div><div class="ddesc">A branch you deliberately diverged and then correctly reconciled, with the conflict resolution explained in the commit message.</div></div>
+      </div>
+
+      <div class="block-label">Catch the AI — week 1</div>
+      <div class="bughunt">
+        <div class="bughunt-head">
+          <div class="bh-title"><span class="bh-dots"><span></span><span></span><span></span></span> review_w1.py</div>
+          <div class="bh-diff band-easy">difficulty 1 / 12</div>
+        </div>
+        <pre class="code"><span class="c-comment"># Helper function an LLM generated for grouping items</span>
+<span class="c-comment"># into a running collection, "should just work."</span>
+<span class="c-kw">def</span> add_to_group(item, group=[]):
+    group.append(item)
+    <span class="c-kw">return</span> group
+
+<span class="c-comment"># result_a = add_to_group("cat")   -> ["cat"]</span>
+<span class="c-comment"># result_b = add_to_group("dog")   -> expected ["dog"], got ["cat", "dog"]</span></pre>
+        <div class="reveal-bar">
+          <button class="reveal-btn" onclick="toggleReveal(this)">Reveal the bug</button>
+          <span class="reveal-hint">The classic one. Know it cold — you'll see LLMs produce it constantly.</span>
+        </div>
+        <div class="bug-answer">
+          <div class="aa-block">
+            <div class="aa-label">The bug</div>
+            <p>The mutable default argument <code>group=[]</code> is created <i>once</i>, when the function is defined, not fresh on every call. Every call that doesn't explicitly pass its own list shares and mutates the same list object, so state silently leaks across unrelated calls — the second call sees the first call's leftover data. This is one of the most common bugs LLMs produce because the code reads as correct at a glance and passes any test that only calls the function once.</p>
+          </div>
+          <div class="aa-fix">
+            <div class="aa-label">The fix</div>
+            <p>Default to <code>None</code> and create a fresh list inside the function body: <code>def add_to_group(item, group=None): group = [] if group is None else group; group.append(item); return group</code>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-label">Week 1 gate — unassisted, no docs open</div>
+      <div class="gate">
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Given a new problem, choose the right data structure and justify it before writing code, in under a minute.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain the mutable-default-argument bug from memory and why it happens at function-definition time, not call time.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Resolve a merge conflict on a real diverged branch without panicking or force-pushing over it.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Write a custom exception hierarchy for a small tool and use `raise ... from ...` correctly.</span></label>
+      </div>
+    </section>
+
+    <!-- ============ WEEK 2 ============ -->
+    <section class="week" id="week2" data-phase="foundation">
+      <div class="week-head">
+        <div class="wk-index">02</div>
+        <div class="wk-meta">
+          <div class="eyebrow2">Foundations</div>
+          <h2>Software design for AI systems</h2>
+          <p class="theme-desc">The difference between a script and a system: classes that earn their existence, project structure that scales past one file, and the CLI/config/secrets hygiene that makes a tool usable by someone other than you six months from now.</p>
+        </div>
+      </div>
+
+      <div class="block-label">Daily breakdown</div>
+      <div class="tasklist">
+        <div class="task-row"><div class="day">Day 1</div><div class="desc">Classes vs. dataclasses vs. plain functions: for five small design problems, decide which fits and why — a config object, a stateful counter, a pure data-transform pipeline, a resource that needs cleanup, a value object compared by content. Build each correctly, including a proper <code>__eq__</code>/<code>__repr__</code> where it matters.</div></div>
+        <div class="task-row"><div class="day">Day 2</div><div class="desc">Composition over inheritance, made concrete: take a tempting inheritance hierarchy (e.g. <code>ImageProcessor</code> → <code>ImageResizer</code> → <code>ImageAugmenter</code>) and refactor it into composed, swappable components instead. Explain in writing exactly what broke or got awkward with inheritance that composition fixes.</div></div>
+        <div class="task-row"><div class="day">Day 3</div><div class="desc">Abstract base classes and <code>Protocol</code>: define an interface two different concrete implementations must satisfy (e.g. a <code>DataSource</code> protocol satisfied by both a CSV-backed and an API-backed implementation), and understand when structural typing (<code>Protocol</code>) is the better choice over nominal inheritance (<code>ABC</code>).</div></div>
+        <div class="task-row"><div class="day">Day 4</div><div class="desc">Real project structure: convert a pile of loose scripts into a proper installable package — <code>src/</code> layout, <code>__init__.py</code>, a <code>pyproject.toml</code>, and an entry point installed via <code>pip install -e .</code> that actually runs from anywhere, not just the project directory.</div></div>
+        <div class="task-row"><div class="day">Day 5</div><div class="desc">CLI tools done properly with <code>argparse</code> or <code>typer</code> (subcommands, help text, sane defaults), and secrets/config handling that doesn't leak credentials into git: environment variables, a <code>.env</code> file correctly gitignored, and a config precedence order (defaults → file → env → CLI flag) you can explain.</div></div>
+        <div class="task-row"><div class="day">Day 6</div><div class="desc"><b>Build day</b> — turn last week's CLI tool into a proper installable package with a clean module structure, a typer-based CLI, and config loaded from a file with environment-variable overrides.</div></div>
+      </div>
+
+      <div class="block-label">Deliverables</div>
+      <div class="deliverables">
+        <div class="dcard"><div class="dtitle">Installable package</div><div class="ddesc">Real src/ layout, pyproject.toml, entry point — installs and runs from anywhere with pip install -e .</div></div>
+        <div class="dcard"><div class="dtitle">Protocol-based interface</div><div class="ddesc">Two interchangeable implementations satisfying one structural interface, swappable without touching calling code.</div></div>
+        <div class="dcard"><div class="dtitle">Inheritance-to-composition refactor</div><div class="ddesc">Before/after diff with a written explanation of what inheritance made awkward.</div></div>
+      </div>
+
+      <div class="block-label">Catch the AI — week 2</div>
+      <div class="bughunt">
+        <div class="bughunt-head">
+          <div class="bh-title"><span class="bh-dots"><span></span><span></span><span></span></span> review_w2.py</div>
+          <div class="bh-diff band-easy">difficulty 2 / 12</div>
+        </div>
+        <pre class="code"><span class="c-comment"># Custom exception an LLM generated to carry extra context</span>
+<span class="c-comment"># (an error code) alongside the usual message.</span>
+<span class="c-kw">class</span> DataValidationError(Exception):
+    <span class="c-kw">def</span> __init__(self, message, code):
+        self.message = message
+        self.code = code
+
+<span class="c-comment"># try:</span>
+<span class="c-comment">#     raise DataValidationError("missing patient_id column", code=400)</span>
+<span class="c-comment"># except DataValidationError as e:</span>
+<span class="c-comment">#     print(e)   -> prints nothing useful</span>
+<span class="c-comment">#     logger.exception(e)   -> traceback shows no message either</span></pre>
+        <div class="reveal-bar">
+          <button class="reveal-btn" onclick="toggleReveal(this)">Reveal the bug</button>
+          <span class="reveal-hint">The exception "works" — it raises and can be caught. Something else is missing.</span>
+        </div>
+        <div class="bug-answer">
+          <div class="aa-block">
+            <div class="aa-label">The bug</div>
+            <p><code>__init__</code> overrides the base <code>Exception.__init__</code> without calling <code>super().__init__(message)</code>. <code>Exception</code>'s own machinery for producing a string representation (what <code>str(e)</code>, <code>print(e)</code>, and traceback formatting all rely on) depends on the base class actually storing the message via its own <code>__init__</code>. Without that call, the custom attributes (<code>self.message</code>, <code>self.code</code>) exist and are accessible, but anything that prints or logs the exception the normal way shows an empty message — which is exactly the kind of bug that makes a production incident far harder to debug than it needed to be, because the traceback itself lies about having no information.</p>
+          </div>
+          <div class="aa-fix">
+            <div class="aa-label">The fix</div>
+            <p>Call <code>super().__init__(message)</code> inside <code>__init__</code> before setting the extra attributes, so the exception's string representation works everywhere Python expects it to.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-label">Week 2 gate — unassisted, no docs open</div>
+      <div class="gate">
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain when to reach for a dataclass, a plain class, or just a function — and defend the choice on a new problem on the spot.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Build an installable package from scratch with a working entry point in under 20 minutes.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain the difference between Protocol-based structural typing and ABC-based nominal inheritance, with a real example of when each wins.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Spot a missing `super().__init__()` call in a custom exception or subclass within seconds of reading it.</span></label>
+      </div>
+    </section>
+
+    <!-- ============ WEEK 3 ============ -->
+    <section class="week" id="week3" data-phase="foundation">
+      <div class="week-head">
+        <div class="wk-index">03</div>
+        <div class="wk-meta">
+          <div class="eyebrow2">Foundations</div>
+          <h2>NumPy, Pandas, and the general data-engineering toolkit</h2>
+          <p class="theme-desc">Every AI engineering job touches data before it touches a model. Vectorized thinking, real broadcasting rules (not the happy-path examples), and the pandas fluency to wrangle messy tabular data — general-purpose, not tied to any one data domain.</p>
+        </div>
+      </div>
+
+      <div class="block-label">Daily breakdown</div>
+      <div class="tasklist">
+        <div class="task-row"><div class="day">Day 1</div><div class="desc">Vectorized thinking: take five functions written as explicit Python loops over arrays (a rolling average, a normalization step, a distance matrix, a masked filter, a cumulative sum with a condition) and rewrite each as vectorized NumPy, benchmarking the speedup for each.</div></div>
+        <div class="task-row"><div class="day">Day 2</div><div class="desc">Broadcasting rules, deeply: work through cases where broadcasting does what you want, and — more importantly — cases where it silently does something you didn't intend (a shape-(N,) array against a shape-(N,1) array producing an (N,N) result instead of elementwise). Predict the output shape in writing before running each example.</div></div>
+        <div class="task-row"><div class="day">Day 3</div><div class="desc">Pandas for real data wrangling: load a genuinely messy public CSV dataset (missing values, inconsistent types, duplicate rows) and clean it using <code>groupby</code>, <code>merge</code>, <code>pivot_table</code>, and proper missing-data handling — not <code>dropna()</code> everywhere without thinking about what you're discarding.</div></div>
+        <div class="task-row"><div class="day">Day 4</div><div class="desc">Diagnostics you can actually read: build a small set of matplotlib/plotly plots that would catch a data problem before it reaches a model — a distribution histogram that reveals a unit mismatch, a scatter that reveals an outlier cluster, a missing-value heatmap across columns.</div></div>
+        <div class="task-row"><div class="day">Day 5</div><div class="desc">Data formats that show up constantly: read/write Parquet and understand why it beats CSV for large tabular data (columnar storage, compression, schema), and get comfortable with the shape/dtype semantics of tensors as the natural extension of NumPy arrays once you cross into PyTorch next week.</div></div>
+        <div class="task-row"><div class="day">Day 6</div><div class="desc"><b>Build day</b> — a small end-to-end data-cleaning pipeline on the messy dataset from Day 3: ingest → clean → validate → export to Parquet, wrapped in the CLI/package structure from Week 2, with the diagnostic plots from Day 4 generated automatically.</div></div>
+      </div>
+
+      <div class="block-label">Deliverables</div>
+      <div class="deliverables">
+        <div class="dcard"><div class="dtitle">Data-cleaning pipeline</div><div class="ddesc">A real ingest → clean → validate → export tool, packaged, not a notebook.</div></div>
+        <div class="dcard"><div class="dtitle">Broadcasting prediction log</div><div class="ddesc">A set of shape predictions written before running the code, with the surprises annotated.</div></div>
+        <div class="dcard"><div class="dtitle">Diagnostic plot set</div><div class="ddesc">Plots that would catch a real data problem before it reaches a model, generated automatically by your pipeline.</div></div>
+      </div>
+
+      <div class="block-label">Catch the AI — week 3</div>
+      <div class="bughunt">
+        <div class="bughunt-head">
+          <div class="bh-title"><span class="bh-dots"><span></span><span></span><span></span></span> review_w3.py</div>
+          <div class="bh-diff band-mid">difficulty 3 / 12</div>
+        </div>
+        <pre class="code"><span class="c-comment"># "Normalize each row's values against the column means,"</span>
+<span class="c-comment"># generated for a feature-scaling step.</span>
+<span class="c-kw">import</span> numpy <span class="c-kw">as</span> np
+
+<span class="c-kw">def</span> center_rows(data, col_means):
+    <span class="c-comment"># data shape: (n_samples,), col_means shape: (n_samples,)</span>
+    <span class="c-kw">return</span> data - col_means
+
+<span class="c-comment"># centered = center_rows(row_data, column_means)</span>
+<span class="c-comment"># centered.shape turns out to be (1000, 1000), not (1000,)</span>
+<span class="c-comment"># and memory usage spikes on a dataset that should be tiny</span></pre>
+        <div class="reveal-bar">
+          <button class="reveal-btn" onclick="toggleReveal(this)">Reveal the bug</button>
+          <span class="reveal-hint">Both arrays really are length 1000. The output shape is still wrong.</span>
+        </div>
+        <div class="bug-answer">
+          <div class="aa-block">
+            <div class="aa-label">The bug</div>
+            <p>The comment claims both arrays are shape <code>(n_samples,)</code>, but if <code>col_means</code> was actually produced elsewhere as shape <code>(n_samples, 1)</code> (a very common outcome of a careless <code>.mean(axis=1, keepdims=True)</code> or a reshape upstream), then <code>data - col_means</code> doesn't broadcast elementwise the way the docstring assumes — NumPy broadcasts a <code>(1000,)</code> array against a <code>(1000,1)</code> array into a <code>(1000,1000)</code> result, pairing every element of one against every element of the other. The operation doesn't crash — broadcasting rules make it legal — it just silently computes something entirely different from "subtract each row's mean," and the memory/shape blowup is often the only symptom.</p>
+          </div>
+          <div class="aa-fix">
+            <div class="aa-label">The fix</div>
+            <p>Assert shapes explicitly before the operation (<code>assert col_means.shape == data.shape</code>, or reshape/squeeze deliberately with a comment explaining why), and never trust a shape claimed in a comment — verify it with <code>.shape</code> at the point of use, especially right after any <code>keepdims=True</code> reduction upstream.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-label">Week 3 gate — unassisted, no docs open</div>
+      <div class="gate">
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Predict the output shape of a broadcasting operation correctly before running it, for a non-trivial case.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Clean a genuinely messy CSV using groupby/merge/pivot without reaching for dropna() as a first instinct.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain why Parquet beats CSV for large tabular data, specifically (not just "it's faster").</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Spot an unintended broadcast blow-up in someone else's code from the shape alone, within a minute.</span></label>
+      </div>
+    </section>
+
+    <!-- ============ WEEK 4 ============ -->
+    <section class="week" id="week4" data-phase="foundation">
+      <div class="week-head">
+        <div class="wk-index">04</div>
+        <div class="wk-meta">
+          <div class="eyebrow2">Foundations</div>
+          <h2>The modern AI stack, end to end</h2>
+          <p class="theme-desc">Training a model is one part of the job now — the other part is building, calling, and serving AI systems. This week covers PyTorch fundamentals built from scratch once (no shortcuts), a working grasp of LLM/API-based engineering, and shipping a model behind an actual API. This is the bridge from foundations into Phase 2's depth.</p>
+        </div>
+      </div>
+
+      <div class="block-label">Daily breakdown</div>
+      <div class="tasklist">
+        <div class="task-row"><div class="day">Day 1</div><div class="desc">PyTorch tensors and autograd, understood not memorized: build a tiny 2-layer network's forward and backward pass <b>by hand with NumPy first</b> (manual gradient computation), then rebuild the identical thing with <code>torch.autograd</code>, and confirm the gradients match numerically. This is the single best exercise for actually understanding what autograd is doing instead of trusting it blindly.</div></div>
+        <div class="task-row"><div class="day">Day 2</div><div class="desc">A full PyTorch training loop from scratch — <code>nn.Module</code>, a real dataset/dataloader, loss, optimizer, train/eval split — on a small, fast dataset (tabular or a small image set, your choice). No copy-pasted boilerplate: you should be able to explain every line.</div></div>
+        <div class="task-row"><div class="day">Day 3</div><div class="desc">Working with LLM APIs as an engineering surface, not a chat window: call a model API programmatically, handle structured/JSON output reliably (including retries on malformed responses), and understand at a basic level what a RAG pipeline actually does (retrieval step + context injection) without building a full one.</div></div>
+        <div class="task-row"><div class="day">Day 4</div><div class="desc">Serving a model behind a real API: wrap yesterday's trained model (or a small pretrained one) in a <code>FastAPI</code> service with a <code>/predict</code> endpoint, proper request validation via Pydantic models, and sane error responses instead of raw stack traces leaking to the client.</div></div>
+        <div class="task-row"><div class="day">Day 5</div><div class="desc">Just enough Docker to ship the service: write a <code>Dockerfile</code> for the FastAPI service, build and run it locally, and understand what "containerize this" actually buys you (reproducible environment, not magic). Also: basic load awareness — what happens to your <code>/predict</code> endpoint under concurrent requests, and why that connects directly to Week 7's concurrency material.</div></div>
+        <div class="task-row"><div class="day">Day 6</div><div class="desc"><b>Build day</b> — package Days 1–5 into one coherent artifact: a trained model, served via FastAPI, containerized, with a small script that exercises the LLM-API pattern from Day 3 as a second endpoint. This becomes your reference implementation for the rest of the regimen.</div></div>
+      </div>
+
+      <div class="block-label">Deliverables</div>
+      <div class="deliverables">
+        <div class="dcard"><div class="dtitle">Hand-derived + autograd match</div><div class="ddesc">A manual NumPy backward pass and its PyTorch autograd equivalent, gradients confirmed numerically equal.</div></div>
+        <div class="dcard"><div class="dtitle">Containerized model service</div><div class="ddesc">A FastAPI /predict endpoint, Pydantic-validated, running in Docker, that you built and can explain line by line.</div></div>
+        <div class="dcard"><div class="dtitle">LLM-API endpoint</div><div class="ddesc">A second endpoint calling an LLM API with reliable structured-output handling and retry logic.</div></div>
+      </div>
+
+      <div class="block-label">Catch the AI — week 4</div>
+      <div class="bughunt">
+        <div class="bughunt-head">
+          <div class="bh-title"><span class="bh-dots"><span></span><span></span><span></span></span> review_w4.py</div>
+          <div class="bh-diff band-mid">difficulty 4 / 12</div>
+        </div>
+        <pre class="code"><span class="c-comment"># FastAPI service an LLM generated for model inference,</span>
+<span class="c-comment"># "ready for production, handles concurrent requests fine."</span>
+<span class="c-kw">from</span> fastapi <span class="c-kw">import</span> FastAPI
+<span class="c-kw">import</span> torch
+
+app = FastAPI()
+
+<span class="c-kw">@app.post</span>(<span class="c-str">"/predict"</span>)
+<span class="c-kw">async def</span> predict(payload: dict):
+    model = torch.load(<span class="c-str">"model.pt"</span>)
+    model.<span class="c-kw">eval</span>()
+    x = torch.tensor(payload[<span class="c-str">"features"</span>])
+    <span class="c-kw">with</span> torch.no_grad():
+        result = model(x)
+    <span class="c-kw">return</span> {<span class="c-str">"prediction"</span>: result.tolist()}</pre>
+        <div class="reveal-bar">
+          <button class="reveal-btn" onclick="toggleReveal(this)">Reveal the bug</button>
+          <span class="reveal-hint">Works fine for one request. Falls over under real traffic.</span>
+        </div>
+        <div class="bug-answer">
+          <div class="aa-block">
+            <div class="aa-label">The bug</div>
+            <p><code>torch.load("model.pt")</code> runs <b>inside the request handler</b>, so the model is deserialized from disk on every single incoming request instead of once at startup. Beyond the obvious latency cost, this is a correctness and stability problem too: repeated deserialization under concurrent load multiplies memory pressure (multiple copies of the model may be alive simultaneously depending on garbage-collection timing) and can exhaust memory or crash the process under real traffic, even though a single manual test request looks completely fine.</p>
+          </div>
+          <div class="aa-fix">
+            <div class="aa-label">The fix</div>
+            <p>Load the model once at application startup (a FastAPI <code>lifespan</code>/startup event or a module-level load) and reuse the same in-memory model object across all requests. Separately worth flagging: a CPU-bound <code>model(x)</code> call inside an <code>async def</code> handler blocks the event loop for every other concurrent request unless it's offloaded to a thread pool (e.g. <code>run_in_threadpool</code>) — worth testing directly, since it connects to Week 7's concurrency material.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-label">Week 4 gate — unassisted, no docs open</div>
+      <div class="gate">
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Derive a 2-layer network's backward pass by hand and confirm it against autograd, without looking anything up.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain why loading a model inside a request handler is wrong, and fix it correctly for a FastAPI startup pattern.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Build and run a Dockerized FastAPI service from a blank directory in under 30 minutes.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain what a RAG pipeline actually does, mechanically, without hand-waving "it uses embeddings."</span></label>
+      </div>
+    </section>
+
+    <div class="phase-divider">
+      <span class="pd-num">Phase 2 · Weeks 5–12</span>
+      <span class="pd-line"></span>
+      <span class="pd-desc">Senior-level judgment — everything Phase 1 was building toward</span>
+    </div>
+
+    <!-- ============ WEEK 5 ============ -->
+    <section class="week" id="week5">
+      <div class="week-head">
+        <div class="wk-index">05</div>
+        <div class="wk-meta">
+          <div class="eyebrow2">Systems depth</div>
+          <h2>Python internals that matter for ML systems</h2>
+          <p class="theme-desc">Now that Phase 1 has you comfortable with the language and the stack, this is the internals that explain why your training and serving code behaves the way it does: what refcounting actually frees and when, what the GIL does and doesn't block, and how decorators/context managers/descriptors show up in PyTorch and framework internals you'll be reading from here on.</p>
+        </div>
+      </div>
+
+      <div class="block-label">Daily breakdown</div>
+      <div class="tasklist">
+        <div class="task-row"><div class="day">Day 1</div><div class="desc">Memory model deep dive: reference counting vs. the generational GC. Write a script that creates a reference cycle between two objects holding large arrays, prove with <code>gc.get_referrers</code> and <code>tracemalloc</code> that refcounting alone won't collect it, then force collection and measure the memory delta.</div></div>
+        <div class="task-row"><div class="day">Day 2</div><div class="desc">The GIL: read CPython's actual GIL-release points in C-extension code (NumPy ufuncs, file I/O) vs. pure-Python bytecode. Build a benchmark comparing a CPU-bound pure-Python transform vs. a NumPy-vectorized equivalent, run both under <b>threading</b> and <b>multiprocessing</b>, and explain the throughput gap in writing before you look at the numbers.</div></div>
+        <div class="task-row"><div class="day">Day 3</div><div class="desc">Real decorators, not toy examples: implement a <b>disk-backed memoization decorator</b> for an expensive preprocessing step, a <b>retry-with-backoff decorator</b> for a flaky network/API call, and a <b>timing decorator</b> that logs to your structured logger, not <code>print</code>. All three must correctly use <code>functools.wraps</code> and handle keyword arguments.</div></div>
+        <div class="task-row"><div class="day">Day 4</div><div class="desc">Context managers: write a custom context manager for a long-running job that guarantees a checkpoint or cleanup step runs on exception, using both <code>contextlib.contextmanager</code> and a class-based <code>__enter__</code>/<code>__exit__</code> version. Deliberately get the exception-suppression semantics wrong first, observe the silent failure, then fix it.</div></div>
+        <div class="task-row"><div class="day">Day 5</div><div class="desc">Descriptors and just enough metaclasses to read framework internals: trace through <code>torch.nn.Parameter</code>'s descriptor behavior and how <code>nn.Module.__setattr__</code> intercepts attribute assignment to register parameters. Read (don't reimplement) the relevant PyTorch source and annotate it in your own words.</div></div>
+        <div class="task-row"><div class="day">Day 6</div><div class="desc"><b>Build day</b> — assemble everything above into a reusable <code>engineering_utils</code> package (memoize, retry, timer, checkpoint context manager) that you keep using for the rest of the regimen. Not throwaway code.</div></div>
+      </div>
+
+      <div class="block-label">Deliverables</div>
+      <div class="deliverables">
+        <div class="dcard"><div class="dtitle">engineering_utils v0.1</div><div class="ddesc">A real, importable package with the four decorators/context managers, each with a docstring explaining the internals it relies on.</div></div>
+        <div class="dcard"><div class="dtitle">GC vs. refcount writeup</div><div class="ddesc">One page: a concrete reference cycle you built, and what actually triggers its collection.</div></div>
+        <div class="dcard"><div class="dtitle">GIL benchmark table</div><div class="ddesc">Threading vs. multiprocessing throughput for CPU-bound vs. I/O-bound work, with your prediction recorded before you ran it.</div></div>
+      </div>
+
+      <div class="block-label">Catch the AI — week 5</div>
+      <div class="bughunt">
+        <div class="bughunt-head">
+          <div class="bh-title"><span class="bh-dots"><span></span><span></span><span></span></span> review_w5.py</div>
+          <div class="bh-diff band-mid">difficulty 5 / 12</div>
+        </div>
+        <pre class="code"><span class="c-comment"># A teammate asked an LLM for a context manager that times</span>
+<span class="c-comment"># a job and swallows keyboard interrupts cleanly.</span>
+<span class="c-kw">import</span> time
+<span class="c-kw">from</span> contextlib <span class="c-kw">import</span> contextmanager
+
+<span class="c-kw">@contextmanager</span>
+<span class="c-kw">def</span> job_timer(logger):
+    start = time.perf_counter()
+    <span class="c-kw">try</span>:
+        <span class="c-kw">yield</span>
+    <span class="c-kw">except</span> Exception <span class="c-kw">as</span> e:
+        logger.warning(<span class="c-str">f"job interrupted: {e}"</span>)
+        <span class="c-kw">return</span> <span class="c-num">True</span>
+    <span class="c-kw">finally</span>:
+        elapsed = time.perf_counter() - start
+        logger.info(<span class="c-str">f"job took {elapsed:.2f}s"</span>)</pre>
+        <div class="reveal-bar">
+          <button class="reveal-btn" onclick="toggleReveal(this)">Reveal the bug</button>
+          <span class="reveal-hint">A one-line class of bug you'll see constantly.</span>
+        </div>
+        <div class="bug-answer">
+          <div class="aa-block">
+            <div class="aa-label">The bug</div>
+            <p><code>return True</code> inside a generator-based <code>@contextmanager</code> function does nothing to suppress exceptions — that suppression semantic only applies to a class-based context manager's <code>__exit__</code> returning a truthy value. Combined with the bare <code>except Exception</code>, every exception raised inside the <code>with job_timer(...):</code> block gets logged as a warning and then effectively lost track of, while the job appears to have "handled" its own crash. The job looks alive in the logs while it has actually died.</p>
+          </div>
+          <div class="aa-fix">
+            <div class="aa-label">The fix</div>
+            <p>Don't catch exceptions you don't intend to suppress. Drop the <code>except</code> block entirely and let <code>finally</code> log elapsed time regardless of success or failure; if suppression is genuinely wanted, do it explicitly per contextlib's documented generator protocol — never silently.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-label">Week 5 gate — unassisted, no docs open</div>
+      <div class="gate">
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain, from memory, why a reference cycle survives refcounting alone and what actually collects it.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Write a correctly-wrapped retry-with-backoff decorator from a blank file in under 10 minutes.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">State precisely what the GIL does and does not block, and name two situations where multiprocessing helps and threading doesn't.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain why a class-based context manager can suppress exceptions but a naive generator-based one returning True cannot.</span></label>
+      </div>
+    </section>
+
+    <!-- ============ WEEK 6 ============ -->
+    <section class="week" id="week6">
+      <div class="week-head">
+        <div class="wk-index">06</div>
+        <div class="wk-meta">
+          <div class="eyebrow2">Systems depth</div>
+          <h2>Performance engineering</h2>
+          <p class="theme-desc">Profiling before guessing, vectorization over Python loops, memory-mapped I/O for data too large for RAM, and the classic CPU-GPU sync stall — general enough for any large-array or tensor pipeline, whatever the data domain.</p>
+        </div>
+      </div>
+
+      <div class="block-label">Daily breakdown</div>
+      <div class="tasklist">
+        <div class="task-row"><div class="day">Day 1</div><div class="desc">Profile a deliberately slow windowed-extraction function over a large array (any large sequential or volumetric data you have on hand) with <code>cProfile</code> + <code>snakeviz</code>, then with <code>py-spy record</code> for a sampling view. Write your hypothesis about the bottleneck before touching any code.</div></div>
+        <div class="task-row"><div class="day">Day 2</div><div class="desc">Rewrite the slow extractor: replace nested Python loops with vectorized NumPy slicing/striding. Benchmark both versions on real data and report wall-clock <i>and</i> peak memory, not just wall-clock.</div></div>
+        <div class="task-row"><div class="day">Day 3</div><div class="desc">Memory-mapped I/O: load a large array from disk in memmap mode vs. fully into RAM, and prove with <code>tracemalloc</code>/<code>/usr/bin/time -v</code> that random-access sampling from the memmap doesn't require loading the full file. This matters directly on constrained hardware.</div></div>
+        <div class="task-row"><div class="day">Day 4</div><div class="desc">CPU-GPU sync stalls: instrument a real PyTorch training loop with <code>torch.profiler</code>, find every implicit synchronization point (<code>.item()</code>, <code>.cpu()</code>, printing a tensor inside the loop, non-async data transfer), and fix them. Measure the throughput delta even on CPU-only hardware — the anti-pattern is the same regardless of whether a GPU is present today.</div></div>
+        <div class="task-row"><div class="day">Day 5</div><div class="desc">When Numba actually earns its keep: take one numerically heavy, hard-to-vectorize function and JIT it with <code>@numba.njit</code>. Benchmark against pure NumPy and articulate, in writing, the specific conditions under which Numba wins and where it doesn't (small arrays, object-mode fallback, compilation overhead).</div></div>
+        <div class="task-row"><div class="day">Day 6</div><div class="desc"><b>Build day</b> — a reusable <code>profiling_harness</code> module wrapping cProfile/py-spy/torch.profiler behind one interface you'll invoke for the rest of the regimen.</div></div>
+      </div>
+
+      <div class="block-label">Deliverables</div>
+      <div class="deliverables">
+        <div class="dcard"><div class="dtitle">Before/after benchmark report</div><div class="ddesc">Loop-based vs. vectorized extraction, wall-clock and peak-memory numbers, on real data.</div></div>
+        <div class="dcard"><div class="dtitle">profiling_harness</div><div class="ddesc">One import, three backends (cProfile, py-spy, torch.profiler), consistent output format.</div></div>
+        <div class="dcard"><div class="dtitle">Sync-stall audit</div><div class="ddesc">Annotated diff of a training loop showing every implicit sync point found and removed.</div></div>
+      </div>
+
+      <div class="block-label">Catch the AI — week 6</div>
+      <div class="bughunt">
+        <div class="bughunt-head">
+          <div class="bh-title"><span class="bh-dots"><span></span><span></span><span></span></span> review_w6.py</div>
+          <div class="bh-diff band-mid">difficulty 6 / 12</div>
+        </div>
+        <pre class="code"><span class="c-comment"># "Optimized" patch-collection loop from an LLM, claimed to</span>
+<span class="c-comment"># be vectorized and memory-efficient for streaming large arrays.</span>
+<span class="c-kw">import</span> numpy <span class="c-kw">as</span> np
+
+<span class="c-kw">def</span> collect_patches(volume, patch_size=<span class="c-num">64</span>, stride=<span class="c-num">32</span>):
+    patches = np.array([])
+    <span class="c-kw">for</span> z <span class="c-kw">in</span> range(<span class="c-num">0</span>, volume.shape[<span class="c-num">0</span>] - patch_size, stride):
+        <span class="c-kw">for</span> y <span class="c-kw">in</span> range(<span class="c-num">0</span>, volume.shape[<span class="c-num">1</span>] - patch_size, stride):
+            <span class="c-kw">for</span> x <span class="c-kw">in</span> range(<span class="c-num">0</span>, volume.shape[<span class="c-num">2</span>] - patch_size, stride):
+                p = volume[z:z+patch_size, y:y+patch_size, x:x+patch_size]
+                patches = np.append(patches, p)
+    <span class="c-kw">return</span> patches.reshape(-<span class="c-num">1</span>, patch_size, patch_size, patch_size)</pre>
+        <div class="reveal-bar">
+          <button class="reveal-btn" onclick="toggleReveal(this)">Reveal the bug</button>
+          <span class="reveal-hint">Runs fine on a small test array. Times out on a real one.</span>
+        </div>
+        <div class="bug-answer">
+          <div class="aa-block">
+            <div class="aa-label">The bug</div>
+            <p><code>np.append</code> inside a loop is not amortized like <code>list.append</code> — every call reallocates and copies the entire growing array, making this O(n²) in the number of patches. On a small test volume this is invisible; at real scale it becomes the dominant cost, and it's exactly the kind of bug an LLM produces because the code "looks vectorized" (it uses NumPy, no explicit Python-level math loop) while still being an accidental quadratic-copy loop underneath.</p>
+          </div>
+          <div class="aa-fix">
+            <div class="aa-label">The fix</div>
+            <p>Collect patches in a plain Python list and stack once at the end with <code>np.stack(patch_list)</code>, or pre-allocate the output array once you know the patch count from the loop bounds and write into it by index — no reallocation at all.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-label">Week 6 gate — unassisted, no docs open</div>
+      <div class="gate">
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Given a slow function, choose correctly between cProfile, py-spy, and torch.profiler based on what you need to see.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Name three implicit CPU-GPU sync points and explain the mechanism behind each, not just "it's slow."</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain why memory-mapped I/O lets you random-access data larger than RAM, and its actual limitation.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Identify an accidental O(n²) NumPy pattern in someone else's code within 60 seconds of reading it.</span></label>
+      </div>
+    </section>
+
+    <!-- ============ WEEK 7 ============ -->
+    <section class="week" id="week7">
+      <div class="week-head">
+        <div class="wk-index">07</div>
+        <div class="wk-meta">
+          <div class="eyebrow2">Systems depth</div>
+          <h2>Concurrency, parallelism, and debugging distributed hangs</h2>
+          <p class="theme-desc">When each concurrency primitive is the wrong tool, how DataLoader workers actually get their state, and how to debug a distributed job that's silently deadlocked instead of crashing — directly connects back to Week 4's API service under concurrent load.</p>
+        </div>
+      </div>
+
+      <div class="block-label">Daily breakdown</div>
+      <div class="tasklist">
+        <div class="task-row"><div class="day">Day 1</div><div class="desc">Multiprocessing vs. threading vs. asyncio, decided by workload: build three small tasks (CPU-bound transform, blocking file I/O, and an async API call for logging metrics to a remote service) and implement each with the <i>wrong</i> primitive first, observe the failure or non-speedup, then fix it. Revisit Week 4's FastAPI service and confirm whether its <code>/predict</code> handler needed thread-pool offloading.</div></div>
+        <div class="task-row"><div class="day">Day 2</div><div class="desc">DataLoader worker internals: trace exactly what happens with <code>num_workers>0</code> under the default <code>fork</code> start method on Linux — what gets copied, what's shared, and why mutating a Python list inside <code>__getitem__</code> to build a "cache" silently fails to do what it looks like it does across worker processes.</div></div>
+        <div class="task-row"><div class="day">Day 3</div><div class="desc">Race conditions and deadlocks: build a minimal 2-process DDP-style simulation using <code>torch.multiprocessing</code> with a deliberate deadlock (mismatched collective calls — one rank calls <code>all_reduce</code>, the other doesn't, on some conditional branch). Diagnose it live using stack traces from <code>py-spy dump</code> against the hung process, not by staring at the code.</div></div>
+        <div class="task-row"><div class="day">Day 4</div><div class="desc">Fix the deadlock properly (every rank executes the same collective calls unconditionally), then build a second scenario: a race condition from unsynchronized checkpoint writes across ranks, and fix it with correct rank-0-only checkpointing.</div></div>
+        <div class="task-row"><div class="day">Day 5</div><div class="desc">Apply this to a real parallel workload of your choice — a simulation with N independent parallel units (client rounds, batch jobs, whatever fits your current work). Refactor a sequential version to use <code>multiprocessing.Pool</code> and measure the wall-clock improvement.</div></div>
+        <div class="task-row"><div class="day">Day 6</div><div class="desc"><b>Build day</b> — a one-page internal reference: "which concurrency primitive for which workload," using the actual failure modes you triggered this week as the examples, not generic ones.</div></div>
+      </div>
+
+      <div class="block-label">Deliverables</div>
+      <div class="deliverables">
+        <div class="dcard"><div class="dtitle">Deadlock diagnosis log</div><div class="ddesc">A py-spy dump of your intentionally-hung distributed simulation with your annotated read of where each rank is stuck.</div></div>
+        <div class="dcard"><div class="dtitle">Parallelized simulation</div><div class="ddesc">A sequential loop correctly parallelized across independent units, with before/after timing.</div></div>
+        <div class="dcard"><div class="dtitle">Primitive-selection reference</div><div class="ddesc">One page, your own failures as the worked examples.</div></div>
+      </div>
+
+      <div class="block-label">Catch the AI — week 7</div>
+      <div class="bughunt">
+        <div class="bughunt-head">
+          <div class="bh-title"><span class="bh-dots"><span></span><span></span><span></span></span> review_w7.py</div>
+          <div class="bh-diff band-mid">difficulty 7 / 12</div>
+        </div>
+        <pre class="code"><span class="c-comment"># Dataset that "caches" preprocessed items across epochs</span>
+<span class="c-comment"># to avoid recomputing them, used with a multi-worker DataLoader.</span>
+<span class="c-kw">class</span> CachedDataset(torch.utils.data.Dataset):
+    <span class="c-kw">def</span> __init__(self, items):
+        self.items = items
+        self._cache = {}  <span class="c-comment"># populated lazily</span>
+        self.cache_hits = <span class="c-num">0</span>
+
+    <span class="c-kw">def</span> __getitem__(self, idx):
+        <span class="c-kw">if</span> idx <span class="c-kw">in</span> self._cache:
+            self.cache_hits += <span class="c-num">1</span>
+            <span class="c-kw">return</span> self._cache[idx]
+        item = expensive_preprocess(self.items[idx])
+        self._cache[idx] = item
+        <span class="c-kw">return</span> item
+
+<span class="c-comment"># loader = DataLoader(dataset, num_workers=4, ...)</span>
+<span class="c-comment"># after training: print(dataset.cache_hits)  -> always near 0</span></pre>
+        <div class="reveal-bar">
+          <button class="reveal-btn" onclick="toggleReveal(this)">Reveal the bug</button>
+          <span class="reveal-hint">The cache "works" — cache_hits just always reports ~0. Why?</span>
+        </div>
+        <div class="bug-answer">
+          <div class="aa-block">
+            <div class="aa-label">The bug</div>
+            <p>With <code>num_workers>0</code> and the default <code>fork</code> start method, each worker process gets its own copy-on-write copy of the <code>Dataset</code> object, including <code>self._cache</code> and <code>self.cache_hits</code>. Each worker builds up its own private cache that never gets merged back into the main process, and PyTorch's default worker lifecycle can spin up a fresh set of workers between epochs, silently discarding whatever each worker had cached. The caching mechanism the person believes exists — a global cache growing across the whole run — doesn't exist at all, and <code>cache_hits</code> read from the main process is reading a counter that workers never actually update in a shared way.</p>
+          </div>
+          <div class="aa-fix">
+            <div class="aa-label">The fix</div>
+            <p>Either precompute and cache to disk/memmap (crosses the process boundary naturally via the filesystem) or use a true shared structure such as <code>multiprocessing.Manager().dict()</code> / shared memory, understanding the added IPC overhead. Precomputing to a memmapped file on disk is usually the right call over in-memory per-worker caching.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-label">Week 7 gate — unassisted, no docs open</div>
+      <div class="gate">
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain what fork-based worker processes actually share vs. copy, and why mutable state in `__getitem__` is a trap.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Given a hung distributed job, use py-spy dump (or describe the equivalent) to locate which rank is stuck and why.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain why mismatched collective calls across ranks cause a deadlock rather than a crash.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Correctly parallelize an embarrassingly-parallel simulation with multiprocessing.Pool from scratch.</span></label>
+      </div>
+    </section>
+
+    <!-- ============ WEEK 8 ============ -->
+    <section class="week" id="week8">
+      <div class="week-head">
+        <div class="wk-index">08</div>
+        <div class="wk-meta">
+          <div class="eyebrow2">Systems depth</div>
+          <h2>Production engineering habits</h2>
+          <p class="theme-desc">The unglamorous habits that separate code that survives six months from code that doesn't: typed interfaces, logs you can actually query, configs that don't silently drift, and experiments you can rerun bit-for-bit.</p>
+        </div>
+      </div>
+
+      <div class="block-label">Daily breakdown</div>
+      <div class="tasklist">
+        <div class="task-row"><div class="day">Day 1</div><div class="desc">Type hints for a real codebase: add type hints (including tensor-shape-documenting comments, since Python typing doesn't natively express shapes) to your Week 4 model-serving code, run <code>mypy</code>, and fix every real error it surfaces — not by silencing it, by fixing the underlying ambiguity.</div></div>
+        <div class="task-row"><div class="day">Day 2</div><div class="desc">Structured logging: replace every <code>print()</code> across everything you've built so far with structured logging (<code>logging</code> module + JSON formatter or <code>structlog</code>). Every log line should be filterable by run ID and phase.</div></div>
+        <div class="task-row"><div class="day">Day 3</div><div class="desc">Config management with Hydra/OmegaConf: convert a hardcoded experiment script into a Hydra-driven config with a composable multirun sweep across at least three parameters.</div></div>
+        <div class="task-row"><div class="day">Day 4</div><div class="desc">Reproducibility: implement full seeding (Python <code>random</code>, NumPy, PyTorch CPU and CUDA generators, plus a DataLoader <code>worker_init_fn</code>) and determinism flags, then prove determinism by running the same config twice and diffing the outputs bit-for-bit. Document, honestly, which operations remain non-deterministic even with all flags set.</div></div>
+        <div class="task-row"><div class="day">Day 5</div><div class="desc">Dependency/environment management that survives 6 months: set up a proper <code>pyproject.toml</code> with pinned versions, a lockfile, and a documented compatibility matrix for whatever hardware you actually develop and deploy on. Write down exactly what breaks if you upgrade a core dependency without checking this matrix.</div></div>
+        <div class="task-row"><div class="day">Day 6</div><div class="desc"><b>Build day</b> — merge everything into your Week 4 service: typed interfaces, structured logs, a Hydra-driven config, and full seeding wherever training happens.</div></div>
+      </div>
+
+      <div class="block-label">Deliverables</div>
+      <div class="deliverables">
+        <div class="dcard"><div class="dtitle">Hydra-driven multirun sweep</div><div class="ddesc">A working config sweep across a real parameter grid on one of your projects.</div></div>
+        <div class="dcard"><div class="dtitle">Determinism proof</div><div class="ddesc">Two identical runs, diffed output, plus a written list of what still isn't deterministic and why.</div></div>
+        <div class="dcard"><div class="dtitle">mypy-clean core module</div><div class="ddesc">Your Week 4 service's core functions, typed and passing mypy without suppressions.</div></div>
+      </div>
+
+      <div class="block-label">Catch the AI — week 8</div>
+      <div class="bughunt">
+        <div class="bughunt-head">
+          <div class="bh-title"><span class="bh-dots"><span></span><span></span><span></span></span> review_w8.py</div>
+          <div class="bh-diff band-hard">difficulty 8 / 12</div>
+        </div>
+        <pre class="code"><span class="c-comment"># "Fully reproducible" training setup an LLM generated</span>
+<span class="c-comment"># when asked to make results deterministic across runs.</span>
+<span class="c-kw">import</span> random, numpy <span class="c-kw">as</span> np, torch
+
+<span class="c-kw">def</span> set_seed(seed: <span class="c-kw">int</span> = <span class="c-num">42</span>):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    <span class="c-comment"># CUDA also seeded via torch.manual_seed per docs</span>
+
+<span class="c-kw">def</span> get_dataloader(dataset):
+    <span class="c-kw">return</span> torch.utils.data.DataLoader(
+        dataset, batch_size=<span class="c-num">8</span>, shuffle=<span class="c-num">True</span>,
+        num_workers=<span class="c-num">4</span>
+    )</pre>
+        <div class="reveal-bar">
+          <button class="reveal-btn" onclick="toggleReveal(this)">Reveal the bug</button>
+          <span class="reveal-hint">Passes a single-process smoke test. Fails to reproduce with num_workers>0.</span>
+        </div>
+        <div class="bug-answer">
+          <div class="aa-block">
+            <div class="aa-label">The bug</div>
+            <p>Two separate gaps. First, <code>torch.manual_seed(seed)</code> alone does not fully seed CUDA operations — <code>torch.cuda.manual_seed_all(seed)</code> is also needed for multi-GPU determinism, and cuDNN's autotuned/non-deterministic algorithms need <code>torch.backends.cudnn.deterministic=True</code> and <code>torch.backends.cudnn.benchmark=False</code> explicitly set, none of which are here. Second, more subtly: with <code>num_workers=4</code>, each DataLoader worker process gets its own independent random state derived from the initial fork — without a <code>worker_init_fn</code> that seeds each worker deterministically, any augmentation randomness inside <code>__getitem__</code> will differ between runs even though <code>set_seed</code> was called correctly in the main process.</p>
+          </div>
+          <div class="aa-fix">
+            <div class="aa-label">The fix</div>
+            <p>Add <code>torch.cuda.manual_seed_all(seed)</code> and the cuDNN determinism flags to <code>set_seed</code>, and pass a <code>worker_init_fn</code> to the DataLoader that seeds each worker from <code>torch.initial_seed()</code> so per-worker randomness is also reproducible.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-label">Week 8 gate — unassisted, no docs open</div>
+      <div class="gate">
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">List every seed/flag needed for full determinism, including the DataLoader worker case, from memory.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Write a Hydra config group with a multirun sweep over three parameters without looking anything up.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain what mypy actually caught in your codebase this week and why it was a real ambiguity, not noise.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Justify your dependency pinning strategy and what specifically breaks if you skip it.</span></label>
+      </div>
+    </section>
+
+    <!-- ============ WEEK 9 ============ -->
+    <section class="week" id="week9">
+      <div class="week-head">
+        <div class="wk-index">09</div>
+        <div class="wk-meta">
+          <div class="eyebrow2">Systems depth</div>
+          <h2>Testing ML code specifically</h2>
+          <p class="theme-desc">Standard testing advice breaks on ML code because so much of it is stochastic, tensor-shaped, and silently corruptible. This week is about testing the things that actually go wrong: shape invariants, numerical stability, stochastic-but-bounded behavior, and silent data pipeline corruption.</p>
+        </div>
+      </div>
+
+      <div class="block-label">Daily breakdown</div>
+      <div class="tasklist">
+        <div class="task-row"><div class="day">Day 1</div><div class="desc">pytest fundamentals at the level you actually need: fixtures, parametrize, and <code>conftest.py</code> scoping for expensive fixtures (e.g. a loaded dataset shared across a test module without reloading it per test).</div></div>
+        <div class="task-row"><div class="day">Day 2</div><div class="desc">Property-based testing with Hypothesis: write a property test that generates random-but-valid input shapes and asserts your extraction function never produces an output smaller than expected and never reads out of bounds — for any valid input, not just your test fixtures.</div></div>
+        <div class="task-row"><div class="day">Day 3</div><div class="desc">Testing stochastic code correctly: your augmentation/sampling pipeline is randomized by design, so exact-output assertions are wrong. Write tests that fix the seed and assert distributional/statistical properties instead (e.g. mean value stays within a tolerance band across 100 random seeds).</div></div>
+        <div class="task-row"><div class="day">Day 4</div><div class="desc">Regression tests for model outputs: build a small regression suite that runs a frozen mini-model on a fixed input and asserts the output tensor is within numerical tolerance of a saved golden output — catching accidental behavior changes from refactors, not just crashes.</div></div>
+        <div class="task-row"><div class="day">Day 5</div><div class="desc">Testing data pipelines for silent corruption: write tests that would catch a real class of bug — a label remapping that silently drops a category, or a normalization step applied twice. Build the corruption deliberately, confirm your test catches it, then confirm it passes clean data.</div></div>
+        <div class="task-row"><div class="day">Day 6</div><div class="desc"><b>Build day</b> — assemble a real test suite for one of your existing pipelines: shape invariants via Hypothesis, stochastic augmentation properties, regression tests on a frozen mini-model, and corruption-detection tests. Run it in CI-style with <code>pytest -x --cov</code>.</div></div>
+      </div>
+
+      <div class="block-label">Deliverables</div>
+      <div class="deliverables">
+        <div class="dcard"><div class="dtitle">Real pipeline test suite</div><div class="ddesc">A runnable suite covering shape invariants, stochastic properties, regressions, and corruption detection.</div></div>
+        <div class="dcard"><div class="dtitle">Hypothesis shape-invariant tests</div><div class="ddesc">Your extraction function proven correct across generated input shapes, not just your fixtures.</div></div>
+        <div class="dcard"><div class="dtitle">Golden-output regression harness</div><div class="ddesc">Frozen mini-model + tolerance-based comparison you can rerun after any refactor.</div></div>
+      </div>
+
+      <div class="block-label">Catch the AI — week 9</div>
+      <div class="bughunt">
+        <div class="bughunt-head">
+          <div class="bh-title"><span class="bh-dots"><span></span><span></span><span></span></span> review_w9.py</div>
+          <div class="bh-diff band-hard">difficulty 9 / 12</div>
+        </div>
+        <pre class="code"><span class="c-comment"># Hypothesis property test for the extraction function,</span>
+<span class="c-comment"># meant to check it never produces an out-of-bounds patch.</span>
+<span class="c-kw">from</span> hypothesis <span class="c-kw">import</span> given
+<span class="c-kw">import</span> hypothesis.strategies <span class="c-kw">as</span> st
+<span class="c-kw">import</span> numpy <span class="c-kw">as</span> np
+
+<span class="c-kw">@given</span>(
+    depth=st.integers(min_value=-<span class="c-num">10</span>, max_value=<span class="c-num">200</span>),
+    height=st.integers(min_value=-<span class="c-num">10</span>, max_value=<span class="c-num">200</span>),
+    width=st.integers(min_value=-<span class="c-num">10</span>, max_value=<span class="c-num">200</span>),
+)
+<span class="c-kw">def</span> test_extraction_bounds(depth, height, width):
+    volume = np.random.rand(depth, height, width)
+    patches = extract_patches(volume, patch_size=<span class="c-num">32</span>, stride=<span class="c-num">16</span>)
+    <span class="c-kw">for</span> p <span class="c-kw">in</span> patches:
+        <span class="c-kw">assert</span> p.shape == (<span class="c-num">32</span>, <span class="c-num">32</span>, <span class="c-num">32</span>)</pre>
+        <div class="reveal-bar">
+          <button class="reveal-btn" onclick="toggleReveal(this)">Reveal the bug</button>
+          <span class="reveal-hint">Hypothesis will find a failing example almost immediately — but not the one you'd expect from reading the assert.</span>
+        </div>
+        <div class="bug-answer">
+          <div class="aa-block">
+            <div class="aa-label">The bug</div>
+            <p>The strategy itself is invalid before the assertion even matters: <code>st.integers(min_value=-10, ...)</code> allows negative dimensions, and <code>np.random.rand(depth, height, width)</code> raises a <code>ValueError</code> for negative arguments — so the test fails with a crash inside the test setup, not with a meaningful assertion about extraction bounds. This is a common Hypothesis mistake: writing a strategy that generates values your system under test can't even accept, so the shrinker reports a "failure" that has nothing to do with the property you actually meant to check, and it's easy to misread the crash as confirming a real bug in <code>extract_patches</code> when it's really a bug in the test.</p>
+          </div>
+          <div class="aa-fix">
+            <div class="aa-label">The fix</div>
+            <p>Constrain the strategy to the domain the function under test actually accepts (e.g. <code>min_value=32</code> to guarantee at least one patch fits, or explicitly test the too-small case as its own scenario with an expected exception), and separate "does the function reject invalid input correctly" from "does the function produce correctly-bounded output for valid input" as two distinct properties.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-label">Week 9 gate — unassisted, no docs open</div>
+      <div class="gate">
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Write a Hypothesis strategy constrained to a function's actual valid input domain, without generating invalid inputs by accident.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain why exact-output assertions are wrong for stochastic code and what to assert instead.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Design a test that would catch a silent label-remapping or double-normalization bug before it reaches training.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Set up a golden-output regression test with an appropriate numerical tolerance and justify the tolerance choice.</span></label>
+      </div>
+    </section>
+
+    <!-- ============ WEEK 10 ============ -->
+    <section class="week" id="week10">
+      <div class="week-head">
+        <div class="wk-index">10</div>
+        <div class="wk-meta">
+          <div class="eyebrow2">Systems depth</div>
+          <h2>Auditing training loops the way a senior engineer reviews a PR</h2>
+          <p class="theme-desc">This is the week that most directly builds the skill of catching what an AI (or a rushed teammate) gets wrong: loss computation, gradient accumulation, detach/no_grad usage, device/dtype bugs, windowing off-by-ones, data leakage, and multi-GPU nondeterminism.</p>
+        </div>
+      </div>
+
+      <div class="block-label">Daily breakdown</div>
+      <div class="tasklist">
+        <div class="task-row"><div class="day">Day 1</div><div class="desc">Audit a full training loop line by line for the seven classic failure modes (listed in the gate below) using a checklist you write yourself first, then apply it to a real training script from one of your own repos.</div></div>
+        <div class="task-row"><div class="day">Day 2</div><div class="desc">Gradient accumulation, done wrong then right: implement it with the loss-scaling bug (forgetting to divide by accumulation steps) planted, observe the effective-learning-rate distortion in a loss curve, then fix it and compare curves.</div></div>
+        <div class="task-row"><div class="day">Day 3</div><div class="desc"><code>.detach()</code> / <code>no_grad()</code> audit: build a training loop with a deliberately retained computation graph (e.g. logging a per-batch loss list without <code>.detach()</code>) and watch memory grow across an epoch with a memory profiler. Fix it and confirm flat memory usage.</div></div>
+        <div class="task-row"><div class="day">Day 4</div><div class="desc">Device placement and dtype bugs: build a mixed-precision (fp16/bf16) training loop, deliberately introduce a dtype mismatch that causes silent precision loss or a hard-to-read error, and separately a device-placement bug (a tensor left on CPU merged with a CUDA tensor). Practice reading the actual error trace rather than guessing.</div></div>
+        <div class="task-row"><div class="day">Day 5</div><div class="desc">Windowing and split bugs: off-by-one in patch/window extraction (stride vs. patch_size producing dropped edge elements or overlapping double-counted regions), and <b>group-level vs. item-level data leakage</b> — build both bugs deliberately in a realistic train/val split, then write the fix and a leakage-detection check you can reuse.</div></div>
+        <div class="task-row"><div class="day">Day 6</div><div class="desc"><b>Build day</b> — turn this week into a permanent "training loop audit checklist" document plus a small static-analysis-style script that flags a few of these patterns automatically (e.g. regex/AST scan for <code>.item()</code> inside loops, missing <code>.detach()</code> on logged tensors).</div></div>
+      </div>
+
+      <div class="block-label">Deliverables</div>
+      <div class="deliverables">
+        <div class="dcard"><div class="dtitle">Training loop audit checklist</div><div class="ddesc">Your own written checklist, refined against real bugs you triggered this week.</div></div>
+        <div class="dcard"><div class="dtitle">Leakage-detection utility</div><div class="ddesc">A reusable check confirming no group/patient/entity ID appears in both train and val splits.</div></div>
+        <div class="dcard"><div class="dtitle">Static bug-scan script</div><div class="ddesc">A small tool that flags a handful of these anti-patterns automatically in a training script.</div></div>
+      </div>
+
+      <div class="block-label">Catch the AI — week 10</div>
+      <div class="bughunt">
+        <div class="bughunt-head">
+          <div class="bh-title"><span class="bh-dots"><span></span><span></span><span></span></span> review_w10.py</div>
+          <div class="bh-diff band-hard">difficulty 10 / 12</div>
+        </div>
+        <pre class="code"><span class="c-comment"># Gradient-accumulation training step, generated to "support</span>
+<span class="c-comment"># larger effective batch sizes on limited GPU memory."</span>
+accumulation_steps = <span class="c-num">4</span>
+optimizer.zero_grad()
+
+<span class="c-kw">for</span> step, (x, y) <span class="c-kw">in</span> enumerate(dataloader):
+    x, y = x.to(device), y.to(device)
+    pred = model(x)
+    loss = criterion(pred, y)
+    loss.backward()
+
+    <span class="c-kw">if</span> (step + <span class="c-num">1</span>) % accumulation_steps == <span class="c-num">0</span>:
+        optimizer.step()
+        optimizer.zero_grad()
+
+    running_loss = loss.item()
+    <span class="c-kw">if</span> step % <span class="c-num">50</span> == <span class="c-num">0</span>:
+        print(<span class="c-str">f"step {step} loss {running_loss}"</span>)</pre>
+        <div class="reveal-bar">
+          <button class="reveal-btn" onclick="toggleReveal(this)">Reveal the bug</button>
+          <span class="reveal-hint">Trains, loss goes down, curve looks plausible. Effective LR is still wrong.</span>
+        </div>
+        <div class="bug-answer">
+          <div class="aa-block">
+            <div class="aa-label">The bug</div>
+            <p>The per-batch <code>loss</code> is never divided by <code>accumulation_steps</code> before <code>backward()</code>. Gradient accumulation is supposed to simulate a larger batch by summing gradients over several micro-batches before stepping — but without scaling the loss down first, the accumulated gradient is effectively <code>accumulation_steps</code> times larger than a true large-batch gradient would be, which acts like silently multiplying the learning rate by 4. The loss curve still trends downward — which is exactly why this bug survives code review by eye — but the effective optimization dynamics don't match what a real equivalent-batch-size run would produce.</p>
+          </div>
+          <div class="aa-fix">
+            <div class="aa-label">The fix</div>
+            <p>Scale the loss before the backward call: <code>loss = criterion(pred, y) / accumulation_steps</code>, then <code>loss.backward()</code>. Also fix the smaller secondary issue: <code>running_loss</code> logs the scaled-down loss, which should be multiplied back by <code>accumulation_steps</code> (or tracked pre-scaling) so logged values stay comparable to a non-accumulated run.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-label">Week 10 gate — unassisted, no docs open</div>
+      <div class="gate">
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Recite, from memory, at least six distinct classes of training-loop bugs you can audit for.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Given a training script, find a planted gradient-accumulation scaling bug within 5 minutes without hints.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain the mechanism by which a retained computation graph causes memory to grow across an epoch, precisely.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Write a leakage-detection check for a group-level split from scratch.</span></label>
+      </div>
+    </section>
+
+    <!-- ============ WEEK 11 ============ -->
+    <section class="week" id="week11">
+      <div class="week-head">
+        <div class="wk-index">11</div>
+        <div class="wk-meta">
+          <div class="eyebrow2">Systems depth</div>
+          <h2>Correctness under security &amp; privacy constraints</h2>
+          <p class="theme-desc">Any AI engineer touching auth, encrypted data, differential privacy, or federated systems needs this judgment — not just researchers. Conceptual-correctness-focused, not applied-cryptography-engineering-focused; see the reality check for exactly where that line is drawn. Worked with DP-SGD and EC-based masking as the concrete example, because it's genuinely good material, not because it's the only context this applies to.</p>
+        </div>
+      </div>
+
+      <div class="block-label">Daily breakdown</div>
+      <div class="tasklist">
+        <div class="task-row"><div class="day">Day 1</div><div class="desc">Why security/privacy code can't be "close enough": walk through a real encryption or masking routine (yours or a reference implementation) and identify every place a subtly wrong constant, wrong modular arithmetic, or wrong randomness source would produce output that <i>looks</i> plausible but breaks the guarantee silently — no crash, no visible symptom.</div></div>
+        <div class="task-row"><div class="day">Day 2</div><div class="desc">Timing side-channels, conceptually: read how variable-time comparison or branch-dependent execution in a naive implementation can leak sensitive material through timing, and rewrite one comparison somewhere in your code to be constant-time where practical. This is recognition-level, not a claim you'll ship production constant-time crypto.</div></div>
+        <div class="task-row"><div class="day">Day 3</div><div class="desc">DP-SGD noise mechanisms done right vs. plausible-but-wrong: implement per-sample gradient clipping correctly (clip <i>before</i> aggregation, per example, not on the aggregated/averaged gradient), then compute the correct Gaussian noise scale from your clipping bound and target epsilon using the standard DP-SGD formulation.</div></div>
+        <div class="task-row"><div class="day">Day 4</div><div class="desc">Build the "plausible-but-wrong" version deliberately (clip the averaged gradient instead of per-sample, or use epsilon directly as the noise sigma) and empirically show its privacy accounting is wrong even though the training curve looks similar — broken DP code often trains just fine, which is exactly the danger.</div></div>
+        <div class="task-row"><div class="day">Day 5</div><div class="desc">Apply directly to any of your own security/privacy-relevant work: audit an actual masking or encryption implementation you've written against a checklist of the failure modes from this week, with particular attention to correctness under partial failure (e.g. a participant dropping out mid-protocol) — a common real-world condition these schemes need to survive.</div></div>
+        <div class="task-row"><div class="day">Day 6</div><div class="desc"><b>Build day</b> — finalize the corrected per-sample-clipped DP-SGD implementation and a dropout-tolerant test suite for whatever masking/aggregation scheme you're working with, as artifacts you can actually reuse.</div></div>
+      </div>
+
+      <div class="block-label">Deliverables</div>
+      <div class="deliverables">
+        <div class="dcard"><div class="dtitle">Correct per-sample DP-SGD</div><div class="ddesc">Clipping before aggregation, correctly-derived noise scale, with the broken version kept alongside as a labeled counterexample.</div></div>
+        <div class="dcard"><div class="dtitle">Dropout-tolerant protocol tests</div><div class="ddesc">Your masking/aggregation scheme verified correct under simulated partial-participant dropout.</div></div>
+        <div class="dcard"><div class="dtitle">Side-channel review notes</div><div class="ddesc">Annotated points in your code where timing variability could leak information, and what you changed.</div></div>
+      </div>
+
+      <div class="block-label">Catch the AI — week 11</div>
+      <div class="bughunt">
+        <div class="bughunt-head">
+          <div class="bh-title"><span class="bh-dots"><span></span><span></span><span></span></span> review_w11.py</div>
+          <div class="bh-diff band-hard">difficulty 11 / 12</div>
+        </div>
+        <pre class="code"><span class="c-comment"># DP-SGD training step, generated as "standard differentially</span>
+<span class="c-comment"># private gradient descent with gradient clipping and noise."</span>
+<span class="c-kw">def</span> dp_train_step(model, batch, optimizer, clip_norm=<span class="c-num">1.0</span>, epsilon=<span class="c-num">1.0</span>):
+    x, y = batch
+    optimizer.zero_grad()
+    pred = model(x)
+    loss = criterion(pred, y)
+    loss.backward()
+
+    <span class="c-comment"># clip the gradient</span>
+    torch.nn.utils.clip_grad_norm_(model.parameters(), clip_norm)
+
+    <span class="c-comment"># add DP noise scaled by epsilon</span>
+    <span class="c-kw">for</span> p <span class="c-kw">in</span> model.parameters():
+        <span class="c-kw">if</span> p.grad <span class="c-kw">is</span> <span class="c-kw">not</span> <span class="c-num">None</span>:
+            noise = torch.randn_like(p.grad) * (clip_norm / epsilon)
+            p.grad += noise
+
+    optimizer.step()</pre>
+        <div class="reveal-bar">
+          <button class="reveal-btn" onclick="toggleReveal(this)">Reveal the bug</button>
+          <span class="reveal-hint">This trains, and the loss curve looks completely normal — that's exactly the danger.</span>
+        </div>
+        <div class="bug-answer">
+          <div class="aa-block">
+            <div class="aa-label">The bug</div>
+            <p>Two compounding DP-SGD errors, either one alone would break the privacy guarantee. First: <code>clip_grad_norm_</code> clips the <i>already-aggregated</i> gradient for the whole batch, not each example's gradient individually before aggregation — real DP-SGD requires per-sample gradient clipping (via per-example gradient computation, e.g. microbatching or a per-example-grad library) precisely because clipping the average does nothing to bound any single training example's influence on the result, which is the actual quantity DP is protecting. Second: the noise scale <code>clip_norm / epsilon</code> is not how Gaussian-mechanism sigma is derived — proper DP-SGD noise calibration comes from a composition accountant (moments accountant / RDP accountant) that accounts for the number of steps, sampling rate, and delta, not a single-step formula using epsilon directly as if privacy composed for free across the whole run. The code trains and produces a plausible loss curve while providing dramatically weaker privacy than the stated epsilon implies — the single most common "looks right, isn't" DP-SGD bug.</p>
+          </div>
+          <div class="aa-fix">
+            <div class="aa-label">The fix</div>
+            <p>Compute per-example gradients, clip each one individually to <code>clip_norm</code>, sum the clipped per-example gradients, then add Gaussian noise with standard deviation derived from a proper privacy accountant given the noise multiplier, sampling rate, and number of steps — not from epsilon divided into a single step's clip norm.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-label">Week 11 gate — unassisted, no docs open</div>
+      <div class="gate">
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain precisely why per-sample clipping, not average-gradient clipping, is required for DP-SGD's guarantee to hold.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain why deriving noise sigma directly from epsilon in a single step is wrong, and what a composition accountant actually does.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Identify at least one place in your own code where timing variability could be a side-channel.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Demonstrate your protocol still produces correct results under simulated partial dropout.</span></label>
+      </div>
+    </section>
+
+    <!-- ============ WEEK 12 ============ -->
+    <section class="week" id="week12">
+      <div class="week-head">
+        <div class="wk-index">12</div>
+        <div class="wk-meta">
+          <div class="eyebrow2">Capstone</div>
+          <h2>Integration week — build, break, and fix a full system</h2>
+          <p class="theme-desc">No new material. Everything from weeks 1–11 combines into one realistic system, deliberately sabotaged with a compound bug you trace across layers at once — the way real production bugs actually present. Pick whichever track fits what you actually want to walk into interviews or a lab with.</p>
+        </div>
+      </div>
+
+      <div class="block-label">Choose your capstone track</div>
+      <div class="deliverables">
+        <div class="dcard"><div class="dtitle">Track A — general production ML service</div><div class="ddesc">A complete pipeline: ingest → clean → train → test → serve behind a Dockerized FastAPI endpoint, config-driven, typed, logged, fully tested. The generalist proof point.</div></div>
+        <div class="dcard"><div class="dtitle">Track B — federated / privacy-preserving system</div><div class="ddesc">N simulated clients, parallelized, with per-sample-clipped DP-SGD and masked aggregation — directly reusable as real experimental infrastructure if that's your actual current work.</div></div>
+      </div>
+
+      <div class="block-label">Daily breakdown</div>
+      <div class="tasklist">
+        <div class="task-row"><div class="day">Day 1–2</div><div class="desc">Assemble the full pipeline for your chosen track, mostly stitching together artifacts you already built in weeks 1–11: typed and config-driven via Hydra (week 8), fully tested (week 9), parallelized where relevant (week 7), and — for Track B — per-sample-clipped DP-SGD and masked aggregation (week 11).</div></div>
+        <div class="task-row"><div class="day">Day 3</div><div class="desc">Profile the assembled pipeline end to end (week 6 skills) and fix the worst real bottleneck you find — there will be one, because assembled systems always have integration-level slowdowns that don't show up in isolated components.</div></div>
+        <div class="task-row"><div class="day">Day 4–5</div><div class="desc"><b>Sabotage exercise</b> — a version of your pipeline is given to you with a compound bug seeded across two layers at once (see below for the Track B example; Track A gets an analogous compound bug in aggregation/splitting logic). Diagnose and fix it using only the audit habits from week 10 and the profiling/debugging tools from weeks 6–7. No hints beyond the symptom.</div></div>
+        <div class="task-row"><div class="day">Day 6</div><div class="desc">Write the postmortem: what the symptom looked like, what you ruled out first and why, what the actual root cause was, and what test or check from weeks 9–10 would have caught it before it shipped. This document is the real deliverable — it's the artifact that proves systems-level debugging judgment, not the fix itself.</div></div>
+      </div>
+
+      <div class="block-label">Deliverables</div>
+      <div class="deliverables">
+        <div class="dcard"><div class="dtitle">Full integrated pipeline</div><div class="ddesc">Config-driven, tested, profiled, containerized — a real, reusable artifact for your chosen track.</div></div>
+        <div class="dcard"><div class="dtitle">Sabotage postmortem</div><div class="ddesc">Root-cause writeup of the compound bug: symptom, elimination path, root cause, and the missing check.</div></div>
+        <div class="dcard"><div class="dtitle">Portfolio-ready audit checklist</div><div class="ddesc">Your accumulated week-10-style checklist, now proven against a real multi-layer bug, ready to reuse on any future PR.</div></div>
+      </div>
+
+      <div class="block-label">Catch the AI — week 12 (capstone, compound bug — Track B example)</div>
+      <div class="bughunt">
+        <div class="bughunt-head">
+          <div class="bh-title"><span class="bh-dots"><span></span><span></span><span></span></span> review_w12.py</div>
+          <div class="bh-diff band-hard">difficulty 12 / 12 — two independent bugs, one symptom</div>
+        </div>
+        <pre class="code"><span class="c-comment"># FedAvg aggregation + train/val split setup for the</span>
+<span class="c-comment"># integrated pipeline. Validation accuracy looks great —</span>
+<span class="c-comment"># suspiciously better than the paper's reported baseline.</span>
+
+<span class="c-kw">def</span> federated_average(client_updates):
+    <span class="c-comment"># client_updates: list of (state_dict, num_samples)</span>
+    avg_state = {}
+    <span class="c-kw">for</span> key <span class="c-kw">in</span> client_updates[<span class="c-num">0</span>][<span class="c-num">0</span>].keys():
+        avg_state[key] = sum(sd[key] <span class="c-kw">for</span> sd, _ <span class="c-kw">in</span> client_updates) / len(client_updates)
+    <span class="c-kw">return</span> avg_state
+
+<span class="c-kw">def</span> make_split(all_items, val_frac=<span class="c-num">0.2</span>):
+    random.shuffle(all_items)
+    n_val = <span class="c-kw">int</span>(len(all_items) * val_frac)
+    <span class="c-kw">return</span> all_items[n_val:], all_items[:n_val]  <span class="c-comment"># train, val</span></pre>
+        <div class="reveal-bar">
+          <button class="reveal-btn" onclick="toggleReveal(this)">Reveal both bugs</button>
+          <span class="reveal-hint">One is FL-specific, one is data-splitting-specific. They compound into one suspicious symptom.</span>
+        </div>
+        <div class="bug-answer">
+          <div class="aa-block">
+            <div class="aa-label">Bug 1 — unweighted FedAvg</div>
+            <p><code>federated_average</code> divides by <code>len(client_updates)</code>, giving every client's update equal weight regardless of how many samples it trained on. Correct FedAvg weights each client's contribution by its local dataset size relative to the total, because a client with 500 samples and a client with 20 samples should not move the global model equally. With non-uniform client sizes and dropout, this systematically biases the aggregated model and inflates apparent convergence speed in ways that don't reflect a real deployment.</p>
+          </div>
+          <div class="aa-block">
+            <div class="aa-label">Bug 2 — item-level, not group-level, split</div>
+            <p><code>make_split</code> shuffles and splits individual items. If those items are highly correlated within a group (slices from the same patient, frames from the same video, rows from the same user session), splitting at the item level near-guarantees that correlated items appear in both train and val — textbook data leakage. The model partially memorizes group-specific patterns rather than generalizing, producing an artificially high validation accuracy — exactly matching the suspiciously-good symptom described in the comment.</p>
+          </div>
+          <div class="aa-fix">
+            <div class="aa-label">The fix</div>
+            <p>Weight <code>federated_average</code> by each client's <code>num_samples</code> relative to the total, and change <code>make_split</code> to shuffle and split at the <b>group ID</b> level first, only then expanding each group's items into their assigned split — with an assertion that no group ID intersects between train and val before training ever starts.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-label">Week 12 / final gate — unassisted, no docs open</div>
+      <div class="gate">
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Diagnose a compound bug spanning two layers from a single suspicious symptom, unaided.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Explain why unweighted FedAvg is wrong under non-uniform client dataset sizes and derive the correct weighting.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Write a group-level split assertion check you'd add to CI to make this class of leakage impossible to reintroduce.</span></label>
+        <label class="gate-item"><input type="checkbox"><span class="checkbox"></span><span class="gtext">Present your full integrated pipeline and defend every design choice in it under questioning, the way a thesis committee or interview panel would.</span></label>
+      </div>
+    </section>
+
+    <section class="resources" id="resources">
+      <div class="eyebrow">Not generic course links</div>
+      <h2>Six primary sources to actually pull from</h2>
+      <div class="res-grid">
+        <div class="res-card">
+          <div class="r-num">01</div>
+          <h3>"Fluent Python," 2nd ed. (Ramalho)</h3>
+          <p>For Phase 1: the chapters on data model, decorators, and concurrency are the closest thing to a reference for exactly the internals weeks 1 and 5 build on.</p>
+        </div>
+        <div class="res-card">
+          <div class="r-num">02</div>
+          <h3>CPython source — Objects &amp; Modules</h3>
+          <p>Read <code>Objects/dictobject.c</code> comments and <code>Modules/gcmodule.c</code> directly for week 5's refcounting/GC work — the source comments are more precise than any secondary explanation.</p>
+        </div>
+        <div class="res-card">
+          <div class="r-num">03</div>
+          <h3>PyTorch source — torch/utils/data &amp; torch/nn/parallel</h3>
+          <p>For weeks 7 and 10: <code>torch/utils/data/dataloader.py</code>'s worker spawning logic, and <code>torch/nn/parallel/distributed.py</code> for how DDP actually issues collectives.</p>
+        </div>
+        <div class="res-card">
+          <div class="r-num">04</div>
+          <h3>FastAPI documentation — "Bigger Applications" &amp; async guides</h3>
+          <p>For week 4 and 7: the sections on background tasks, dependency injection, and sync-vs-async handlers directly cover the thread-pool-offloading question from week 4's bug.</p>
+        </div>
+        <div class="res-card">
+          <div class="r-num">05</div>
+          <h3>Abadi et al., "Deep Learning with Differential Privacy" (2016)</h3>
+          <p>The original DP-SGD paper — read the moments accountant section directly for week 11 rather than a summary; the per-sample clipping requirement is stated precisely there.</p>
+        </div>
+        <div class="res-card">
+          <div class="r-num">06</div>
+          <h3>Hypothesis documentation — "Composing strategies"</h3>
+          <p>For week 9: the strategies reference, specifically the sections on <code>filter</code> and constrained integer/array strategies, to avoid the invalid-domain trap from the week 9 bug.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="foot">built for the gap between prompting and understanding — 12 weeks, foundations included, no shortcuts</footer>
+
+<script>
+document.querySelectorAll('.gate-item').forEach(item=>{
+  item.addEventListener('click',e=>{
+    if(e.target.tagName.toLowerCase()!=='input'){
+      const cb=item.querySelector('input');
+      cb.checked=!cb.checked;
+    }
+  });
+});
+
+function toggleReveal(btn){
+  const panel = btn.closest('.bughunt');
+  const answer = panel.querySelector('.bug-answer');
+  const open = answer.classList.toggle('open');
+  btn.textContent = open ? 'Hide the bug' : 'Reveal the bug';
+}
+
+const sections = document.querySelectorAll('.week, .reality, .resources');
+const navLinks = document.querySelectorAll('.sb-nav a');
+const progressFill = document.getElementById('progressFill');
+
+function onScroll(){
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressFill.style.width = Math.min(100,(scrollTop/docHeight)*100) + '%';
+
+  let currentId = sections[0]?.id;
+  sections.forEach(sec=>{
+    const rect = sec.getBoundingClientRect();
+    if(rect.top <= 140) currentId = sec.id;
+  });
+  navLinks.forEach(link=>{
+    link.classList.toggle('active', link.dataset.target === currentId);
+  });
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+</script>
+
+</body>
+</html>
