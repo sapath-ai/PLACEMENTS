@@ -406,6 +406,340 @@ h1{
 
 
 
+
+/* =========================================================
+   WEALTH SYSTEM VISUAL IDENTITIES
+   ========================================================= */
+
+/* AI WEALTH OS — AI + capital intelligence */
+
+.ai-wealth-card{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+
+  border-color:rgba(69,230,165,.22);
+
+  background:
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(69,230,165,.13),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 10% 100%,
+      rgba(95,168,255,.055),
+      transparent 32%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(12,30,25,.97),
+      rgba(9,14,20,.98)
+    );
+}
+
+.ai-wealth-card::before{
+  content:"";
+  position:absolute;
+
+  top:0;
+  left:8%;
+  right:8%;
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(69,230,165,.95),
+      rgba(95,168,255,.65),
+      transparent
+    );
+
+  pointer-events:none;
+}
+
+/* orbital / intelligence geometry */
+
+.ai-wealth-card::after{
+  content:"";
+  position:absolute;
+
+  width:260px;
+  height:260px;
+
+  right:-125px;
+  top:-105px;
+
+  border:1px solid rgba(69,230,165,.10);
+  border-radius:50%;
+
+  box-shadow:
+    0 0 0 26px rgba(69,230,165,.020),
+    0 0 0 52px rgba(69,230,165,.013),
+    0 0 0 78px rgba(69,230,165,.008);
+
+  pointer-events:none;
+}
+
+/* AI badge */
+
+.ai-wealth-card .card-icon{
+  position:relative;
+  z-index:2;
+
+  width:58px;
+  height:58px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-bottom:20px;
+
+  border:1px solid rgba(69,230,165,.28);
+  border-radius:16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(69,230,165,.15),
+      rgba(69,230,165,.025)
+    );
+
+  color:#45e6a5;
+
+  font:
+    700 12px var(--mono);
+
+  letter-spacing:.12em;
+
+  box-shadow:
+    inset 0 0 20px rgba(69,230,165,.035),
+    0 8px 28px rgba(0,0,0,.20),
+    0 0 28px rgba(69,230,165,.065);
+}
+
+.ai-wealth-card .card-icon::before{
+  content:"";
+
+  position:absolute;
+
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+
+  background:#45e6a5;
+
+  box-shadow:
+    18px -13px 0 rgba(95,168,255,.82),
+    -18px 13px 0 rgba(69,230,165,.50);
+
+  opacity:.9;
+}
+
+.ai-wealth-card .card-kicker{
+  color:#45e6a5;
+}
+
+.ai-wealth-card .status,
+.ai-wealth-card .arrow{
+  color:#45e6a5;
+}
+
+.ai-wealth-card:hover{
+  transform:translateY(-6px);
+
+  border-color:rgba(69,230,165,.48);
+
+  background:
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(69,230,165,.18),
+      transparent 31%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(13,32,27,1),
+      rgba(9,14,20,1)
+    );
+
+  box-shadow:
+    0 22px 55px rgba(0,0,0,.27),
+    0 0 38px rgba(69,230,165,.07);
+}
+
+
+/* WEALTH OS — capital / allocation / risk */
+
+.wealth-os-card{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+
+  border-color:rgba(151,125,255,.22);
+
+  background:
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(151,125,255,.13),
+      transparent 29%
+    ),
+    radial-gradient(
+      circle at 10% 100%,
+      rgba(95,168,255,.05),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(21,18,33,.98),
+      rgba(9,13,20,.99)
+    );
+}
+
+.wealth-os-card::before{
+  content:"";
+  position:absolute;
+
+  top:0;
+  left:8%;
+  right:8%;
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(151,125,255,.95),
+      rgba(95,168,255,.62),
+      transparent
+    );
+
+  pointer-events:none;
+}
+
+/* capital allocation rings */
+
+.wealth-os-card::after{
+  content:"";
+  position:absolute;
+
+  width:255px;
+  height:255px;
+
+  right:-120px;
+  top:-100px;
+
+  border:1px solid rgba(151,125,255,.11);
+  border-radius:50%;
+
+  box-shadow:
+    0 0 0 24px rgba(151,125,255,.020),
+    0 0 0 48px rgba(151,125,255,.013),
+    0 0 0 72px rgba(151,125,255,.008);
+
+  pointer-events:none;
+}
+
+/* wealth badge */
+
+.wealth-os-card .card-icon{
+  position:relative;
+  z-index:2;
+
+  width:58px;
+  height:58px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-bottom:20px;
+
+  border:1px solid rgba(151,125,255,.28);
+  border-radius:16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(151,125,255,.16),
+      rgba(151,125,255,.025)
+    );
+
+  color:#977dff;
+
+  font:
+    700 14px var(--mono);
+
+  letter-spacing:.08em;
+
+  box-shadow:
+    inset 0 0 20px rgba(151,125,255,.035),
+    0 8px 28px rgba(0,0,0,.20),
+    0 0 28px rgba(151,125,255,.065);
+}
+
+.wealth-os-card .card-icon::before{
+  content:"";
+
+  position:absolute;
+
+  width:26px;
+  height:26px;
+
+  border:1px solid rgba(151,125,255,.28);
+  border-radius:50%;
+}
+
+.wealth-os-card .card-icon::after{
+  content:"";
+
+  position:absolute;
+
+  width:6px;
+  height:6px;
+
+  border-radius:50%;
+
+  background:#977dff;
+
+  box-shadow:
+    0 0 16px rgba(151,125,255,.50);
+}
+
+.wealth-os-card .card-kicker{
+  color:#977dff;
+}
+
+.wealth-os-card .status,
+.wealth-os-card .arrow{
+  color:#977dff;
+}
+
+.wealth-os-card:hover{
+  transform:translateY(-6px);
+
+  border-color:rgba(151,125,255,.48);
+
+  background:
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(151,125,255,.19),
+      transparent 32%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(23,19,38,1),
+      rgba(9,13,20,1)
+    );
+
+  box-shadow:
+    0 22px 55px rgba(0,0,0,.27),
+    0 0 38px rgba(151,125,255,.07);
+}
+
+
 .card-bottom{
   margin-top:auto;
   padding-top:24px;
@@ -742,9 +1076,9 @@ h1{
 
     <!-- AI WEALTH OS -->
 
-    <a class="card" href="AI-WEALTH-OS/">
+    <a class="card ai-wealth-card" href="AI-WEALTH-OS/">
 
-      <div class="card-icon">🧠</div>
+      <div class="card-icon">AI</div>
 
       <div class="card-kicker">
         Available now · New
@@ -776,9 +1110,9 @@ h1{
 
     <!-- WEALTH OS -->
 
-    <a class="card" href="WEALTH-OS/">
+    <a class="card wealth-os-card" href="WEALTH-OS/">
 
-      <div class="card-icon">◈</div>
+      <div class="card-icon">W</div>
 
       <div class="card-kicker">
         Available now · New
